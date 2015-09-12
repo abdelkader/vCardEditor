@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A0D2ACEB-1BCC-4E7F-9E7D-2BE25A7ABE22}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>vCardEditor</RootNamespace>
+    <AssemblyName>vCardEditor</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ContactRepository.cs" />
+    <Compile Include="IContactRepository.cs" />
+    <Compile Include="Model\Contact.cs" />
+    <Compile Include="Presenter\MainPresenter.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Thought.vCards\vCard.cs" />
+    <Compile Include="Thought.vCards\vCardAccessClassification.cs" />
+    <Compile Include="Thought.vCards\vCardCertificate.cs" />
+    <Compile Include="Thought.vCards\vCardCertificateCollection.cs" />
+    <Compile Include="Thought.vCards\vCardCollection.cs" />
+    <Compile Include="Thought.vCards\vCardDeliveryAddress.cs" />
+    <Compile Include="Thought.vCards\vCardDeliveryAddressCollection.cs" />
+    <Compile Include="Thought.vCards\vCardDeliveryAddressTypes.cs" />
+    <Compile Include="Thought.vCards\vCardDeliveryLabel.cs" />
+    <Compile Include="Thought.vCards\vCardDeliveryLabelCollection.cs" />
+    <Compile Include="Thought.vCards\vCardEmailAddress.cs" />
+    <Compile Include="Thought.vCards\vCardEmailAddressCollection.cs" />
+    <Compile Include="Thought.vCards\vCardEmailAddressType.cs" />
+    <Compile Include="Thought.vCards\vCardEncoding.cs" />
+    <Compile Include="Thought.vCards\vCardException.cs" />
+    <Compile Include="Thought.vCards\vCardFormat.cs" />
+    <Compile Include="Thought.vCards\vCardGender.cs" />
+    <Compile Include="Thought.vCards\vCardNote.cs" />
+    <Compile Include="Thought.vCards\vCardNoteCollection.cs" />
+    <Compile Include="Thought.vCards\vCardPhone.cs" />
+    <Compile Include="Thought.vCards\vCardPhoneCollection.cs" />
+    <Compile Include="Thought.vCards\vCardPhoneTypes.cs" />
+    <Compile Include="Thought.vCards\vCardPhoto.cs" />
+    <Compile Include="Thought.vCards\vCardPhotoCollection.cs" />
+    <Compile Include="Thought.vCards\vCardProperty.cs" />
+    <Compile Include="Thought.vCards\vCardPropertyCollection.cs" />
+    <Compile Include="Thought.vCards\vCardReader.cs" />
+    <Compile Include="Thought.vCards\vCardSource.cs" />
+    <Compile Include="Thought.vCards\vCardSourceCollection.cs" />
+    <Compile Include="Thought.vCards\vCardStandardReader.cs" />
+    <Compile Include="Thought.vCards\vCardStandardWriter.cs" />
+    <Compile Include="Thought.vCards\vCardStandardWriterOptions.cs" />
+    <Compile Include="Thought.vCards\vCardSubproperty.cs" />
+    <Compile Include="Thought.vCards\vCardSubpropertyCollection.cs" />
+    <Compile Include="Thought.vCards\vCardValueCollection.cs" />
+    <Compile Include="Thought.vCards\vCardWebsite.cs" />
+    <Compile Include="Thought.vCards\vCardWebsiteCollection.cs" />
+    <Compile Include="Thought.vCards\vCardWebsiteTypes.cs" />
+    <Compile Include="Thought.vCards\vCardWriter.cs" />
+    <Compile Include="Thought.vCards\WarningMessages.Designer.cs" />
+    <Compile Include="View\AboutDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\AboutDialog.Designer.cs">
+      <DependentUpon>AboutDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\EventArgs.cs" />
+    <Compile Include="View\IMainView.cs" />
+    <Compile Include="View\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Thought.vCards\WarningMessages.resx" />
+    <EmbeddedResource Include="View\AboutDialog.resx">
+      <DependentUpon>AboutDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
