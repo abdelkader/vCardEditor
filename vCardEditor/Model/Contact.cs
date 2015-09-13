@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Thought.vCards;
 
 namespace VCFEditor.Model
 {
@@ -29,8 +30,9 @@ namespace VCFEditor.Model
             }
         }
 
+
         [Browsable(false)]
-        public StringBuilder RawContent { get; set; }
+        public vCard card { get; set; }
        
         [Browsable(false)]
         public bool isDirty { get; set; }
@@ -38,7 +40,7 @@ namespace VCFEditor.Model
 
         public Contact()
         {
-            RawContent = new StringBuilder();
+            card = new vCard();
             isSelected = false;
             isDirty = false;
         }

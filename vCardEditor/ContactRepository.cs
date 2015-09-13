@@ -14,6 +14,15 @@ namespace VCFEditor
     {
         public string fileName { get; set; }
 
+        #region Contact Info
+        /// <summary>
+        /// Formatted name.
+        /// </summary>
+        public const string KeyName = "FN";
+
+        /// <summary>
+        /// Contact List
+        /// </summary>
         private BindingList<Contact> _contacts;
         public BindingList<Contact> Contacts 
         {
@@ -28,13 +37,7 @@ namespace VCFEditor
                 _contacts = value;
             }
         }
-
-        
-
-        /// <summary>
-        /// Formatted name.
-        /// </summary>
-        public const string KeyName = "FN";
+        #endregion
 
         /// <summary>
         /// Load contacts. 
@@ -46,21 +49,23 @@ namespace VCFEditor
         {
             this.fileName = fileName;
 
+            StringBuilder RawContent = new StringBuilder();
             string[] lines = File.ReadAllLines(fileName);
             string[] parts;
-            var contact = new Contact();
+            Contact contact = new Contact();
             
             //Prevent from adding contacts to existings ones.
             Contacts.Clear();
 
             for (int i = 0; i < lines.Length; i++)
             {
-
-                contact.RawContent.AppendLine(lines[i]);
+                RawContent.AppendLine(lines[i]);
                 if (lines[i] == "END:VCARD")
                 {
+                    contact.card = ParseRawContent(RawContent);
                     Contacts.Add(contact);
                     contact = new Contact();
+                    RawContent.Clear();
                 }
                 else
                 {
@@ -87,7 +92,7 @@ namespace VCFEditor
 
             StringBuilder sb = new StringBuilder();
             foreach (var entry in Contacts)
-                sb.Append(entry.RawContent);
+                sb.Append(generateRawContent(entry.card));
 
             File.WriteAllText(fileName, sb.ToString());
         }
@@ -110,12 +115,17 @@ namespace VCFEditor
 
         }
 
-        public vCard ParseContactAt(int index)
+       
+        /// <summary>
+        /// Use the lib to parse a vcard chunk.
+        /// </summary>
+        /// <param name="rawContent"></param>
+        /// <returns></returns>
+        private vCard ParseRawContent(StringBuilder rawContent)
         {
             vCard card = null;
-            Contact contact = _contacts[index];
 
-            using (MemoryStream s = GenerateStreamFromString(contact.RawContent.ToString()))
+            using (MemoryStream s = GenerateStreamFromString(rawContent.ToString()))
             using (TextReader streamReader = new StreamReader(s, Encoding.Default))
             {
                 card = new vCard(streamReader);
@@ -158,13 +168,26 @@ namespace VCFEditor
                 _contacts[index].isDirty = true;
         }
        
-        public void SaveDirtyContent(int index, vCard card)
+        public void SaveDirtyVCard(int index, vCard NewCard)
         {
             if (index > -1)
-                _contacts[index].RawContent = new StringBuilder(generateRawContent(card));
+            {
+                vCard card = _contacts[index].card;
+                card.FormattedName = NewCard.FormattedName;
+               
+                if (card.Phones.GetFirstChoice(vCardPhoneTypes.Home) != null)
+                    card.Phones.GetFirstChoice(vCardPhoneTypes.Home).FullNumber = NewCard.Phones.GetFirstChoice(vCardPhoneTypes.Home).FullNumber;
+                if (card.Phones.GetFirstChoice(vCardPhoneTypes.Cellular) != null)
+                    card.Phones.GetFirstChoice(vCardPhoneTypes.Cellular).FullNumber = NewCard.Phones.GetFirstChoice(vCardPhoneTypes.Cellular).FullNumber;
+                if (card.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet) != null)
+                    card.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet).Address = NewCard.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet).Address;
+                if (card.Websites.GetFirstChoice(vCardWebsiteTypes.Personal) != null)
+                    card.Websites.GetFirstChoice(vCardWebsiteTypes.Personal).Url = NewCard.Websites.GetFirstChoice(vCardWebsiteTypes.Personal).Url;
+            }
         }
+
         /// <summary>
-        /// 
+        /// Generate a VCard class from a string.
         /// </summary>
         /// <param name="card"></param>
         /// <returns></returns>
@@ -176,6 +199,6 @@ namespace VCFEditor
 
             return tw.ToString();
         }
-
+       
     }
 }

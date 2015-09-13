@@ -37,7 +37,7 @@ namespace VCFEditor.Presenter
         public void BeforeLeavingContact(object sender, EventArg<vCard> e)
         {
             if (_view.SelectedContactIndex > -1)
-                _repository.SaveDirtyContent(_view.SelectedContactIndex, e.Data);
+                _repository.SaveDirtyVCard(_view.SelectedContactIndex, e.Data);
         }
 
         public void TextBoxValueChanged(object sender, EventArgs e)
@@ -63,7 +63,12 @@ namespace VCFEditor.Presenter
 
         public void NewFileOpened(object sender, EventArg<string> e)
         {
-            DisplayContacts(e.Data);
+            string path = e.Data;
+            if (!string.IsNullOrEmpty(path))
+            {
+                _repository.LoadContacts(path);
+                _view.DisplayContacts(_repository.Contacts);
+            }
         }
 
         public void ChangeContactSelected(object sender, EventArgs e)
@@ -71,24 +76,13 @@ namespace VCFEditor.Presenter
             if (_view.SelectedContactIndex > -1)
             {
                 int index = _view.SelectedContactIndex;
-                vCard card = _repository.ParseContactAt(index);
+                vCard card = _repository.Contacts[index].card;
+               
                 if (card != null)
                     _view.DisplayContactDetail(card);
             }
             
         }
-
-        public void DisplayContacts(string path)
-        {
-            if (!string.IsNullOrEmpty(path))
-            {
-                _repository.LoadContacts(path);
-                _view.DisplayContacts(_repository.Contacts);
-            }
-
-        }
-
-       
 
         
     }
