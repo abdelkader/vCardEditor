@@ -140,7 +140,7 @@ namespace VCFEditor
         public List<Contact> FilterContacts(string p)
         {
             List<Contact> Filtered = new List<Contact>(Contacts);
-            Filtered.RemoveAll(i => !i.Name.Contains(p));
+            Filtered.RemoveAll(i => !(i.Name.IndexOf(p, StringComparison.OrdinalIgnoreCase) >= 0));
             return Filtered;
         }
 
