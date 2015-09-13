@@ -391,7 +391,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgContacts.AutoGenerateColumns = false;
             this.dgContacts.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dgContacts.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
+            this.dgContacts.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dgContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgContacts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -404,6 +404,7 @@
             this.dgContacts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgContacts.Size = new System.Drawing.Size(225, 334);
             this.dgContacts.TabIndex = 6;
+            this.dgContacts.RowLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgContacts_RowLeave);
             this.dgContacts.SelectionChanged += new System.EventHandler(this.dgContacts_SelectionChanged);
             // 
             // Column1

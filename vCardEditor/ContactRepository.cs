@@ -44,6 +44,8 @@ namespace VCFEditor
         /// <param name="path"></param>
         public BindingList<Contact> LoadContacts(string fileName)
         {
+            this.fileName = fileName;
+
             string[] lines = File.ReadAllLines(fileName);
             string[] parts;
             var contact = new Contact();
@@ -144,10 +146,36 @@ namespace VCFEditor
             return Filtered;
         }
 
-        public void SaveContactRawContent(int index, string rawContent )
+
+        /// <summary>
+        /// Save modified card info in the raw content.
+        /// </summary>
+        /// <param name="card"></param>
+        /// <param name="index"></param>
+        public void SaveDirtyFlag(int index)
         {
             if (index > -1)
-                _contacts[index].RawContent = new StringBuilder(rawContent);
+                _contacts[index].isDirty = true;
         }
+       
+        public void SaveDirtyContent(int index, vCard card)
+        {
+            if (index > -1)
+                _contacts[index].RawContent = new StringBuilder(generateRawContent(card));
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="card"></param>
+        /// <returns></returns>
+        private string generateRawContent(vCard card)
+        {
+            vCardStandardWriter writer = new vCardStandardWriter();
+            TextWriter tw = new StringWriter();
+            writer.Write(card, tw);
+
+            return tw.ToString();
+        }
+
     }
 }

@@ -19,6 +19,7 @@ namespace VCFEditor
         vCard ParseContactAt(int index);
         void DeleteContact();
         List<Contact> FilterContacts(string p);
-        void SaveContactRawContent(int index, string rawContent );
+        void SaveDirtyFlag(int index);
+        void SaveDirtyContent(int index, vCard card);
     }
 }

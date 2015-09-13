@@ -18,9 +18,10 @@ namespace vCardEditor.View
         public event EventHandler SaveContactsSelected;
         public event EventHandler DeleteContact;
         public event EventHandler<EventArg<string>> NewFileOpened;
-        public event EventHandler<EventArg<int>> ChangeContactsSelected;
+        public event EventHandler  ChangeContactsSelected;
+        public event EventHandler<EventArg<vCard>> BeforeLeavingContact;
         public event EventHandler<EventArg<string>> FilterTextChanged;
-        public event EventHandler<EventArg<string>> TextBoxValueChanged;
+        public event EventHandler  TextBoxValueChanged;
 
         public int SelectedContactIndex
         {
@@ -69,18 +70,15 @@ namespace vCardEditor.View
         private void dgContacts_SelectionChanged(object sender, EventArgs e)
         {
             if (ChangeContactsSelected != null && dgContacts.CurrentCell != null)
-            {
-                int index = dgContacts.CurrentCell.RowIndex;
-                ChangeContactsSelected(sender, new EventArg<int>(index));
-            }
+                ChangeContactsSelected(sender, new EventArg<vCard>(getvCard()));
+            
         }
 
         private void Value_TextChanged(object sender, EventArgs e)
         {
-            //if (TextBoxValueChanged != null)
-            //    TextBoxValueChanged(sender, new EventArg<string>(generateRawContent()));
+            if (TextBoxValueChanged != null)
+                TextBoxValueChanged(sender, e);
         }
-
 
         public void DisplayContactDetail(vCard card)
         {
@@ -190,7 +188,7 @@ namespace vCardEditor.View
         /// Generate a vcard from differents fields
         /// </summary>
         /// <returns></returns>
-        private string generateRawContent()
+        private vCard getvCard()
         {
             vCard card = new vCard();
             card.FormattedName = this.FormattedNameValue.Text;
@@ -213,11 +211,13 @@ namespace vCardEditor.View
                     new vCardEmailAddress(this.EmailAddressValue.Text));
             }
 
-            vCardStandardWriter writer = new vCardStandardWriter();
-            TextWriter tw = new StringWriter();
-            writer.Write(card, tw);
+            return card;
+        }
 
-            return tw.ToString();
+        private void dgContacts_RowLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            if (BeforeLeavingContact != null)
+                BeforeLeavingContact(sender, new EventArg<vCard>(getvCard()));
         }
 
      

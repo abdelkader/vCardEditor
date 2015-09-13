@@ -7,6 +7,7 @@ using Thought.vCards;
 using VCFEditor.Model;
 using VCFEditor.View;
 using System.ComponentModel;
+using System.IO;
 
 
 namespace VCFEditor.Presenter
@@ -28,13 +29,20 @@ namespace VCFEditor.Presenter
             _view.DeleteContact += DeleteContact;
             _view.FilterTextChanged += FilterTextChanged;
             _view.TextBoxValueChanged += TextBoxValueChanged;
+            _view.BeforeLeavingContact += BeforeLeavingContact;
             
 
         }
 
-        public void TextBoxValueChanged(object sender, EventArg<string> e)
+        public void BeforeLeavingContact(object sender, EventArg<vCard> e)
         {
-            _repository.SaveContactRawContent(_view.SelectedContactIndex, e.Data);
+            if (_view.SelectedContactIndex > -1)
+                _repository.SaveDirtyContent(_view.SelectedContactIndex, e.Data);
+        }
+
+        public void TextBoxValueChanged(object sender, EventArgs e)
+        {
+            _repository.SaveDirtyFlag(_view.SelectedContactIndex);
         }
 
         public void FilterTextChanged(object sender, EventArg<string> e)
@@ -58,16 +66,14 @@ namespace VCFEditor.Presenter
             DisplayContacts(e.Data);
         }
 
-        public void ChangeContactSelected(object sender, EventArg<int> e)
+        public void ChangeContactSelected(object sender, EventArgs e)
         {
-            if (e.Data > -1)
+            if (_view.SelectedContactIndex > -1)
             {
-                int index = e.Data;
+                int index = _view.SelectedContactIndex;
                 vCard card = _repository.ParseContactAt(index);
                 if (card != null)
-                {
                     _view.DisplayContactDetail(card);
-                }
             }
             
         }
@@ -81,6 +87,9 @@ namespace VCFEditor.Presenter
             }
 
         }
+
+       
+
         
     }
 }

@@ -31,12 +31,16 @@ namespace VCFEditor.Model
 
         [Browsable(false)]
         public StringBuilder RawContent { get; set; }
+       
+        [Browsable(false)]
+        public bool isDirty { get; set; }
      
 
         public Contact()
         {
             RawContent = new StringBuilder();
             isSelected = false;
+            isDirty = false;
         }
 
         private void NotifyPropertyChanged(string name)

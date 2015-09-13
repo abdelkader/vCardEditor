@@ -15,9 +15,10 @@ namespace VCFEditor.View
         event EventHandler DeleteContact;
         event EventHandler SaveContactsSelected;
         event EventHandler<EventArg<string>> NewFileOpened;
-        event EventHandler<EventArg<int>> ChangeContactsSelected;
+        event EventHandler ChangeContactsSelected;
+        event EventHandler<EventArg<vCard>> BeforeLeavingContact;
         event EventHandler<EventArg<string>> FilterTextChanged;
-        event EventHandler<EventArg<string>> TextBoxValueChanged;
+        event EventHandler TextBoxValueChanged;
         #endregion
 
         int SelectedContactIndex { get; }
