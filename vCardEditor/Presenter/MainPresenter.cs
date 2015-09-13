@@ -26,8 +26,15 @@ namespace VCFEditor.Presenter
             _view.SaveContactsSelected += SaveContacts;
             _view.ChangeContactsSelected += ChangeContactSelected;
             _view.DeleteContact += DeleteContact;
+            _view.FilterTextChanged += FilterTextChanged;
             
 
+        }
+
+        public void FilterTextChanged(object sender, EventArg<string> e)
+        {
+            var FilteredContacts = _repository.FilterContacts(e.Data);
+            _view.DisplayContacts(FilteredContacts);
         }
 
         private void DeleteContact(object sender, EventArgs e)

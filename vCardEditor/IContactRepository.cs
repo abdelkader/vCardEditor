@@ -18,5 +18,7 @@ namespace VCFEditor
         void SaveContacts(string fileName);
         vCard ParseContactAt(int index);
         void DeleteContact();
+
+        List<Contact> FilterContacts(string p);
     }
 }

@@ -3,6 +3,10 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using VCFEditor;
+using VCFEditor.View;
+using Moq;
+using VCFEditor.Presenter;
 
 namespace vCardEditor_Test
 {
@@ -12,20 +16,16 @@ namespace vCardEditor_Test
     [TestClass]
     public class MainPresenterTest
     {
-        public MainPresenterTest()
-        {
-            //
-            // TODO: 
-            //
-        }
-
-
+       
         [TestMethod]
-        public void TestMethod1()
+        public void NewFileOpenedTest()
         {
-            //
-            // TODO: 
-            //
+            var repo = new Mock<IContactRepository>();
+            var view = new Mock<IMainView>();
+
+            var presenter = new MainPresenter(view.Object, repo.Object);
         }
+
+        
     }
 }

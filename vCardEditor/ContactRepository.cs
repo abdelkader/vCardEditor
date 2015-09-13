@@ -137,6 +137,12 @@ namespace VCFEditor
             return stream;
         }
 
+        public List<Contact> FilterContacts(string p)
+        {
+            List<Contact> Filtered = new List<Contact>(Contacts);
+            Filtered.RemoveAll(i => !i.Name.Contains(p));
+            return Filtered;
+        }
 
         
     }

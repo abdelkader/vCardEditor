@@ -16,10 +16,13 @@ namespace VCFEditor.View
         event EventHandler SaveContactsSelected;
         event EventHandler<EventArg<string>> NewFileOpened;
         event EventHandler<EventArg<int>> ChangeContactsSelected;
+        event EventHandler<EventArg<string>> FilterTextChanged;
         #endregion
 
-        int SelectedContactIndex { get; }
         void DisplayContacts(BindingList<Contact> contacts);
+        void DisplayContacts(List<Contact> contacts);
         void DisplayContactDetail(vCard card);
+
+        
     }
 }

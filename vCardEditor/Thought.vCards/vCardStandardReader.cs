@@ -1977,7 +1977,7 @@ namespace Thought.vCards
                 firstLine = firstLine.Trim();
                 if (firstLine.Length == 0)
                 {
-                    Warnings.Add(Thought.vCards.WarningMessages.BlankLine);
+                    Warnings.Add("");
                     continue;
                 }
 
