@@ -234,6 +234,7 @@
             this.HomePhoneValue.Name = "HomePhoneValue";
             this.HomePhoneValue.Size = new System.Drawing.Size(272, 20);
             this.HomePhoneValue.TabIndex = 45;
+            this.HomePhoneValue.TextChanged += new System.EventHandler(this.Value_TextChanged);
             // 
             // CellularPhoneLabel
             // 
@@ -252,6 +253,7 @@
             this.CellularPhoneValue.Name = "CellularPhoneValue";
             this.CellularPhoneValue.Size = new System.Drawing.Size(272, 20);
             this.CellularPhoneValue.TabIndex = 47;
+            this.CellularPhoneValue.TextChanged += new System.EventHandler(this.Value_TextChanged);
             // 
             // PersonalWebSiteLabel
             // 
@@ -279,6 +281,7 @@
             this.PersonalWebSiteValue.Name = "PersonalWebSiteValue";
             this.PersonalWebSiteValue.Size = new System.Drawing.Size(272, 20);
             this.PersonalWebSiteValue.TabIndex = 56;
+            this.PersonalWebSiteValue.TextChanged += new System.EventHandler(this.Value_TextChanged);
             // 
             // WorkPhoneValue
             // 
@@ -288,6 +291,7 @@
             this.WorkPhoneValue.Name = "WorkPhoneValue";
             this.WorkPhoneValue.Size = new System.Drawing.Size(272, 20);
             this.WorkPhoneValue.TabIndex = 57;
+            this.WorkPhoneValue.TextChanged += new System.EventHandler(this.Value_TextChanged);
             // 
             // groupBox1
             // 
@@ -322,6 +326,7 @@
             this.EmailAddressValue.Name = "EmailAddressValue";
             this.EmailAddressValue.Size = new System.Drawing.Size(272, 20);
             this.EmailAddressValue.TabIndex = 59;
+            this.EmailAddressValue.TextChanged += new System.EventHandler(this.Value_TextChanged);
             // 
             // EmailAddressLabel
             // 
@@ -399,6 +404,7 @@
             this.dgContacts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgContacts.Size = new System.Drawing.Size(225, 334);
             this.dgContacts.TabIndex = 6;
+            this.dgContacts.SelectionChanged += new System.EventHandler(this.dgContacts_SelectionChanged);
             // 
             // Column1
             // 

@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using VCFEditor.View;
 using VCFEditor.Model;
 using Thought.vCards;
+using System.IO;
 
 namespace vCardEditor.View
 {
@@ -19,7 +20,14 @@ namespace vCardEditor.View
         public event EventHandler<EventArg<string>> NewFileOpened;
         public event EventHandler<EventArg<int>> ChangeContactsSelected;
         public event EventHandler<EventArg<string>> FilterTextChanged;
-        
+        public event EventHandler<EventArg<string>> TextBoxValueChanged;
+
+        public int SelectedContactIndex
+        {
+            get { return dgContacts.CurrentCell.RowIndex; }
+
+        }
+
         public MainForm()
         {
             InitializeComponent();
@@ -66,6 +74,13 @@ namespace vCardEditor.View
                 ChangeContactsSelected(sender, new EventArg<int>(index));
             }
         }
+
+        private void Value_TextChanged(object sender, EventArgs e)
+        {
+            //if (TextBoxValueChanged != null)
+            //    TextBoxValueChanged(sender, new EventArg<string>(generateRawContent()));
+        }
+
 
         public void DisplayContactDetail(vCard card)
         {
@@ -171,6 +186,39 @@ namespace vCardEditor.View
             textBoxFilter.Text = string.Empty;
         }
 
+        /// <summary>
+        /// Generate a vcard from differents fields
+        /// </summary>
+        /// <returns></returns>
+        private string generateRawContent()
+        {
+            vCard card = new vCard();
+            card.FormattedName = this.FormattedNameValue.Text;
+
+            if (!string.IsNullOrEmpty(HomePhoneValue.Text))
+            {
+                card.Phones.Add(
+                    new vCardPhone(HomePhoneValue.Text, vCardPhoneTypes.Home));
+            }
+
+            if (!string.IsNullOrEmpty(CellularPhoneValue.Text))
+            {
+                card.Phones.Add(
+                    new vCardPhone(CellularPhoneValue.Text, vCardPhoneTypes.Cellular));
+            }
+
+            if (!string.IsNullOrEmpty(this.EmailAddressValue.Text))
+            {
+                card.EmailAddresses.Add(
+                    new vCardEmailAddress(this.EmailAddressValue.Text));
+            }
+
+            vCardStandardWriter writer = new vCardStandardWriter();
+            TextWriter tw = new StringWriter();
+            writer.Write(card, tw);
+
+            return tw.ToString();
+        }
 
      
     }

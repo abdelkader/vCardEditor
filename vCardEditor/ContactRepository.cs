@@ -137,13 +137,17 @@ namespace VCFEditor
             return stream;
         }
 
-        public List<Contact> FilterContacts(string p)
+        public List<Contact> FilterContacts(string filter)
         {
             List<Contact> Filtered = new List<Contact>(Contacts);
-            Filtered.RemoveAll(i => !(i.Name.IndexOf(p, StringComparison.OrdinalIgnoreCase) >= 0));
+            Filtered.RemoveAll(i => !(i.Name.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0));
             return Filtered;
         }
 
-        
+        public void SaveContactRawContent(int index, string rawContent )
+        {
+            if (index > -1)
+                _contacts[index].RawContent = new StringBuilder(rawContent);
+        }
     }
 }
