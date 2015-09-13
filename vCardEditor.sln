@@ -3,16 +3,38 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vCardEditor", "vCardEditor\vCardEditor.csproj", "{A0D2ACEB-1BCC-4E7F-9E7D-2BE25A7ABE22}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vCardEditor_Test", "vCardEditor_Test\vCardEditor_Test.csproj", "{76D5F727-2E1A-46B5-BD35-F8F9B5881FEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A0D2ACEB-1BCC-4E7F-9E7D-2BE25A7ABE22}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{A0D2ACEB-1BCC-4E7F-9E7D-2BE25A7ABE22}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{A0D2ACEB-1BCC-4E7F-9E7D-2BE25A7ABE22}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{A0D2ACEB-1BCC-4E7F-9E7D-2BE25A7ABE22}.Debug|x86.ActiveCfg = Debug|x86
 		{A0D2ACEB-1BCC-4E7F-9E7D-2BE25A7ABE22}.Debug|x86.Build.0 = Debug|x86
+		{A0D2ACEB-1BCC-4E7F-9E7D-2BE25A7ABE22}.Release|Any CPU.ActiveCfg = Release|x86
+		{A0D2ACEB-1BCC-4E7F-9E7D-2BE25A7ABE22}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{A0D2ACEB-1BCC-4E7F-9E7D-2BE25A7ABE22}.Release|Mixed Platforms.Build.0 = Release|x86
 		{A0D2ACEB-1BCC-4E7F-9E7D-2BE25A7ABE22}.Release|x86.ActiveCfg = Release|x86
 		{A0D2ACEB-1BCC-4E7F-9E7D-2BE25A7ABE22}.Release|x86.Build.0 = Release|x86
+		{76D5F727-2E1A-46B5-BD35-F8F9B5881FEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76D5F727-2E1A-46B5-BD35-F8F9B5881FEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76D5F727-2E1A-46B5-BD35-F8F9B5881FEE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{76D5F727-2E1A-46B5-BD35-F8F9B5881FEE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{76D5F727-2E1A-46B5-BD35-F8F9B5881FEE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{76D5F727-2E1A-46B5-BD35-F8F9B5881FEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76D5F727-2E1A-46B5-BD35-F8F9B5881FEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76D5F727-2E1A-46B5-BD35-F8F9B5881FEE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{76D5F727-2E1A-46B5-BD35-F8F9B5881FEE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{76D5F727-2E1A-46B5-BD35-F8F9B5881FEE}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
