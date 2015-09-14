@@ -170,7 +170,7 @@ namespace VCFEditor
        
         public void SaveDirtyVCard(int index, vCard NewCard)
         {
-            if (index > -1)
+            if (index > -1 && _contacts[index].isDirty)
             {
                 vCard card = _contacts[index].card;
                 card.FormattedName = NewCard.FormattedName;

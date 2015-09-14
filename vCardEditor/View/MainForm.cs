@@ -38,11 +38,7 @@ namespace vCardEditor.View
         {
             DialogResult result = openFileDialog.ShowDialog();
             if (result == DialogResult.OK)
-            {
-                string file = openFileDialog.FileName;
-                if (NewFileOpened != null)
-                    NewFileOpened(sender, new EventArg<string>(file));
-            }
+                OpenNewFile(sender, openFileDialog.FileName);
 
         }
 
@@ -224,6 +220,46 @@ namespace vCardEditor.View
         {
             this.Close();
         }
+       
+        private void MainForm_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) 
+                e.Effect = DragDropEffects.Copy;
+        }
+        private void MainForm_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] FileList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+            if (FileList.Count() > 1)
+            {
+                MessageBox.Show("Only one file at the time!");
+                return;
+            }
+
+            OpenNewFile(sender, FileList[0]);
+
+        }
+       
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="file"></param>
+        private void OpenNewFile(object sender, string file)
+        {
+            string ext = Path.GetExtension(file);
+            if (ext != ".vcf")
+            {
+                MessageBox.Show("Only vcf extension accepted!");
+                return;
+            }
+
+            if (NewFileOpened != null)
+                NewFileOpened(sender, new EventArg<string>(file));
+        }
+
+       
+
+       
 
        
 

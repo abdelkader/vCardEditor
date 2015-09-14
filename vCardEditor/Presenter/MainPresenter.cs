@@ -8,6 +8,7 @@ using VCFEditor.Model;
 using VCFEditor.View;
 using System.ComponentModel;
 using System.IO;
+using vCardEditor.View;
 
 
 namespace VCFEditor.Presenter
@@ -42,7 +43,10 @@ namespace VCFEditor.Presenter
 
         public void TextBoxValueChanged(object sender, EventArgs e)
         {
-            _repository.SaveDirtyFlag(_view.SelectedContactIndex);
+            StateTextBox tb = sender as StateTextBox;
+            if (tb != null && tb.oldText != tb.Text)
+                _repository.SaveDirtyFlag(_view.SelectedContactIndex);    
+            
         }
 
         public void FilterTextChanged(object sender, EventArg<string> e)
