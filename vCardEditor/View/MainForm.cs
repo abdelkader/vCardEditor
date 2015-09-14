@@ -268,6 +268,7 @@ namespace vCardEditor.View
         private void OpenNewFile(object sender, string file)
         {
             string ext = Path.GetExtension(file);
+            //TODO: Should parse invalid content file...
             if (ext != ".vcf")
             {
                 MessageBox.Show("Only vcf extension accepted!");
@@ -277,6 +278,8 @@ namespace vCardEditor.View
             if (NewFileOpened != null)
                 NewFileOpened(sender, new EventArg<string>(file));
         }
+
+        
 
         
 
