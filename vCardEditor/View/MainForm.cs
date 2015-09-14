@@ -27,7 +27,13 @@ namespace vCardEditor.View
 
         public int SelectedContactIndex
         {
-            get { return dgContacts.CurrentCell.RowIndex; }
+            get
+            {
+                if (dgContacts.CurrentCell != null)
+                    return dgContacts.CurrentCell.RowIndex;
+                else
+                    return -1;
+            }
 
         }
 
@@ -62,7 +68,11 @@ namespace vCardEditor.View
         private void tbsSave_Click(object sender, EventArgs e)
         {
             if (SaveContactsSelected != null)
+            {
+                //make sure the last changes in the textboxes is saved.
+                this.Validate();
                 SaveContactsSelected(sender, e);
+            }
 
         }
 
@@ -122,6 +132,8 @@ namespace vCardEditor.View
                 PhotoBox.Image = ((System.Drawing.Image)(resources.GetObject("PhotoBox.Image")));
 
         }
+      
+        #region helper methods to populate textboxes.
         private void SetSummaryValue(TextBox valueLabel, string value)
         {
             if (valueLabel == null)
@@ -152,6 +164,8 @@ namespace vCardEditor.View
             if (webSite != null)
                 SetSummaryValue(valueLabel, webSite.Url.ToString());
         }
+        #endregion
+      
         private void tbsDelete_Click(object sender, EventArgs e)
         {
             if (DeleteContact != null)
@@ -221,6 +235,12 @@ namespace vCardEditor.View
             this.Close();
         }
 
+        #region drag&drop
+        /// <summary>
+        /// Make our form accept drag&drop
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MainForm_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -238,9 +258,10 @@ namespace vCardEditor.View
             OpenNewFile(sender, FileList[0]);
 
         }
+        #endregion
 
         /// <summary>
-        /// 
+        /// Open vcf file.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="file"></param>
@@ -256,6 +277,10 @@ namespace vCardEditor.View
             if (NewFileOpened != null)
                 NewFileOpened(sender, new EventArg<string>(file));
         }
+
+        
+
+      
 
     }
 }

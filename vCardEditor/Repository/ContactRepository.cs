@@ -55,9 +55,8 @@ namespace VCFEditor.Repository
             this.fileName = fileName;
 
             StringBuilder RawContent = new StringBuilder();
-            string[] lines = _fileHandler.ReadAllLines(fileName);
-            string[] parts;
             Contact contact = new Contact();
+            string[] lines = _fileHandler.ReadAllLines(fileName);
 
             //Prevent from adding contacts to existings ones.
             Contacts.Clear();
@@ -72,13 +71,7 @@ namespace VCFEditor.Repository
                     contact = new Contact();
                     RawContent.Clear();
                 }
-                else
-                {
-                    parts = lines[i].Split(new char[] { ':' });
-
-                    if (string.Compare(parts[0], KeyName) == 0)
-                        contact.Name = parts[1];
-                }
+              
             }
 
             return Contacts;

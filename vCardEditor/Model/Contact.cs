@@ -13,8 +13,6 @@ namespace VCFEditor.Model
     /// </summary>
     public class Contact : INotifyPropertyChanged
     {
-        private string _name;
-
         [DisplayName(" ")]
         public bool isSelected { get; set; }
        
@@ -22,10 +20,10 @@ namespace VCFEditor.Model
         [DisplayName("Name")]
         public string Name
         {
-            get { return _name; }
+            get { return card.FormattedName; }
             set
             {
-                _name = value;
+                card.FormattedName = value;
                 this.NotifyPropertyChanged("Name");
             }
         }
@@ -45,6 +43,7 @@ namespace VCFEditor.Model
             isDirty = false;
         }
 
+        #region property change event
         private void NotifyPropertyChanged(string name)
         {
             if (PropertyChanged != null)
@@ -52,6 +51,6 @@ namespace VCFEditor.Model
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
+        #endregion
     }
 }
