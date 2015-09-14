@@ -1,4 +1,4 @@
-# vCardEditor
+# vCard Editor
 A Simple vcf file Editor.
 ![vcard](https://cloud.githubusercontent.com/assets/169070/9863134/7451d17a-5b0b-11e5-80d6-56d7a70fd5e2.jpg)
 
