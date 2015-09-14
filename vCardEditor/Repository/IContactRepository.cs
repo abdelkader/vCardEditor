@@ -7,13 +7,13 @@ using Thought.vCards;
 using VCFEditor.Model;
 using System.ComponentModel;
 
-namespace VCFEditor
+namespace VCFEditor.Repository
 {
     public interface IContactRepository
     {
         string fileName { get; set; }
         BindingList<Contact> Contacts { get; set; }
-        
+
         BindingList<Contact> LoadContacts(string fileName);
         void SaveContacts(string fileName);
         void DeleteContact();

@@ -18,10 +18,12 @@ namespace vCardEditor.View
         public event EventHandler SaveContactsSelected;
         public event EventHandler DeleteContact;
         public event EventHandler<EventArg<string>> NewFileOpened;
-        public event EventHandler  ChangeContactsSelected;
+        public event EventHandler ChangeContactsSelected;
         public event EventHandler<EventArg<vCard>> BeforeLeavingContact;
         public event EventHandler<EventArg<string>> FilterTextChanged;
-        public event EventHandler  TextBoxValueChanged;
+        public event EventHandler TextBoxValueChanged;
+
+        ComponentResourceManager resources;
 
         public int SelectedContactIndex
         {
@@ -32,6 +34,7 @@ namespace vCardEditor.View
         public MainForm()
         {
             InitializeComponent();
+            resources = new ComponentResourceManager(typeof(MainForm));
         }
 
         private void tbsOpen_Click(object sender, EventArgs e)
@@ -67,7 +70,7 @@ namespace vCardEditor.View
         {
             if (ChangeContactsSelected != null && dgContacts.CurrentCell != null)
                 ChangeContactsSelected(sender, new EventArg<vCard>(getvCard()));
-            
+
         }
 
         private void Value_TextChanged(object sender, EventArgs e)
@@ -111,15 +114,12 @@ namespace vCardEditor.View
                 }
                 catch
                 {
-                    // TODO: Ignore this error.
-                    // A later version of the viewer should show
-                    // a broken image icon (like IE) instead.
-
+                    //Empty image icon instead.
+                    PhotoBox.Image = ((System.Drawing.Image)(resources.GetObject("PhotoBox.Image")));
                 }
-
             }
             else
-                PhotoBox.Image = null;
+                PhotoBox.Image = ((System.Drawing.Image)(resources.GetObject("PhotoBox.Image")));
 
         }
         private void SetSummaryValue(TextBox valueLabel, string value)
@@ -172,7 +172,7 @@ namespace vCardEditor.View
         private void textBoxFilter_TextChanged(object sender, EventArgs e)
         {
             if (FilterTextChanged != null)
-                FilterTextChanged(sender, new EventArg<string>(textBoxFilter.Text));   
+                FilterTextChanged(sender, new EventArg<string>(textBoxFilter.Text));
         }
 
         private void btnClearFilter_Click(object sender, EventArgs e)
@@ -220,10 +220,10 @@ namespace vCardEditor.View
         {
             this.Close();
         }
-       
+
         private void MainForm_DragEnter(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop)) 
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
                 e.Effect = DragDropEffects.Copy;
         }
         private void MainForm_DragDrop(object sender, DragEventArgs e)
@@ -238,7 +238,7 @@ namespace vCardEditor.View
             OpenNewFile(sender, FileList[0]);
 
         }
-       
+
         /// <summary>
         /// 
         /// </summary>
@@ -257,12 +257,5 @@ namespace vCardEditor.View
                 NewFileOpened(sender, new EventArg<string>(file));
         }
 
-       
-
-       
-
-       
-
-     
     }
 }

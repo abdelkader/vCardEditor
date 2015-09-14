@@ -9,6 +9,7 @@ using VCFEditor.View;
 using System.ComponentModel;
 using System.IO;
 using vCardEditor.View;
+using VCFEditor.Repository;
 
 
 namespace VCFEditor.Presenter
@@ -31,7 +32,7 @@ namespace VCFEditor.Presenter
             _view.FilterTextChanged += FilterTextChanged;
             _view.TextBoxValueChanged += TextBoxValueChanged;
             _view.BeforeLeavingContact += BeforeLeavingContact;
-            
+
 
         }
 
@@ -45,8 +46,8 @@ namespace VCFEditor.Presenter
         {
             StateTextBox tb = sender as StateTextBox;
             if (tb != null && tb.oldText != tb.Text)
-                _repository.SaveDirtyFlag(_view.SelectedContactIndex);    
-            
+                _repository.SaveDirtyFlag(_view.SelectedContactIndex);
+
         }
 
         public void FilterTextChanged(object sender, EventArg<string> e)
@@ -62,7 +63,9 @@ namespace VCFEditor.Presenter
 
         private void SaveContacts(object sender, EventArgs e)
         {
-            _repository.SaveContacts(_repository.fileName);
+            if (!string.IsNullOrEmpty(_repository.fileName))
+                _repository.SaveContacts(_repository.fileName);
+
         }
 
         public void NewFileOpened(object sender, EventArg<string> e)
@@ -81,13 +84,13 @@ namespace VCFEditor.Presenter
             {
                 int index = _view.SelectedContactIndex;
                 vCard card = _repository.Contacts[index].card;
-               
+
                 if (card != null)
                     _view.DisplayContactDetail(card);
             }
-            
+
         }
 
-        
+
     }
 }
