@@ -126,7 +126,7 @@ namespace VCFEditor
             vCard card = null;
 
             using (MemoryStream s = GenerateStreamFromString(rawContent.ToString()))
-            using (TextReader streamReader = new StreamReader(s, Encoding.Default))
+            using (TextReader streamReader = new StreamReader(s, Encoding.UTF8))
             {
                 card = new vCard(streamReader);
             }
@@ -175,14 +175,35 @@ namespace VCFEditor
                 vCard card = _contacts[index].card;
                 card.FormattedName = NewCard.FormattedName;
                
+                
+                //HomePhone
                 if (card.Phones.GetFirstChoice(vCardPhoneTypes.Home) != null)
                     card.Phones.GetFirstChoice(vCardPhoneTypes.Home).FullNumber = NewCard.Phones.GetFirstChoice(vCardPhoneTypes.Home).FullNumber;
+                else
+                {
+                    if (NewCard.Phones.GetFirstChoice(vCardPhoneTypes.Home) != null 
+                        && !string.IsNullOrEmpty(NewCard.Phones.GetFirstChoice(vCardPhoneTypes.Home).FullNumber))
+                        card.Phones.Add(new vCardPhone(NewCard.Phones.GetFirstChoice(vCardPhoneTypes.Home).FullNumber, vCardPhoneTypes.Home));
+                }
+                
+                
+                //Cellular
                 if (card.Phones.GetFirstChoice(vCardPhoneTypes.Cellular) != null)
                     card.Phones.GetFirstChoice(vCardPhoneTypes.Cellular).FullNumber = NewCard.Phones.GetFirstChoice(vCardPhoneTypes.Cellular).FullNumber;
+                else
+                {
+                    if (NewCard.Phones.GetFirstChoice(vCardPhoneTypes.Cellular) != null 
+                        && !string.IsNullOrEmpty(NewCard.Phones.GetFirstChoice(vCardPhoneTypes.Cellular).FullNumber))
+                        card.Phones.Add(new vCardPhone(NewCard.Phones.GetFirstChoice(vCardPhoneTypes.Cellular).FullNumber, vCardPhoneTypes.Cellular));
+                }
+
                 if (card.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet) != null)
                     card.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet).Address = NewCard.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet).Address;
                 if (card.Websites.GetFirstChoice(vCardWebsiteTypes.Personal) != null)
                     card.Websites.GetFirstChoice(vCardWebsiteTypes.Personal).Url = NewCard.Websites.GetFirstChoice(vCardWebsiteTypes.Personal).Url;
+
+
+                _contacts[index].isDirty = false;
             }
         }
 

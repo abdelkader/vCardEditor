@@ -220,6 +220,13 @@ namespace vCardEditor.View
                 BeforeLeavingContact(sender, new EventArg<vCard>(getvCard()));
         }
 
+        private void miQuit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+       
+
      
     }
 }
