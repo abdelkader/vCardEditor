@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Thought.vCards;
 using VCFEditor.Model;
 using System.ComponentModel;

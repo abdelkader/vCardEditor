@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Thought.vCards;
 using VCFEditor.Model;
 using System.ComponentModel;
@@ -69,7 +68,7 @@ namespace VCFEditor.Repository
                     contact.card = ParseRawContent(RawContent);
                     Contacts.Add(contact);
                     contact = new Contact();
-                    RawContent.Clear();
+                    RawContent.Length = 0;
                 }
               
             }
