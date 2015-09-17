@@ -58,12 +58,7 @@ namespace vCardEditor.View
 
         }
 
-        public void DisplayContacts(List<Contact> contacts)
-        {
-            if (contacts != null)
-                this.bsContacts.DataSource = contacts;
-
-        }
+        
 
         private void tbsSave_Click(object sender, EventArgs e)
         {
@@ -89,10 +84,13 @@ namespace vCardEditor.View
                 TextBoxValueChanged(sender, e);
         }
 
-        public void DisplayContactDetail(vCard card)
+        public void DisplayContactDetail(vCard card, string FileName)
         {
             if (card == null)
                 throw new ArgumentException("card");
+
+            //set the title with the filename.
+            this.Text = string.Format("{0} - vCard Editor", FileName);
 
             //Formatted Name
             SetSummaryValue(FormattedNameValue, card.FormattedName);
@@ -130,7 +128,7 @@ namespace vCardEditor.View
             }
             else
                 PhotoBox.Image = ((System.Drawing.Image)(resources.GetObject("PhotoBox.Image")));
-
+            
         }
       
         #region helper methods to populate textboxes.

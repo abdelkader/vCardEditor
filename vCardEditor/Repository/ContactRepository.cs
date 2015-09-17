@@ -21,6 +21,10 @@ namespace VCFEditor.Repository
         public const string KeyName = "FN";
 
         /// <summary>
+        /// Keep a copy of contact list when filtering
+        /// </summary>
+        private BindingList<Contact> OriginalContactList = null;
+        /// <summary>
         /// Contact List
         /// </summary>
         private BindingList<Contact> _contacts;
@@ -73,6 +77,7 @@ namespace VCFEditor.Repository
               
             }
 
+            OriginalContactList = Contacts;
             return Contacts;
         }
 
@@ -146,11 +151,11 @@ namespace VCFEditor.Repository
             return stream;
         }
 
-        public List<Contact> FilterContacts(string filter)
+        public BindingList<Contact> FilterContacts(string filter)
         {
-            List<Contact> Filtered = new List<Contact>(Contacts);
-            Filtered.RemoveAll(i => !(i.Name.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0));
-            return Filtered;
+            var list = OriginalContactList.Where(i => (i.Name.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0));
+            Contacts = new BindingList<Contact>(list.ToList());
+            return Contacts;
         }
 
 

@@ -22,9 +22,7 @@ namespace VCFEditor.View
 
         int SelectedContactIndex { get; }
         void DisplayContacts(BindingList<Contact> contacts);
-        void DisplayContacts(List<Contact> contacts);
-        void DisplayContactDetail(vCard card);
-
+        void DisplayContactDetail(vCard card, string FileName);
         
     }
 }

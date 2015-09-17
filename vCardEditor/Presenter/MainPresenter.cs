@@ -85,7 +85,7 @@ namespace VCFEditor.Presenter
                 vCard card = _repository.Contacts[index].card;
 
                 if (card != null)
-                    _view.DisplayContactDetail(card);
+                    _view.DisplayContactDetail(card, _repository.fileName);
             }
 
         }

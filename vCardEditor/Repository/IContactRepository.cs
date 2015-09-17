@@ -16,7 +16,7 @@ namespace VCFEditor.Repository
         BindingList<Contact> LoadContacts(string fileName);
         void SaveContacts(string fileName);
         void DeleteContact();
-        List<Contact> FilterContacts(string p);
+        BindingList<Contact> FilterContacts(string p);
         void SaveDirtyFlag(int index);
         void SaveDirtyVCard(int index, vCard card);
     }
