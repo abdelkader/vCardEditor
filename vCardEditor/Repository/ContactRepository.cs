@@ -223,5 +223,13 @@ namespace VCFEditor.Repository
             return tw.ToString();
         }
 
+        /// <summary>
+        /// Check if some iem in the contact list is modified
+        /// </summary>
+        /// <returns>true for dirty</returns>
+        public bool isDirty()
+        {
+            return (_contacts != null && _contacts.Any(x => x.isDirty));
+        }
     }
 }

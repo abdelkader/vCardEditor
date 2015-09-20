@@ -19,5 +19,6 @@ namespace VCFEditor.Repository
         BindingList<Contact> FilterContacts(string p);
         void SaveDirtyFlag(int index);
         void SaveDirtyVCard(int index, vCard card);
+        bool isDirty();
     }
 }

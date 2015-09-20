@@ -15,6 +15,7 @@ namespace vCardEditor.View
 {
     public partial class MainForm : Form, IMainView
     {
+        #region event list
         public event EventHandler SaveContactsSelected;
         public event EventHandler DeleteContact;
         public event EventHandler<EventArg<string>> NewFileOpened;
@@ -22,7 +23,8 @@ namespace vCardEditor.View
         public event EventHandler<EventArg<vCard>> BeforeLeavingContact;
         public event EventHandler<EventArg<string>> FilterTextChanged;
         public event EventHandler TextBoxValueChanged;
-
+        public event EventHandler<FormClosingEventArgs> CloseForm;
+        #endregion
         ComponentResourceManager resources;
 
         public int SelectedContactIndex
@@ -183,6 +185,11 @@ namespace vCardEditor.View
 
         private void textBoxFilter_TextChanged(object sender, EventArgs e)
         {
+            //Save before leaving contact.
+            if (BeforeLeavingContact != null)
+                BeforeLeavingContact(sender, new EventArg<vCard>(getvCard()));
+
+            //filter.
             if (FilterTextChanged != null)
                 FilterTextChanged(sender, new EventArg<string>(textBoxFilter.Text));
         }
@@ -277,9 +284,34 @@ namespace vCardEditor.View
                 NewFileOpened(sender, new EventArg<string>(file));
         }
 
-        
 
-        
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (CloseForm != null)
+            {
+                this.Validate();
+                CloseForm(sender, e);
+            }
+
+        }
+
+        /// <summary>
+        /// Ask user a question
+        /// </summary>
+        /// <param name="msg">question</param>
+        /// <param name="caption">caption</param>
+        /// <returns>true for yes, false for no</returns>
+        public bool AskMessage(string msg, string caption)
+        {
+            bool result = true; // true == yes
+
+            DialogResult window = MessageBox.Show(msg, caption, MessageBoxButtons.YesNo);
+
+            if (window != DialogResult.No)
+                result = false;
+
+            return result;
+        }
 
       
 

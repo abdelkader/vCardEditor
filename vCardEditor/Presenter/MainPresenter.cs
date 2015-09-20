@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.IO;
 using vCardEditor.View;
 using VCFEditor.Repository;
+using System.Windows.Forms;
 
 
 namespace VCFEditor.Presenter
@@ -31,14 +32,22 @@ namespace VCFEditor.Presenter
             _view.FilterTextChanged += FilterTextChanged;
             _view.TextBoxValueChanged += TextBoxValueChanged;
             _view.BeforeLeavingContact += BeforeLeavingContact;
-
+            _view.CloseForm += CloseForm;
 
         }
 
+        void CloseForm(object sender, FormClosingEventArgs e)
+        {
+            if (_repository.isDirty() && _view.AskMessage("Exit before saving", "Exit"))
+                e.Cancel = true;
+        }
         public void BeforeLeavingContact(object sender, EventArg<vCard> e)
         {
             if (_view.SelectedContactIndex > -1)
-                _repository.SaveDirtyVCard(_view.SelectedContactIndex, e.Data);
+            {
+                if (_repository.isDirty())
+                    _repository.SaveDirtyVCard(_view.SelectedContactIndex, e.Data);
+            }
         }
 
         public void TextBoxValueChanged(object sender, EventArgs e)
