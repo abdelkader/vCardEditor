@@ -10,6 +10,8 @@ using VCFEditor.View;
 using VCFEditor.Model;
 using Thought.vCards;
 using System.IO;
+using vCardEditor.Repository;
+using System.Configuration;
 
 namespace vCardEditor.View
 {
@@ -26,6 +28,7 @@ namespace vCardEditor.View
         public event EventHandler<FormClosingEventArgs> CloseForm;
         #endregion
         ComponentResourceManager resources;
+        List<String> MRUList;
 
         public int SelectedContactIndex
         {
@@ -43,7 +46,31 @@ namespace vCardEditor.View
         {
             InitializeComponent();
             resources = new ComponentResourceManager(typeof(MainForm));
+
+            recentFilesMenuItem.DropDownItemClicked += (s, e) => OpenNewFile(s, e.ClickedItem.Text);
+
+            //Read the MRU List from Config file.
+            if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["paths"]))
+            {
+                MRUList = new List<string>(ConfigurationManager.AppSettings["paths"].Split(new char[] { ';' }));
+               
+                //Update the MRU Menu entries..
+                UpdateMRUMenu();
+                
+            }
+            
+            
+            
+            
         }
+
+        private void UpdateMRUMenu()
+        {
+            recentFilesMenuItem.DropDownItems.Clear();
+            foreach (string item in MRUList)
+                recentFilesMenuItem.DropDownItems.Add(item);
+        }
+
 
         private void tbsOpen_Click(object sender, EventArgs e)
         {
@@ -280,6 +307,17 @@ namespace vCardEditor.View
                 return;
             }
 
+            //add to the MRU.
+            if (MRUList == null)
+                MRUList = new List<string>();
+
+            if (!MRUList.Any(x => string.Compare(x, file, StringComparison.OrdinalIgnoreCase) == 0))
+            {
+                MRUList.Add(file);
+                ConfigDao.Instance.SaveConfigFile("path", string.Join(";", MRUList.ToArray()));
+                UpdateMRUMenu();
+            }
+
             if (NewFileOpened != null)
                 NewFileOpened(sender, new EventArg<string>(file));
         }
@@ -309,7 +347,6 @@ namespace vCardEditor.View
             return result;
         }
 
-      
-
+        
     }
 }
