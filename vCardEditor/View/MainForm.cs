@@ -47,29 +47,12 @@ namespace vCardEditor.View
             InitializeComponent();
             resources = new ComponentResourceManager(typeof(MainForm));
 
-            recentFilesMenuItem.DropDownItemClicked += (s, e) => OpenNewFile(s, e.ClickedItem.Text);
-
-            //Read the MRU List from Config file.
-            if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["paths"]))
-            {
-                MRUList = new List<string>(ConfigurationManager.AppSettings["paths"].Split(new char[] { ';' }));
-               
-                //Update the MRU Menu entries..
-                UpdateMRUMenu();
-                
-            }
-            
-            
-            
+            MRUList = new List<string>();
+            BuildMRUMenu();
             
         }
 
-        private void UpdateMRUMenu()
-        {
-            recentFilesMenuItem.DropDownItems.Clear();
-            foreach (string item in MRUList)
-                recentFilesMenuItem.DropDownItems.Add(item);
-        }
+        
 
 
         private void tbsOpen_Click(object sender, EventArgs e)
@@ -299,7 +282,7 @@ namespace vCardEditor.View
         /// <param name="file"></param>
         private void OpenNewFile(object sender, string file)
         {
-            string ext = Path.GetExtension(file);
+            string ext = System.IO.Path.GetExtension(file);
             //TODO: Should parse invalid content file...
             if (ext != ".vcf")
             {
@@ -314,19 +297,50 @@ namespace vCardEditor.View
             if (!MRUList.Any(x => string.Compare(x, file, StringComparison.OrdinalIgnoreCase) == 0))
             {
                 MRUList.Add(file);
-                ConfigDao.Instance.SaveConfigFile("path", string.Join(";", MRUList.ToArray()));
-                UpdateMRUMenu();
+                ConfigDao.Instance.Paths.Clear();
+                foreach (var item in MRUList)
+                    ConfigDao.Instance.Paths.Add(new Folder() { Value = item });
+                
+                //ConfigDao.Instance.SaveConfigFile("paths", string.Join(";", MRUList.ToArray()));
+                UpdateMRUMenu(MRUList);
             }
 
             if (NewFileOpened != null)
                 NewFileOpened(sender, new EventArg<string>(file));
         }
 
+        private void BuildMRUMenu()
+        {
+            recentFilesMenuItem.DropDownItemClicked += (s, e) => OpenNewFile(s, e.ClickedItem.Text);
 
+            List<Folder> paths = ConfigDao.Instance.Paths;
+
+            //Read the MRU List from Config file.
+            if (paths != null)
+            {
+                foreach (var item in paths)
+                    MRUList.Add(item.Value);
+
+                //Update the MRU Menu entries..
+                UpdateMRUMenu(MRUList);
+            }
+        }
+
+        private void UpdateMRUMenu(List<string> MRUList)
+        {
+            if (MRUList == null)
+                return;
+
+            recentFilesMenuItem.DropDownItems.Clear();
+            foreach (string item in MRUList)
+                recentFilesMenuItem.DropDownItems.Add(item);
+        }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (CloseForm != null)
                 CloseForm(sender, e);
+
+            ConfigDao.Instance.SaveConfig();
         }
 
         /// <summary>

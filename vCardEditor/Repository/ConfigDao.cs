@@ -2,64 +2,88 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Configuration;
+using System.Xml.Serialization;
 using System.IO;
+using System.Xml;
 
 namespace vCardEditor.Repository
 {
-    public class ConfigDao : IConfigDao
+    [XmlRoot("Config")]
+    public class ConfigDao
     {
-        public string ConfigFileName { get; set; }
-        string minimalConfigFile = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>" + Environment.NewLine +
-                                    "<configuration>" + Environment.NewLine +
-                                     " <appSettings>" + Environment.NewLine +
-                                      "</appSettings>" + Environment.NewLine +
-                                    "</configuration>";
+        private static string ConfigFileName 
+        {
+            get
+            {
+                return AppDomain.CurrentDomain.BaseDirectory + "config.xml";
+            }
+        }
 
         private static ConfigDao instance = null;
-
+        [XmlIgnore]
         public static ConfigDao Instance
         {
             get
             {
                 if (instance == null)
-                    instance = new ConfigDao();
-                
+                    instance = LoadConfig();
+
                 return instance;
             }
         }
 
+        public bool OverWrite;
+        public List<Folder> Paths;
+
         private ConfigDao()
         {
-            ConfigFileName = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath;
-         
-            //if config not found, create one.
+           
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void SaveConfig()
+        {
+            var ns = new XmlSerializerNamespaces();
+            ns.Add("", ""); 
+
+            XmlSerializer xsSubmit = new XmlSerializer(typeof(ConfigDao));
+            using (StringWriter sww = new StringWriter())
+            using (TextWriter writer = new StreamWriter(ConfigFileName))
+            {
+                xsSubmit.Serialize(writer, instance, ns);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private static ConfigDao LoadConfig()
+        {
             if (!File.Exists(ConfigFileName))
-                File.WriteAllText(ConfigFileName, minimalConfigFile);
+                return new ConfigDao();
+
+            XmlSerializer deserializer = new XmlSerializer(typeof(ConfigDao));
+            TextReader reader = new StreamReader(ConfigFileName);
+            ConfigDao obj = (ConfigDao)deserializer.Deserialize(reader);
+            
+            reader.Close();
+
+            return obj;
         }
+    }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    public class Folder
+    {
+        [XmlIgnore]
+        public string DisplayedName { get; set; }
 
-        public string GetConfigKey(string key)
-        {
-            string returnValue = null;
-
-            if (ConfigurationManager.AppSettings[key] != null)
-                returnValue = ConfigurationManager.AppSettings[key];
-
-            return returnValue;
-
-
-        }
-
-        public void SaveConfigFile(string Key, string value)
-        {
-            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            config.AppSettings.Settings.Remove(Key);
-            config.AppSettings.Settings.Add(Key, value);
-            config.Save(ConfigurationSaveMode.Modified);
-            ConfigurationManager.RefreshSection("appSettings");
-        }
-
-       
+        [XmlAttribute]
+        public string Value { get; set; }
     }
 }
