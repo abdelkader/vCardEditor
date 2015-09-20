@@ -48,7 +48,7 @@
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.FormattedNameLabel = new System.Windows.Forms.Label();
             this.HomePhoneLabel = new System.Windows.Forms.Label();
-            this.FormattedNameValue = new System.Windows.Forms.TextBox();
+            this.FormattedNameValue = new vCardEditor.View.StateTextBox();
             this.CellularPhoneLabel = new System.Windows.Forms.Label();
             this.PersonalWebSiteLabel = new System.Windows.Forms.Label();
             this.WorkPhoneLabel = new System.Windows.Forms.Label();

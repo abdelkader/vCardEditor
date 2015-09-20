@@ -288,11 +288,7 @@ namespace vCardEditor.View
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (CloseForm != null)
-            {
-                this.Validate();
                 CloseForm(sender, e);
-            }
-
         }
 
         /// <summary>
