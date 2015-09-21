@@ -52,7 +52,6 @@
     <Compile Include="Repository\ConfigRepository.cs" />
     <Compile Include="Repository\ContactRepository.cs" />
     <Compile Include="Repository\FileHandler.cs" />
-    <Compile Include="Repository\IConfigDao.cs" />
     <Compile Include="Repository\IContactRepository.cs" />
     <Compile Include="Model\Contact.cs" />
     <Compile Include="Presenter\MainPresenter.cs" />

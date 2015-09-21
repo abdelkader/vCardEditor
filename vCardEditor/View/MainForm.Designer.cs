@@ -101,26 +101,29 @@
             // 
             // miOpen
             // 
+            this.miOpen.Image = ((System.Drawing.Image)(resources.GetObject("miOpen.Image")));
+            this.miOpen.ImageTransparentColor = System.Drawing.Color.Fuchsia;
             this.miOpen.Name = "miOpen";
-            this.miOpen.Size = new System.Drawing.Size(110, 22);
+            this.miOpen.Size = new System.Drawing.Size(152, 22);
             this.miOpen.Text = "&Open";
             this.miOpen.Click += new System.EventHandler(this.tbsOpen_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(107, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
             // 
             // recentFilesMenuItem
             // 
             this.recentFilesMenuItem.Name = "recentFilesMenuItem";
-            this.recentFilesMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.recentFilesMenuItem.Size = new System.Drawing.Size(152, 22);
             this.recentFilesMenuItem.Text = "Recent";
             // 
             // miQuit
             // 
+            this.miQuit.Image = ((System.Drawing.Image)(resources.GetObject("miQuit.Image")));
             this.miQuit.Name = "miQuit";
-            this.miQuit.Size = new System.Drawing.Size(110, 22);
+            this.miQuit.Size = new System.Drawing.Size(152, 22);
             this.miQuit.Text = "&Quit";
             this.miQuit.Click += new System.EventHandler(this.miQuit_Click);
             // 
@@ -134,6 +137,8 @@
             // 
             // miAbout
             // 
+            this.miAbout.Image = ((System.Drawing.Image)(resources.GetObject("miAbout.Image")));
+            this.miAbout.ImageTransparentColor = System.Drawing.Color.Fuchsia;
             this.miAbout.Name = "miAbout";
             this.miAbout.Size = new System.Drawing.Size(107, 22);
             this.miAbout.Text = "&About";
@@ -454,6 +459,7 @@
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "vCard Editor";

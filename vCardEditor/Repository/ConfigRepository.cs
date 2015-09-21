@@ -11,9 +11,9 @@ namespace vCardEditor.Repository
     [XmlRoot("Config")]
     public class ConfigRepository
     {
-        private static string ConfigFileName 
+        private static string ConfigFileName
         {
-            get { return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.xml");  }
+            get { return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.xml"); }
         }
 
         private static ConfigRepository instance = null;
@@ -33,7 +33,7 @@ namespace vCardEditor.Repository
         [XmlArrayItemAttribute("Folder")]
         public List<string> Paths;
 
-        private ConfigRepository() {}
+        private ConfigRepository() { }
 
         /// <summary>
         /// save config file
@@ -41,7 +41,7 @@ namespace vCardEditor.Repository
         public void SaveConfig()
         {
             var ns = new XmlSerializerNamespaces();
-            ns.Add("", ""); 
+            ns.Add("", "");
 
             XmlSerializer xsSubmit = new XmlSerializer(typeof(ConfigRepository));
             using (StringWriter sww = new StringWriter())
@@ -58,25 +58,25 @@ namespace vCardEditor.Repository
         private static ConfigRepository LoadConfig()
         {
             ConfigRepository obj;
-                
+
             try
             {
                 if (!File.Exists(ConfigFileName))
                     throw new Exception();
-            
+
                 XmlSerializer deserializer = new XmlSerializer(typeof(ConfigRepository));
                 using (TextReader reader = new StreamReader(ConfigFileName))
                     obj = (ConfigRepository)deserializer.Deserialize(reader);
-                
+
             }
             catch (Exception)
             {
                 obj = new ConfigRepository();
                 obj.Paths = new List<string>();
             }
-            
+
 
             return obj;
         }
     }
-    }
+}

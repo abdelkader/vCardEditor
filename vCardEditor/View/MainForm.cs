@@ -300,7 +300,8 @@ namespace vCardEditor.View
 
         public void UpdateMRUMenu(List<string> MRUList)
         {
-            if (MRUList == null)
+            //No need to go further if no menu entry to load!
+            if (MRUList == null || MRUList.Count == 0)
                 return;
 
             recentFilesMenuItem.DropDownItems.Clear();
