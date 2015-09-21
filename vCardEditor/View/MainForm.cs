@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using VCFEditor.View;
 using VCFEditor.Model;
 using Thought.vCards;
-using System.IO;
+using vCardEditor.Repository;
 
 namespace vCardEditor.View
 {
@@ -43,7 +40,13 @@ namespace vCardEditor.View
         {
             InitializeComponent();
             resources = new ComponentResourceManager(typeof(MainForm));
+
+            BuildMRUMenu();
+
         }
+
+
+
 
         private void tbsOpen_Click(object sender, EventArgs e)
         {
@@ -59,8 +62,6 @@ namespace vCardEditor.View
                 this.bsContacts.DataSource = contacts;
 
         }
-
-        
 
         private void tbsSave_Click(object sender, EventArgs e)
         {
@@ -93,6 +94,10 @@ namespace vCardEditor.View
 
             //set the title with the filename.
             this.Text = string.Format("{0} - vCard Editor", FileName);
+
+            
+            gbContactDetail.Enabled = true;
+            gbNameList.Enabled = true;
 
             //Formatted Name
             SetSummaryValue(FormattedNameValue, card.FormattedName);
@@ -130,9 +135,9 @@ namespace vCardEditor.View
             }
             else
                 PhotoBox.Image = ((System.Drawing.Image)(resources.GetObject("PhotoBox.Image")));
-            
+
         }
-      
+
         #region helper methods to populate textboxes.
         private void SetSummaryValue(TextBox valueLabel, string value)
         {
@@ -165,7 +170,7 @@ namespace vCardEditor.View
                 SetSummaryValue(valueLabel, webSite.Url.ToString());
         }
         #endregion
-      
+
         private void tbsDelete_Click(object sender, EventArgs e)
         {
             if (DeleteContact != null)
@@ -272,7 +277,7 @@ namespace vCardEditor.View
         /// <param name="file"></param>
         private void OpenNewFile(object sender, string file)
         {
-            string ext = Path.GetExtension(file);
+            string ext = System.IO.Path.GetExtension(file);
             //TODO: Should parse invalid content file...
             if (ext != ".vcf")
             {
@@ -284,11 +289,31 @@ namespace vCardEditor.View
                 NewFileOpened(sender, new EventArg<string>(file));
         }
 
+        private void BuildMRUMenu()
+        {
+            recentFilesMenuItem.DropDownItemClicked += (s, e) => OpenNewFile(s, e.ClickedItem.Text);
+            
+            //Update the MRU Menu entries..
+            UpdateMRUMenu(ConfigRepository.Instance.Paths);
+
+        }
+
+        public void UpdateMRUMenu(List<string> MRUList)
+        {
+            if (MRUList == null)
+                return;
+
+            recentFilesMenuItem.DropDownItems.Clear();
+            foreach (string item in MRUList)
+                recentFilesMenuItem.DropDownItems.Add(item);
+        }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (CloseForm != null)
                 CloseForm(sender, e);
+
+            ConfigRepository.Instance.SaveConfig();
         }
 
         /// <summary>
@@ -309,7 +334,6 @@ namespace vCardEditor.View
             return result;
         }
 
-      
 
     }
 }
