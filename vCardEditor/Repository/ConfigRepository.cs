@@ -36,7 +36,7 @@ namespace vCardEditor.Repository
         private ConfigRepository() {}
 
         /// <summary>
-        /// 
+        /// save config file
         /// </summary>
         public void SaveConfig()
         {
@@ -52,22 +52,18 @@ namespace vCardEditor.Repository
         }
 
         /// <summary>
-        /// 
+        /// Load config file.
         /// </summary>
         /// <returns></returns>
         private static ConfigRepository LoadConfig()
         {
             ConfigRepository obj;
-
-            if (!File.Exists(ConfigFileName))
-            {
-                obj = new ConfigRepository();
-                obj.Paths = new List<string>();
-                return obj;
-            }
                 
             try
             {
+                if (!File.Exists(ConfigFileName))
+                    throw new Exception();
+            
                 XmlSerializer deserializer = new XmlSerializer(typeof(ConfigRepository));
                 using (TextReader reader = new StreamReader(ConfigFileName))
                     obj = (ConfigRepository)deserializer.Deserialize(reader);
