@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Thought.vCards;
-using VCFEditor.Model;
 using VCFEditor.View;
-using System.ComponentModel;
-using System.IO;
 using vCardEditor.View;
 using VCFEditor.Repository;
 using System.Windows.Forms;
+using vCardEditor.Repository;
 
 
 namespace VCFEditor.Presenter
@@ -83,7 +80,19 @@ namespace VCFEditor.Presenter
             {
                 _repository.LoadContacts(path);
                 _view.DisplayContacts(_repository.Contacts);
+
+                List<string> MRUList = ConfigRepository.Instance.Paths;
+
+                if (!MRUList.Any(x => string.Compare(x, path, StringComparison.OrdinalIgnoreCase) == 0))
+                {
+                    MRUList.Add(path);
+                    // ConfigRepository.Instance.Paths.Clear();
+                    _view.UpdateMRUMenu(MRUList);
+                }
+            
             }
+
+
         }
 
         public void ChangeContactSelected(object sender, EventArgs e)

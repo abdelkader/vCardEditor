@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using VCFEditor.View;
 using VCFEditor.Model;
 using Thought.vCards;
-using System.IO;
 using vCardEditor.Repository;
-using System.Configuration;
 
 namespace vCardEditor.View
 {
@@ -28,7 +23,6 @@ namespace vCardEditor.View
         public event EventHandler<FormClosingEventArgs> CloseForm;
         #endregion
         ComponentResourceManager resources;
-        List<String> MRUList;
 
         public int SelectedContactIndex
         {
@@ -47,12 +41,11 @@ namespace vCardEditor.View
             InitializeComponent();
             resources = new ComponentResourceManager(typeof(MainForm));
 
-            MRUList = new List<string>();
             BuildMRUMenu();
-            
+
         }
 
-        
+
 
 
         private void tbsOpen_Click(object sender, EventArgs e)
@@ -69,8 +62,6 @@ namespace vCardEditor.View
                 this.bsContacts.DataSource = contacts;
 
         }
-
-        
 
         private void tbsSave_Click(object sender, EventArgs e)
         {
@@ -103,6 +94,10 @@ namespace vCardEditor.View
 
             //set the title with the filename.
             this.Text = string.Format("{0} - vCard Editor", FileName);
+
+            
+            gbContactDetail.Enabled = true;
+            gbNameList.Enabled = true;
 
             //Formatted Name
             SetSummaryValue(FormattedNameValue, card.FormattedName);
@@ -140,9 +135,9 @@ namespace vCardEditor.View
             }
             else
                 PhotoBox.Image = ((System.Drawing.Image)(resources.GetObject("PhotoBox.Image")));
-            
+
         }
-      
+
         #region helper methods to populate textboxes.
         private void SetSummaryValue(TextBox valueLabel, string value)
         {
@@ -175,7 +170,7 @@ namespace vCardEditor.View
                 SetSummaryValue(valueLabel, webSite.Url.ToString());
         }
         #endregion
-      
+
         private void tbsDelete_Click(object sender, EventArgs e)
         {
             if (DeleteContact != null)
@@ -290,21 +285,6 @@ namespace vCardEditor.View
                 return;
             }
 
-            //add to the MRU.
-            if (MRUList == null)
-                MRUList = new List<string>();
-
-            if (!MRUList.Any(x => string.Compare(x, file, StringComparison.OrdinalIgnoreCase) == 0))
-            {
-                MRUList.Add(file);
-                ConfigDao.Instance.Paths.Clear();
-                foreach (var item in MRUList)
-                    ConfigDao.Instance.Paths.Add(new Folder() { Value = item });
-                
-                //ConfigDao.Instance.SaveConfigFile("paths", string.Join(";", MRUList.ToArray()));
-                UpdateMRUMenu(MRUList);
-            }
-
             if (NewFileOpened != null)
                 NewFileOpened(sender, new EventArg<string>(file));
         }
@@ -312,21 +292,13 @@ namespace vCardEditor.View
         private void BuildMRUMenu()
         {
             recentFilesMenuItem.DropDownItemClicked += (s, e) => OpenNewFile(s, e.ClickedItem.Text);
+            
+            //Update the MRU Menu entries..
+            UpdateMRUMenu(ConfigRepository.Instance.Paths);
 
-            List<Folder> paths = ConfigDao.Instance.Paths;
-
-            //Read the MRU List from Config file.
-            if (paths != null)
-            {
-                foreach (var item in paths)
-                    MRUList.Add(item.Value);
-
-                //Update the MRU Menu entries..
-                UpdateMRUMenu(MRUList);
-            }
         }
 
-        private void UpdateMRUMenu(List<string> MRUList)
+        public void UpdateMRUMenu(List<string> MRUList)
         {
             if (MRUList == null)
                 return;
@@ -335,12 +307,13 @@ namespace vCardEditor.View
             foreach (string item in MRUList)
                 recentFilesMenuItem.DropDownItems.Add(item);
         }
+
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (CloseForm != null)
                 CloseForm(sender, e);
 
-            ConfigDao.Instance.SaveConfig();
+            ConfigRepository.Instance.SaveConfig();
         }
 
         /// <summary>
@@ -361,6 +334,6 @@ namespace vCardEditor.View
             return result;
         }
 
-        
+
     }
 }

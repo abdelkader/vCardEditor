@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Thought.vCards;
 using VCFEditor.Model;
 using System.ComponentModel;
@@ -26,5 +24,6 @@ namespace VCFEditor.View
         void DisplayContacts(BindingList<Contact> contacts);
         void DisplayContactDetail(vCard card, string FileName);
         bool AskMessage(string msg, string caption);
+        void UpdateMRUMenu(List<string> MRUList);
     }
 }
