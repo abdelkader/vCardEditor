@@ -90,6 +90,9 @@ namespace VCFEditor.Repository
             if (string.IsNullOrEmpty(fileName))
                 fileName = this.fileName;
 
+            //Take a copy...
+            if (!ConfigRepository.Instance.OverWrite)
+                File.Move(fileName, fileName + ".old");
 
             StringBuilder sb = new StringBuilder();
             foreach (var entry in Contacts)

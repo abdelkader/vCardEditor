@@ -4,6 +4,7 @@ using Thought.vCards;
 using VCFEditor.Model;
 using System.ComponentModel;
 using System.Windows.Forms;
+using vCardEditor.Model;
 
 namespace VCFEditor.View
 {
@@ -24,6 +25,6 @@ namespace VCFEditor.View
         void DisplayContacts(BindingList<Contact> contacts);
         void DisplayContactDetail(vCard card, string FileName);
         bool AskMessage(string msg, string caption);
-        void UpdateMRUMenu(List<string> MRUList);
+        void UpdateMRUMenu(FixedList MRUList);
     }
 }

@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
 using System.IO;
-using System.Xml;
+using System.ComponentModel;
+using vCardEditor.Model;
+using System.Runtime.Serialization;
 
 namespace vCardEditor.Repository
 {
     [XmlRoot("Config")]
+    [Serializable]
     public class ConfigRepository
     {
         private static string ConfigFileName
@@ -29,11 +30,17 @@ namespace vCardEditor.Repository
             }
         }
 
-        public bool OverWrite;
-        [XmlArrayItemAttribute("Folder")]
-        public List<string> Paths;
+        [Description("Overwrite the file when saving")]
+        public bool OverWrite { get; set; }
+        [Description("Maximum entries for MRU ")]
+        public int Maximum { get; set; }
+
+        [Browsable(false)]
+        public FixedList Paths { get; set;}
 
         private ConfigRepository() { }
+
+
 
         /// <summary>
         /// save config file
@@ -66,17 +73,22 @@ namespace vCardEditor.Repository
 
                 XmlSerializer deserializer = new XmlSerializer(typeof(ConfigRepository));
                 using (TextReader reader = new StreamReader(ConfigFileName))
+                {
                     obj = (ConfigRepository)deserializer.Deserialize(reader);
+                    obj.Paths.Size = obj.Maximum;
+                }
 
             }
             catch (Exception)
             {
                 obj = new ConfigRepository();
-                obj.Paths = new List<string>();
+                obj.Paths = new FixedList(5);
             }
 
 
             return obj;
         }
+
+       
     }
 }

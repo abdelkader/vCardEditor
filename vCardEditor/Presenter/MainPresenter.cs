@@ -7,6 +7,7 @@ using vCardEditor.View;
 using VCFEditor.Repository;
 using System.Windows.Forms;
 using vCardEditor.Repository;
+using vCardEditor.Model;
 
 
 namespace VCFEditor.Presenter
@@ -78,18 +79,17 @@ namespace VCFEditor.Presenter
             string path = e.Data;
             if (!string.IsNullOrEmpty(path))
             {
-                _repository.LoadContacts(path);
-                _view.DisplayContacts(_repository.Contacts);
+                FixedList MRUList = ConfigRepository.Instance.Paths;
 
-                List<string> MRUList = ConfigRepository.Instance.Paths;
-
-                if (!MRUList.Any(x => string.Compare(x, path, StringComparison.OrdinalIgnoreCase) == 0))
+                if (!MRUList.Contains(path))
                 {
-                    MRUList.Add(path);
+                    MRUList.Enqueue(path);
                     // ConfigRepository.Instance.Paths.Clear();
                     _view.UpdateMRUMenu(MRUList);
                 }
-            
+               
+                _repository.LoadContacts(path);
+                _view.DisplayContacts(_repository.Contacts);
             }
 
 
@@ -103,7 +103,10 @@ namespace VCFEditor.Presenter
                 vCard card = _repository.Contacts[index].card;
 
                 if (card != null)
+                {
+                    _repository.Contacts[index].isDirty = false;
                     _view.DisplayContactDetail(card, _repository.fileName);
+                }
             }
 
         }

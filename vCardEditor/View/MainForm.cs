@@ -7,6 +7,7 @@ using VCFEditor.View;
 using VCFEditor.Model;
 using Thought.vCards;
 using vCardEditor.Repository;
+using vCardEditor.Model;
 
 namespace vCardEditor.View
 {
@@ -139,23 +140,24 @@ namespace vCardEditor.View
         }
 
         #region helper methods to populate textboxes.
-        private void SetSummaryValue(TextBox valueLabel, string value)
+        private void SetSummaryValue(StateTextBox valueLabel, string value)
         {
             if (valueLabel == null)
                 throw new ArgumentNullException("valueLabel");
 
             //Clear textbox if value is empty!
             valueLabel.Text = value;
+            valueLabel.oldText = value;
         }
 
-        private void SetSummaryValue(TextBox valueLabel, vCardEmailAddress email)
+        private void SetSummaryValue(StateTextBox valueLabel, vCardEmailAddress email)
         {
             valueLabel.Text = string.Empty;
             if (email != null)
                 SetSummaryValue(valueLabel, email.Address);
         }
 
-        private void SetSummaryValue(TextBox valueLabel, vCardPhone phone)
+        private void SetSummaryValue(StateTextBox valueLabel, vCardPhone phone)
         {
             valueLabel.Text = string.Empty;
             if (phone != null)
@@ -163,7 +165,7 @@ namespace vCardEditor.View
 
         }
 
-        private void SetSummaryValue(TextBox valueLabel, vCardWebsite webSite)
+        private void SetSummaryValue(StateTextBox valueLabel, vCardWebsite webSite)
         {
             valueLabel.Text = string.Empty;
             if (webSite != null)
@@ -298,15 +300,16 @@ namespace vCardEditor.View
 
         }
 
-        public void UpdateMRUMenu(List<string> MRUList)
+        public void UpdateMRUMenu(FixedList MRUList)
         {
             //No need to go further if no menu entry to load!
-            if (MRUList == null || MRUList.Count == 0)
+            if (MRUList == null || MRUList.IsEmpty())
                 return;
 
             recentFilesMenuItem.DropDownItems.Clear();
-            foreach (string item in MRUList)
-                recentFilesMenuItem.DropDownItems.Add(item);
+            for (int i = 0; i < MRUList._innerList.Count; i++)
+                recentFilesMenuItem.DropDownItems.Add(MRUList[i]);
+                
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -333,6 +336,12 @@ namespace vCardEditor.View
                 result = false;
 
             return result;
+        }
+
+        private void miConfig_Click(object sender, EventArgs e)
+        {
+            ConfigDialog dialog = new ConfigDialog();
+            dialog.ShowDialog();
         }
 
 
