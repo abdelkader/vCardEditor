@@ -12,6 +12,7 @@ namespace VCFEditor.Repository
     {
         string fileName { get; set; }
         BindingList<Contact> Contacts { get; set; }
+        bool dirty { get; set; }
 
         BindingList<Contact> LoadContacts(string fileName);
         void SaveContacts(string fileName);
@@ -19,6 +20,6 @@ namespace VCFEditor.Repository
         BindingList<Contact> FilterContacts(string p);
         void SaveDirtyFlag(int index);
         void SaveDirtyVCard(int index, vCard card);
-        bool isDirty();
+        
     }
 }

@@ -113,7 +113,11 @@ namespace VCFEditor.Repository
                 for (int i = _contacts.Count - 1; i > -1; i--)
                 {
                     if (_contacts[i].isSelected)
+                    {
                         _contacts.RemoveAt(i);
+                        dirty = true;
+                    }
+                        
                 }
             }
 
@@ -208,6 +212,7 @@ namespace VCFEditor.Repository
 
 
                 _contacts[index].isDirty = false;
+                _dirty = false;
             }
         }
 
@@ -229,9 +234,12 @@ namespace VCFEditor.Repository
         /// Check if some iem in the contact list is modified
         /// </summary>
         /// <returns>true for dirty</returns>
-        public bool isDirty()
+        private bool _dirty;
+        public bool dirty
         {
-            return (_contacts != null && _contacts.Any(x => x.isDirty));
+            get { return _dirty || (_contacts != null && _contacts.Any(x => x.isDirty)); }
+            set { _dirty = value; }
         }
+
     }
 }

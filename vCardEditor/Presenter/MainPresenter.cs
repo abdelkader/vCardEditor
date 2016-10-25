@@ -36,14 +36,14 @@ namespace VCFEditor.Presenter
 
         void CloseForm(object sender, FormClosingEventArgs e)
         {
-            if (_repository.isDirty() && _view.AskMessage("Exit before saving", "Exit"))
+            if (_repository.dirty && _view.AskMessage("Exit before saving", "Exit"))
                 e.Cancel = true;
         }
         public void BeforeLeavingContact(object sender, EventArg<vCard> e)
         {
             if (_view.SelectedContactIndex > -1)
             {
-                if (_repository.isDirty())
+                if (_repository.dirty)
                     _repository.SaveDirtyVCard(_view.SelectedContactIndex, e.Data);
             }
         }
