@@ -29,6 +29,9 @@ namespace VCFEditor.Model
        
         [Browsable(false)]
         public bool isDirty { get; set; }
+
+        [Browsable(false)]
+        public bool isDeleted { get; set; }
      
 
         public Contact()

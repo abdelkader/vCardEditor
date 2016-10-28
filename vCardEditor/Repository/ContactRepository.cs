@@ -47,7 +47,7 @@ namespace VCFEditor.Repository
             _fileHandler = fileHandler;
         }
         /// <summary>
-        /// Load contacts. 
+        /// Load the contacts from filename. 
         /// 1- Parse the file
         /// 2- 
         /// </summary>
@@ -95,8 +95,13 @@ namespace VCFEditor.Repository
                 File.Move(fileName, fileName + ".old");
 
             StringBuilder sb = new StringBuilder();
+            //Do not save the deleted ones...
             foreach (var entry in Contacts)
-                sb.Append(generateRawContent(entry.card));
+            {
+                if (!entry.isDeleted)
+                    sb.Append(generateRawContent(entry.card));
+            }
+                
 
             _fileHandler.WriteAllText(fileName, sb.ToString());
         }
@@ -114,6 +119,7 @@ namespace VCFEditor.Repository
                 {
                     if (_contacts[i].isSelected)
                     {
+                        _contacts[i].isDeleted = true;
                         _contacts.RemoveAt(i);
                         dirty = true;
                     }
@@ -159,7 +165,8 @@ namespace VCFEditor.Repository
 
         public BindingList<Contact> FilterContacts(string filter)
         {
-            var list = OriginalContactList.Where(i => (i.Name.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0));
+            var list = OriginalContactList.Where(i => (i.Name.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0) && 
+                                                    !i.isDeleted);
             Contacts = new BindingList<Contact>(list.ToList());
             return Contacts;
         }
