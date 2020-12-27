@@ -6,6 +6,7 @@
  * ======================================================================= */
 
 using System;
+using System.Collections.Generic;
 
 namespace Thought.vCards
 {
@@ -18,7 +19,7 @@ namespace Thought.vCards
     public class vCardDeliveryAddress
     {
 
-        private vCardDeliveryAddressTypes addressType;
+        private List<vCardDeliveryAddressTypes> addressType;
         private string city;
         private string country;
         private string postalCode;
@@ -36,13 +37,14 @@ namespace Thought.vCards
             this.postalCode = string.Empty;
             this.region = string.Empty;
             this.street = string.Empty;
+			this.addressType = new List<vCardDeliveryAddressTypes>();
         }
 
 
         /// <summary>
         ///     The type of postal address.
         /// </summary>
-        public vCardDeliveryAddressTypes AddressType
+		public List<vCardDeliveryAddressTypes> AddressType
         {
             get
             {
@@ -94,21 +96,7 @@ namespace Thought.vCards
         {
             get
             {
-                return (this.addressType & vCardDeliveryAddressTypes.Domestic) ==
-                    vCardDeliveryAddressTypes.Domestic;
-            }
-            set
-            {
-
-                if (value)
-                {
-                    this.addressType |= vCardDeliveryAddressTypes.Domestic;
-                }
-                else
-                {
-                    this.addressType &= ~vCardDeliveryAddressTypes.Domestic;
-                }
-
+                return (addressType.Contains(vCardDeliveryAddressTypes.Domestic));
             }
         }
 
@@ -120,20 +108,7 @@ namespace Thought.vCards
         {
             get
             {
-                return (this.addressType & vCardDeliveryAddressTypes.Home) ==
-                    vCardDeliveryAddressTypes.Home;
-            }
-            set
-            {
-                if (value)
-                {
-                    this.addressType |= vCardDeliveryAddressTypes.Home;
-                }
-                else
-                {
-                    this.addressType &= ~vCardDeliveryAddressTypes.Home;
-                }
-
+				return (addressType.Contains(vCardDeliveryAddressTypes.Home));
             }
         }
 
@@ -145,19 +120,7 @@ namespace Thought.vCards
         {
             get
             {
-                return (this.addressType & vCardDeliveryAddressTypes.International) ==
-                    vCardDeliveryAddressTypes.International;
-            }
-            set
-            {
-                if (value)
-                {
-                    this.addressType |= vCardDeliveryAddressTypes.International;
-                }
-                else
-                {
-                    this.addressType &= ~vCardDeliveryAddressTypes.International;
-                }
+				return (addressType.Contains(vCardDeliveryAddressTypes.International));
             }
         }
 
@@ -169,19 +132,7 @@ namespace Thought.vCards
         {
             get
             {
-                return (this.addressType & vCardDeliveryAddressTypes.Parcel) ==
-                    vCardDeliveryAddressTypes.Parcel;
-            }
-            set
-            {
-                if (value)
-                {
-                    this.addressType |= vCardDeliveryAddressTypes.Parcel;
-                }
-                else
-                {
-                    this.addressType &= ~vCardDeliveryAddressTypes.Parcel;
-                }
+				return (addressType.Contains(vCardDeliveryAddressTypes.Parcel));
             }
         }
 
@@ -193,19 +144,7 @@ namespace Thought.vCards
         {
             get
             {
-                return (this.addressType & vCardDeliveryAddressTypes.Postal) ==
-                    vCardDeliveryAddressTypes.Postal;
-            }
-            set
-            {
-                if (value)
-                {
-                    this.addressType |= vCardDeliveryAddressTypes.Postal;
-                }
-                else
-                {
-                    this.addressType &= ~vCardDeliveryAddressTypes.Postal;
-                }
+				return (addressType.Contains(vCardDeliveryAddressTypes.Postal));
             }
         }
 
@@ -217,19 +156,18 @@ namespace Thought.vCards
         {
             get
             {
-                return (this.addressType & vCardDeliveryAddressTypes.Work) ==
-                    vCardDeliveryAddressTypes.Work;
+				return (addressType.Contains(vCardDeliveryAddressTypes.Work));
             }
-            set
+        }
+
+        /// <summary>
+        ///     Indicates a preferred address
+        /// </summary>
+        public bool IsPreferred
+        {
+            get
             {
-                if (value)
-                {
-                    this.addressType |= vCardDeliveryAddressTypes.Work;
-                }
-                else
-                {
-                    this.addressType &= ~vCardDeliveryAddressTypes.Work;
-                }
+				return (addressType.Contains(vCardDeliveryAddressTypes.Preferred));
             }
         }
 

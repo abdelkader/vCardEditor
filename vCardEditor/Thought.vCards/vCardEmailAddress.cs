@@ -26,9 +26,10 @@ namespace Thought.vCards
 
         private string address;
         private vCardEmailAddressType emailType;
+        private ItemType itemType;
         private bool isPreferred;
-
-
+        
+   
         /// <summary>
         ///     Creates a new <see cref="vCardEmailAddress"/>.
         /// </summary>
@@ -36,6 +37,7 @@ namespace Thought.vCards
         {
             this.address = string.Empty;
             this.emailType = vCardEmailAddressType.Internet;
+            this.itemType = ItemType.UNSPECIFIED;
         }
 
 
@@ -45,27 +47,17 @@ namespace Thought.vCards
         /// <param name="address">
         ///     The Internet email address.
         /// </param>
-        public vCardEmailAddress(string address)
+        /// <param name="emailType">type of address, usually Internet. Internet is the default.</param>
+        /// <param name="itemType">HOME,WORK, unspecified</param>
+        public vCardEmailAddress(string address, vCardEmailAddressType emailType = vCardEmailAddressType.Internet, ItemType itemType = ItemType.UNSPECIFIED)
         {
             this.address = address == null ? string.Empty : address;
-            this.emailType = vCardEmailAddressType.Internet;
-        }
-
-
-        /// <summary>
-        ///     Creates a new <see cref="vCardEmailAddress"/> of the specified type.
-        /// </summary>
-        /// <param name="address">
-        ///     The email address.
-        /// </param>
-        /// <param name="emailType">
-        ///     The type of email address.
-        /// </param>
-        public vCardEmailAddress(string address, vCardEmailAddressType emailType)
-        {
-            this.address = address;
             this.emailType = emailType;
+            this.itemType = itemType;
         }
+
+
+ 
 
 
         /// <summary>
@@ -116,6 +108,16 @@ namespace Thought.vCards
             {
                 this.isPreferred = value;
             }
+        }
+
+        /// <summary>
+        /// ItemType for this element (HOME,WORK,etc)
+        /// </summary>
+        public ItemType ItemType {
+
+            get { return this.itemType; }
+            set { this.itemType = value; }
+        
         }
 
 

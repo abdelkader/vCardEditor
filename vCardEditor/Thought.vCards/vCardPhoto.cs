@@ -49,6 +49,10 @@ namespace Thought.vCards
         private Uri url;
 
 
+
+        private string encodedData;
+
+
         /// <summary>
         ///     Loads a photograph from an array of bytes.
         /// </summary>
@@ -94,6 +98,27 @@ namespace Thought.vCards
                 throw new ArgumentNullException("path");
 
             this.url = new Uri(path);
+
+        }
+
+        /// <summary>
+        ///     Creates a new vCard photo from already encoded data.
+        /// </summary>
+        /// <param name="data">
+        ///     The base64 encoded string of the image.
+        /// </param>
+        /// <param name="isEncoded">
+        ///     Boolean true if is encoded.
+        /// </param>
+        public vCardPhoto(string data, bool isEncoded)
+        {
+
+            if (string.IsNullOrEmpty(data))
+            {
+                throw new ArgumentNullException("data");
+            }
+
+            this.encodedData = data;
 
         }
 
@@ -198,8 +223,19 @@ namespace Thought.vCards
         /// </remarks>
         public Bitmap GetBitmap()
         {
-            MemoryStream stream = new MemoryStream(this.data);
-            return new Bitmap(stream);
+            if (HasEncodedData)
+            {
+                var bytes = Convert.FromBase64String(this.EncodedData);
+
+                MemoryStream stream = new MemoryStream(bytes);
+                return new Bitmap(stream);
+            }
+            else
+            {
+                MemoryStream stream = new MemoryStream(this.data);
+                return new Bitmap(stream);
+            }
+
 
         }
 
@@ -230,6 +266,28 @@ namespace Thought.vCards
             get
             {
                 return this.data != null;
+            }
+        }
+
+        /// <summary>
+        /// property used to check if the data is already encoded in base64
+        /// </summary>
+        public bool HasEncodedData
+        {
+            get
+            {
+                return this.encodedData != null;
+            }
+        }
+
+        /// <summary>
+        /// get base64 encoded data
+        /// </summary>
+        public string EncodedData
+        {
+            get
+            {
+                return this.encodedData;
             }
         }
 

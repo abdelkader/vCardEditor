@@ -22,7 +22,7 @@ namespace Thought.vCards
         private bool embedLocalImages;
         private vCardStandardWriterOptions options;
         private string productId;
-
+        private const string TYPE = "TYPE";
 
         /// <summary>
         ///     The characters that are escaped per the original
@@ -156,7 +156,7 @@ namespace Thought.vCards
             // See section 2.1.1 of RFC 2426.
 
             properties.Add(new vCardProperty("BEGIN", "VCARD"));
-
+            properties.Add(new vCardProperty("VERSION", "3.0"));
             BuildProperties_NAME(
                 properties,
                 card);
@@ -196,6 +196,8 @@ namespace Thought.vCards
             BuildProperties_GEO(
                 properties,
                 card);
+
+            BuildProperties_IMPP(properties, card);
 
             BuildProperties_KEY(
                 properties,
@@ -257,6 +259,8 @@ namespace Thought.vCards
                 properties,
                 card);
 
+            BuildProperties_XSOCIALPROFILE(properties, card);
+
             BuildProperties_X_WAB_GENDER(
                 properties,
                 card);
@@ -309,7 +313,7 @@ namespace Thought.vCards
 
                     values.Add(string.Empty);
                     values.Add(string.Empty);
-                    values.Add(address.Street);
+                    values.Add(!string.IsNullOrEmpty(address.Street) ? address.Street.Replace("\r\n", "\n") : string.Empty);
                     values.Add(address.City);
                     values.Add(address.Region);
                     values.Add(address.PostalCode);
@@ -319,22 +323,27 @@ namespace Thought.vCards
                         new vCardProperty("ADR", values);
 
                     if (address.IsDomestic)
-                        property.Subproperties.Add("DOM");
+                        property.Subproperties.Add(TYPE, "DOM");
 
                     if (address.IsInternational)
-                        property.Subproperties.Add("INTL");
+                        property.Subproperties.Add(TYPE, "INTL");
 
                     if (address.IsParcel)
-                        property.Subproperties.Add("PARCEL");
+                        property.Subproperties.Add(TYPE, "PARCEL");
 
                     if (address.IsPostal)
-                        property.Subproperties.Add("POSTAL");
+                        property.Subproperties.Add(TYPE, "POSTAL");
 
                     if (address.IsHome)
-                        property.Subproperties.Add("HOME");
+                        property.Subproperties.Add(TYPE, "HOME");
 
                     if (address.IsWork)
-                        property.Subproperties.Add("WORK");
+                        property.Subproperties.Add(TYPE, "WORK");
+
+                    if (address.IsPreferred)
+                    {
+                        property.Subproperties.Add(TYPE, "PREF");
+                    }
 
                     properties.Add(property);
 
@@ -359,16 +368,16 @@ namespace Thought.vCards
             // The BDAY property indicates the birthdate
             // of the person.  The output format here is based on
             // Microsoft Outlook, which writes the date as YYYMMDD.
+            // FIXES DateFormat with ToString
 
             if (card.BirthDate.HasValue)
             {
 
                 vCardProperty property =
-                    new vCardProperty("BDAY", card.BirthDate.Value);
+                    new vCardProperty("BDAY", card.BirthDate.Value.ToString("yyyy-MM-dd"));
 
                 properties.Add(property);
             }
-
         }
 
         #endregion
@@ -467,64 +476,81 @@ namespace Thought.vCards
 
                 if (emailAddress.IsPreferred)
                 {
-                    property.Subproperties.Add("PREF");
+                    property.Subproperties.Add(TYPE, "PREF");
                 }
 
                 switch (emailAddress.EmailType)
                 {
 
                     case vCardEmailAddressType.Internet:
-                        property.Subproperties.Add("INTERNET");
+                        property.Subproperties.Add(TYPE, "INTERNET");
                         break;
 
                     case vCardEmailAddressType.AOL:
-                        property.Subproperties.Add("AOL");
+                        property.Subproperties.Add(TYPE, "AOL");
                         break;
 
                     case vCardEmailAddressType.AppleLink:
-                        property.Subproperties.Add("AppleLink");
+                        property.Subproperties.Add(TYPE, "AppleLink");
                         break;
 
                     case vCardEmailAddressType.AttMail:
-                        property.Subproperties.Add("ATTMail");
+                        property.Subproperties.Add(TYPE, "ATTMail");
                         break;
 
                     case vCardEmailAddressType.CompuServe:
-                        property.Subproperties.Add("CIS");
+                        property.Subproperties.Add(TYPE, "CIS");
                         break;
 
                     case vCardEmailAddressType.eWorld:
-                        property.Subproperties.Add("eWorld");
+                        property.Subproperties.Add(TYPE, "eWorld");
                         break;
 
                     case vCardEmailAddressType.IBMMail:
-                        property.Subproperties.Add("IBMMail");
+                        property.Subproperties.Add(TYPE, "IBMMail");
                         break;
 
                     case vCardEmailAddressType.MCIMail:
-                        property.Subproperties.Add("MCIMail");
+                        property.Subproperties.Add(TYPE, "MCIMail");
                         break;
 
                     case vCardEmailAddressType.PowerShare:
-                        property.Subproperties.Add("POWERSHARE");
+                        property.Subproperties.Add(TYPE, "POWERSHARE");
                         break;
 
                     case vCardEmailAddressType.Prodigy:
-                        property.Subproperties.Add("PRODIGY");
+                        property.Subproperties.Add(TYPE, "PRODIGY");
                         break;
 
                     case vCardEmailAddressType.Telex:
-                        property.Subproperties.Add("TLX");
+                        property.Subproperties.Add(TYPE, "TLX");
                         break;
 
                     case vCardEmailAddressType.X400:
-                        property.Subproperties.Add("X400");
+                        property.Subproperties.Add(TYPE, "X400");
                         break;
 
                     default:
-                        property.Subproperties.Add("INTERNET");
+                        property.Subproperties.Add(TYPE, "INTERNET");
                         break;
 
+                }
+
+                switch (emailAddress.ItemType)
+                {
+                    case ItemType.UNSPECIFIED:
+                        //do nothing
+                        break;
+                    case ItemType.HOME:
+                        property.Subproperties.Add(TYPE, ItemType.HOME.ToString());
+                        break;
+                    case ItemType.WORK:
+                        property.Subproperties.Add(TYPE, ItemType.WORK.ToString());
+                        break;
+
+                    default:
+
+                        break;
                 }
 
                 properties.Add(property);
@@ -588,14 +614,76 @@ namespace Thought.vCards
 
         }
 
-        #endregion
+    #endregion
 
-        #region [ BuildProperties_KEY ]
 
-        /// <summary>
-        ///     Builds KEY properties.
-        /// </summary>
-        private void BuildProperties_KEY(
+    private void BuildProperties_IMPP(vCardPropertyCollection properties, vCard card)
+    {
+
+      // adding support for IMPP (IM handles) in the vCard
+      //iOS outputs this => IMPP;X-SERVICE-TYPE=Skype;type=HOME;type=pref:skype:skypeusernameee
+
+
+
+      foreach (var im in card.IMs)
+      {
+
+        vCardProperty property = new vCardProperty();
+        property.Name = "IMPP";
+
+        string prefix = IMTypeUtils.GetIMTypePropertyPrefix(im.ServiceType);
+        string suffix = IMTypeUtils.GetIMTypePropertySuffix(im.ServiceType);
+
+        if (!string.IsNullOrEmpty(prefix) && !string.IsNullOrEmpty(suffix))
+        {
+          property.Subproperties.Add("X-SERVICE-TYPE", prefix);
+          property.Value = string.Concat(suffix, ":", im.Handle);
+        }
+        else
+        {
+          property.Value = im.Handle;
+        }
+
+
+        if (im.IsPreferred)
+        {
+          property.Subproperties.Add(TYPE, "PREF");
+        }
+
+        switch (im.ItemType)
+        {
+
+          case ItemType.HOME:
+            property.Subproperties.Add(TYPE, ItemType.HOME.ToString());
+            break;
+          case ItemType.WORK:
+            property.Subproperties.Add(TYPE, ItemType.WORK.ToString());
+            break;
+
+          case ItemType.UNSPECIFIED:
+          default:
+            property.Subproperties.Add(TYPE, "OTHER");
+            break;
+        }
+
+        properties.Add(property);
+
+        if (im.ServiceType == IMServiceType.AIM)
+        {
+          var propertyXAim = new vCardProperty("X-AIM", im.Handle);
+          properties.Add(propertyXAim);
+        }
+      }
+
+    }
+
+
+    #region [ BuildProperties_KEY ]
+
+    /// <summary>
+    ///     Builds KEY properties.
+    /// </summary>
+    private void BuildProperties_KEY(
             vCardPropertyCollection properties,
             vCard card)
         {
@@ -609,7 +697,7 @@ namespace Thought.vCards
 
                 property.Name = "KEY";
                 property.Value = certificate.Data;
-                property.Subproperties.Add(certificate.KeyType);
+                property.Subproperties.Add(TYPE, certificate.KeyType);
 
                 properties.Add(property);
 
@@ -635,26 +723,23 @@ namespace Thought.vCards
                     vCardProperty property = new vCardProperty("LABEL", label.Text);
 
                     if (label.IsDomestic)
-                        property.Subproperties.Add("DOM");
+                        property.Subproperties.Add(TYPE, "DOM");
 
                     if (label.IsInternational)
-                        property.Subproperties.Add("INTL");
+                        property.Subproperties.Add(TYPE, "INTL");
 
                     if (label.IsParcel)
-                        property.Subproperties.Add("PARCEL");
+                        property.Subproperties.Add(TYPE, "PARCEL");
 
                     if (label.IsPostal)
-                        property.Subproperties.Add("POSTAL");
+                        property.Subproperties.Add(TYPE, "POSTAL");
 
                     if (label.IsHome)
-                        property.Subproperties.Add("HOME");
+                        property.Subproperties.Add(TYPE, "HOME");
 
                     if (label.IsWork)
-                        property.Subproperties.Add("WORK");
+                        property.Subproperties.Add(TYPE, "WORK");
 
-                    // Give a hint to use QUOTED-PRINTABLE.
-
-                    property.Subproperties.Add("ENCODING", "QUOTED-PRINTABLE");
                     properties.Add(property);
 
 
@@ -803,14 +888,13 @@ namespace Thought.vCards
                     vCardProperty property = new vCardProperty();
 
                     property.Name = "NOTE";
-                    property.Value = note.Text;
+                    property.Value = note.Text.Replace("\r\n", "\n");
 
                     if (!string.IsNullOrEmpty(note.Language))
                     {
                         property.Subproperties.Add("language", note.Language);
                     }
 
-                    property.Subproperties.Add("ENCODING", "QUOTED-PRINTABLE");
                     properties.Add(property);
 
                 }
@@ -839,8 +923,20 @@ namespace Thought.vCards
             if (!string.IsNullOrEmpty(card.Organization))
             {
 
-                vCardProperty property =
-                    new vCardProperty("ORG", card.Organization);
+                vCardProperty property;
+           
+                // Add department also
+                if (!string.IsNullOrEmpty(card.Department))
+                {
+                    vCardValueCollection values = new vCardValueCollection(';');
+                    values.Add(card.Organization);
+                    values.Add(card.Department);
+                    property = new vCardProperty("ORG", values);
+                }
+                else
+                {
+                    property = new vCardProperty("ORG", card.Organization);
+                }
 
                 properties.Add(property);
 
@@ -860,80 +956,89 @@ namespace Thought.vCards
             foreach (vCardPhoto photo in card.Photos)
             {
 
-                if (photo.Url == null)
+              if (photo.Url == null)
+              {
+
+                // This photo does not have a URL associated
+                // with it.  Therefore a property can be
+                // generated only if the image data is loaded.
+                // Otherwise there is not enough information.
+
+                vCardProperty property = null;
+
+                if (photo.IsLoaded)
+                {
+                  property = new vCardProperty("PHOTO", photo.GetBytes());
+                }
+                else if (photo.HasEncodedData)
+                {
+                  property = new vCardProperty("PHOTO", photo.EncodedData);
+                }
+
+                if (property != null)
+                {
+                  property.Subproperties.Add("TYPE", "JPEG");
+                  properties.Add(property);
+                }
+                
+              }
+              else
+              {
+
+                // This photo has a URL associated with it.  The
+                // PHOTO property can either be linked as an image
+                // or embedded, if desired.
+
+                bool doEmbedded =
+                  photo.Url.IsFile ? this.embedLocalImages : this.embedInternetImages;
+
+                if (doEmbedded)
                 {
 
-                    // This photo does not have a URL associated
-                    // with it.  Therefore a property can be
-                    // generated only if the image data is loaded.
-                    // Otherwise there is not enough information.
+                  // According to the settings of the card writer,
+                  // this linked image should be embedded into the
+                  // vCard data.  Attempt to fetch the data.
 
-                    if (photo.IsLoaded)
-                    {
+                  try
+                  {
+                    photo.Fetch();
+                  }
+                  catch
+                  {
 
-                        properties.Add(
-                            new vCardProperty("PHOTO", photo.GetBytes()));
+                    // An error was encountered.  The image can
+                    // still be written as a link, however.
 
-                    }
+                    doEmbedded = false;
+                  }
 
+                }
+
+                // At this point, doEmbedded is true only if (a) the
+                // writer was configured to embed the image, and (b)
+                // the image was successfully downloaded.
+
+                if (doEmbedded)
+                {
+                  properties.Add(
+                    new vCardProperty("PHOTO", photo.GetBytes()));
                 }
                 else
                 {
 
-                    // This photo has a URL associated with it.  The
-                    // PHOTO property can either be linked as an image
-                    // or embedded, if desired.
+                  vCardProperty uriPhotoProperty =
+                    new vCardProperty("PHOTO");
 
-                    bool doEmbedded =
-                        photo.Url.IsFile ? this.embedLocalImages : this.embedInternetImages;
+                  // Set the VALUE property to indicate that
+                  // the data for the photo is a URI.
 
-                    if (doEmbedded)
-                    {
+                  uriPhotoProperty.Subproperties.Add("VALUE", "URI");
+                  uriPhotoProperty.Value = photo.Url.ToString();
 
-                        // According to the settings of the card writer,
-                        // this linked image should be embedded into the
-                        // vCard data.  Attempt to fetch the data.
-
-                        try
-                        {
-                            photo.Fetch();
-                        }
-                        catch
-                        {
-
-                            // An error was encountered.  The image can
-                            // still be written as a link, however.
-
-                            doEmbedded = false;
-                        }
-
-                    }
-
-                    // At this point, doEmbedded is true only if (a) the
-                    // writer was configured to embed the image, and (b)
-                    // the image was successfully downloaded.
-
-                    if (doEmbedded)
-                    {
-                        properties.Add(
-                            new vCardProperty("PHOTO", photo.GetBytes()));
-                    }
-                    else
-                    {
-
-                        vCardProperty uriPhotoProperty =
-                            new vCardProperty("PHOTO");
-
-                        // Set the VALUE property to indicate that
-                        // the data for the photo is a URI.
-
-                        uriPhotoProperty.Subproperties.Add("VALUE", "URI");
-                        uriPhotoProperty.Value = photo.Url.ToString();
-
-                        properties.Add(uriPhotoProperty);
-                    }
-
+                  properties.Add(uriPhotoProperty);
                 }
+
+              }
             }
         }
 
@@ -975,7 +1080,7 @@ namespace Thought.vCards
             {
 
                 vCardProperty property =
-                    new vCardProperty("REV", card.RevisionDate.Value.ToString());
+                    new vCardProperty("REV", card.RevisionDate.Value.ToString("s") + "Z");
 
                 properties.Add(property);
 
@@ -1072,43 +1177,64 @@ namespace Thought.vCards
                 property.Name = "TEL";
 
                 if (phone.IsBBS)
-                    property.Subproperties.Add("BBS");
+                  property.Subproperties.Add(TYPE, "BBS");
 
                 if (phone.IsCar)
-                    property.Subproperties.Add("CAR");
+                    property.Subproperties.Add(TYPE, "CAR");
 
                 if (phone.IsCellular)
-                    property.Subproperties.Add("CELL");
+                    property.Subproperties.Add(TYPE, "CELL");
 
                 if (phone.IsFax)
-                    property.Subproperties.Add("FAX");
+                {
+                    if (!phone.IsHome && !phone.IsWork)
+                    {
+                        property.Subproperties.Add(TYPE, "OTHER");
+                    }
+                    property.Subproperties.Add(TYPE, "FAX");
+                }
 
                 if (phone.IsHome)
-                    property.Subproperties.Add("HOME");
+                    property.Subproperties.Add(TYPE, "HOME");
 
                 if (phone.IsISDN)
-                    property.Subproperties.Add("ISDN");
+                    property.Subproperties.Add(TYPE, "ISDN");
 
                 if (phone.IsMessagingService)
-                    property.Subproperties.Add("MSG");
+                    property.Subproperties.Add(TYPE, "MSG");
 
                 if (phone.IsModem)
-                    property.Subproperties.Add("MODEM");
+                    property.Subproperties.Add(TYPE, "MODEM");
 
                 if (phone.IsPager)
-                    property.Subproperties.Add("PAGER");
+                    property.Subproperties.Add(TYPE, "PAGER");
 
                 if (phone.IsPreferred)
-                    property.Subproperties.Add("PREF");
+                    property.Subproperties.Add(TYPE, "PREF");
 
                 if (phone.IsVideo)
-                    property.Subproperties.Add("VIDEO");
+                    property.Subproperties.Add(TYPE, "VIDEO");
 
                 if (phone.IsVoice)
-                    property.Subproperties.Add("VOICE");
+                {
+                    if (!phone.IsHome && !phone.IsWork)
+                    {
+                        property.Subproperties.Add(TYPE, "OTHER");
+                    }
+                    property.Subproperties.Add(TYPE, "VOICE");
+                }
 
                 if (phone.IsWork)
-                    property.Subproperties.Add("WORK");
+                    property.Subproperties.Add(TYPE, "WORK");
+
+                if (phone.IsiPhone)
+                {
+                    property.Subproperties.Add(TYPE, "IPHONE");
+                }
+                if (phone.IsMain)
+                {
+                    property.Subproperties.Add(TYPE, "MAIN");
+                }
 
                 property.Value = phone.FullNumber;
                 properties.Add(property);
@@ -1195,7 +1321,10 @@ namespace Thought.vCards
                         new vCardProperty("URL", webSite.Url.ToString());
 
                     if (webSite.IsWorkSite)
-                        property.Subproperties.Add("WORK");
+                        property.Subproperties.Add(TYPE, "WORK");
+                    // Add Subproperty for HOME aswell
+                    if (webSite.IsPersonalSite)
+                        property.Subproperties.Add(TYPE, "HOME");
 
                     properties.Add(property);
                 }
@@ -1205,6 +1334,32 @@ namespace Thought.vCards
         }
 
         #endregion
+
+
+        private void BuildProperties_XSOCIALPROFILE(vCardPropertyCollection properties, vCard card)
+        {
+
+            // adding support for X-SOCIALPROFILE) in the vCard
+
+
+            foreach (var sp in card.SocialProfiles)
+            {
+
+                vCardProperty property = new vCardProperty();
+                property.Name = "X-SOCIALPROFILE";
+
+                string propertyType = SocialProfileTypeUtils.GetSocialProfileServicePropertyType(sp.ServiceType);
+
+                property.Subproperties.Add("TYPE", propertyType);
+                property.Subproperties.Add("X-USER", sp.Username);
+                property.Value = sp.ProfileUrl;
+
+                properties.Add(property);
+
+            }
+
+        }
+
 
         #region [ BuildProperties_X_WAB_GENDER ]
 
@@ -1502,9 +1657,15 @@ namespace Thought.vCards
 
                     // A byte array should be encoded in BASE64 format.
 
-                    builder.Append(";ENCODING=BASE64:");
+                    builder.Append(";ENCODING=b:");
                     builder.Append(EncodeBase64((byte[])property.Value));
 
+                }
+                else if (property.Name.Equals("PHOTO", StringComparison.OrdinalIgnoreCase) && valueType == typeof(string))
+                {
+                    //already base64 encoded
+                    builder.Append(";ENCODING=b:");
+                    builder.Append(property.Value);
                 }
                 else if (valueType == typeof(vCardValueCollection))
                 {

@@ -13,7 +13,6 @@ namespace Thought.vCards
     /// <summary>
     ///     The type of a delivery address.
     /// </summary>
-    [Flags]
     public enum vCardDeliveryAddressTypes
     {
 
@@ -50,7 +49,12 @@ namespace Thought.vCards
         /// <summary>
         ///     A work delivery address.
         /// </summary>
-        Work
+        Work,
+        
+        /// <summary>
+        /// you can mark an address as Preferred type="pref" 
+        /// </summary>
+        Preferred
     }
 
 }

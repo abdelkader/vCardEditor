@@ -143,6 +143,52 @@ namespace Thought.vCards
             }
         }
 
+        /// <summary>
+        ///     Indicates an iphone
+        /// </summary>
+        /// <seealso cref="vCardPhoneTypes"/>
+        public bool IsiPhone
+        {
+            get
+            {
+                return (this.phoneType & vCardPhoneTypes.IPhone) == vCardPhoneTypes.IPhone;
+            }
+            set
+            {
+                if (value)
+                {
+                    this.phoneType = this.phoneType | vCardPhoneTypes.IPhone;
+                }
+                else
+                {
+                    this.phoneType = this.phoneType & ~vCardPhoneTypes.IPhone;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Indicates a main number
+        /// </summary>
+        /// <seealso cref="vCardPhoneTypes"/>
+        public bool IsMain
+        {
+            get
+            {
+                return (this.phoneType & vCardPhoneTypes.Main) == vCardPhoneTypes.Main;
+            }
+            set
+            {
+                if (value)
+                {
+                    this.phoneType = this.phoneType | vCardPhoneTypes.Main;
+                }
+                else
+                {
+                    this.phoneType = this.phoneType & ~vCardPhoneTypes.Main;
+                }
+            }
+        }
+
 
         /// <summary>
         ///     Indicates a fax number.

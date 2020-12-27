@@ -77,6 +77,8 @@
     <Compile Include="Thought.vCards\vCardException.cs" />
     <Compile Include="Thought.vCards\vCardFormat.cs" />
     <Compile Include="Thought.vCards\vCardGender.cs" />
+    <Compile Include="Thought.vCards\vCardIMPP.cs" />
+    <Compile Include="Thought.vCards\vCardIMPPCollection.cs" />
     <Compile Include="Thought.vCards\vCardNote.cs" />
     <Compile Include="Thought.vCards\vCardNoteCollection.cs" />
     <Compile Include="Thought.vCards\vCardPhone.cs" />
@@ -87,6 +89,8 @@
     <Compile Include="Thought.vCards\vCardProperty.cs" />
     <Compile Include="Thought.vCards\vCardPropertyCollection.cs" />
     <Compile Include="Thought.vCards\vCardReader.cs" />
+    <Compile Include="Thought.vCards\vCardSocialProfile.cs" />
+    <Compile Include="Thought.vCards\vCardSocialProfileCollection.cs" />
     <Compile Include="Thought.vCards\vCardSource.cs" />
     <Compile Include="Thought.vCards\vCardSourceCollection.cs" />
     <Compile Include="Thought.vCards\vCardStandardReader.cs" />

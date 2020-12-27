@@ -6,6 +6,7 @@
  * ======================================================================= */
 
 using System;
+using System.Collections.Generic;
 
 namespace Thought.vCards
 {
@@ -18,7 +19,7 @@ namespace Thought.vCards
     public class vCardDeliveryLabel
     {
 
-        private vCardDeliveryAddressTypes addressType;
+		private List<vCardDeliveryAddressTypes> addressType;
         private string text;
 
 
@@ -27,6 +28,7 @@ namespace Thought.vCards
         /// </summary>
         public vCardDeliveryLabel()
         {
+			this.addressType = new List<vCardDeliveryAddressTypes>();
         }
 
 
@@ -42,170 +44,107 @@ namespace Thought.vCards
         public vCardDeliveryLabel(string text)
         {
             this.text = text == null ? string.Empty : text;
+			this.addressType = new List<vCardDeliveryAddressTypes>();
         }
 
 
-        /// <summary>
-        ///     The type of delivery address for the label.
-        /// </summary>
-        public vCardDeliveryAddressTypes AddressType
-        {
-            get
-            {
-                return this.addressType;
-            }
-            set
-            {
-                this.addressType = value;
-            }
-        }
+		/// <summary>
+		///     The type of postal address.
+		/// </summary>
+		public List<vCardDeliveryAddressTypes> AddressType
+		{
+			get
+			{
+				return this.addressType;
+			}
+			set
+			{
+				this.addressType = value;
+			}
+		}
 
 
-        /// <summary>
-        ///     Indicates a domestic delivery address.
-        /// </summary>
-        public bool IsDomestic
-        {
-            get
-            {
-                return (this.addressType & vCardDeliveryAddressTypes.Domestic) ==
-                    vCardDeliveryAddressTypes.Domestic;
-            }
-            set
-            {
-
-                if (value)
-                {
-                    this.addressType |= vCardDeliveryAddressTypes.Domestic;
-                }
-                else
-                {
-                    this.addressType &= ~vCardDeliveryAddressTypes.Domestic;
-                }
-
-            }
-        }
+		/// <summary>
+		///     Indicates a domestic delivery address.
+		/// </summary>
+		public bool IsDomestic
+		{
+			get
+			{
+				return (addressType.Contains(vCardDeliveryAddressTypes.Domestic));
+			}
+		}
 
 
-        /// <summary>
-        ///     Indicates a home address.
-        /// </summary>
-        public bool IsHome
-        {
-            get
-            {
-                return (this.addressType & vCardDeliveryAddressTypes.Home) ==
-                    vCardDeliveryAddressTypes.Home;
-            }
-            set
-            {
-                if (value)
-                {
-                    this.addressType |= vCardDeliveryAddressTypes.Home;
-                }
-                else
-                {
-                    this.addressType &= ~vCardDeliveryAddressTypes.Home;
-                }
-
-            }
-        }
+		/// <summary>
+		///     Indicates a home address.
+		/// </summary>
+		public bool IsHome
+		{
+			get
+			{
+				return (addressType.Contains(vCardDeliveryAddressTypes.Home));
+			}
+		}
 
 
-        /// <summary>
-        ///     Indicates an international address.
-        /// </summary>
-        public bool IsInternational
-        {
-            get
-            {
-                return (this.addressType & vCardDeliveryAddressTypes.International) ==
-                    vCardDeliveryAddressTypes.International;
-            }
-            set
-            {
-                if (value)
-                {
-                    this.addressType |= vCardDeliveryAddressTypes.International;
-                }
-                else
-                {
-                    this.addressType &= ~vCardDeliveryAddressTypes.International;
-                }
-            }
-        }
+		/// <summary>
+		///     Indicates an international address.
+		/// </summary>
+		public bool IsInternational
+		{
+			get
+			{
+				return (addressType.Contains(vCardDeliveryAddressTypes.International));
+			}
+		}
 
 
-        /// <summary>
-        ///     Indicates a parcel delivery address.
-        /// </summary>
-        public bool IsParcel
-        {
-            get
-            {
-                return (this.addressType & vCardDeliveryAddressTypes.Parcel) ==
-                    vCardDeliveryAddressTypes.Parcel;
-            }
-            set
-            {
-                if (value)
-                {
-                    this.addressType |= vCardDeliveryAddressTypes.Parcel;
-                }
-                else
-                {
-                    this.addressType &= ~vCardDeliveryAddressTypes.Parcel;
-                }
-            }
-        }
+		/// <summary>
+		///     Indicates a parcel delivery address.
+		/// </summary>
+		public bool IsParcel
+		{
+			get
+			{
+				return (addressType.Contains(vCardDeliveryAddressTypes.Parcel));
+			}
+		}
 
 
-        /// <summary>
-        ///     Indicates a postal address.
-        /// </summary>
-        public bool IsPostal
-        {
-            get
-            {
-                return (this.addressType & vCardDeliveryAddressTypes.Postal) ==
-                    vCardDeliveryAddressTypes.Postal;
-            }
-            set
-            {
-                if (value)
-                {
-                    this.addressType |= vCardDeliveryAddressTypes.Postal;
-                }
-                else
-                {
-                    this.addressType &= ~vCardDeliveryAddressTypes.Postal;
-                }
-            }
-        }
+		/// <summary>
+		///     Indicates a postal address.
+		/// </summary>
+		public bool IsPostal
+		{
+			get
+			{
+				return (addressType.Contains(vCardDeliveryAddressTypes.Postal));
+			}
+		}
 
 
-        /// <summary>
-        ///     Indicates a work address.
-        /// </summary>
-        public bool IsWork
-        {
-            get
-            {
-                return (this.addressType & vCardDeliveryAddressTypes.Work) ==
-                    vCardDeliveryAddressTypes.Work;
-            }
-            set
-            {
-                if (value)
-                {
-                    this.addressType |= vCardDeliveryAddressTypes.Work;
-                }
-                else
-                {
-                    this.addressType &= ~vCardDeliveryAddressTypes.Work;
-                }
-            }
-        }
+		/// <summary>
+		///     Indicates a work address.
+		/// </summary>
+		public bool IsWork
+		{
+			get
+			{
+				return (addressType.Contains(vCardDeliveryAddressTypes.Work));
+			}
+		}
+
+		/// <summary>
+		///     Indicates a preferred address
+		/// </summary>
+		public bool IsPreferred
+		{
+			get
+			{
+				return (addressType.Contains(vCardDeliveryAddressTypes.Preferred));
+			}
+		}
 
 
         /// <summary>

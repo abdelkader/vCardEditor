@@ -72,6 +72,8 @@ namespace Thought.vCards
         private vCardPhotoCollection photos;
         private vCardSourceCollection sources;
         private vCardWebsiteCollection websites;
+        private vCardIMPPCollection ims;
+        private vCardSocialProfileCollection sps;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="vCard"/> class.
@@ -111,6 +113,8 @@ namespace Thought.vCards
             this.photos = new vCardPhotoCollection();
             this.sources = new vCardSourceCollection();
             this.websites = new vCardWebsiteCollection();
+            this.ims = new vCardIMPPCollection();
+            this.sps = new vCardSocialProfileCollection();
         }
 
 
@@ -147,32 +151,9 @@ namespace Thought.vCards
                 vCardReader reader = new vCardStandardReader();
                 reader.ReadInto(this, streamReader);
             }
-            
-            //String example = "BEGIN:VCARD\nVERSION:3.0\nN:;Saad;;;\nFN:Saad\nTEL;TYPE=CELL:418-271-3874\nTEL;TYPE=HOME:418-524-7721\nEND:VCARD";
-            // using (MemoryStream s = GenerateStreamFromString(example))
-            //{
-            //    vCardReader reader = new vCardStandardReader();
-            //    TextReader streamReader = new StreamReader(s, Encoding.Default);
-            //    reader.ReadInto(this, streamReader);
-            //}
 
         }
 
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="s"></param>
-        /// <returns></returns>
-        public MemoryStream GenerateStreamFromString(string s)
-        {
-            MemoryStream stream = new MemoryStream();
-            StreamWriter writer = new StreamWriter(stream);
-            writer.Write(s);
-            writer.Flush();
-            stream.Position = 0;
-            return stream;
-        }
 
         /// <summary>
         ///     The security access classification of the vCard owner (e.g. private).
@@ -762,6 +743,22 @@ namespace Thought.vCards
             {
                 return this.websites;
             }
+        }
+
+        /// <summary>
+        /// IMPP Collection 
+        /// </summary>
+        public vCardIMPPCollection IMs
+        {
+            get { return this.ims; }
+        }
+
+        /// <summary>
+        /// SocialProfile collection for the vCard in the X-SOCIALPROFILE property
+        /// </summary>
+        public vCardSocialProfileCollection SocialProfiles
+        {
+            get { return this.sps; }
         }
 
     }

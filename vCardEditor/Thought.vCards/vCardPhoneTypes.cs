@@ -107,7 +107,18 @@ namespace Thought.vCards
         /// <summary>
         ///     Indicates a work and voice number.
         /// </summary>
-        WorkVoice = Work + Voice
+        WorkVoice = Work + Voice,
+
+        /// <summary>
+        /// to handle iPhone type in NAB for phone
+        /// </summary>
+        IPhone = 8192,
+
+        /// <summary>
+        /// to handle Main type for NAB
+        /// </summary>
+        Main = 16384
+
     }
 
 }

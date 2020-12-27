@@ -94,4 +94,24 @@ namespace Thought.vCards
 
     }
 
+    /// <summary>
+    /// Identifies the HOME,WORK,ETC typing of an element
+    /// </summary>
+    public enum ItemType
+    {
+        /// <summary>
+        /// default - unknown
+        /// </summary>
+        UNSPECIFIED =0,
+        /// <summary>
+        /// work
+        /// </summary>
+        WORK = 1,
+        /// <summary>
+        /// home
+        /// </summary>
+        HOME =2,
+
+    }
+
 }
