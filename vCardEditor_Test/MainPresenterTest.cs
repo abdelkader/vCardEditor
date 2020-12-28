@@ -5,7 +5,6 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VCFEditor;
 using VCFEditor.View;
-using Moq;
 using VCFEditor.Presenter;
 using VCFEditor.Model;
 using System.ComponentModel;
