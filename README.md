@@ -11,8 +11,9 @@ Also, I used the MVP pattern from this example :
 https://github.com/lennykean/NoteCards
 
 Relase note:
-0.2 - Updated the vCard library to https://github.com/acastroy/Thought.vCards
-    - Replaced Moq with nsubstitute (Test mocking library).
+*0.2*
+- Updated the vCard library to https://github.com/acastroy/Thought.vCards
+- Replaced Moq with nsubstitute (Test mocking library).
 
 
 
