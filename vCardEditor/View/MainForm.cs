@@ -91,32 +91,22 @@ namespace vCardEditor.View
         public void DisplayContactDetail(vCard card, string FileName)
         {
             if (card == null)
-                throw new ArgumentException("card");
-
-            //set the title with the filename.
-            this.Text = string.Format("{0} - vCard Editor", FileName);
-
+                throw new ArgumentException("card must be valid!");
             
+            this.Text = string.Format("{0} - vCard Editor", FileName);
             gbContactDetail.Enabled = true;
             gbNameList.Enabled = true;
 
-            //Formatted Name
+            
+            SetSummaryValue(FormattedTitleValue, card.Title);
             SetSummaryValue(FormattedNameValue, card.FormattedName);
-
-            //Home Phone
             SetSummaryValue(HomePhoneValue, card.Phones.GetFirstChoice(vCardPhoneTypes.Home));
-
-            //Cellular Phone
             SetSummaryValue(CellularPhoneValue, card.Phones.GetFirstChoice(vCardPhoneTypes.Cellular));
-
-            //Email Address 
+            SetSummaryValue(WorkPhoneValue, card.Phones.GetFirstChoice(vCardPhoneTypes.Work));
             SetSummaryValue(EmailAddressValue, card.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet));
-
-            // Personal Home Page
             SetSummaryValue(PersonalWebSiteValue, card.Websites.GetFirstChoice(vCardWebsiteTypes.Personal));
 
-
-            if (card.Photos.Count > 0)
+            if (card.Photos.Any())
             {
                 var photo = card.Photos[0];
                 try
@@ -213,26 +203,22 @@ namespace vCardEditor.View
         private vCard getvCard()
         {
             vCard card = new vCard();
+            card.Title = this.FormattedTitleValue.Text;
             card.FormattedName = this.FormattedNameValue.Text;
-
+            
             if (!string.IsNullOrEmpty(HomePhoneValue.Text))
-            {
-                card.Phones.Add(
-                    new vCardPhone(HomePhoneValue.Text, vCardPhoneTypes.Home));
-            }
-
+                card.Phones.Add(new vCardPhone(HomePhoneValue.Text, vCardPhoneTypes.Home));
             if (!string.IsNullOrEmpty(CellularPhoneValue.Text))
-            {
-                card.Phones.Add(
-                    new vCardPhone(CellularPhoneValue.Text, vCardPhoneTypes.Cellular));
-            }
+                card.Phones.Add(new vCardPhone(CellularPhoneValue.Text, vCardPhoneTypes.Cellular));
+            if (!string.IsNullOrEmpty(WorkPhoneValue.Text))
+                card.Phones.Add(new vCardPhone(WorkPhoneValue.Text, vCardPhoneTypes.Work));
 
             if (!string.IsNullOrEmpty(this.EmailAddressValue.Text))
-            {
-                card.EmailAddresses.Add(
-                    new vCardEmailAddress(this.EmailAddressValue.Text));
-            }
-
+                card.EmailAddresses.Add(new vCardEmailAddress(this.EmailAddressValue.Text));
+            
+            if (!string.IsNullOrEmpty(this.PersonalWebSiteValue.Text))
+                card.Websites.Add(new vCardWebsite(this.PersonalWebSiteValue.Text));
+            
             return card;
         }
 
@@ -338,6 +324,11 @@ namespace vCardEditor.View
             return result;
         }
 
+        /// <summary>
+        /// Load the config dialog
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void miConfig_Click(object sender, EventArgs e)
         {
             ConfigDialog dialog = new ConfigDialog();
