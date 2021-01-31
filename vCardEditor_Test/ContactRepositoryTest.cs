@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Thought.vCards;
 using vCardEditor.Repository;
 using VCFEditor.Repository;
 
@@ -21,6 +22,93 @@ namespace vCardEditor_Test
             var repo = Substitute.For<ContactRepository>(fileHandler);
 
             Assert.AreEqual(repo.LoadContacts("name")[0].Name, "Oum Alaâ");
+        }
+
+        [TestMethod]
+        public void NewFileOpened_SaveDirtyCellPhone_NotNullWithNotNull_Test()
+        {
+            var fileHandler = Substitute.For<IFileHandler>();
+            fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfFourEntry);
+            
+            var repo = Substitute.For<ContactRepository>(fileHandler);
+            repo.LoadContacts("name");
+            repo.Contacts[0].isDirty=true;
+            
+            string phone = "0011223344";
+            var newCard = new vCard();
+            newCard.Phones.Add(new vCardPhone(phone, vCardPhoneTypes.Cellular));
+            
+            repo.SaveDirtyVCard(0, newCard);
+
+
+            var card = repo.Contacts[0].card;
+            Assert.AreEqual(card.Phones.GetFirstChoice(vCardPhoneTypes.Cellular).FullNumber, phone);
+        }
+
+        [TestMethod]
+        public void NewFileOpened_SaveDirtyCellPhone_NotNullWithNull_Test()
+        {
+            var fileHandler = Substitute.For<IFileHandler>();
+            fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfFourEntry);
+
+            var repo = Substitute.For<ContactRepository>(fileHandler);
+            repo.LoadContacts("name");
+            repo.Contacts[0].isDirty = true;
+
+            repo.SaveDirtyVCard(0, new vCard());
+
+
+            var card = repo.Contacts[0].card;
+            Assert.AreEqual(card.Phones.GetFirstChoice(vCardPhoneTypes.Cellular).FullNumber, string.Empty);
+        }
+
+        [TestMethod]
+        public void NewFileOpened_SaveDirtyCellPhone_NullWithNotNull_Test()
+        {
+            var fileHandler = Substitute.For<IFileHandler>();
+            fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfFourEntry);
+            var repo = Substitute.For<ContactRepository>(fileHandler);
+            repo.LoadContacts("name");
+            repo.Contacts[2].isDirty = true;
+
+            string phone = "0011223344";
+            var newCard = new vCard();
+            newCard.Phones.Add(new vCardPhone(phone, vCardPhoneTypes.Cellular));
+            repo.SaveDirtyVCard(2, newCard);
+
+            var card = repo.Contacts[2].card;
+            Assert.AreEqual(card.Phones.GetFirstChoice(vCardPhoneTypes.Cellular).FullNumber, phone);
+        }
+
+        [TestMethod]
+        public void NewFileOpened_SaveDirtyCellPhone_NullWithNull_Test()
+        {
+            var fileHandler = Substitute.For<IFileHandler>();
+            fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfFourEntry);
+            var repo = Substitute.For<ContactRepository>(fileHandler);
+            repo.LoadContacts("name");
+            repo.Contacts[3].isDirty = true;
+          
+            repo.SaveDirtyVCard(3, new vCard());
+
+            var card = repo.Contacts[2].card;
+            Assert.IsNull(card.Phones.GetFirstChoice(vCardPhoneTypes.Cellular));
+        }
+
+
+        [TestMethod]
+        public void NewFileOpened_v21_Test()
+        {
+            var fileHandler = Substitute.For<IFileHandler>();
+            fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfWikiv21);
+            var repo = Substitute.For<ContactRepository>(fileHandler);
+            repo.LoadContacts("name");
+            repo.Contacts[0].isDirty = true;
+
+            repo.SaveDirtyVCard(0, new vCard());
+
+            //var card = repo.Contacts[2].card;
+            //Assert.IsNull(card.Phones.GetFirstChoice(vCardPhoneTypes.Cellular));
         }
     }
 }

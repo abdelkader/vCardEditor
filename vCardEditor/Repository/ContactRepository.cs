@@ -6,6 +6,7 @@ using Thought.vCards;
 using VCFEditor.Model;
 using System.ComponentModel;
 using vCardEditor.Repository;
+using System.Collections.Generic;
 
 namespace VCFEditor.Repository
 {
@@ -190,37 +191,91 @@ namespace VCFEditor.Repository
                 vCard card = _contacts[index].card;
                 card.FormattedName = NewCard.FormattedName;
 
-
-                //HomePhone
-                if (card.Phones.GetFirstChoice(vCardPhoneTypes.Home) != null)
-                    card.Phones.GetFirstChoice(vCardPhoneTypes.Home).FullNumber = NewCard.Phones.GetFirstChoice(vCardPhoneTypes.Home).FullNumber;
-                else
-                {
-                    if (NewCard.Phones.GetFirstChoice(vCardPhoneTypes.Home) != null
-                        && !string.IsNullOrEmpty(NewCard.Phones.GetFirstChoice(vCardPhoneTypes.Home).FullNumber))
-                        card.Phones.Add(new vCardPhone(NewCard.Phones.GetFirstChoice(vCardPhoneTypes.Home).FullNumber, vCardPhoneTypes.Home));
-                }
-
-
-                //Cellular
-                if (card.Phones.GetFirstChoice(vCardPhoneTypes.Cellular) != null)
-                    card.Phones.GetFirstChoice(vCardPhoneTypes.Cellular).FullNumber = NewCard.Phones.GetFirstChoice(vCardPhoneTypes.Cellular).FullNumber;
-                else
-                {
-                    if (NewCard.Phones.GetFirstChoice(vCardPhoneTypes.Cellular) != null
-                        && !string.IsNullOrEmpty(NewCard.Phones.GetFirstChoice(vCardPhoneTypes.Cellular).FullNumber))
-                        card.Phones.Add(new vCardPhone(NewCard.Phones.GetFirstChoice(vCardPhoneTypes.Cellular).FullNumber, vCardPhoneTypes.Cellular));
-                }
-
-                if (card.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet) != null)
-                    card.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet).Address = NewCard.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet).Address;
-                if (card.Websites.GetFirstChoice(vCardWebsiteTypes.Personal) != null)
-                    card.Websites.GetFirstChoice(vCardWebsiteTypes.Personal).Url = NewCard.Websites.GetFirstChoice(vCardWebsiteTypes.Personal).Url;
-
+                SavePhone(NewCard, card);
+                SaveEmail(NewCard, card);
+                SaveWebUrl(NewCard, card);
 
                 _contacts[index].isDirty = false;
                 _dirty = false;
             }
+        }
+
+
+        private void SaveWebUrl(vCard NewCard, vCard card)
+        {
+            var type = typeof(vCardWebsiteTypes);
+            var names = Enum.GetNames(type);
+
+            foreach (var name in names)
+            {
+                var urlType = (vCardWebsiteTypes)Enum.Parse(type, name);
+
+                if (NewCard.Websites.GetFirstChoice(urlType) != null)
+                {
+                    if (card.Websites.GetFirstChoice(urlType) != null)
+                        card.Websites.GetFirstChoice(urlType).Url = NewCard.Websites.GetFirstChoice(urlType).Url;
+                    else
+                        card.Websites.Add(new vCardWebsite(NewCard.Websites.GetFirstChoice(urlType).Url, urlType));
+                }
+                else
+                {
+                    if (card.Websites.GetFirstChoice(urlType) != null)
+                        card.Websites.GetFirstChoice(urlType).Url = string.Empty;
+
+                }
+            }
+        }
+
+        private void SavePhone(vCard NewCard, vCard card)
+        {
+            var type = typeof(vCardPhoneTypes);
+            var names = Enum.GetNames(type);
+
+            foreach (var name in names)
+            {
+                var phoneType = (vCardPhoneTypes)Enum.Parse(type, name);
+                
+                if (NewCard.Phones.GetFirstChoice(phoneType) != null)
+                {
+                    if (card.Phones.GetFirstChoice(phoneType) != null)
+                        card.Phones.GetFirstChoice(phoneType).FullNumber = NewCard.Phones.GetFirstChoice(phoneType).FullNumber;
+                    else
+                        card.Phones.Add(new vCardPhone(NewCard.Phones.GetFirstChoice(phoneType).FullNumber, phoneType));
+                }
+                else
+                {
+                    if (card.Phones.GetFirstChoice(phoneType) != null)
+                        card.Phones.GetFirstChoice(phoneType).FullNumber = string.Empty;
+
+                }
+            }
+        }
+
+        private void SaveEmail(vCard NewCard, vCard card)
+        {
+            var type = typeof(vCardEmailAddressType);
+            var names = Enum.GetNames(type);
+
+            foreach (var name in names)
+            {
+                var emailType = (vCardEmailAddressType)Enum.Parse(type, name);
+
+                if (NewCard.EmailAddresses.GetFirstChoice(emailType) != null)
+                {
+                    if (card.EmailAddresses.GetFirstChoice(emailType) != null)
+                        card.EmailAddresses.GetFirstChoice(emailType).Address = NewCard.EmailAddresses.GetFirstChoice(emailType).Address;
+                    else
+                        card.EmailAddresses.Add(new vCardEmailAddress(NewCard.EmailAddresses.GetFirstChoice(emailType).Address,
+                            emailType));
+                }
+                else
+                {
+                    if (card.EmailAddresses.GetFirstChoice(emailType) != null)
+                        card.EmailAddresses.GetFirstChoice(emailType).Address = string.Empty;
+
+                }
+            }
+
         }
 
         /// <summary>

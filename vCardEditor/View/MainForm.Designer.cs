@@ -35,6 +35,7 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.miOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.miConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.recentFilesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.miQuit = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,20 +48,15 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tbsAbout = new System.Windows.Forms.ToolStripButton();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.FormattedNameLabel = new System.Windows.Forms.Label();
             this.HomePhoneLabel = new System.Windows.Forms.Label();
             this.CellularPhoneLabel = new System.Windows.Forms.Label();
-            this.PersonalWebSiteLabel = new System.Windows.Forms.Label();
             this.WorkPhoneLabel = new System.Windows.Forms.Label();
             this.gbContactDetail = new System.Windows.Forms.GroupBox();
-            this.EmailAddressValue = new vCardEditor.View.StateTextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.EmailAddressLabel = new System.Windows.Forms.Label();
-            this.WorkPhoneValue = new vCardEditor.View.StateTextBox();
-            this.PersonalWebSiteValue = new vCardEditor.View.StateTextBox();
+            this.PersonalWebSiteLabel = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.PhotoBox = new System.Windows.Forms.PictureBox();
-            this.CellularPhoneValue = new vCardEditor.View.StateTextBox();
-            this.HomePhoneValue = new vCardEditor.View.StateTextBox();
-            this.FormattedNameValue = new vCardEditor.View.StateTextBox();
             this.bsContacts = new System.Windows.Forms.BindingSource(this.components);
             this.gbNameList = new System.Windows.Forms.GroupBox();
             this.btnClearFilter = new System.Windows.Forms.Button();
@@ -68,14 +64,24 @@
             this.dgContacts = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.miConfig = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.FormattedNameLabel = new System.Windows.Forms.Label();
+            this.FormattedNameValue = new vCardEditor.View.StateTextBox();
+            this.EmailAddressValue = new vCardEditor.View.StateTextBox();
+            this.PersonalWebSiteValue = new vCardEditor.View.StateTextBox();
+            this.HomePhoneValue = new vCardEditor.View.StateTextBox();
+            this.WorkPhoneValue = new vCardEditor.View.StateTextBox();
+            this.CellularPhoneValue = new vCardEditor.View.StateTextBox();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.gbContactDetail.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PhotoBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsContacts)).BeginInit();
             this.gbNameList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgContacts)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -106,26 +112,33 @@
             this.miOpen.Image = ((System.Drawing.Image)(resources.GetObject("miOpen.Image")));
             this.miOpen.ImageTransparentColor = System.Drawing.Color.Fuchsia;
             this.miOpen.Name = "miOpen";
-            this.miOpen.Size = new System.Drawing.Size(152, 22);
+            this.miOpen.Size = new System.Drawing.Size(130, 22);
             this.miOpen.Text = "&Open";
             this.miOpen.Click += new System.EventHandler(this.tbsOpen_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(127, 6);
+            // 
+            // miConfig
+            // 
+            this.miConfig.Name = "miConfig";
+            this.miConfig.Size = new System.Drawing.Size(130, 22);
+            this.miConfig.Text = "Preference";
+            this.miConfig.Click += new System.EventHandler(this.miConfig_Click);
             // 
             // recentFilesMenuItem
             // 
             this.recentFilesMenuItem.Name = "recentFilesMenuItem";
-            this.recentFilesMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.recentFilesMenuItem.Size = new System.Drawing.Size(130, 22);
             this.recentFilesMenuItem.Text = "Recent";
             // 
             // miQuit
             // 
             this.miQuit.Image = ((System.Drawing.Image)(resources.GetObject("miQuit.Image")));
             this.miQuit.Name = "miQuit";
-            this.miQuit.Size = new System.Drawing.Size(152, 22);
+            this.miQuit.Size = new System.Drawing.Size(130, 22);
             this.miQuit.Text = "&Quit";
             this.miQuit.Click += new System.EventHandler(this.miQuit_Click);
             // 
@@ -218,18 +231,9 @@
             this.openFileDialog.Filter = "vCard Files|*.vcf";
             this.openFileDialog.Title = "Open vCard File";
             // 
-            // FormattedNameLabel
-            // 
-            this.FormattedNameLabel.Location = new System.Drawing.Point(15, 25);
-            this.FormattedNameLabel.Name = "FormattedNameLabel";
-            this.FormattedNameLabel.Size = new System.Drawing.Size(102, 19);
-            this.FormattedNameLabel.TabIndex = 42;
-            this.FormattedNameLabel.Text = "Name:";
-            this.FormattedNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // HomePhoneLabel
             // 
-            this.HomePhoneLabel.Location = new System.Drawing.Point(34, 50);
+            this.HomePhoneLabel.Location = new System.Drawing.Point(25, 21);
             this.HomePhoneLabel.Name = "HomePhoneLabel";
             this.HomePhoneLabel.Size = new System.Drawing.Size(83, 19);
             this.HomePhoneLabel.TabIndex = 43;
@@ -238,29 +242,20 @@
             // 
             // CellularPhoneLabel
             // 
-            this.CellularPhoneLabel.Location = new System.Drawing.Point(25, 75);
+            this.CellularPhoneLabel.Location = new System.Drawing.Point(16, 46);
             this.CellularPhoneLabel.Name = "CellularPhoneLabel";
             this.CellularPhoneLabel.Size = new System.Drawing.Size(92, 19);
             this.CellularPhoneLabel.TabIndex = 46;
             this.CellularPhoneLabel.Text = "Mobile:";
             this.CellularPhoneLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // PersonalWebSiteLabel
-            // 
-            this.PersonalWebSiteLabel.Location = new System.Drawing.Point(34, 150);
-            this.PersonalWebSiteLabel.Name = "PersonalWebSiteLabel";
-            this.PersonalWebSiteLabel.Size = new System.Drawing.Size(83, 19);
-            this.PersonalWebSiteLabel.TabIndex = 54;
-            this.PersonalWebSiteLabel.Text = "Personal Web Page:";
-            this.PersonalWebSiteLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // WorkPhoneLabel
             // 
-            this.WorkPhoneLabel.Location = new System.Drawing.Point(25, 125);
+            this.WorkPhoneLabel.Location = new System.Drawing.Point(16, 75);
             this.WorkPhoneLabel.Name = "WorkPhoneLabel";
             this.WorkPhoneLabel.Size = new System.Drawing.Size(92, 19);
             this.WorkPhoneLabel.TabIndex = 55;
-            this.WorkPhoneLabel.Text = "Business Phone:";
+            this.WorkPhoneLabel.Text = "Work Phone:";
             this.WorkPhoneLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // gbContactDetail
@@ -268,19 +263,10 @@
             this.gbContactDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gbContactDetail.Controls.Add(this.EmailAddressValue);
-            this.gbContactDetail.Controls.Add(this.EmailAddressLabel);
-            this.gbContactDetail.Controls.Add(this.WorkPhoneValue);
-            this.gbContactDetail.Controls.Add(this.PersonalWebSiteValue);
-            this.gbContactDetail.Controls.Add(this.WorkPhoneLabel);
-            this.gbContactDetail.Controls.Add(this.PersonalWebSiteLabel);
+            this.gbContactDetail.Controls.Add(this.groupBox3);
+            this.gbContactDetail.Controls.Add(this.groupBox2);
+            this.gbContactDetail.Controls.Add(this.groupBox1);
             this.gbContactDetail.Controls.Add(this.PhotoBox);
-            this.gbContactDetail.Controls.Add(this.CellularPhoneValue);
-            this.gbContactDetail.Controls.Add(this.CellularPhoneLabel);
-            this.gbContactDetail.Controls.Add(this.HomePhoneValue);
-            this.gbContactDetail.Controls.Add(this.FormattedNameValue);
-            this.gbContactDetail.Controls.Add(this.HomePhoneLabel);
-            this.gbContactDetail.Controls.Add(this.FormattedNameLabel);
             this.gbContactDetail.Enabled = false;
             this.gbContactDetail.Location = new System.Drawing.Point(250, 52);
             this.gbContactDetail.Name = "gbContactDetail";
@@ -289,47 +275,51 @@
             this.gbContactDetail.TabStop = false;
             this.gbContactDetail.Text = "Contact Detail :";
             // 
-            // EmailAddressValue
+            // groupBox2
             // 
-            this.EmailAddressValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.EmailAddressValue.Location = new System.Drawing.Point(123, 99);
-            this.EmailAddressValue.Name = "EmailAddressValue";
-            this.EmailAddressValue.Size = new System.Drawing.Size(272, 20);
-            this.EmailAddressValue.TabIndex = 59;
-            this.EmailAddressValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.EmailAddressValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            this.groupBox2.Controls.Add(this.EmailAddressLabel);
+            this.groupBox2.Controls.Add(this.EmailAddressValue);
+            this.groupBox2.Controls.Add(this.PersonalWebSiteLabel);
+            this.groupBox2.Controls.Add(this.PersonalWebSiteValue);
+            this.groupBox2.Location = new System.Drawing.Point(18, 191);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(377, 100);
+            this.groupBox2.TabIndex = 65;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Web : ";
             // 
             // EmailAddressLabel
             // 
-            this.EmailAddressLabel.Location = new System.Drawing.Point(-7, 100);
+            this.EmailAddressLabel.Location = new System.Drawing.Point(-16, 29);
             this.EmailAddressLabel.Name = "EmailAddressLabel";
             this.EmailAddressLabel.Size = new System.Drawing.Size(124, 19);
-            this.EmailAddressLabel.TabIndex = 58;
+            this.EmailAddressLabel.TabIndex = 63;
             this.EmailAddressLabel.Text = "Email Address:";
             this.EmailAddressLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // WorkPhoneValue
+            // PersonalWebSiteLabel
             // 
-            this.WorkPhoneValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.WorkPhoneValue.Location = new System.Drawing.Point(123, 124);
-            this.WorkPhoneValue.Name = "WorkPhoneValue";
-            this.WorkPhoneValue.Size = new System.Drawing.Size(272, 20);
-            this.WorkPhoneValue.TabIndex = 57;
-            this.WorkPhoneValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.WorkPhoneValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            this.PersonalWebSiteLabel.Location = new System.Drawing.Point(25, 56);
+            this.PersonalWebSiteLabel.Name = "PersonalWebSiteLabel";
+            this.PersonalWebSiteLabel.Size = new System.Drawing.Size(83, 19);
+            this.PersonalWebSiteLabel.TabIndex = 61;
+            this.PersonalWebSiteLabel.Text = "Personal Web Page:";
+            this.PersonalWebSiteLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // PersonalWebSiteValue
+            // groupBox1
             // 
-            this.PersonalWebSiteValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PersonalWebSiteValue.Location = new System.Drawing.Point(123, 149);
-            this.PersonalWebSiteValue.Name = "PersonalWebSiteValue";
-            this.PersonalWebSiteValue.Size = new System.Drawing.Size(272, 20);
-            this.PersonalWebSiteValue.TabIndex = 56;
-            this.PersonalWebSiteValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.PersonalWebSiteValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            this.groupBox1.Controls.Add(this.WorkPhoneLabel);
+            this.groupBox1.Controls.Add(this.HomePhoneLabel);
+            this.groupBox1.Controls.Add(this.HomePhoneValue);
+            this.groupBox1.Controls.Add(this.WorkPhoneValue);
+            this.groupBox1.Controls.Add(this.CellularPhoneLabel);
+            this.groupBox1.Controls.Add(this.CellularPhoneValue);
+            this.groupBox1.Location = new System.Drawing.Point(18, 72);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(377, 113);
+            this.groupBox1.TabIndex = 60;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Phones : ";
             // 
             // PhotoBox
             // 
@@ -337,43 +327,10 @@
             this.PhotoBox.Image = ((System.Drawing.Image)(resources.GetObject("PhotoBox.Image")));
             this.PhotoBox.Location = new System.Drawing.Point(412, 25);
             this.PhotoBox.Name = "PhotoBox";
-            this.PhotoBox.Size = new System.Drawing.Size(128, 144);
+            this.PhotoBox.Size = new System.Drawing.Size(128, 123);
             this.PhotoBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.PhotoBox.TabIndex = 53;
             this.PhotoBox.TabStop = false;
-            // 
-            // CellularPhoneValue
-            // 
-            this.CellularPhoneValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.CellularPhoneValue.Location = new System.Drawing.Point(123, 74);
-            this.CellularPhoneValue.Name = "CellularPhoneValue";
-            this.CellularPhoneValue.Size = new System.Drawing.Size(272, 20);
-            this.CellularPhoneValue.TabIndex = 47;
-            this.CellularPhoneValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.CellularPhoneValue.Validated += new System.EventHandler(this.Value_TextChanged);
-            // 
-            // HomePhoneValue
-            // 
-            this.HomePhoneValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.HomePhoneValue.Location = new System.Drawing.Point(123, 49);
-            this.HomePhoneValue.Name = "HomePhoneValue";
-            this.HomePhoneValue.Size = new System.Drawing.Size(272, 20);
-            this.HomePhoneValue.TabIndex = 45;
-            this.HomePhoneValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.HomePhoneValue.Validated += new System.EventHandler(this.Value_TextChanged);
-            // 
-            // FormattedNameValue
-            // 
-            this.FormattedNameValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.FormattedNameValue.Location = new System.Drawing.Point(123, 24);
-            this.FormattedNameValue.Name = "FormattedNameValue";
-            this.FormattedNameValue.Size = new System.Drawing.Size(272, 20);
-            this.FormattedNameValue.TabIndex = 44;
-            this.FormattedNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.FormattedNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // gbNameList
             // 
@@ -450,12 +407,91 @@
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
             // 
-            // miConfig
+            // groupBox3
             // 
-            this.miConfig.Name = "miConfig";
-            this.miConfig.Size = new System.Drawing.Size(152, 22);
-            this.miConfig.Text = "Preference";
-            this.miConfig.Click += new System.EventHandler(this.miConfig_Click);
+            this.groupBox3.Controls.Add(this.FormattedNameValue);
+            this.groupBox3.Controls.Add(this.FormattedNameLabel);
+            this.groupBox3.Location = new System.Drawing.Point(18, 14);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(377, 52);
+            this.groupBox3.TabIndex = 66;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Name";
+            // 
+            // FormattedNameLabel
+            // 
+            this.FormattedNameLabel.Location = new System.Drawing.Point(6, 17);
+            this.FormattedNameLabel.Name = "FormattedNameLabel";
+            this.FormattedNameLabel.Size = new System.Drawing.Size(102, 19);
+            this.FormattedNameLabel.TabIndex = 45;
+            this.FormattedNameLabel.Text = "Name:";
+            this.FormattedNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // FormattedNameValue
+            // 
+            this.FormattedNameValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FormattedNameValue.Location = new System.Drawing.Point(114, 17);
+            this.FormattedNameValue.Name = "FormattedNameValue";
+            this.FormattedNameValue.oldText = null;
+            this.FormattedNameValue.Size = new System.Drawing.Size(225, 20);
+            this.FormattedNameValue.TabIndex = 46;
+            // 
+            // EmailAddressValue
+            // 
+            this.EmailAddressValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.EmailAddressValue.Location = new System.Drawing.Point(114, 28);
+            this.EmailAddressValue.Name = "EmailAddressValue";
+            this.EmailAddressValue.oldText = null;
+            this.EmailAddressValue.Size = new System.Drawing.Size(225, 20);
+            this.EmailAddressValue.TabIndex = 64;
+            // 
+            // PersonalWebSiteValue
+            // 
+            this.PersonalWebSiteValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PersonalWebSiteValue.Location = new System.Drawing.Point(114, 54);
+            this.PersonalWebSiteValue.Name = "PersonalWebSiteValue";
+            this.PersonalWebSiteValue.oldText = null;
+            this.PersonalWebSiteValue.Size = new System.Drawing.Size(225, 20);
+            this.PersonalWebSiteValue.TabIndex = 62;
+            // 
+            // HomePhoneValue
+            // 
+            this.HomePhoneValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.HomePhoneValue.Location = new System.Drawing.Point(114, 20);
+            this.HomePhoneValue.Name = "HomePhoneValue";
+            this.HomePhoneValue.oldText = null;
+            this.HomePhoneValue.Size = new System.Drawing.Size(225, 20);
+            this.HomePhoneValue.TabIndex = 45;
+            this.HomePhoneValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.HomePhoneValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            // 
+            // WorkPhoneValue
+            // 
+            this.WorkPhoneValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.WorkPhoneValue.Location = new System.Drawing.Point(114, 74);
+            this.WorkPhoneValue.Name = "WorkPhoneValue";
+            this.WorkPhoneValue.oldText = null;
+            this.WorkPhoneValue.Size = new System.Drawing.Size(225, 20);
+            this.WorkPhoneValue.TabIndex = 57;
+            this.WorkPhoneValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.WorkPhoneValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            // 
+            // CellularPhoneValue
+            // 
+            this.CellularPhoneValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CellularPhoneValue.Location = new System.Drawing.Point(114, 45);
+            this.CellularPhoneValue.Name = "CellularPhoneValue";
+            this.CellularPhoneValue.oldText = null;
+            this.CellularPhoneValue.Size = new System.Drawing.Size(225, 20);
+            this.CellularPhoneValue.TabIndex = 47;
+            this.CellularPhoneValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.CellularPhoneValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // MainForm
             // 
@@ -480,12 +516,17 @@
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.gbContactDetail.ResumeLayout(false);
-            this.gbContactDetail.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PhotoBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsContacts)).EndInit();
             this.gbNameList.ResumeLayout(false);
             this.gbNameList.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgContacts)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -509,18 +550,13 @@
         private System.Windows.Forms.ToolStripButton tbsAbout;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.BindingSource bsContacts;
-        internal System.Windows.Forms.Label FormattedNameLabel;
         internal System.Windows.Forms.Label HomePhoneLabel;
         internal StateTextBox HomePhoneValue;
         internal System.Windows.Forms.Label CellularPhoneLabel;
         internal StateTextBox CellularPhoneValue;
-        internal System.Windows.Forms.Label PersonalWebSiteLabel;
         internal System.Windows.Forms.Label WorkPhoneLabel;
-        internal StateTextBox PersonalWebSiteValue;
         internal StateTextBox WorkPhoneValue;
         private System.Windows.Forms.GroupBox gbContactDetail;
-        internal StateTextBox EmailAddressValue;
-        internal System.Windows.Forms.Label EmailAddressLabel;
         private System.Windows.Forms.GroupBox gbNameList;
         private System.Windows.Forms.TextBox textBoxFilter;
         private System.Windows.Forms.DataGridView dgContacts;
@@ -529,7 +565,15 @@
         private System.Windows.Forms.Button btnClearFilter;
         internal System.Windows.Forms.PictureBox PhotoBox;
         private System.Windows.Forms.ToolStripMenuItem recentFilesMenuItem;
-        internal StateTextBox FormattedNameValue;
         private System.Windows.Forms.ToolStripMenuItem miConfig;
+        private System.Windows.Forms.GroupBox groupBox2;
+        internal System.Windows.Forms.Label EmailAddressLabel;
+        internal StateTextBox EmailAddressValue;
+        internal System.Windows.Forms.Label PersonalWebSiteLabel;
+        internal StateTextBox PersonalWebSiteValue;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox3;
+        internal StateTextBox FormattedNameValue;
+        internal System.Windows.Forms.Label FormattedNameLabel;
     }
 }
