@@ -31,10 +31,7 @@ namespace VCFEditor.Presenter
             _view.BeforeLeavingContact += BeforeLeavingContact;
             _view.CloseForm += CloseForm;
 
-
         }
-
-       
        
 
         void CloseForm(object sender, EventArg<bool> e)
@@ -87,22 +84,24 @@ namespace VCFEditor.Presenter
 
         }
 
-        public void NewFileOpened(object sender, EventArgs e)
+        public void NewFileOpened(object sender, EventArg<string> e)
         {
 
             BeforeOpeningNewFile(sender, e);
-
-            string path = _view.DisplayOpenDialog();
-            string ext = System.IO.Path.GetExtension(path);
-            if (ext != ".vcf")
-            {
-                _view.DisplayMessage("Only vcf extension accepted!", "Error");
-                return;
-            }
-
-
+            
+            string path = e.Data;
+            if (string.IsNullOrEmpty(path))
+                path = _view.DisplayOpenDialog();
+            
             if (!string.IsNullOrEmpty(path))
             {
+                string ext = System.IO.Path.GetExtension(path);
+                if (ext != ".vcf")
+                {
+                    _view.DisplayMessage("Only vcf extension accepted!", "Error");
+                    return;
+                }
+
                 FixedList MRUList = ConfigRepository.Instance.Paths;
                 if (!MRUList.Contains(path))
                 {
@@ -110,14 +109,13 @@ namespace VCFEditor.Presenter
                     _view.UpdateMRUMenu(MRUList);
                 }
                 
-               
-
                 _repository.LoadContacts(path);
                 _view.DisplayContacts(_repository.Contacts);
             }
 
 
         }
+
 
         public void ChangeContactSelected(object sender, EventArgs e)
         {

@@ -18,7 +18,7 @@ namespace vCardEditor.View
         public event EventHandler SaveContactsSelected;
         public event EventHandler BeforeOpeningNewFile;
         public event EventHandler DeleteContact;
-        public event EventHandler NewFileOpened;
+        public event EventHandler<EventArg<string>> NewFileOpened;
         public event EventHandler ChangeContactsSelected;
         public event EventHandler<EventArg<vCard>> BeforeLeavingContact;
         public event EventHandler<EventArg<string>> FilterTextChanged;
@@ -50,11 +50,8 @@ namespace vCardEditor.View
 
         private void tbsOpen_Click(object sender, EventArgs e)
         {
-            
             if (NewFileOpened != null)
-                NewFileOpened(sender, e);
-
-
+                NewFileOpened(sender, new EventArg<string>(string.Empty));
         }
 
         
@@ -255,8 +252,8 @@ namespace vCardEditor.View
                 return;
             }
 
-            //TODO: Correct this
-            //OpenNewFile(sender, FileList[0]);
+
+            NewFileOpened(sender, new EventArg<string>(FileList[0]));
 
         }
         #endregion
@@ -265,9 +262,7 @@ namespace vCardEditor.View
 
         private void BuildMRUMenu()
         {
-            //TODO: Correct this
-            //recentFilesMenuItem.DropDownItemClicked += (s, e) => OpenNewFile(s, e.ClickedItem.Text);
-            
+            recentFilesMenuItem.DropDownItemClicked += (s, e) => NewFileOpened(s, new EventArg<string>(e.ClickedItem.Text));
             //Update the MRU Menu entries..
             UpdateMRUMenu(ConfigRepository.Instance.Paths);
 

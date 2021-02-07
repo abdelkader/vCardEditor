@@ -14,7 +14,7 @@ namespace VCFEditor.View
         event EventHandler DeleteContact;
         event EventHandler BeforeOpeningNewFile;
         event EventHandler SaveContactsSelected;
-        event EventHandler NewFileOpened;
+        event EventHandler<EventArg<string>> NewFileOpened;
         event EventHandler ChangeContactsSelected;
         event EventHandler<EventArg<vCard>> BeforeLeavingContact;
         event EventHandler<EventArg<string>> FilterTextChanged;
