@@ -5,7 +5,6 @@ using Thought.vCards;
 using VCFEditor.View;
 using vCardEditor.View;
 using VCFEditor.Repository;
-using System.Windows.Forms;
 using vCardEditor.Repository;
 using vCardEditor.Model;
 
@@ -22,8 +21,8 @@ namespace VCFEditor.Presenter
             _view = view;
             _repository = repository;
 
-            //hook event from the view to event handler present in this presenter.
             _view.NewFileOpened += NewFileOpened;
+            _view.BeforeOpeningNewFile += BeforeOpeningNewFile;
             _view.SaveContactsSelected += SaveContacts;
             _view.ChangeContactsSelected += ChangeContactSelected;
             _view.DeleteContact += DeleteContact;
@@ -32,12 +31,16 @@ namespace VCFEditor.Presenter
             _view.BeforeLeavingContact += BeforeLeavingContact;
             _view.CloseForm += CloseForm;
 
+
         }
 
-        void CloseForm(object sender, FormClosingEventArgs e)
+       
+       
+
+        void CloseForm(object sender, EventArg<bool> e)
         {
-            if (_repository.dirty && _view.AskMessage("Exit before saving", "Exit"))
-                e.Cancel = true;
+            if (_repository.dirty && _view.AskMessage("Exit before saving?", "Exit"))
+                e.Data = true;
         }
         public void BeforeLeavingContact(object sender, EventArg<vCard> e)
         {
@@ -74,20 +77,41 @@ namespace VCFEditor.Presenter
 
         }
 
-        public void NewFileOpened(object sender, EventArg<string> e)
+        private void BeforeOpeningNewFile(object sender, EventArgs e)
         {
-            string path = e.Data;
+            if (_repository.Contacts != null && _repository.dirty)
+            {
+                if (!_view.AskMessage("Save current file before?", "Load"))
+                    _repository.SaveContacts(_repository.fileName);
+            }
+
+        }
+
+        public void NewFileOpened(object sender, EventArgs e)
+        {
+
+            BeforeOpeningNewFile(sender, e);
+
+            string path = _view.DisplayOpenDialog();
+            string ext = System.IO.Path.GetExtension(path);
+            if (ext != ".vcf")
+            {
+                _view.DisplayMessage("Only vcf extension accepted!", "Error");
+                return;
+            }
+
+
             if (!string.IsNullOrEmpty(path))
             {
                 FixedList MRUList = ConfigRepository.Instance.Paths;
-
                 if (!MRUList.Contains(path))
                 {
                     MRUList.Enqueue(path);
-                    // ConfigRepository.Instance.Paths.Clear();
                     _view.UpdateMRUMenu(MRUList);
                 }
+                
                
+
                 _repository.LoadContacts(path);
                 _view.DisplayContacts(_repository.Contacts);
             }

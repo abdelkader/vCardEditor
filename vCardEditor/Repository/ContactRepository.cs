@@ -114,6 +114,7 @@ namespace VCFEditor.Repository
             if (_contacts != null && _contacts.Count > 0)
             {
                 //loop from the back to prevent index mangling...
+                
                 for (int i = _contacts.Count - 1; i > -1; i--)
                 {
                     if (_contacts[i].isSelected)
@@ -184,7 +185,7 @@ namespace VCFEditor.Repository
 
         public void SaveDirtyVCard(int index, vCard NewCard)
         {
-            if (index > -1 && _contacts[index].isDirty)
+            if (index > -1 && index < _contacts.Count-1 && _contacts[index].isDirty)
             {
                 vCard card = _contacts[index].card;
                 card.Title = NewCard.Title;

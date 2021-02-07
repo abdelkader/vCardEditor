@@ -16,7 +16,7 @@ namespace VCFEditor.View
     public class EventArg<T> : EventArgs
     {
         // Property variable
-        private readonly T p_EventData;
+        private T p_EventData;
 
         // Constructor
         public EventArg(T data)
@@ -28,6 +28,7 @@ namespace VCFEditor.View
         public T Data
         {
             get { return p_EventData; }
+            set { p_EventData = value;}
         }
     }
 }

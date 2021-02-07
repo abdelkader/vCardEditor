@@ -18,7 +18,7 @@ namespace vCardEditor_Test
     public class MainPresenterTest
     {
         [TestMethod]
-        public void NewFileOpenedTest()
+        public void NewFileOpened_OpenNewFile_Test()
         {
            
             var fileHandler = Substitute.For<IFileHandler>();
@@ -35,6 +35,26 @@ namespace vCardEditor_Test
 
         }
 
+
+        [TestMethod]
+        public void NewFileOpened_OpenNewOneWhileAnotherOneIsDirty_Test()
+        {
+
+            var fileHandler = Substitute.For<IFileHandler>();
+            fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfThreeEntry);
+            var repo = Substitute.For<ContactRepository>(fileHandler);
+            var view = Substitute.For<IMainView>();
+
+
+            var presenter = new MainPresenter(view, repo);
+            view.NewFileOpened += Raise.EventWith(new EventArg<string>("aaa"));
+            repo.Contacts[1].isDirty = true;
+
+            view.NewFileOpened += Raise.EventWith(new EventArg<string>("aaa"));
+           
+            view.Received().AskMessage(Arg.Any<string>(), Arg.Any<string>());
+
+        }
         
 
         [TestMethod]

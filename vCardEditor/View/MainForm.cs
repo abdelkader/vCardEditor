@@ -8,6 +8,7 @@ using VCFEditor.Model;
 using Thought.vCards;
 using vCardEditor.Repository;
 using vCardEditor.Model;
+using System.Drawing;
 
 namespace vCardEditor.View
 {
@@ -15,13 +16,14 @@ namespace vCardEditor.View
     {
         #region event list
         public event EventHandler SaveContactsSelected;
+        public event EventHandler BeforeOpeningNewFile;
         public event EventHandler DeleteContact;
-        public event EventHandler<EventArg<string>> NewFileOpened;
+        public event EventHandler NewFileOpened;
         public event EventHandler ChangeContactsSelected;
         public event EventHandler<EventArg<vCard>> BeforeLeavingContact;
         public event EventHandler<EventArg<string>> FilterTextChanged;
         public event EventHandler TextBoxValueChanged;
-        public event EventHandler<FormClosingEventArgs> CloseForm;
+        public event EventHandler<EventArg<bool>> CloseForm;
         #endregion
         ComponentResourceManager resources;
 
@@ -46,16 +48,16 @@ namespace vCardEditor.View
 
         }
 
-
-
-
         private void tbsOpen_Click(object sender, EventArgs e)
         {
-            DialogResult result = openFileDialog.ShowDialog();
-            if (result == DialogResult.OK)
-                OpenNewFile(sender, openFileDialog.FileName);
+            
+            if (NewFileOpened != null)
+                NewFileOpened(sender, e);
+
 
         }
+
+        
 
         public void DisplayContacts(BindingList<Contact> contacts)
         {
@@ -253,33 +255,18 @@ namespace vCardEditor.View
                 return;
             }
 
-            OpenNewFile(sender, FileList[0]);
+            //TODO: Correct this
+            //OpenNewFile(sender, FileList[0]);
 
         }
         #endregion
 
-        /// <summary>
-        /// Open vcf file.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="file"></param>
-        private void OpenNewFile(object sender, string file)
-        {
-            string ext = System.IO.Path.GetExtension(file);
-            //TODO: Should parse invalid content file...
-            if (ext != ".vcf")
-            {
-                MessageBox.Show("Only vcf extension accepted!");
-                return;
-            }
-
-            if (NewFileOpened != null)
-                NewFileOpened(sender, new EventArg<string>(file));
-        }
+      
 
         private void BuildMRUMenu()
         {
-            recentFilesMenuItem.DropDownItemClicked += (s, e) => OpenNewFile(s, e.ClickedItem.Text);
+            //TODO: Correct this
+            //recentFilesMenuItem.DropDownItemClicked += (s, e) => OpenNewFile(s, e.ClickedItem.Text);
             
             //Update the MRU Menu entries..
             UpdateMRUMenu(ConfigRepository.Instance.Paths);
@@ -300,18 +287,15 @@ namespace vCardEditor.View
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            var evt = new EventArg<bool>(false);
             if (CloseForm != null)
-                CloseForm(sender, e);
+                CloseForm(sender,evt);
+
+            e.Cancel = evt.Data;
 
             ConfigRepository.Instance.SaveConfig();
         }
 
-        /// <summary>
-        /// Ask user a question
-        /// </summary>
-        /// <param name="msg">question</param>
-        /// <param name="caption">caption</param>
-        /// <returns>true for yes, false for no</returns>
         public bool AskMessage(string msg, string caption)
         {
             bool result = true; // true == yes
@@ -334,6 +318,22 @@ namespace vCardEditor.View
             ConfigDialog dialog = new ConfigDialog();
             dialog.ShowDialog();
         }
+
+        public void DisplayMessage(string msg, string caption)
+        {
+            MessageBox.Show(msg, caption);
+        }
+        public string DisplayOpenDialog()
+        {
+            string filename = string.Empty;
+
+            DialogResult result = openFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+                filename = openFileDialog.FileName;
+
+            return filename;
+        }       
+    
 
 
     }
