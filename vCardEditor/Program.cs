@@ -23,7 +23,7 @@ namespace vCardEditor
 
             var fileHandler = new FileHandler();
             var mainForm = new MainForm();
-            var presenter = new MainPresenter(mainForm, new ContactRepository(fileHandler));
+            new MainPresenter(mainForm, new ContactRepository(fileHandler));
 
             Application.Run(mainForm);
         }

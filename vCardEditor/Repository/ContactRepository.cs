@@ -55,14 +55,15 @@ namespace VCFEditor.Repository
             StringBuilder RawContent = new StringBuilder();
             Contact contact = new Contact();
             string[] lines = _fileHandler.ReadAllLines(fileName);
-
+            //TODO: Clean end of line from spaces..
+            
             //Prevent from adding contacts to existings ones.
             Contacts.Clear();
 
             for (int i = 0; i < lines.Length; i++)
             {
                 RawContent.AppendLine(lines[i]);
-                if (lines[i] == "END:VCARD")
+                if (lines[i].TrimEnd() == "END:VCARD")
                 {
                     contact.card = ParseRawContent(RawContent);
                     Contacts.Add(contact);
@@ -89,7 +90,10 @@ namespace VCFEditor.Repository
 
             //Take a copy...
             if (!ConfigRepository.Instance.OverWrite)
-                File.Move(fileName, fileName + ".old");
+            {
+                string backupName = GetBackupName();
+                _fileHandler.MoveFile(fileName, backupName);
+            }
 
             StringBuilder sb = new StringBuilder();
             //Do not save the deleted ones...
@@ -103,6 +107,20 @@ namespace VCFEditor.Repository
             _fileHandler.WriteAllText(fileName, sb.ToString());
 
             _dirty = false;
+        }
+
+        private string GetBackupName()
+        {
+            int count = 0;
+            string backupName = fileName + ".old" + count.ToString();
+
+            while (_fileHandler.FileExist(backupName))
+            {
+                count++;
+                backupName = fileName + ".old" + count.ToString();
+            }
+
+            return backupName;
         }
 
 
