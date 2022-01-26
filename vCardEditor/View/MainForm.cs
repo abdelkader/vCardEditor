@@ -91,12 +91,13 @@ namespace vCardEditor.View
         {
             if (card == null)
                 throw new ArgumentException("card must be valid!");
-            
+
             this.Text = string.Format("{0} - vCard Editor", FileName);
             gbContactDetail.Enabled = true;
             gbNameList.Enabled = true;
 
-            
+            SetSummaryValue(firstNameValue, card.GivenName);
+            SetSummaryValue(lastNameValue, card.FamilyName);
             SetSummaryValue(FormattedTitleValue, card.Title);
             SetSummaryValue(FormattedNameValue, card.FormattedName);
             SetSummaryValue(HomePhoneValue, card.Phones.GetFirstChoice(vCardPhoneTypes.Home));
@@ -104,31 +105,13 @@ namespace vCardEditor.View
             SetSummaryValue(WorkPhoneValue, card.Phones.GetFirstChoice(vCardPhoneTypes.Work));
             SetSummaryValue(EmailAddressValue, card.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet));
             SetSummaryValue(PersonalWebSiteValue, card.Websites.GetFirstChoice(vCardWebsiteTypes.Personal));
-
-            if (card.Photos.Any())
-            {
-                var photo = card.Photos[0];
-                try
-                {
-                    // Get the bytes of the photo if it has
-                    // not already been loaded.
-                    if (!photo.IsLoaded)
-                        photo.Fetch();
-
-                    PhotoBox.Image = photo.GetBitmap();
-                }
-                catch
-                {
-                    //Empty image icon instead.
-                    PhotoBox.Image = ((System.Drawing.Image)(resources.GetObject("PhotoBox.Image")));
-                }
-            }
-            else
-                PhotoBox.Image = ((System.Drawing.Image)(resources.GetObject("PhotoBox.Image")));
+            SetAddressesValues(card.DeliveryAddresses);
+            SetPhotoValue(card.Photos);
 
         }
 
         #region helper methods to populate textboxes.
+        
         private void SetSummaryValue(StateTextBox valueLabel, string value)
         {
             if (valueLabel == null)
@@ -159,6 +142,94 @@ namespace vCardEditor.View
             valueLabel.Text = string.Empty;
             if (webSite != null)
                 SetSummaryValue(valueLabel, webSite.Url.ToString());
+        }
+
+        void SetPhotoValue(vCardPhotoCollection photos)
+        {
+            if (photos.Any())
+            {
+                var photo = photos[0];
+                try
+                {
+                    // Get the bytes of the photo if it has
+                    // not already been loaded.
+                    if (!photo.IsLoaded)
+                        photo.Fetch();
+
+                    PhotoBox.Image = photo.GetBitmap();
+                }
+                catch
+                {
+                    //Empty image icon instead.
+                    PhotoBox.Image = ((System.Drawing.Image)(resources.GetObject("PhotoBox.Image")));
+                }
+            }
+            else
+                PhotoBox.Image = ((System.Drawing.Image)(resources.GetObject("PhotoBox.Image")));
+        }
+        private void SetAddressesValues(vCardDeliveryAddressCollection addresses)
+        {
+            ClearAddressTextFields();
+
+            if (addresses.Any())
+            {
+                var HomeAddress = addresses.Where(x => x.IsHome).FirstOrDefault();
+                if (HomeAddress != null)
+                {
+                    HomeAddressValue.Text = HomeAddress.Street;
+                    HomeCityValue.Text = HomeAddress.City;
+                    HomeZipValue.Text = HomeAddress.PostalCode;
+                    HomeStateValue.Text = HomeAddress.Region;
+                    HomeCountryValue.Text = HomeAddress.Country;
+                }
+
+                var WorkAddress = addresses.Where(x => x.IsWork).FirstOrDefault();
+                if (WorkAddress != null)
+                {
+                    WorkAddressValue.Text = WorkAddress.Street;
+                    WorkCityValue.Text = WorkAddress.City;
+                    WorkZipValue.Text = WorkAddress.PostalCode;
+                    WorkStateValue.Text = WorkAddress.Region;
+                    WorkCountryValue.Text = WorkAddress.Country;
+                }
+
+                var PostalAddress = addresses.Where(x => x.IsPostal).FirstOrDefault();
+                if (PostalAddress != null)
+                {
+                    PostalAddressValue.Text = PostalAddress.Street;
+                    PostalAddressValue.Text = PostalAddress.Street;
+                    PostalCityValue.Text = PostalAddress.City;
+                    PostalZipValue.Text = PostalAddress.PostalCode;
+                    PostalStateValue.Text = PostalAddress.Region;
+                    PostalCountryValue.Text = PostalAddress.Country;
+                }
+
+            }
+
+        }
+
+        private void ClearAddressTextFields()
+        {
+            HomeAddressValue.Clear();
+            HomePOBoxValue.Clear();
+            HomeCityValue.Clear();
+            HomeZipValue.Clear();
+            HomeStateValue.Clear();
+            HomeCountryValue.Clear();
+
+            WorkAddressValue.Clear();
+            WorkPOBoxValue.Clear();
+            WorkCityValue.Clear();
+            WorkZipValue.Clear();
+            WorkStateValue.Clear();
+            WorkCountryValue.Clear();
+
+            PostalAddressValue.Clear();
+            PostalPOBoxValue.Clear();
+            PostalCityValue.Clear();
+            PostalZipValue.Clear();
+            PostalStateValue.Clear();
+            PostalCountryValue.Clear();
         }
         #endregion
 
@@ -327,9 +398,11 @@ namespace vCardEditor.View
                 filename = openFileDialog.FileName;
 
             return filename;
-        }       
-    
+        }
 
+        private void rbChangeAddress(object sender, EventArgs e)
+        {
 
+        }
     }
 }

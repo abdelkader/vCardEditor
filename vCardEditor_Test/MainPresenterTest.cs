@@ -72,7 +72,42 @@ namespace vCardEditor_Test
             view.Received().AskMessage(Arg.Any<string>(), Arg.Any<string>());
 
         }
-        
+
+        [TestMethod]
+        public void SaveFile_FirstTime()
+        {
+            var fileHandler = Substitute.For<IFileHandler>();
+            fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfThreeEntry);
+            var repo = Substitute.For<ContactRepository>(fileHandler);
+            var view = Substitute.For<IMainView>();
+
+
+            var presenter = new MainPresenter(view, repo);
+            view.NewFileOpened += Raise.EventWith(new EventArg<string>("aaa.vcf"));
+
+            view.SaveContactsSelected += Raise.Event();
+
+            fileHandler.Received().MoveFile("aaa.vcf", "aaa.vcf.old0");
+        }
+
+        [TestMethod]
+        public void SaveFile_ExistAlready()
+        {
+            var fileHandler = Substitute.For<IFileHandler>();
+            fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfThreeEntry);
+            fileHandler.FileExist("aaa.vcf.old0").Returns(true);
+            var repo = Substitute.For<ContactRepository>(fileHandler);
+            var view = Substitute.For<IMainView>();
+
+
+            var presenter = new MainPresenter(view, repo);
+            view.NewFileOpened += Raise.EventWith(new EventArg<string>("aaa.vcf"));
+
+            view.SaveContactsSelected += Raise.Event();
+
+            fileHandler.Received().MoveFile("aaa.vcf", "aaa.vcf.old1");
+        }
+
 
         [TestMethod]
         public void DeleteTest()
