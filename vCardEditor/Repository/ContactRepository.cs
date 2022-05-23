@@ -269,14 +269,14 @@ namespace VCFEditor.Repository
 
         private void SaveEmail(vCard NewCard, vCard card)
         {
-            //Work
+            //Inernet
             if (NewCard.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet) != null)
             {
                 if (card.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet) != null)
                     card.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet).Address
                         = NewCard.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet).Address;
                 else
-                    card.EmailAddresses.Add(new vCardEmailAddress(NewCard.Phones.GetFirstChoice(vCardPhoneTypes.Work).FullNumber,
+                    card.EmailAddresses.Add(new vCardEmailAddress(NewCard.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet).Address,
                             vCardEmailAddressType.Internet));
             }
             else
