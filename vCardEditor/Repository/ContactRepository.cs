@@ -77,6 +77,17 @@ namespace VCFEditor.Repository
             _dirty = false;
             return Contacts;
         }
+        /// <summary>
+        /// Add a new empty contact
+        /// </summary>
+        public void AddEmptyContact()
+        {
+            if (_contacts != null && _contacts.Count > 0)
+            {
+                Contact contact = new Contact();
+                Contacts.Add(contact);
+            }
+        }
 
         /// <summary>
         /// Save the contact to the file.
@@ -333,6 +344,8 @@ namespace VCFEditor.Repository
 
             return tw.ToString();
         }
+
+        
 
         /// <summary>
         /// Check if some iem in the contact list is modified

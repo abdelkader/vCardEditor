@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
@@ -8,13 +7,13 @@ using VCFEditor.Model;
 using Thought.vCards;
 using vCardEditor.Repository;
 using vCardEditor.Model;
-using System.Drawing;
 
 namespace vCardEditor.View
 {
     public partial class MainForm : Form, IMainView
     {
         #region event list
+        public event EventHandler AddContact;
         public event EventHandler SaveContactsSelected;
         public event EventHandler BeforeOpeningNewFile;
         public event EventHandler DeleteContact;
@@ -70,6 +69,15 @@ namespace vCardEditor.View
                 //make sure the last changes in the textboxes is saved.
                 this.Validate();
                 SaveContactsSelected(sender, e);
+            }
+
+        }
+
+        private void tbsNew_Click(object sender, EventArgs e)
+        {
+            if (AddContact != null)
+            {
+                AddContact(sender, e);
             }
 
         }
@@ -400,9 +408,8 @@ namespace vCardEditor.View
             return filename;
         }
 
-        private void rbChangeAddress(object sender, EventArgs e)
-        {
+       
 
-        }
+       
     }
 }

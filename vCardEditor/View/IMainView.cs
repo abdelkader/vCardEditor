@@ -11,6 +11,7 @@ namespace VCFEditor.View
     public interface IMainView
     {
         #region All events
+        event EventHandler AddContact;
         event EventHandler DeleteContact;
         event EventHandler BeforeOpeningNewFile;
         event EventHandler SaveContactsSelected;

@@ -21,6 +21,7 @@ namespace VCFEditor.Presenter
             _view = view;
             _repository = repository;
 
+            _view.AddContact += AddContact;
             _view.NewFileOpened += NewFileOpened;
             _view.BeforeOpeningNewFile += BeforeOpeningNewFile;
             _view.SaveContactsSelected += SaveContacts;
@@ -60,6 +61,11 @@ namespace VCFEditor.Presenter
         {
             var FilteredContacts = _repository.FilterContacts(e.Data);
             _view.DisplayContacts(FilteredContacts);
+        }
+
+        private void AddContact(object sender, EventArgs e)
+        {
+            _repository.AddEmptyContact();
         }
 
         private void DeleteContact(object sender, EventArgs e)
