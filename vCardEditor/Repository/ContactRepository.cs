@@ -238,13 +238,21 @@ namespace VCFEditor.Repository
         {
             foreach (var item in NewCard.DeliveryAddresses)
             {
-                if (item.IsHome)
+                var adr = card.DeliveryAddresses.Where(x => x.AddressType.FirstOrDefault() == item.AddressType.FirstOrDefault()).FirstOrDefault();
+                if (adr != null)
                 {
-
+                    adr.City = item.City;
+                    adr.Country = item.Country;
+                    adr.PostalCode = item.PostalCode;
+                    adr.Region = item.Region;
+                    adr.Street = item.Street;
                 }
+                else
+                    card.DeliveryAddresses.Add(new vCardDeliveryAddress(item.Street, item.City, item.Region, item.Country,
+                        item.PostalCode, item.AddressType.FirstOrDefault()));
+                
+                
             }
-
-           
         }
 
         private void SavePhone(vCard NewCard, vCard card)
