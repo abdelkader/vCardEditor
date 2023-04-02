@@ -106,6 +106,7 @@ namespace vCardEditor.View
 
             SetSummaryValue(firstNameValue, card.GivenName);
             SetSummaryValue(lastNameValue, card.FamilyName);
+            SetSummaryValue(middleNameValue, card.AdditionalNames);
             SetSummaryValue(FormattedTitleValue, card.Title);
             SetSummaryValue(FormattedNameValue, card.FormattedName);
             SetSummaryValue(HomePhoneValue, card.Phones.GetFirstChoice(vCardPhoneTypes.Home));
@@ -280,10 +281,17 @@ namespace vCardEditor.View
         /// <returns></returns>
         private vCard getvCard()
         {
-            vCard card = new vCard();
-            card.Title = this.FormattedTitleValue.Text;
-            card.FormattedName = this.FormattedNameValue.Text;
-            
+            vCard card = new vCard
+            {
+                
+                Title = FormattedTitleValue.Text,
+                FormattedName = FormattedNameValue.Text,
+                GivenName = firstNameValue.Text,
+                AdditionalNames = middleNameValue.Text,
+                FamilyName = lastNameValue.Text,
+
+            };
+
             if (!string.IsNullOrEmpty(HomePhoneValue.Text))
                 card.Phones.Add(new vCardPhone(HomePhoneValue.Text, vCardPhoneTypes.Home));
             if (!string.IsNullOrEmpty(CellularPhoneValue.Text))
@@ -296,7 +304,20 @@ namespace vCardEditor.View
             
             if (!string.IsNullOrEmpty(this.PersonalWebSiteValue.Text))
                 card.Websites.Add(new vCardWebsite(this.PersonalWebSiteValue.Text));
-            
+
+            if (!string.IsNullOrEmpty(this.HomeAddressValue.Text))
+                card.DeliveryAddresses.Add(new vCardDeliveryAddress(HomeAddressValue.Text, HomeCityValue.Text, HomeStateValue.Text, HomeCountryValue.Text,
+                        HomePOBoxValue.Text, vCardDeliveryAddressTypes.Home));
+
+           
+            if (!string.IsNullOrEmpty(this.WorkAddressValue.Text))
+                card.DeliveryAddresses.Add(new vCardDeliveryAddress(WorkAddressValue.Text, WorkCityValue.Text, WorkStateValue.Text, WorkCountryValue.Text,
+                        WorkPOBoxValue.Text, vCardDeliveryAddressTypes.Work));
+
+            if (!string.IsNullOrEmpty(this.PostalAddressValue.Text))
+                card.DeliveryAddresses.Add(new vCardDeliveryAddress(PostalAddressValue.Text, PostalCityValue.Text, PostalStateValue.Text, PostalCountryValue.Text,
+                        PostalPOBoxValue.Text, vCardDeliveryAddressTypes.Postal));
+
             return card;
         }
 

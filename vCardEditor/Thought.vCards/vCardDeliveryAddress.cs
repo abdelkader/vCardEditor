@@ -40,11 +40,22 @@ namespace Thought.vCards
 			this.addressType = new List<vCardDeliveryAddressTypes>();
         }
 
+        public vCardDeliveryAddress(string street, string city, string region, string country, string postalCode,  vCardDeliveryAddressTypes addressType)
+        {
+            AddressType = new List<vCardDeliveryAddressTypes>() { addressType };
+            City = city;
+            Country = country;
+            PostalCode = postalCode;
+            Region = region;
+            Street = street;
+        }
+
+
 
         /// <summary>
         ///     The type of postal address.
         /// </summary>
-		public List<vCardDeliveryAddressTypes> AddressType
+        public List<vCardDeliveryAddressTypes> AddressType
         {
             get
             {

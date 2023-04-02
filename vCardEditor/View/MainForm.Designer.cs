@@ -72,28 +72,28 @@
             this.HomeZipValue = new vCardEditor.View.StateTextBox();
             this.tbWork = new System.Windows.Forms.TabPage();
             this.label9 = new System.Windows.Forms.Label();
-            this.WorkAddressValue = new vCardEditor.View.StateTextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.WorkCountryValue = new vCardEditor.View.StateTextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.WorkPOBoxValue = new vCardEditor.View.StateTextBox();
-            this.WorkZipValue = new vCardEditor.View.StateTextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.WorkAddressValue = new vCardEditor.View.StateTextBox();
+            this.WorkCountryValue = new vCardEditor.View.StateTextBox();
+            this.WorkPOBoxValue = new vCardEditor.View.StateTextBox();
+            this.WorkZipValue = new vCardEditor.View.StateTextBox();
             this.WorkCityValue = new vCardEditor.View.StateTextBox();
             this.WorkStateValue = new vCardEditor.View.StateTextBox();
             this.tbPostal = new System.Windows.Forms.TabPage();
             this.label10 = new System.Windows.Forms.Label();
-            this.PostalAddressValue = new vCardEditor.View.StateTextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.PostalCountryValue = new vCardEditor.View.StateTextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.PostalPOBoxValue = new vCardEditor.View.StateTextBox();
-            this.PostalZipValue = new vCardEditor.View.StateTextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
+            this.PostalAddressValue = new vCardEditor.View.StateTextBox();
+            this.PostalCountryValue = new vCardEditor.View.StateTextBox();
+            this.PostalPOBoxValue = new vCardEditor.View.StateTextBox();
+            this.PostalZipValue = new vCardEditor.View.StateTextBox();
             this.PostalCityValue = new vCardEditor.View.StateTextBox();
             this.PostalStateValue = new vCardEditor.View.StateTextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -378,7 +378,7 @@
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox4.Size = new System.Drawing.Size(764, 182);
-            this.groupBox4.TabIndex = 54;
+            this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Address:";
             // 
@@ -392,7 +392,7 @@
             this.tbcAddress.Name = "tbcAddress";
             this.tbcAddress.SelectedIndex = 0;
             this.tbcAddress.Size = new System.Drawing.Size(739, 144);
-            this.tbcAddress.TabIndex = 3;
+            this.tbcAddress.TabIndex = 0;
             // 
             // tbHome
             // 
@@ -423,7 +423,7 @@
             this.AddressLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.AddressLabel.Name = "AddressLabel";
             this.AddressLabel.Size = new System.Drawing.Size(65, 23);
-            this.AddressLabel.TabIndex = 4;
+            this.AddressLabel.TabIndex = 0;
             this.AddressLabel.Text = "Address:";
             this.AddressLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -436,7 +436,9 @@
             this.HomeAddressValue.Name = "HomeAddressValue";
             this.HomeAddressValue.oldText = "";
             this.HomeAddressValue.Size = new System.Drawing.Size(613, 22);
-            this.HomeAddressValue.TabIndex = 5;
+            this.HomeAddressValue.TabIndex = 1;
+            this.HomeAddressValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.HomeAddressValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // POBoxLabel
             // 
@@ -444,7 +446,7 @@
             this.POBoxLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.POBoxLabel.Name = "POBoxLabel";
             this.POBoxLabel.Size = new System.Drawing.Size(65, 23);
-            this.POBoxLabel.TabIndex = 6;
+            this.POBoxLabel.TabIndex = 2;
             this.POBoxLabel.Text = "PO Box:";
             this.POBoxLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -457,7 +459,9 @@
             this.HomeCountryValue.Name = "HomeCountryValue";
             this.HomeCountryValue.oldText = null;
             this.HomeCountryValue.Size = new System.Drawing.Size(307, 22);
-            this.HomeCountryValue.TabIndex = 15;
+            this.HomeCountryValue.TabIndex = 11;
+            this.HomeCountryValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.HomeCountryValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // HomePOBoxValue
             // 
@@ -468,7 +472,9 @@
             this.HomePOBoxValue.Name = "HomePOBoxValue";
             this.HomePOBoxValue.oldText = null;
             this.HomePOBoxValue.Size = new System.Drawing.Size(236, 22);
-            this.HomePOBoxValue.TabIndex = 7;
+            this.HomePOBoxValue.TabIndex = 3;
+            this.HomePOBoxValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.HomePOBoxValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // Country
             // 
@@ -476,7 +482,7 @@
             this.Country.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Country.Name = "Country";
             this.Country.Size = new System.Drawing.Size(65, 23);
-            this.Country.TabIndex = 14;
+            this.Country.TabIndex = 10;
             this.Country.Text = "Country:";
             this.Country.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -486,7 +492,7 @@
             this.CityLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.CityLabel.Name = "CityLabel";
             this.CityLabel.Size = new System.Drawing.Size(43, 23);
-            this.CityLabel.TabIndex = 8;
+            this.CityLabel.TabIndex = 4;
             this.CityLabel.Text = "City:";
             this.CityLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -499,7 +505,9 @@
             this.HomeStateValue.Name = "HomeStateValue";
             this.HomeStateValue.oldText = null;
             this.HomeStateValue.Size = new System.Drawing.Size(236, 22);
-            this.HomeStateValue.TabIndex = 13;
+            this.HomeStateValue.TabIndex = 9;
+            this.HomeStateValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.HomeStateValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // HomeCityValue
             // 
@@ -510,7 +518,9 @@
             this.HomeCityValue.Name = "HomeCityValue";
             this.HomeCityValue.oldText = null;
             this.HomeCityValue.Size = new System.Drawing.Size(127, 22);
-            this.HomeCityValue.TabIndex = 9;
+            this.HomeCityValue.TabIndex = 5;
+            this.HomeCityValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.HomeCityValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // StateLabel
             // 
@@ -518,7 +528,7 @@
             this.StateLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.StateLabel.Name = "StateLabel";
             this.StateLabel.Size = new System.Drawing.Size(61, 23);
-            this.StateLabel.TabIndex = 12;
+            this.StateLabel.TabIndex = 8;
             this.StateLabel.Text = "State:";
             this.StateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -528,7 +538,7 @@
             this.ZipLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ZipLabel.Name = "ZipLabel";
             this.ZipLabel.Size = new System.Drawing.Size(37, 23);
-            this.ZipLabel.TabIndex = 10;
+            this.ZipLabel.TabIndex = 6;
             this.ZipLabel.Text = "Zip:";
             this.ZipLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -541,21 +551,23 @@
             this.HomeZipValue.Name = "HomeZipValue";
             this.HomeZipValue.oldText = null;
             this.HomeZipValue.Size = new System.Drawing.Size(124, 22);
-            this.HomeZipValue.TabIndex = 11;
+            this.HomeZipValue.TabIndex = 7;
+            this.HomeZipValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.HomeZipValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // tbWork
             // 
             this.tbWork.BackColor = System.Drawing.SystemColors.Control;
             this.tbWork.Controls.Add(this.label9);
-            this.tbWork.Controls.Add(this.WorkAddressValue);
             this.tbWork.Controls.Add(this.label8);
-            this.tbWork.Controls.Add(this.WorkCountryValue);
             this.tbWork.Controls.Add(this.label5);
-            this.tbWork.Controls.Add(this.WorkPOBoxValue);
-            this.tbWork.Controls.Add(this.WorkZipValue);
             this.tbWork.Controls.Add(this.label7);
             this.tbWork.Controls.Add(this.label4);
             this.tbWork.Controls.Add(this.label6);
+            this.tbWork.Controls.Add(this.WorkAddressValue);
+            this.tbWork.Controls.Add(this.WorkCountryValue);
+            this.tbWork.Controls.Add(this.WorkPOBoxValue);
+            this.tbWork.Controls.Add(this.WorkZipValue);
             this.tbWork.Controls.Add(this.WorkCityValue);
             this.tbWork.Controls.Add(this.WorkStateValue);
             this.tbWork.Location = new System.Drawing.Point(4, 25);
@@ -576,17 +588,6 @@
             this.label9.Text = "Address:";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // WorkAddressValue
-            // 
-            this.WorkAddressValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.WorkAddressValue.Location = new System.Drawing.Point(89, 11);
-            this.WorkAddressValue.Margin = new System.Windows.Forms.Padding(4);
-            this.WorkAddressValue.Name = "WorkAddressValue";
-            this.WorkAddressValue.oldText = "";
-            this.WorkAddressValue.Size = new System.Drawing.Size(617, 22);
-            this.WorkAddressValue.TabIndex = 17;
-            // 
             // label8
             // 
             this.label8.Location = new System.Drawing.Point(20, 42);
@@ -597,17 +598,6 @@
             this.label8.Text = "PO Box:";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // WorkCountryValue
-            // 
-            this.WorkCountryValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.WorkCountryValue.Location = new System.Drawing.Point(400, 75);
-            this.WorkCountryValue.Margin = new System.Windows.Forms.Padding(4);
-            this.WorkCountryValue.Name = "WorkCountryValue";
-            this.WorkCountryValue.oldText = null;
-            this.WorkCountryValue.Size = new System.Drawing.Size(307, 22);
-            this.WorkCountryValue.TabIndex = 27;
-            // 
             // label5
             // 
             this.label5.Location = new System.Drawing.Point(20, 65);
@@ -617,28 +607,6 @@
             this.label5.TabIndex = 24;
             this.label5.Text = "State:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // WorkPOBoxValue
-            // 
-            this.WorkPOBoxValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.WorkPOBoxValue.Location = new System.Drawing.Point(89, 41);
-            this.WorkPOBoxValue.Margin = new System.Windows.Forms.Padding(4);
-            this.WorkPOBoxValue.Name = "WorkPOBoxValue";
-            this.WorkPOBoxValue.oldText = null;
-            this.WorkPOBoxValue.Size = new System.Drawing.Size(236, 22);
-            this.WorkPOBoxValue.TabIndex = 19;
-            // 
-            // WorkZipValue
-            // 
-            this.WorkZipValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.WorkZipValue.Location = new System.Drawing.Point(583, 43);
-            this.WorkZipValue.Margin = new System.Windows.Forms.Padding(4);
-            this.WorkZipValue.Name = "WorkZipValue";
-            this.WorkZipValue.oldText = null;
-            this.WorkZipValue.Size = new System.Drawing.Size(124, 22);
-            this.WorkZipValue.TabIndex = 23;
             // 
             // label7
             // 
@@ -670,6 +638,58 @@
             this.label6.Text = "City:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // WorkAddressValue
+            // 
+            this.WorkAddressValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.WorkAddressValue.Location = new System.Drawing.Point(89, 11);
+            this.WorkAddressValue.Margin = new System.Windows.Forms.Padding(4);
+            this.WorkAddressValue.Name = "WorkAddressValue";
+            this.WorkAddressValue.oldText = "";
+            this.WorkAddressValue.Size = new System.Drawing.Size(617, 22);
+            this.WorkAddressValue.TabIndex = 17;
+            this.WorkAddressValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            this.WorkAddressValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            // 
+            // WorkCountryValue
+            // 
+            this.WorkCountryValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.WorkCountryValue.Location = new System.Drawing.Point(400, 75);
+            this.WorkCountryValue.Margin = new System.Windows.Forms.Padding(4);
+            this.WorkCountryValue.Name = "WorkCountryValue";
+            this.WorkCountryValue.oldText = null;
+            this.WorkCountryValue.Size = new System.Drawing.Size(307, 22);
+            this.WorkCountryValue.TabIndex = 27;
+            this.WorkCountryValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            this.WorkCountryValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            // 
+            // WorkPOBoxValue
+            // 
+            this.WorkPOBoxValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.WorkPOBoxValue.Location = new System.Drawing.Point(89, 41);
+            this.WorkPOBoxValue.Margin = new System.Windows.Forms.Padding(4);
+            this.WorkPOBoxValue.Name = "WorkPOBoxValue";
+            this.WorkPOBoxValue.oldText = null;
+            this.WorkPOBoxValue.Size = new System.Drawing.Size(236, 22);
+            this.WorkPOBoxValue.TabIndex = 19;
+            this.WorkPOBoxValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            this.WorkPOBoxValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            // 
+            // WorkZipValue
+            // 
+            this.WorkZipValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.WorkZipValue.Location = new System.Drawing.Point(583, 43);
+            this.WorkZipValue.Margin = new System.Windows.Forms.Padding(4);
+            this.WorkZipValue.Name = "WorkZipValue";
+            this.WorkZipValue.oldText = null;
+            this.WorkZipValue.Size = new System.Drawing.Size(124, 22);
+            this.WorkZipValue.TabIndex = 23;
+            this.WorkZipValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            this.WorkZipValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            // 
             // WorkCityValue
             // 
             this.WorkCityValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -680,6 +700,8 @@
             this.WorkCityValue.oldText = null;
             this.WorkCityValue.Size = new System.Drawing.Size(127, 22);
             this.WorkCityValue.TabIndex = 21;
+            this.WorkCityValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            this.WorkCityValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             // 
             // WorkStateValue
             // 
@@ -691,20 +713,22 @@
             this.WorkStateValue.oldText = null;
             this.WorkStateValue.Size = new System.Drawing.Size(240, 22);
             this.WorkStateValue.TabIndex = 25;
+            this.WorkStateValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            this.WorkStateValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             // 
             // tbPostal
             // 
             this.tbPostal.BackColor = System.Drawing.SystemColors.Control;
             this.tbPostal.Controls.Add(this.label10);
-            this.tbPostal.Controls.Add(this.PostalAddressValue);
             this.tbPostal.Controls.Add(this.label11);
-            this.tbPostal.Controls.Add(this.PostalCountryValue);
             this.tbPostal.Controls.Add(this.label12);
-            this.tbPostal.Controls.Add(this.PostalPOBoxValue);
-            this.tbPostal.Controls.Add(this.PostalZipValue);
             this.tbPostal.Controls.Add(this.label13);
             this.tbPostal.Controls.Add(this.label14);
             this.tbPostal.Controls.Add(this.label15);
+            this.tbPostal.Controls.Add(this.PostalAddressValue);
+            this.tbPostal.Controls.Add(this.PostalCountryValue);
+            this.tbPostal.Controls.Add(this.PostalPOBoxValue);
+            this.tbPostal.Controls.Add(this.PostalZipValue);
             this.tbPostal.Controls.Add(this.PostalCityValue);
             this.tbPostal.Controls.Add(this.PostalStateValue);
             this.tbPostal.Location = new System.Drawing.Point(4, 25);
@@ -724,17 +748,6 @@
             this.label10.Text = "Address:";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // PostalAddressValue
-            // 
-            this.PostalAddressValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PostalAddressValue.Location = new System.Drawing.Point(89, 11);
-            this.PostalAddressValue.Margin = new System.Windows.Forms.Padding(4);
-            this.PostalAddressValue.Name = "PostalAddressValue";
-            this.PostalAddressValue.oldText = "";
-            this.PostalAddressValue.Size = new System.Drawing.Size(617, 22);
-            this.PostalAddressValue.TabIndex = 17;
-            // 
             // label11
             // 
             this.label11.Location = new System.Drawing.Point(20, 42);
@@ -744,17 +757,6 @@
             this.label11.TabIndex = 18;
             this.label11.Text = "PO Box:";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // PostalCountryValue
-            // 
-            this.PostalCountryValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PostalCountryValue.Location = new System.Drawing.Point(400, 75);
-            this.PostalCountryValue.Margin = new System.Windows.Forms.Padding(4);
-            this.PostalCountryValue.Name = "PostalCountryValue";
-            this.PostalCountryValue.oldText = null;
-            this.PostalCountryValue.Size = new System.Drawing.Size(307, 22);
-            this.PostalCountryValue.TabIndex = 27;
             // 
             // label12
             // 
@@ -766,34 +768,12 @@
             this.label12.Text = "State:";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // PostalPOBoxValue
-            // 
-            this.PostalPOBoxValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PostalPOBoxValue.Location = new System.Drawing.Point(89, 41);
-            this.PostalPOBoxValue.Margin = new System.Windows.Forms.Padding(4);
-            this.PostalPOBoxValue.Name = "PostalPOBoxValue";
-            this.PostalPOBoxValue.oldText = null;
-            this.PostalPOBoxValue.Size = new System.Drawing.Size(240, 22);
-            this.PostalPOBoxValue.TabIndex = 19;
-            // 
-            // PostalZipValue
-            // 
-            this.PostalZipValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PostalZipValue.Location = new System.Drawing.Point(583, 43);
-            this.PostalZipValue.Margin = new System.Windows.Forms.Padding(4);
-            this.PostalZipValue.Name = "PostalZipValue";
-            this.PostalZipValue.oldText = null;
-            this.PostalZipValue.Size = new System.Drawing.Size(124, 22);
-            this.PostalZipValue.TabIndex = 23;
-            // 
             // label13
             // 
-            this.label13.Location = new System.Drawing.Point(339, 76);
+            this.label13.Location = new System.Drawing.Point(335, 76);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(65, 23);
+            this.label13.Size = new System.Drawing.Size(61, 23);
             this.label13.TabIndex = 26;
             this.label13.Text = "Country:";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -818,6 +798,58 @@
             this.label15.Text = "City:";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // PostalAddressValue
+            // 
+            this.PostalAddressValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PostalAddressValue.Location = new System.Drawing.Point(89, 11);
+            this.PostalAddressValue.Margin = new System.Windows.Forms.Padding(4);
+            this.PostalAddressValue.Name = "PostalAddressValue";
+            this.PostalAddressValue.oldText = "";
+            this.PostalAddressValue.Size = new System.Drawing.Size(617, 22);
+            this.PostalAddressValue.TabIndex = 17;
+            this.PostalAddressValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            this.PostalAddressValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            // 
+            // PostalCountryValue
+            // 
+            this.PostalCountryValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PostalCountryValue.Location = new System.Drawing.Point(400, 75);
+            this.PostalCountryValue.Margin = new System.Windows.Forms.Padding(4);
+            this.PostalCountryValue.Name = "PostalCountryValue";
+            this.PostalCountryValue.oldText = null;
+            this.PostalCountryValue.Size = new System.Drawing.Size(307, 22);
+            this.PostalCountryValue.TabIndex = 27;
+            this.PostalCountryValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            this.PostalCountryValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            // 
+            // PostalPOBoxValue
+            // 
+            this.PostalPOBoxValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PostalPOBoxValue.Location = new System.Drawing.Point(89, 41);
+            this.PostalPOBoxValue.Margin = new System.Windows.Forms.Padding(4);
+            this.PostalPOBoxValue.Name = "PostalPOBoxValue";
+            this.PostalPOBoxValue.oldText = null;
+            this.PostalPOBoxValue.Size = new System.Drawing.Size(240, 22);
+            this.PostalPOBoxValue.TabIndex = 19;
+            this.PostalPOBoxValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            this.PostalPOBoxValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            // 
+            // PostalZipValue
+            // 
+            this.PostalZipValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PostalZipValue.Location = new System.Drawing.Point(583, 43);
+            this.PostalZipValue.Margin = new System.Windows.Forms.Padding(4);
+            this.PostalZipValue.Name = "PostalZipValue";
+            this.PostalZipValue.oldText = null;
+            this.PostalZipValue.Size = new System.Drawing.Size(124, 22);
+            this.PostalZipValue.TabIndex = 23;
+            this.PostalZipValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            this.PostalZipValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            // 
             // PostalCityValue
             // 
             this.PostalCityValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -828,6 +860,8 @@
             this.PostalCityValue.oldText = null;
             this.PostalCityValue.Size = new System.Drawing.Size(127, 22);
             this.PostalCityValue.TabIndex = 21;
+            this.PostalCityValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            this.PostalCityValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             // 
             // PostalStateValue
             // 
@@ -839,6 +873,8 @@
             this.PostalStateValue.oldText = null;
             this.PostalStateValue.Size = new System.Drawing.Size(240, 22);
             this.PostalStateValue.TabIndex = 25;
+            this.PostalStateValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            this.PostalStateValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             // 
             // groupBox3
             // 
@@ -870,7 +906,7 @@
             this.FormattedTitleValue.Name = "FormattedTitleValue";
             this.FormattedTitleValue.oldText = null;
             this.FormattedTitleValue.Size = new System.Drawing.Size(100, 22);
-            this.FormattedTitleValue.TabIndex = 3;
+            this.FormattedTitleValue.TabIndex = 1;
             this.FormattedTitleValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             this.FormattedTitleValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
@@ -880,7 +916,7 @@
             this.FormattedTitleLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FormattedTitleLabel.Name = "FormattedTitleLabel";
             this.FormattedTitleLabel.Size = new System.Drawing.Size(52, 23);
-            this.FormattedTitleLabel.TabIndex = 2;
+            this.FormattedTitleLabel.TabIndex = 0;
             this.FormattedTitleLabel.Text = "Title:";
             this.FormattedTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -893,7 +929,7 @@
             this.lastNameValue.Name = "lastNameValue";
             this.lastNameValue.oldText = null;
             this.lastNameValue.Size = new System.Drawing.Size(168, 22);
-            this.lastNameValue.TabIndex = 1;
+            this.lastNameValue.TabIndex = 9;
             this.lastNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             this.lastNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
@@ -903,7 +939,7 @@
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(47, 23);
-            this.label3.TabIndex = 0;
+            this.label3.TabIndex = 8;
             this.label3.Text = "Last:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -916,7 +952,7 @@
             this.middleNameValue.Name = "middleNameValue";
             this.middleNameValue.oldText = null;
             this.middleNameValue.Size = new System.Drawing.Size(95, 22);
-            this.middleNameValue.TabIndex = 1;
+            this.middleNameValue.TabIndex = 7;
             this.middleNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             this.middleNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
@@ -926,7 +962,7 @@
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(56, 23);
-            this.label2.TabIndex = 0;
+            this.label2.TabIndex = 6;
             this.label2.Text = "Middle:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -937,7 +973,7 @@
             this.firstNameValue.Name = "firstNameValue";
             this.firstNameValue.oldText = null;
             this.firstNameValue.Size = new System.Drawing.Size(100, 22);
-            this.firstNameValue.TabIndex = 1;
+            this.firstNameValue.TabIndex = 5;
             this.firstNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             this.firstNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
@@ -947,7 +983,7 @@
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 23);
-            this.label1.TabIndex = 0;
+            this.label1.TabIndex = 4;
             this.label1.Text = "First:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -960,7 +996,7 @@
             this.FormattedNameValue.Name = "FormattedNameValue";
             this.FormattedNameValue.oldText = null;
             this.FormattedNameValue.Size = new System.Drawing.Size(324, 22);
-            this.FormattedNameValue.TabIndex = 1;
+            this.FormattedNameValue.TabIndex = 3;
             this.FormattedNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             this.FormattedNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
@@ -970,7 +1006,7 @@
             this.FormattedNameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FormattedNameLabel.Name = "FormattedNameLabel";
             this.FormattedNameLabel.Size = new System.Drawing.Size(81, 23);
-            this.FormattedNameLabel.TabIndex = 0;
+            this.FormattedNameLabel.TabIndex = 2;
             this.FormattedNameLabel.Text = "Full Name:";
             this.FormattedNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -987,7 +1023,7 @@
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox2.Size = new System.Drawing.Size(440, 129);
-            this.groupBox2.TabIndex = 2;
+            this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Web : ";
             // 
@@ -1052,7 +1088,7 @@
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(377, 129);
-            this.groupBox1.TabIndex = 1;
+            this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Phones : ";
             // 

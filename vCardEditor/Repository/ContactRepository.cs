@@ -214,18 +214,44 @@ namespace VCFEditor.Repository
 
         public void SaveDirtyVCard(int index, vCard NewCard)
         {
-            if (index > -1 && index < _contacts.Count-1 && _contacts[index].isDirty)
+            if (index > -1 && index <= _contacts.Count-1 && _contacts[index].isDirty)
             {
                 vCard card = _contacts[index].card;
                 card.Title = NewCard.Title;
                 card.FormattedName = NewCard.FormattedName;
+                card.GivenName = NewCard.GivenName;
+                card.FamilyName = NewCard.FamilyName;
+                card.AdditionalNames = NewCard.AdditionalNames;
+                card.FamilyName = NewCard.FamilyName;
 
                 SavePhone(NewCard, card);
                 SaveEmail(NewCard, card);
                 SaveWebUrl(NewCard, card);
+                SaveAddresses(NewCard, card);
 
                 _contacts[index].isDirty = false;
-                _dirty = true;
+                _dirty = false;
+            }
+        }
+
+        private void SaveAddresses(vCard NewCard, vCard card)
+        {
+            foreach (var item in NewCard.DeliveryAddresses)
+            {
+                var adr = card.DeliveryAddresses.Where(x => x.AddressType.FirstOrDefault() == item.AddressType.FirstOrDefault()).FirstOrDefault();
+                if (adr != null)
+                {
+                    adr.City = item.City;
+                    adr.Country = item.Country;
+                    adr.PostalCode = item.PostalCode;
+                    adr.Region = item.Region;
+                    adr.Street = item.Street;
+                }
+                else
+                    card.DeliveryAddresses.Add(new vCardDeliveryAddress(item.Street, item.City, item.Region, item.Country,
+                        item.PostalCode, item.AddressType.FirstOrDefault()));
+                
+                
             }
         }
 
@@ -348,7 +374,8 @@ namespace VCFEditor.Repository
         
 
         /// <summary>
-        /// Check if some iem in the contact list is modified
+        /// Check if some item in the contact list is modified
+        /// Every contact has a dirty flag, and also there's a global dirty flag (used when contact is deleted!)
         /// </summary>
         /// <returns>true for dirty</returns>
         private bool _dirty;
