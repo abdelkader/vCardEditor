@@ -371,7 +371,18 @@ namespace VCFEditor.Repository
             return tw.ToString();
         }
 
-        
+        public void ModifyImage(int index, vCardPhoto photo)
+        {
+            if (index > -1)
+            {
+                if (photo is null)
+                    _contacts[index].card.Photos.Clear();
+                else
+                    _contacts[index].card.Photos.Add(photo);
+            }
+        }
+
+
 
         /// <summary>
         /// Check if some item in the contact list is modified

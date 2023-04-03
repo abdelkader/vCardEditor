@@ -21,6 +21,7 @@ namespace VCFEditor.View
         event EventHandler<EventArg<string>> FilterTextChanged;
         event EventHandler TextBoxValueChanged;
         event EventHandler<EventArg<bool>> CloseForm;
+        event EventHandler<EventArg<string>> ModifyImage;
         #endregion
 
         int SelectedContactIndex { get; }
@@ -28,7 +29,7 @@ namespace VCFEditor.View
         void DisplayContactDetail(vCard card, string FileName);
         bool AskMessage(string msg, string caption);
         void DisplayMessage(string msg, string caption);
-        string DisplayOpenDialog();
+        string DisplayOpenDialog(string filter);
         void UpdateMRUMenu(FixedList MRUList);
     }
 }

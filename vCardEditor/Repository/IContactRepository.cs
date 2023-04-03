@@ -21,5 +21,7 @@ namespace VCFEditor.Repository
         void SaveDirtyFlag(int index);
         void SaveDirtyVCard(int index, vCard card);
         void AddEmptyContact();
+
+        void ModifyImage(int index, vCardPhoto photo);
     }
 }

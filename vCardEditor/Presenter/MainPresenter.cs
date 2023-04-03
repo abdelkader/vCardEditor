@@ -31,9 +31,24 @@ namespace VCFEditor.Presenter
             _view.TextBoxValueChanged += TextBoxValueChanged;
             _view.BeforeLeavingContact += BeforeLeavingContact;
             _view.CloseForm += CloseForm;
+            _view.ModifyImage += ModifyImage;
+
 
         }
-       
+
+        private void ModifyImage(object sender, EventArg<string> e)
+        {
+            if (!string.IsNullOrEmpty(e.Data) )
+            {
+                vCardPhoto photo = new vCardPhoto(e.Data);
+                _repository.ModifyImage(_view.SelectedContactIndex, photo);
+            }
+            else
+                _repository.ModifyImage(_view.SelectedContactIndex, null);
+
+
+
+        }
 
         void CloseForm(object sender, EventArg<bool> e)
         {
@@ -92,12 +107,11 @@ namespace VCFEditor.Presenter
 
         public void NewFileOpened(object sender, EventArg<string> e)
         {
-
             BeforeOpeningNewFile(sender, e);
             
             string path = e.Data;
             if (string.IsNullOrEmpty(path))
-                path = _view.DisplayOpenDialog();
+                path = _view.DisplayOpenDialog("vCard Files|*.vcf");
             
             if (!string.IsNullOrEmpty(path))
             {

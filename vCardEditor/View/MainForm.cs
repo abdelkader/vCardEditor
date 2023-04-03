@@ -7,6 +7,7 @@ using VCFEditor.Model;
 using Thought.vCards;
 using vCardEditor.Repository;
 using vCardEditor.Model;
+using System.Drawing;
 
 namespace vCardEditor.View
 {
@@ -23,6 +24,7 @@ namespace vCardEditor.View
         public event EventHandler<EventArg<string>> FilterTextChanged;
         public event EventHandler TextBoxValueChanged;
         public event EventHandler<EventArg<bool>> CloseForm;
+        public event EventHandler<EventArg<string>> ModifyImage;
         #endregion
         ComponentResourceManager resources;
 
@@ -46,6 +48,8 @@ namespace vCardEditor.View
             BuildMRUMenu();
 
         }
+
+       
 
         private void tbsOpen_Click(object sender, EventArgs e)
         {
@@ -81,7 +85,7 @@ namespace vCardEditor.View
             }
 
         }
-
+       
         private void dgContacts_SelectionChanged(object sender, EventArgs e)
         {
             if (ChangeContactsSelected != null && dgContacts.CurrentCell != null)
@@ -170,11 +174,12 @@ namespace vCardEditor.View
                 catch
                 {
                     //Empty image icon instead.
-                    PhotoBox.Image = ((System.Drawing.Image)(resources.GetObject("PhotoBox.Image")));
+                    PhotoBox.Image = (Image)resources.GetObject("PhotoBox.Image");
                 }
             }
             else
-                PhotoBox.Image = ((System.Drawing.Image)(resources.GetObject("PhotoBox.Image")));
+                PhotoBox.Image = (Image)resources.GetObject("PhotoBox.Image");
+
         }
         private void SetAddressesValues(vCardDeliveryAddressCollection addresses)
         {
@@ -418,19 +423,46 @@ namespace vCardEditor.View
         {
             MessageBox.Show(msg, caption);
         }
-        public string DisplayOpenDialog()
+        public string DisplayOpenDialog(string filter = "")
         {
             string filename = string.Empty;
-
+             openFileDialog.Filter = filter;
+            
             DialogResult result = openFileDialog.ShowDialog();
             if (result == DialogResult.OK)
                 filename = openFileDialog.FileName;
 
             return filename;
         }
+        private void PhotoBox_Click(object sender, EventArgs e)
+        {
+            if (ModifyImage != null)
+            {
+                var fileName = DisplayOpenDialog();
+                if (!string.IsNullOrEmpty(fileName))
+                {
+                    try
+                    {
+                        PhotoBox.Image = new Bitmap(fileName);
+                        var evt = new EventArg<string>(fileName);
+                        ModifyImage(sender, evt);
+                    }
+                    catch (ArgumentException)
+                    {
+                        MessageBox.Show($"Invalid file! : {fileName}");
+                    }
+                    
+                }
+                
+            }
 
-       
+        }
 
-       
+        private void btnRemoveImage_Click(object sender, EventArgs e)
+        {
+            PhotoBox.Image = (Image)resources.GetObject("PhotoBox.Image");
+            //Remove image from vcf
+            ModifyImage(sender, new EventArg<string>(""));
+        }
     }
 }

@@ -25,6 +25,16 @@ namespace vCardEditor_Test
         }
 
         [TestMethod]
+        public void NewFileOpened_Address_Test()
+        {
+            var fileHandler = Substitute.For<IFileHandler>();
+            fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfOneEntry);
+            var repo = Substitute.For<ContactRepository>(fileHandler);
+            var contacts = repo.LoadContacts("name");
+            Assert.IsTrue(contacts[0].card.DeliveryAddresses.FirstOrDefault().AddressType.Contains(vCardDeliveryAddressTypes.Work));
+        }
+
+        [TestMethod]
         public void NewFileOpened_SaveDirtyCellPhone_NotNullWithNotNull_Test()
         {
             var fileHandler = Substitute.For<IFileHandler>();

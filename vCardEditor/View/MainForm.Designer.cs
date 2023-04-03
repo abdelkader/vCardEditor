@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.miSave = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,6 +55,7 @@
             this.CellularPhoneLabel = new System.Windows.Forms.Label();
             this.WorkPhoneLabel = new System.Windows.Forms.Label();
             this.gbContactDetail = new System.Windows.Forms.GroupBox();
+            this.btnRemoveImage = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.tbcAddress = new System.Windows.Forms.TabControl();
             this.tbHome = new System.Windows.Forms.TabPage();
@@ -314,7 +315,6 @@
             // 
             // openFileDialog
             // 
-            this.openFileDialog.Filter = "vCard Files|*.vcf";
             this.openFileDialog.Title = "Open vCard File";
             // 
             // HomePhoneLabel
@@ -352,6 +352,7 @@
             this.gbContactDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbContactDetail.Controls.Add(this.btnRemoveImage);
             this.gbContactDetail.Controls.Add(this.groupBox4);
             this.gbContactDetail.Controls.Add(this.groupBox3);
             this.gbContactDetail.Controls.Add(this.groupBox2);
@@ -366,6 +367,17 @@
             this.gbContactDetail.TabIndex = 3;
             this.gbContactDetail.TabStop = false;
             this.gbContactDetail.Text = "Contact Detail :";
+            // 
+            // btnRemoveImage
+            // 
+            this.btnRemoveImage.BackColor = System.Drawing.SystemColors.Window;
+            this.btnRemoveImage.Image = ((System.Drawing.Image)(resources.GetObject("btnRemoveImage.Image")));
+            this.btnRemoveImage.Location = new System.Drawing.Point(768, 170);
+            this.btnRemoveImage.Name = "btnRemoveImage";
+            this.btnRemoveImage.Size = new System.Drawing.Size(20, 23);
+            this.btnRemoveImage.TabIndex = 54;
+            this.btnRemoveImage.UseVisualStyleBackColor = true;
+            this.btnRemoveImage.Click += new System.EventHandler(this.btnRemoveImage_Click);
             // 
             // groupBox4
             // 
@@ -648,8 +660,8 @@
             this.WorkAddressValue.oldText = "";
             this.WorkAddressValue.Size = new System.Drawing.Size(617, 22);
             this.WorkAddressValue.TabIndex = 17;
-            this.WorkAddressValue.Validated += new System.EventHandler(this.Value_TextChanged);
             this.WorkAddressValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.WorkAddressValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // WorkCountryValue
             // 
@@ -661,8 +673,8 @@
             this.WorkCountryValue.oldText = null;
             this.WorkCountryValue.Size = new System.Drawing.Size(307, 22);
             this.WorkCountryValue.TabIndex = 27;
-            this.WorkCountryValue.Validated += new System.EventHandler(this.Value_TextChanged);
             this.WorkCountryValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.WorkCountryValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // WorkPOBoxValue
             // 
@@ -674,8 +686,8 @@
             this.WorkPOBoxValue.oldText = null;
             this.WorkPOBoxValue.Size = new System.Drawing.Size(236, 22);
             this.WorkPOBoxValue.TabIndex = 19;
-            this.WorkPOBoxValue.Validated += new System.EventHandler(this.Value_TextChanged);
             this.WorkPOBoxValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.WorkPOBoxValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // WorkZipValue
             // 
@@ -687,8 +699,8 @@
             this.WorkZipValue.oldText = null;
             this.WorkZipValue.Size = new System.Drawing.Size(124, 22);
             this.WorkZipValue.TabIndex = 23;
-            this.WorkZipValue.Validated += new System.EventHandler(this.Value_TextChanged);
             this.WorkZipValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.WorkZipValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // WorkCityValue
             // 
@@ -700,8 +712,8 @@
             this.WorkCityValue.oldText = null;
             this.WorkCityValue.Size = new System.Drawing.Size(127, 22);
             this.WorkCityValue.TabIndex = 21;
-            this.WorkCityValue.Validated += new System.EventHandler(this.Value_TextChanged);
             this.WorkCityValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.WorkCityValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // WorkStateValue
             // 
@@ -713,8 +725,8 @@
             this.WorkStateValue.oldText = null;
             this.WorkStateValue.Size = new System.Drawing.Size(240, 22);
             this.WorkStateValue.TabIndex = 25;
-            this.WorkStateValue.Validated += new System.EventHandler(this.Value_TextChanged);
             this.WorkStateValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.WorkStateValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // tbPostal
             // 
@@ -808,8 +820,8 @@
             this.PostalAddressValue.oldText = "";
             this.PostalAddressValue.Size = new System.Drawing.Size(617, 22);
             this.PostalAddressValue.TabIndex = 17;
-            this.PostalAddressValue.Validated += new System.EventHandler(this.Value_TextChanged);
             this.PostalAddressValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.PostalAddressValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // PostalCountryValue
             // 
@@ -821,8 +833,8 @@
             this.PostalCountryValue.oldText = null;
             this.PostalCountryValue.Size = new System.Drawing.Size(307, 22);
             this.PostalCountryValue.TabIndex = 27;
-            this.PostalCountryValue.Validated += new System.EventHandler(this.Value_TextChanged);
             this.PostalCountryValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.PostalCountryValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // PostalPOBoxValue
             // 
@@ -834,8 +846,8 @@
             this.PostalPOBoxValue.oldText = null;
             this.PostalPOBoxValue.Size = new System.Drawing.Size(240, 22);
             this.PostalPOBoxValue.TabIndex = 19;
-            this.PostalPOBoxValue.Validated += new System.EventHandler(this.Value_TextChanged);
             this.PostalPOBoxValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.PostalPOBoxValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // PostalZipValue
             // 
@@ -847,8 +859,8 @@
             this.PostalZipValue.oldText = null;
             this.PostalZipValue.Size = new System.Drawing.Size(124, 22);
             this.PostalZipValue.TabIndex = 23;
-            this.PostalZipValue.Validated += new System.EventHandler(this.Value_TextChanged);
             this.PostalZipValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.PostalZipValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // PostalCityValue
             // 
@@ -860,8 +872,8 @@
             this.PostalCityValue.oldText = null;
             this.PostalCityValue.Size = new System.Drawing.Size(127, 22);
             this.PostalCityValue.TabIndex = 21;
-            this.PostalCityValue.Validated += new System.EventHandler(this.Value_TextChanged);
             this.PostalCityValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.PostalCityValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // PostalStateValue
             // 
@@ -873,8 +885,8 @@
             this.PostalStateValue.oldText = null;
             this.PostalStateValue.Size = new System.Drawing.Size(240, 22);
             this.PostalStateValue.TabIndex = 25;
-            this.PostalStateValue.Validated += new System.EventHandler(this.Value_TextChanged);
             this.PostalStateValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.PostalStateValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // groupBox3
             // 
@@ -1134,6 +1146,7 @@
             // PhotoBox
             // 
             this.PhotoBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.PhotoBox.Cursor = System.Windows.Forms.Cursors.Hand;
             this.PhotoBox.Image = ((System.Drawing.Image)(resources.GetObject("PhotoBox.Image")));
             this.PhotoBox.Location = new System.Drawing.Point(603, 23);
             this.PhotoBox.Margin = new System.Windows.Forms.Padding(4);
@@ -1142,6 +1155,7 @@
             this.PhotoBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.PhotoBox.TabIndex = 53;
             this.PhotoBox.TabStop = false;
+            this.PhotoBox.Click += new System.EventHandler(this.PhotoBox_Click);
             // 
             // gbNameList
             // 
@@ -1185,8 +1199,8 @@
             this.dgContacts.AllowUserToAddRows = false;
             this.dgContacts.AllowUserToDeleteRows = false;
             this.dgContacts.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dgContacts.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dgContacts.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgContacts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgContacts.AutoGenerateColumns = false;
@@ -1369,5 +1383,6 @@
         internal StateTextBox PostalStateValue;
         private System.Windows.Forms.ToolStripButton tbsNew;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
+        private System.Windows.Forms.Button btnRemoveImage;
     }
 }
