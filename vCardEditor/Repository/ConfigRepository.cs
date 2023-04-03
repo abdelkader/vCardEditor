@@ -17,6 +17,7 @@ namespace vCardEditor.Repository
             get { return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.xml"); }
         }
 
+        private const int MAX_RECENT_FILES = 5;
         private static ConfigRepository instance = null;
         [XmlIgnore]
         public static ConfigRepository Instance
@@ -82,7 +83,8 @@ namespace vCardEditor.Repository
             catch (Exception)
             {
                 obj = new ConfigRepository();
-                obj.Paths = new FixedList(5);
+                obj.Maximum = MAX_RECENT_FILES;
+                obj.Paths = new FixedList(MAX_RECENT_FILES);
             }
 
 
