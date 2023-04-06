@@ -20,8 +20,9 @@ namespace vCardEditor_Test
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfUtf8Entry);
             var repo = Substitute.For<ContactRepository>(fileHandler);
+            var contacts = repo.LoadContacts("file.vcf");
 
-            Assert.AreEqual(repo.LoadContacts("name")[0].Name, "Oum Alaâ");
+            Assert.AreEqual(contacts[0].Name, "Oum Alaâ");
         }
 
         [TestMethod]
@@ -30,7 +31,7 @@ namespace vCardEditor_Test
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfOneEntry);
             var repo = Substitute.For<ContactRepository>(fileHandler);
-            var contacts = repo.LoadContacts("name");
+            var contacts = repo.LoadContacts("file.vcf");
             Assert.IsTrue(contacts[0].card.DeliveryAddresses.FirstOrDefault().AddressType.Contains(vCardDeliveryAddressTypes.Work));
         }
 
@@ -41,7 +42,7 @@ namespace vCardEditor_Test
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfFourEntry);
             
             var repo = Substitute.For<ContactRepository>(fileHandler);
-            repo.LoadContacts("name");
+            repo.LoadContacts("file.vcf");
             repo.Contacts[0].isDirty=true;
             
             string phone = "0011223344";
@@ -62,7 +63,7 @@ namespace vCardEditor_Test
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfFourEntry);
 
             var repo = Substitute.For<ContactRepository>(fileHandler);
-            repo.LoadContacts("name");
+            repo.LoadContacts("file.vcf");
             repo.Contacts[0].isDirty = true;
 
             repo.SaveDirtyVCard(0, new vCard());
@@ -78,7 +79,7 @@ namespace vCardEditor_Test
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfFourEntry);
             var repo = Substitute.For<ContactRepository>(fileHandler);
-            repo.LoadContacts("name");
+            repo.LoadContacts("file.vcf");
             repo.Contacts[2].isDirty = true;
 
             string phone = "0011223344";
@@ -96,7 +97,7 @@ namespace vCardEditor_Test
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfFourEntry);
             var repo = Substitute.For<ContactRepository>(fileHandler);
-            repo.LoadContacts("name");
+            repo.LoadContacts("file.vcf");
             repo.Contacts[3].isDirty = true;
           
             repo.SaveDirtyVCard(3, new vCard());
@@ -112,7 +113,7 @@ namespace vCardEditor_Test
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfWikiv21);
             var repo = Substitute.For<ContactRepository>(fileHandler);
-            repo.LoadContacts("name");
+            repo.LoadContacts("file.vcf");
             repo.Contacts[0].isDirty = true;
 
             repo.SaveDirtyVCard(0, new vCard());

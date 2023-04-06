@@ -14,7 +14,6 @@ namespace VCFEditor.Repository
     {
         public string fileName { get; set; }
         private IFileHandler _fileHandler;
-        #region Contact Info
         /// <summary>
         /// Formatted name.
         /// </summary>
@@ -38,7 +37,6 @@ namespace VCFEditor.Repository
                 _contacts = value;
             }
         }
-        #endregion
 
         public ContactRepository(IFileHandler fileHandler)
         {
@@ -47,15 +45,14 @@ namespace VCFEditor.Repository
 
         public BindingList<Contact> LoadContacts(string fileName)
         {
+            Contacts.Clear();
+
+            //TODO: Clean end of line from spaces..
             this.fileName = fileName;
+            string[] lines = _fileHandler.ReadAllLines(fileName);
 
             StringBuilder RawContent = new StringBuilder();
             Contact contact = new Contact();
-            string[] lines = _fileHandler.ReadAllLines(fileName);
-            //TODO: Clean end of line from spaces..
-            
-            //Prevent from adding contacts to existings ones.
-            Contacts.Clear();
 
             for (int i = 0; i < lines.Length; i++)
             {
@@ -70,7 +67,6 @@ namespace VCFEditor.Repository
               
             }
 
-            _dirty = false;
             OriginalContactList = Contacts;
             return Contacts;
         }
@@ -84,11 +80,7 @@ namespace VCFEditor.Repository
             }
         }
 
-        /// <summary>
-        /// Save the contact to the file.
-        /// </summary>
-        /// <param name="path">Path to the new file, else if null, we overwrite the same file</param>
-        public void SaveContacts(string fileName)
+        public void SaveContactsToFile(string fileName)
         {
             //overwrite the same file, else save as another file.
             if (string.IsNullOrEmpty(fileName))
@@ -107,9 +99,7 @@ namespace VCFEditor.Repository
             {
                 //Do not save the deleted ones!
                 if (!entry.isDeleted)
-                { 
                     sb.Append(generateRawContent(entry.card));
-                }
                 
                 //Clean the flag for every contact, even the deleted ones.
                 entry.isDirty = false;
@@ -117,7 +107,6 @@ namespace VCFEditor.Repository
                 
 
             _fileHandler.WriteAllText(fileName, sb.ToString());
-            _dirty = false;
         }
 
         private string GetBackupName()
@@ -147,8 +136,8 @@ namespace VCFEditor.Repository
                     if (_contacts[i].isSelected)
                     {
                         _contacts[i].isDeleted = true;
-                        _contacts.RemoveAt(i);
-                        _dirty = true;
+                        _contacts[i].isDirty = true;
+                       _contacts.RemoveAt(i);
                     }
                         
                 }
@@ -216,10 +205,7 @@ namespace VCFEditor.Repository
                 SaveEmail(NewCard, card);
                 SaveWebUrl(NewCard, card);
                 SaveAddresses(NewCard, card);
-
-                //_contacts[index].isDirty = false;
             }
-            //_dirty = false;
         }
 
         private void SaveAddresses(vCard NewCard, vCard card)
@@ -238,7 +224,6 @@ namespace VCFEditor.Repository
                 else
                     card.DeliveryAddresses.Add(new vCardDeliveryAddress(item.Street, item.City, item.Region, item.Country,
                         item.PostalCode, item.AddressType.FirstOrDefault()));
-                
                 
             }
         }
@@ -363,27 +348,21 @@ namespace VCFEditor.Repository
         {
             if (index > -1)
             {
-                if (photo is null)
-                    _contacts[index].card.Photos.Clear();
-                else
-                    _contacts[index].card.Photos.Add(photo);
-
                 _contacts[index].isDirty = true;
+                _contacts[index].card.Photos.Clear();
+                if (photo != null)
+                    _contacts[index].card.Photos.Add(photo);
             }
         }
 
 
 
         /// <summary>
-        /// Check if some item in the contact list is modified
-        /// Every contact has a dirty flag, and also there's a global dirty flag (used when contact is deleted!)
+        /// Check if some item in the contact list is modified Every contact has a dirty flag
         /// </summary>
-        /// <returns>true for dirty</returns>
-        private bool _dirty;
         public bool dirty
         {
-            get { return _dirty || (_contacts != null && _contacts.Any(x => x.isDirty)); }
-            set { _dirty = value; }
+            get { return _contacts != null && _contacts.Any(x => x.isDirty); }
         }
 
     }

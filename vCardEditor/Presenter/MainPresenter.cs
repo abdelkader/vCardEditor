@@ -47,13 +47,12 @@ namespace VCFEditor.Presenter
 
         void CloseForm(object sender, EventArg<bool> e)
         {
-            if (_repository.dirty && _view.AskMessage("Exit before saving?", "Exit"))
+            if (_repository.dirty && _view.AskMessage("Exit without saving?", "Exit"))
                 e.Data = true;
         }
         public void BeforeLeavingContact(object sender, EventArg<vCard> e)
         {
-            if (_view.SelectedContactIndex > -1 && _repository.dirty)
-                _repository.SaveDirtyVCard(_view.SelectedContactIndex, e.Data);
+            _repository.SaveDirtyVCard(_view.SelectedContactIndex, e.Data);
         }
 
         public void TextBoxValueChanged(object sender, EventArgs e)
@@ -83,7 +82,7 @@ namespace VCFEditor.Presenter
         private void SaveContacts(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(_repository.fileName))
-                _repository.SaveContacts(_repository.fileName);
+                _repository.SaveContactsToFile(_repository.fileName);
 
         }
 
@@ -92,7 +91,7 @@ namespace VCFEditor.Presenter
             if (_repository.Contacts != null && _repository.dirty)
             {
                 if (!_view.AskMessage("Save current file before?", "Load"))
-                    _repository.SaveContacts(_repository.fileName);
+                    _repository.SaveContactsToFile(_repository.fileName);
             }
 
         }

@@ -3,23 +3,16 @@ using Thought.vCards;
 
 namespace VCFEditor.Model
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public class Contact : INotifyPropertyChanged
     {
-        [DisplayName(" ")]
-        public bool isSelected { get; set; }
-       
-
         [DisplayName("Name")]
         public string Name
         {
-            get { return card.FormattedName; }
+            get => card.FormattedName;
             set
             {
                 card.FormattedName = value;
-                this.NotifyPropertyChanged("Name");
+                NotifyPropertyChanged("Name");
             }
         }
 
@@ -29,7 +22,10 @@ namespace VCFEditor.Model
        
         [Browsable(false)]
         public bool isDirty { get; set; }
-
+        
+        [DisplayName(" ")]
+        public bool isSelected { get; set; }
+        
         [Browsable(false)]
         public bool isDeleted { get; set; }
      
@@ -41,14 +37,11 @@ namespace VCFEditor.Model
             isDirty = false;
         }
 
-        #region property change event
         private void NotifyPropertyChanged(string name)
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        #endregion
     }
 }
