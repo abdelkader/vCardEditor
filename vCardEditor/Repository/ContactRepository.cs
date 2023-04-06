@@ -24,9 +24,6 @@ namespace VCFEditor.Repository
         /// Keep a copy of contact list when filtering
         /// </summary>
         private BindingList<Contact> OriginalContactList = null;
-        /// <summary>
-        /// Contact List
-        /// </summary>
         private BindingList<Contact> _contacts;
         public BindingList<Contact> Contacts
         {
@@ -63,7 +60,7 @@ namespace VCFEditor.Repository
             for (int i = 0; i < lines.Length; i++)
             {
                 RawContent.AppendLine(lines[i]);
-                if (lines[i].TrimEnd() == "END:VCARD")
+                if (string.Equals(lines[i].TrimEnd(), "END:VCARD", StringComparison.OrdinalIgnoreCase))
                 {
                     contact.card = ParseRawContent(RawContent);
                     Contacts.Add(contact);
@@ -73,13 +70,11 @@ namespace VCFEditor.Repository
               
             }
 
-            OriginalContactList = Contacts;
             _dirty = false;
+            OriginalContactList = Contacts;
             return Contacts;
         }
-        /// <summary>
-        /// Add a new empty contact
-        /// </summary>
+       
         public void AddEmptyContact()
         {
             if (_contacts != null && _contacts.Count > 0)
@@ -107,16 +102,21 @@ namespace VCFEditor.Repository
             }
 
             StringBuilder sb = new StringBuilder();
-            //Do not save the deleted ones...
+            
             foreach (var entry in Contacts)
             {
+                //Do not save the deleted ones!
                 if (!entry.isDeleted)
+                { 
                     sb.Append(generateRawContent(entry.card));
+                }
+                
+                //Clean the flag for every contact, even the deleted ones.
+                entry.isDirty = false;
             }
                 
 
             _fileHandler.WriteAllText(fileName, sb.ToString());
-
             _dirty = false;
         }
 
@@ -134,16 +134,14 @@ namespace VCFEditor.Repository
             return backupName;
         }
 
-
         /// <summary>
-        /// Delete contacted that are selected.
+        /// Delete contact that are selected.
         /// </summary>
         public void DeleteContact()
         {
             if (_contacts != null && _contacts.Count > 0)
             {
                 //loop from the back to prevent index mangling...
-                
                 for (int i = _contacts.Count - 1; i > -1; i--)
                 {
                     if (_contacts[i].isSelected)
@@ -157,13 +155,7 @@ namespace VCFEditor.Repository
             }
 
         }
-
-
-        /// <summary>
-        /// Use the lib to parse a vcard chunk.
-        /// </summary>
-        /// <param name="rawContent"></param>
-        /// <returns></returns>
+       
         private vCard ParseRawContent(StringBuilder rawContent)
         {
             vCard card = null;
@@ -177,11 +169,7 @@ namespace VCFEditor.Repository
             return card;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="s"></param>
-        /// <returns></returns>
+       
         private MemoryStream GenerateStreamFromString(string s)
         {
             MemoryStream stream = new MemoryStream();
@@ -206,7 +194,7 @@ namespace VCFEditor.Repository
         /// </summary>
         /// <param name="card"></param>
         /// <param name="index"></param>
-        public void SaveDirtyFlag(int index)
+        public void SetDirtyFlag(int index)
         {
             if (index > -1)
                 _contacts[index].isDirty = true;
@@ -229,9 +217,9 @@ namespace VCFEditor.Repository
                 SaveWebUrl(NewCard, card);
                 SaveAddresses(NewCard, card);
 
-                _contacts[index].isDirty = false;
-                _dirty = false;
+                //_contacts[index].isDirty = false;
             }
+            //_dirty = false;
         }
 
         private void SaveAddresses(vCard NewCard, vCard card)
@@ -379,6 +367,8 @@ namespace VCFEditor.Repository
                     _contacts[index].card.Photos.Clear();
                 else
                     _contacts[index].card.Photos.Add(photo);
+
+                _contacts[index].isDirty = true;
             }
         }
 

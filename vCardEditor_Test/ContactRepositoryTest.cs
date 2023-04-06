@@ -117,8 +117,8 @@ namespace vCardEditor_Test
 
             repo.SaveDirtyVCard(0, new vCard());
 
-            //var card = repo.Contacts[2].card;
-            //Assert.IsNull(card.Phones.GetFirstChoice(vCardPhoneTypes.Cellular));
+            var card = repo.Contacts[0].card;
+            Assert.IsNull(card.Phones.GetFirstChoice(vCardPhoneTypes.Cellular));
         }
     }
 }

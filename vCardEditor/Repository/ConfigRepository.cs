@@ -65,7 +65,7 @@ namespace vCardEditor.Repository
         /// <returns></returns>
         private static ConfigRepository LoadConfig()
         {
-            ConfigRepository obj;
+            ConfigRepository configData = null;
 
             try
             {
@@ -75,20 +75,22 @@ namespace vCardEditor.Repository
                 XmlSerializer deserializer = new XmlSerializer(typeof(ConfigRepository));
                 using (TextReader reader = new StreamReader(ConfigFileName))
                 {
-                    obj = (ConfigRepository)deserializer.Deserialize(reader);
-                    obj.Paths.Size = obj.Maximum;
+                    configData = (ConfigRepository)deserializer.Deserialize(reader);
+                    configData.Paths.Size = configData.Maximum;
                 }
 
             }
             catch (Exception)
             {
-                obj = new ConfigRepository();
-                obj.Maximum = MAX_RECENT_FILES;
-                obj.Paths = new FixedList(MAX_RECENT_FILES);
+                configData = new ConfigRepository
+                {
+                    Maximum = MAX_RECENT_FILES,
+                    Paths = new FixedList(MAX_RECENT_FILES)
+                };
             }
 
 
-            return obj;
+            return configData;
         }
 
        

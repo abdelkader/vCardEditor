@@ -53,8 +53,7 @@ namespace vCardEditor.View
 
         private void tbsOpen_Click(object sender, EventArgs e)
         {
-            if (NewFileOpened != null)
-                NewFileOpened(sender, new EventArg<string>(string.Empty));
+            NewFileOpened?.Invoke(sender, new EventArg<string>(string.Empty));
         }
 
         
@@ -62,7 +61,7 @@ namespace vCardEditor.View
         public void DisplayContacts(BindingList<Contact> contacts)
         {
             if (contacts != null)
-                this.bsContacts.DataSource = contacts;
+                bsContacts.DataSource = contacts;
 
         }
 
@@ -71,7 +70,7 @@ namespace vCardEditor.View
             if (SaveContactsSelected != null)
             {
                 //make sure the last changes in the textboxes is saved.
-                this.Validate();
+                Validate();
                 SaveContactsSelected(sender, e);
             }
 
@@ -79,24 +78,22 @@ namespace vCardEditor.View
 
         private void tbsNew_Click(object sender, EventArgs e)
         {
-            if (AddContact != null)
-            {
-                AddContact(sender, e);
-            }
+            AddContact?.Invoke(sender, e);
 
         }
        
         private void dgContacts_SelectionChanged(object sender, EventArgs e)
         {
             if (ChangeContactsSelected != null && dgContacts.CurrentCell != null)
-                ChangeContactsSelected(sender, new EventArg<vCard>(getvCard()));
-
+            {
+                vCard data = GetvCard();
+                ChangeContactsSelected(sender, new EventArg<vCard>(data));
+            }
         }
 
         private void Value_TextChanged(object sender, EventArgs e)
         {
-            if (TextBoxValueChanged != null)
-                TextBoxValueChanged(sender, e);
+            TextBoxValueChanged?.Invoke(sender, e);
         }
 
         public void DisplayContactDetail(vCard card, string FileName)
@@ -104,7 +101,7 @@ namespace vCardEditor.View
             if (card == null)
                 throw new ArgumentException("card must be valid!");
 
-            this.Text = string.Format("{0} - vCard Editor", FileName);
+            Text = string.Format("{0} - vCard Editor", FileName);
             gbContactDetail.Enabled = true;
             gbNameList.Enabled = true;
 
@@ -123,7 +120,7 @@ namespace vCardEditor.View
 
         }
 
-        #region helper methods to populate textboxes.
+        
         
         private void SetSummaryValue(StateTextBox valueLabel, string value)
         {
@@ -245,7 +242,7 @@ namespace vCardEditor.View
             PostalStateValue.Clear();
             PostalCountryValue.Clear();
         }
-        #endregion
+        
 
         private void tbsDelete_Click(object sender, EventArgs e)
         {
@@ -260,19 +257,15 @@ namespace vCardEditor.View
 
         private void tbsAbout_Click(object sender, EventArgs e)
         {
-            AboutDialog dialog = new AboutDialog();
-            dialog.ShowDialog();
+            new AboutDialog().ShowDialog();
         }
 
         private void textBoxFilter_TextChanged(object sender, EventArgs e)
         {
             //Save before leaving contact.
-            if (BeforeLeavingContact != null)
-                BeforeLeavingContact(sender, new EventArg<vCard>(getvCard()));
+            BeforeLeavingContact?.Invoke(sender, new EventArg<vCard>(GetvCard()));
 
-            //filter.
-            if (FilterTextChanged != null)
-                FilterTextChanged(sender, new EventArg<string>(textBoxFilter.Text));
+            FilterTextChanged?.Invoke(sender, new EventArg<string>(textBoxFilter.Text));
         }
 
         private void btnClearFilter_Click(object sender, EventArgs e)
@@ -284,7 +277,7 @@ namespace vCardEditor.View
         /// Generate a vcard from differents fields
         /// </summary>
         /// <returns></returns>
-        private vCard getvCard()
+        private vCard GetvCard()
         {
             vCard card = new vCard
             {
@@ -328,21 +321,16 @@ namespace vCardEditor.View
 
         private void dgContacts_RowLeave(object sender, DataGridViewCellEventArgs e)
         {
-            if (BeforeLeavingContact != null)
-                BeforeLeavingContact(sender, new EventArg<vCard>(getvCard()));
+            vCard data = GetvCard();
+            BeforeLeavingContact?.Invoke(sender, new EventArg<vCard>(data));
         }
 
         private void miQuit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
-        #region drag&drop
-        /// <summary>
-        /// Make our form accept drag&drop
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        
         private void MainForm_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -357,39 +345,37 @@ namespace vCardEditor.View
                 return;
             }
 
-
             NewFileOpened(sender, new EventArg<string>(FileList[0]));
 
         }
-        #endregion
-
-      
 
         private void BuildMRUMenu()
         {
-            recentFilesMenuItem.DropDownItemClicked += (s, e) => NewFileOpened(s, new EventArg<string>(e.ClickedItem.Text));
-            //Update the MRU Menu entries..
+            recentFilesMenuItem.DropDownItemClicked += (s, e) =>
+            {
+                var evt = new EventArg<string>(e.ClickedItem.Text);
+                NewFileOpened(s, evt);
+            };
+            
             UpdateMRUMenu(ConfigRepository.Instance.Paths);
 
         }
 
-        public void UpdateMRUMenu(FixedList MRUList)
+        public void UpdateMRUMenu(FixedList MostRecentFilesList)
         {
-            //No need to go further if no menu entry to load!
-            if (MRUList == null || MRUList.IsEmpty())
+            if (MostRecentFilesList == null || MostRecentFilesList.IsEmpty())
                 return;
 
             recentFilesMenuItem.DropDownItems.Clear();
-            for (int i = 0; i < MRUList._innerList.Count; i++)
-                recentFilesMenuItem.DropDownItems.Add(MRUList[i]);
+            for (int i = 0; i < MostRecentFilesList._innerList.Count; i++)
+                recentFilesMenuItem.DropDownItems.Add(MostRecentFilesList[i]);
                 
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             var evt = new EventArg<bool>(false);
-            if (CloseForm != null)
-                CloseForm(sender,evt);
+            CloseForm?.Invoke(sender, evt);
 
             e.Cancel = evt.Data;
 
@@ -408,15 +394,9 @@ namespace vCardEditor.View
             return result;
         }
 
-        /// <summary>
-        /// Load the config dialog
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void miConfig_Click(object sender, EventArgs e)
         {
-            ConfigDialog dialog = new ConfigDialog();
-            dialog.ShowDialog();
+            new ConfigDialog().ShowDialog();
         }
 
         public void DisplayMessage(string msg, string caption)

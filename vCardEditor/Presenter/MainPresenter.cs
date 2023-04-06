@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Thought.vCards;
 using VCFEditor.View;
 using vCardEditor.View;
@@ -33,7 +31,6 @@ namespace VCFEditor.Presenter
             _view.CloseForm += CloseForm;
             _view.ModifyImage += ModifyImage;
 
-
         }
 
         private void ModifyImage(object sender, EventArg<string> e)
@@ -46,8 +43,6 @@ namespace VCFEditor.Presenter
             else
                 _repository.ModifyImage(_view.SelectedContactIndex, null);
 
-
-
         }
 
         void CloseForm(object sender, EventArg<bool> e)
@@ -57,18 +52,15 @@ namespace VCFEditor.Presenter
         }
         public void BeforeLeavingContact(object sender, EventArg<vCard> e)
         {
-            if (_view.SelectedContactIndex > -1)
-            {
-                if (_repository.dirty)
-                    _repository.SaveDirtyVCard(_view.SelectedContactIndex, e.Data);
-            }
+            if (_view.SelectedContactIndex > -1 && _repository.dirty)
+                _repository.SaveDirtyVCard(_view.SelectedContactIndex, e.Data);
         }
 
         public void TextBoxValueChanged(object sender, EventArgs e)
         {
-            StateTextBox tb = sender as StateTextBox;
+            var tb = sender as StateTextBox;
             if (tb != null && tb.oldText != tb.Text)
-                _repository.SaveDirtyFlag(_view.SelectedContactIndex);
+                _repository.SetDirtyFlag(_view.SelectedContactIndex);
 
         }
 
@@ -122,11 +114,11 @@ namespace VCFEditor.Presenter
                     return;
                 }
 
-                FixedList MRUList = ConfigRepository.Instance.Paths;
-                if (!MRUList.Contains(path))
+                FixedList MostRecentUsedFiles = ConfigRepository.Instance.Paths;
+                if (!MostRecentUsedFiles.Contains(path))
                 {
-                    MRUList.Enqueue(path);
-                    _view.UpdateMRUMenu(MRUList);
+                    MostRecentUsedFiles.Enqueue(path);
+                    _view.UpdateMRUMenu(MostRecentUsedFiles);
                 }
                 
                 _repository.LoadContacts(path);
@@ -141,14 +133,10 @@ namespace VCFEditor.Presenter
         {
             if (_view.SelectedContactIndex > -1)
             {
-                int index = _view.SelectedContactIndex;
-                vCard card = _repository.Contacts[index].card;
+                vCard card = _repository.Contacts[_view.SelectedContactIndex].card;
 
                 if (card != null)
-                {
-                    _repository.Contacts[index].isDirty = false;
                     _view.DisplayContactDetail(card, _repository.fileName);
-                }
             }
 
         }
