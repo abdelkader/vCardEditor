@@ -89,6 +89,8 @@ namespace vCardEditor.View
                 vCard data = GetvCard();
                 ChangeContactsSelected(sender, new EventArg<vCard>(data));
             }
+            else
+                ChangeContactsSelected(sender, new EventArg<vCard>(null));
         }
 
         private void Value_TextChanged(object sender, EventArgs e)
@@ -120,8 +122,28 @@ namespace vCardEditor.View
 
         }
 
-        
-        
+        public void ClearContactDetail()
+        {
+            gbContactDetail.Enabled = false;
+            gbNameList.Enabled = false;
+
+            SetSummaryValue(firstNameValue, string.Empty);
+            SetSummaryValue(lastNameValue, string.Empty);
+            SetSummaryValue(middleNameValue, string.Empty);
+            SetSummaryValue(FormattedTitleValue, string.Empty);
+            SetSummaryValue(FormattedNameValue, string.Empty);
+            SetSummaryValue(HomePhoneValue, string.Empty);
+            SetSummaryValue(CellularPhoneValue, string.Empty);
+            SetSummaryValue(WorkPhoneValue, string.Empty);
+            SetSummaryValue(EmailAddressValue, string.Empty);
+            SetSummaryValue(PersonalWebSiteValue, string.Empty);
+            SetAddressesValues(new vCardDeliveryAddressCollection());
+            SetPhotoValue(new vCardPhotoCollection());
+
+        }
+
+
+
         private void SetSummaryValue(StateTextBox valueLabel, string value)
         {
             if (valueLabel == null)

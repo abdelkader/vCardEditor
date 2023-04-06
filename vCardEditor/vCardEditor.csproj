@@ -162,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assests\About.ico" />
+    <Content Include="assests\icons8-close-16.png" />
     <Content Include="assests\vCard.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

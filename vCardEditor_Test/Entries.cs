@@ -8,6 +8,14 @@ namespace vCardEditor_Test
 {
     public class Entries
     {
+        public static string[] vcfEmtpy
+        {
+            get
+            {
+                return "".Split('\n');
+            }
+        }
+
         public static string[] vcfOneEntry
         {
             get

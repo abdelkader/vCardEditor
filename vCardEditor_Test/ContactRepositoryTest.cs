@@ -15,6 +15,18 @@ namespace vCardEditor_Test
     public class ContactRepositoryTest
     {
         [TestMethod]
+        public void NewFileOpened_EmtpyVCF_Test()
+        {
+            var fileHandler = Substitute.For<IFileHandler>();
+            fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfEmtpy);
+            var repo = Substitute.For<ContactRepository>(fileHandler);
+            
+            var contacts = repo.LoadContacts("file.vcf");
+            
+            Assert.IsTrue(contacts.Count == 0);
+        }
+
+        [TestMethod]
         public void NewFileOpened_Utf8Entry_Test()
         {
             var fileHandler = Substitute.For<IFileHandler>();

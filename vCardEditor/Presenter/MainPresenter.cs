@@ -136,7 +136,11 @@ namespace VCFEditor.Presenter
 
                 if (card != null)
                     _view.DisplayContactDetail(card, _repository.fileName);
+                else
+                    _view.ClearContactDetail();
             }
+            else
+                _view.ClearContactDetail();
 
         }
 

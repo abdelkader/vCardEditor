@@ -27,6 +27,7 @@ namespace VCFEditor.View
         int SelectedContactIndex { get; }
         void DisplayContacts(BindingList<Contact> contacts);
         void DisplayContactDetail(vCard card, string FileName);
+        void ClearContactDetail();
         bool AskMessage(string msg, string caption);
         void DisplayMessage(string msg, string caption);
         string DisplayOpenDialog(string filter);
