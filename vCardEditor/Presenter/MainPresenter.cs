@@ -5,7 +5,8 @@ using vCardEditor.View;
 using VCFEditor.Repository;
 using vCardEditor.Repository;
 using vCardEditor.Model;
-
+using System.Linq;
+using System.IO;
 
 namespace VCFEditor.Presenter
 {
@@ -30,8 +31,27 @@ namespace VCFEditor.Presenter
             _view.BeforeLeavingContact += BeforeLeavingContact;
             _view.CloseForm += CloseForm;
             _view.ModifyImage += ModifyImage;
+            _view.ExportImage += ExportImage;
 
         }
+
+        private void ExportImage(object sender, EventArgs e)
+        {
+            string imageFile = _view.DisplaySaveDialog(_repository.fileName);
+            if (_view.SelectedContactIndex > 0)
+            {
+                //TODO: image can be url, or file location.
+                var card = _repository.Contacts[_view.SelectedContactIndex].card;
+                var image = card.Photos.FirstOrDefault();
+
+                if (image != null)
+                    _repository.SaveImageToDisk(imageFile, image);
+
+            }
+
+        }
+
+       
 
         private void ModifyImage(object sender, EventArg<string> e)
         {
@@ -106,7 +126,7 @@ namespace VCFEditor.Presenter
             
             if (!string.IsNullOrEmpty(path))
             {
-                string ext = System.IO.Path.GetExtension(path);
+                string ext = _repository.GetExtension(path);
                 if (ext != ".vcf")
                 {
                     _view.DisplayMessage("Only vcf extension accepted!", "Error");

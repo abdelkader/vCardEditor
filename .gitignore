@@ -216,3 +216,4 @@ FakesAssemblies/
 **/*.Server/ModelManifest.xml
 _Pvt_Extensions
 /contacts
+/vCardEditor/assests/icons8-save-32.png

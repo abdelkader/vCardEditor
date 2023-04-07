@@ -10,7 +10,7 @@ namespace VCFEditor.View
 {
     public interface IMainView
     {
-        #region All events
+       
         event EventHandler AddContact;
         event EventHandler DeleteContact;
         event EventHandler BeforeOpeningNewFile;
@@ -22,8 +22,7 @@ namespace VCFEditor.View
         event EventHandler TextBoxValueChanged;
         event EventHandler<EventArg<bool>> CloseForm;
         event EventHandler<EventArg<string>> ModifyImage;
-        #endregion
-
+        event EventHandler ExportImage;
         int SelectedContactIndex { get; }
         void DisplayContacts(BindingList<Contact> contacts);
         void DisplayContactDetail(vCard card, string FileName);
@@ -31,6 +30,7 @@ namespace VCFEditor.View
         bool AskMessage(string msg, string caption);
         void DisplayMessage(string msg, string caption);
         string DisplayOpenDialog(string filter);
+        string DisplaySaveDialog(string filename);
         void UpdateMRUMenu(FixedList MRUList);
     }
 }

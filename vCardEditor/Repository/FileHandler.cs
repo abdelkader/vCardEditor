@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
+
 
 namespace vCardEditor.Repository
 {
@@ -11,6 +10,11 @@ namespace vCardEditor.Repository
         public bool FileExist(string filename)
         {
             return File.Exists(filename);
+        }
+
+        public string GetExtension(string path)
+        {
+            return Path.GetExtension(path);
         }
 
         public void MoveFile(string newFilename, string oldFilename)

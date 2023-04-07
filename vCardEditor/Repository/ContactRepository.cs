@@ -355,6 +355,19 @@ namespace VCFEditor.Repository
             }
         }
 
+        public string GetExtension(string path)
+        {
+            return _fileHandler.GetExtension(path);
+        }
+
+        public void SaveImageToDisk(string imageFile, vCardPhoto image)
+        {
+            using (var ms = new MemoryStream(image.GetBytes()))
+            {
+                using (var fs = new FileStream(imageFile, FileMode.Create))
+                    ms.WriteTo(fs);
+            }
+        }
 
 
         /// <summary>

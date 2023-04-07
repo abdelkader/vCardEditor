@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.miSave = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,6 +55,7 @@
             this.CellularPhoneLabel = new System.Windows.Forms.Label();
             this.WorkPhoneLabel = new System.Windows.Forms.Label();
             this.gbContactDetail = new System.Windows.Forms.GroupBox();
+            this.btnExportImage = new System.Windows.Forms.Button();
             this.btnRemoveImage = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.tbcAddress = new System.Windows.Forms.TabControl();
@@ -352,6 +353,7 @@
             this.gbContactDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbContactDetail.Controls.Add(this.btnExportImage);
             this.gbContactDetail.Controls.Add(this.btnRemoveImage);
             this.gbContactDetail.Controls.Add(this.groupBox4);
             this.gbContactDetail.Controls.Add(this.groupBox3);
@@ -367,6 +369,17 @@
             this.gbContactDetail.TabIndex = 3;
             this.gbContactDetail.TabStop = false;
             this.gbContactDetail.Text = "Contact Detail :";
+            // 
+            // btnExportImage
+            // 
+            this.btnExportImage.BackColor = System.Drawing.SystemColors.Window;
+            this.btnExportImage.Image = ((System.Drawing.Image)(resources.GetObject("btnExportImage.Image")));
+            this.btnExportImage.Location = new System.Drawing.Point(744, 170);
+            this.btnExportImage.Name = "btnExportImage";
+            this.btnExportImage.Size = new System.Drawing.Size(21, 23);
+            this.btnExportImage.TabIndex = 54;
+            this.btnExportImage.UseVisualStyleBackColor = true;
+            this.btnExportImage.Click += new System.EventHandler(this.btnExportImage_Click);
             // 
             // btnRemoveImage
             // 
@@ -1199,8 +1212,8 @@
             this.dgContacts.AllowUserToAddRows = false;
             this.dgContacts.AllowUserToDeleteRows = false;
             this.dgContacts.AllowUserToResizeRows = false;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dgContacts.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dgContacts.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgContacts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgContacts.AutoGenerateColumns = false;
@@ -1384,5 +1397,6 @@
         private System.Windows.Forms.ToolStripButton tbsNew;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
         private System.Windows.Forms.Button btnRemoveImage;
+        private System.Windows.Forms.Button btnExportImage;
     }
 }

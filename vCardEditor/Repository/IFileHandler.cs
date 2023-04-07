@@ -11,5 +11,6 @@ namespace vCardEditor.Repository
         bool FileExist(string filename);
         string[] ReadAllLines(string filename);
         void WriteAllText(string fileName, string contents);
+        string GetExtension(string path);
     }
 }

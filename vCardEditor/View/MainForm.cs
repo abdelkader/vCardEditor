@@ -13,7 +13,6 @@ namespace vCardEditor.View
 {
     public partial class MainForm : Form, IMainView
     {
-        #region event list
         public event EventHandler AddContact;
         public event EventHandler SaveContactsSelected;
         public event EventHandler BeforeOpeningNewFile;
@@ -25,7 +24,8 @@ namespace vCardEditor.View
         public event EventHandler TextBoxValueChanged;
         public event EventHandler<EventArg<bool>> CloseForm;
         public event EventHandler<EventArg<string>> ModifyImage;
-        #endregion
+        public event EventHandler ExportImage;
+
         ComponentResourceManager resources;
 
         public int SelectedContactIndex
@@ -183,8 +183,7 @@ namespace vCardEditor.View
                 var photo = photos[0];
                 try
                 {
-                    // Get the bytes of the photo if it has
-                    // not already been loaded.
+                    // Get the bytes of the photo if it has not already been loaded.
                     if (!photo.IsLoaded)
                         photo.Fetch();
 
@@ -436,6 +435,19 @@ namespace vCardEditor.View
 
             return filename;
         }
+
+        public string DisplaySaveDialog(string filename)
+        {
+
+            var saveFileDialog = new SaveFileDialog();
+            saveFileDialog.FileName = filename;
+
+            DialogResult result = saveFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+                filename = saveFileDialog.FileName;
+
+            return filename;
+        }
         private void PhotoBox_Click(object sender, EventArgs e)
         {
             if (ModifyImage != null)
@@ -466,5 +478,12 @@ namespace vCardEditor.View
             //Remove image from vcf
             ModifyImage(sender, new EventArg<string>(""));
         }
+
+        private void btnExportImage_Click(object sender, EventArgs e)
+        {
+            ExportImage?.Invoke(sender, e);
+        }
+
+       
     }
 }
