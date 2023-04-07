@@ -16,6 +16,14 @@ namespace vCardEditor_Test
             }
         }
 
+        public static string[] vcfIncorrect
+        {
+            get
+            {
+                return "abcdef".Split('\n');
+            }
+        }
+
         public static string[] vcfOneEntry
         {
             get
