@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace vCardEditor.Repository
+﻿namespace vCardEditor.Repository
 {
     public interface IFileHandler
     {
@@ -12,5 +7,6 @@ namespace vCardEditor.Repository
         string[] ReadAllLines(string filename);
         void WriteAllText(string fileName, string contents);
         string GetExtension(string path);
+        void WriteBytesToFile(string imageFile, byte[] image);
     }
 }

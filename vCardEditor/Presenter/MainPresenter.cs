@@ -7,6 +7,7 @@ using vCardEditor.Repository;
 using vCardEditor.Model;
 using System.Linq;
 using System.IO;
+using System.Drawing;
 
 namespace VCFEditor.Presenter
 {
@@ -37,15 +38,21 @@ namespace VCFEditor.Presenter
 
         private void ExportImage(object sender, EventArgs e)
         {
-            string imageFile = _view.DisplaySaveDialog(_repository.fileName);
-            if (_view.SelectedContactIndex > 0)
+            
+            if (_view.SelectedContactIndex > -1)
             {
                 //TODO: image can be url, or file location.
                 var card = _repository.Contacts[_view.SelectedContactIndex].card;
                 var image = card.Photos.FirstOrDefault();
 
                 if (image != null)
+                {
+                    var newPath = Path.ChangeExtension(_repository.fileName, image.Extension);
+
+                    string imageFile = _view.DisplaySaveDialog(newPath);
                     _repository.SaveImageToDisk(imageFile, image);
+                }
+                    
 
             }
 
@@ -58,6 +65,7 @@ namespace VCFEditor.Presenter
             if (!string.IsNullOrEmpty(e.Data) )
             {
                 vCardPhoto photo = new vCardPhoto(e.Data);
+                
                 _repository.ModifyImage(_view.SelectedContactIndex, photo);
             }
             else

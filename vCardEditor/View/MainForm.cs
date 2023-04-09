@@ -461,7 +461,7 @@ namespace vCardEditor.View
                         var evt = new EventArg<string>(fileName);
                         ModifyImage(sender, evt);
                     }
-                    catch (ArgumentException)
+                    catch (ArgumentException ex)
                     {
                         MessageBox.Show($"Invalid file! : {fileName}");
                     }

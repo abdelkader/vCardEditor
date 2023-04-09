@@ -48,7 +48,7 @@ namespace Thought.vCards
         /// </summary>
         private Uri url;
 
-
+        public string Extension { get; }
 
         private string encodedData;
 
@@ -60,12 +60,13 @@ namespace Thought.vCards
         ///     An array of bytes containing the raw data from
         ///     any of the supported image formats.
         /// </param>
-        public vCardPhoto(byte[] buffer)
+        public vCardPhoto(byte[] buffer, string imageType)
         {
             if (buffer == null)
                 throw new ArgumentNullException("buffer");
 
             this.data = (byte[])buffer.Clone();
+            this.Extension = imageType;
         }
 
 
@@ -75,13 +76,14 @@ namespace Thought.vCards
         /// <param name="url">
         ///     A URL pointing to an image.
         /// </param>
-        public vCardPhoto(Uri url)
+        public vCardPhoto(Uri url, string imageType)
         {
 
             if (url == null)
                 throw new ArgumentNullException("url");
 
             this.url = url;
+            this.Extension = imageType;
         }
 
 
@@ -110,7 +112,7 @@ namespace Thought.vCards
         /// <param name="isEncoded">
         ///     Boolean true if is encoded.
         /// </param>
-        public vCardPhoto(string data, bool isEncoded)
+        public vCardPhoto(string data, bool isEncoded, string imageType)
         {
 
             if (string.IsNullOrEmpty(data))
@@ -119,7 +121,7 @@ namespace Thought.vCards
             }
 
             this.encodedData = data;
-
+            this.Extension = imageType;
         }
 
 
@@ -291,6 +293,7 @@ namespace Thought.vCards
             }
         }
 
+        
 
         /// <summary>
         ///     The URL of the image.

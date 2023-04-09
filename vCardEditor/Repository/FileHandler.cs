@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 
 
 namespace vCardEditor.Repository
@@ -30,6 +28,15 @@ namespace vCardEditor.Repository
         public void WriteAllText(string filename, string contents)
         {
             File.WriteAllText(filename, contents);
+        }
+
+        public void WriteBytesToFile(string imageFile, byte[] image)
+        {
+            using (var ms = new MemoryStream(image))
+            {
+                using (var fs = new FileStream(imageFile, FileMode.Create))
+                    ms.WriteTo(fs);
+            }
         }
     }
 }

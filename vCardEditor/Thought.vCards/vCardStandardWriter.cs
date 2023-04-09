@@ -1020,8 +1020,10 @@ namespace Thought.vCards
 
                 if (doEmbedded)
                 {
-                  properties.Add(
-                    new vCardProperty("PHOTO", photo.GetBytes()));
+                    
+                    var EmbeddedProperty = new vCardProperty("PHOTO", photo.GetBytes());
+                    EmbeddedProperty.Subproperties.Add("TYPE", "JPG");
+                    properties.Add(EmbeddedProperty);
                 }
                 else
                 {

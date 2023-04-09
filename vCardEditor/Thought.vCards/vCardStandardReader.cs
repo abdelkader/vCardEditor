@@ -1900,6 +1900,8 @@ namespace Thought.vCards
 		private void ReadInto_PHOTO(vCard card, vCardProperty property)
 		{
 
+			string imageType = property.Subproperties.GetValue("TYPE");
+			
 			// The PHOTO property contains an embedded (encoded) image
 			// or a link to an image.  A URL (linked) image is supposed
 			// to be indicated with the VALUE=URI subproperty.
@@ -1914,7 +1916,7 @@ namespace Thought.vCards
 				// rather than being encoded directly in the vCard.
 
 				card.Photos.Add(
-					new vCardPhoto(new Uri(property.ToString())));
+					new vCardPhoto(new Uri(property.ToString()), imageType));
 
 
 			}
@@ -1922,12 +1924,14 @@ namespace Thought.vCards
 			{
 				if (property.Value.GetType() == typeof(string))
 				{
-					card.Photos.Add(new vCardPhoto((string)property.Value, true));
+					card.Photos.Add(new vCardPhoto((string)property.Value, true, imageType));
 				}
 				else
 				{
-					card.Photos.Add(new vCardPhoto((byte[])property.Value));
+					card.Photos.Add(new vCardPhoto((byte[])property.Value, imageType));
 				}
+
+
 
 			}
 		}

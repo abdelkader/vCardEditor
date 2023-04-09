@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.miSave = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,17 +61,11 @@
             this.tbcAddress = new System.Windows.Forms.TabControl();
             this.tbHome = new System.Windows.Forms.TabPage();
             this.AddressLabel = new System.Windows.Forms.Label();
-            this.HomeAddressValue = new vCardEditor.View.StateTextBox();
             this.POBoxLabel = new System.Windows.Forms.Label();
-            this.HomeCountryValue = new vCardEditor.View.StateTextBox();
-            this.HomePOBoxValue = new vCardEditor.View.StateTextBox();
             this.Country = new System.Windows.Forms.Label();
             this.CityLabel = new System.Windows.Forms.Label();
-            this.HomeStateValue = new vCardEditor.View.StateTextBox();
-            this.HomeCityValue = new vCardEditor.View.StateTextBox();
             this.StateLabel = new System.Windows.Forms.Label();
             this.ZipLabel = new System.Windows.Forms.Label();
-            this.HomeZipValue = new vCardEditor.View.StateTextBox();
             this.tbWork = new System.Windows.Forms.TabPage();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -79,12 +73,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.WorkAddressValue = new vCardEditor.View.StateTextBox();
-            this.WorkCountryValue = new vCardEditor.View.StateTextBox();
-            this.WorkPOBoxValue = new vCardEditor.View.StateTextBox();
-            this.WorkZipValue = new vCardEditor.View.StateTextBox();
-            this.WorkCityValue = new vCardEditor.View.StateTextBox();
-            this.WorkStateValue = new vCardEditor.View.StateTextBox();
             this.tbPostal = new System.Windows.Forms.TabPage();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -92,32 +80,16 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.PostalAddressValue = new vCardEditor.View.StateTextBox();
-            this.PostalCountryValue = new vCardEditor.View.StateTextBox();
-            this.PostalPOBoxValue = new vCardEditor.View.StateTextBox();
-            this.PostalZipValue = new vCardEditor.View.StateTextBox();
-            this.PostalCityValue = new vCardEditor.View.StateTextBox();
-            this.PostalStateValue = new vCardEditor.View.StateTextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.FormattedTitleValue = new vCardEditor.View.StateTextBox();
             this.FormattedTitleLabel = new System.Windows.Forms.Label();
-            this.lastNameValue = new vCardEditor.View.StateTextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.middleNameValue = new vCardEditor.View.StateTextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.firstNameValue = new vCardEditor.View.StateTextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.FormattedNameValue = new vCardEditor.View.StateTextBox();
             this.FormattedNameLabel = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.EmailAddressLabel = new System.Windows.Forms.Label();
-            this.EmailAddressValue = new vCardEditor.View.StateTextBox();
             this.PersonalWebSiteLabel = new System.Windows.Forms.Label();
-            this.PersonalWebSiteValue = new vCardEditor.View.StateTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.HomePhoneValue = new vCardEditor.View.StateTextBox();
-            this.WorkPhoneValue = new vCardEditor.View.StateTextBox();
-            this.CellularPhoneValue = new vCardEditor.View.StateTextBox();
             this.PhotoBox = new System.Windows.Forms.PictureBox();
             this.bsContacts = new System.Windows.Forms.BindingSource(this.components);
             this.gbNameList = new System.Windows.Forms.GroupBox();
@@ -126,6 +98,38 @@
             this.dgContacts = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HomeAddressValue = new vCardEditor.View.StateTextBox();
+            this.HomeCountryValue = new vCardEditor.View.StateTextBox();
+            this.HomePOBoxValue = new vCardEditor.View.StateTextBox();
+            this.HomeStateValue = new vCardEditor.View.StateTextBox();
+            this.HomeCityValue = new vCardEditor.View.StateTextBox();
+            this.HomeZipValue = new vCardEditor.View.StateTextBox();
+            this.WorkAddressValue = new vCardEditor.View.StateTextBox();
+            this.WorkCountryValue = new vCardEditor.View.StateTextBox();
+            this.WorkPOBoxValue = new vCardEditor.View.StateTextBox();
+            this.WorkZipValue = new vCardEditor.View.StateTextBox();
+            this.WorkCityValue = new vCardEditor.View.StateTextBox();
+            this.WorkStateValue = new vCardEditor.View.StateTextBox();
+            this.PostalAddressValue = new vCardEditor.View.StateTextBox();
+            this.PostalCountryValue = new vCardEditor.View.StateTextBox();
+            this.PostalPOBoxValue = new vCardEditor.View.StateTextBox();
+            this.PostalZipValue = new vCardEditor.View.StateTextBox();
+            this.PostalCityValue = new vCardEditor.View.StateTextBox();
+            this.PostalStateValue = new vCardEditor.View.StateTextBox();
+            this.FormattedTitleValue = new vCardEditor.View.StateTextBox();
+            this.lastNameValue = new vCardEditor.View.StateTextBox();
+            this.middleNameValue = new vCardEditor.View.StateTextBox();
+            this.firstNameValue = new vCardEditor.View.StateTextBox();
+            this.FormattedNameValue = new vCardEditor.View.StateTextBox();
+            this.EmailAddressValue = new vCardEditor.View.StateTextBox();
+            this.PersonalWebSiteValue = new vCardEditor.View.StateTextBox();
+            this.HomePhoneValue = new vCardEditor.View.StateTextBox();
+            this.WorkPhoneValue = new vCardEditor.View.StateTextBox();
+            this.CellularPhoneValue = new vCardEditor.View.StateTextBox();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.imagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.gbContactDetail.SuspendLayout();
@@ -148,7 +152,9 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.editToolStripMenuItem,
+            this.helpToolStripMenuItem,
+            this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1145, 28);
@@ -171,7 +177,7 @@
             // miSave
             // 
             this.miSave.Name = "miSave";
-            this.miSave.Size = new System.Drawing.Size(162, 26);
+            this.miSave.Size = new System.Drawing.Size(224, 26);
             this.miSave.Text = "&Save";
             this.miSave.Click += new System.EventHandler(this.tbsSave_Click);
             // 
@@ -180,33 +186,33 @@
             this.miOpen.Image = ((System.Drawing.Image)(resources.GetObject("miOpen.Image")));
             this.miOpen.ImageTransparentColor = System.Drawing.Color.Fuchsia;
             this.miOpen.Name = "miOpen";
-            this.miOpen.Size = new System.Drawing.Size(162, 26);
+            this.miOpen.Size = new System.Drawing.Size(224, 26);
             this.miOpen.Text = "&Open";
             this.miOpen.Click += new System.EventHandler(this.tbsOpen_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(159, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(221, 6);
             // 
             // miConfig
             // 
             this.miConfig.Name = "miConfig";
-            this.miConfig.Size = new System.Drawing.Size(162, 26);
+            this.miConfig.Size = new System.Drawing.Size(224, 26);
             this.miConfig.Text = "Preference";
             this.miConfig.Click += new System.EventHandler(this.miConfig_Click);
             // 
             // recentFilesMenuItem
             // 
             this.recentFilesMenuItem.Name = "recentFilesMenuItem";
-            this.recentFilesMenuItem.Size = new System.Drawing.Size(162, 26);
+            this.recentFilesMenuItem.Size = new System.Drawing.Size(224, 26);
             this.recentFilesMenuItem.Text = "Recent";
             // 
             // miQuit
             // 
             this.miQuit.Image = ((System.Drawing.Image)(resources.GetObject("miQuit.Image")));
             this.miQuit.Name = "miQuit";
-            this.miQuit.Size = new System.Drawing.Size(162, 26);
+            this.miQuit.Size = new System.Drawing.Size(224, 26);
             this.miQuit.Text = "&Quit";
             this.miQuit.Click += new System.EventHandler(this.miQuit_Click);
             // 
@@ -452,19 +458,6 @@
             this.AddressLabel.Text = "Address:";
             this.AddressLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // HomeAddressValue
-            // 
-            this.HomeAddressValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.HomeAddressValue.Location = new System.Drawing.Point(92, 15);
-            this.HomeAddressValue.Margin = new System.Windows.Forms.Padding(4);
-            this.HomeAddressValue.Name = "HomeAddressValue";
-            this.HomeAddressValue.oldText = "";
-            this.HomeAddressValue.Size = new System.Drawing.Size(613, 22);
-            this.HomeAddressValue.TabIndex = 1;
-            this.HomeAddressValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.HomeAddressValue.Validated += new System.EventHandler(this.Value_TextChanged);
-            // 
             // POBoxLabel
             // 
             this.POBoxLabel.Location = new System.Drawing.Point(19, 46);
@@ -474,32 +467,6 @@
             this.POBoxLabel.TabIndex = 2;
             this.POBoxLabel.Text = "PO Box:";
             this.POBoxLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // HomeCountryValue
-            // 
-            this.HomeCountryValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.HomeCountryValue.Location = new System.Drawing.Point(399, 79);
-            this.HomeCountryValue.Margin = new System.Windows.Forms.Padding(4);
-            this.HomeCountryValue.Name = "HomeCountryValue";
-            this.HomeCountryValue.oldText = null;
-            this.HomeCountryValue.Size = new System.Drawing.Size(307, 22);
-            this.HomeCountryValue.TabIndex = 11;
-            this.HomeCountryValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.HomeCountryValue.Validated += new System.EventHandler(this.Value_TextChanged);
-            // 
-            // HomePOBoxValue
-            // 
-            this.HomePOBoxValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.HomePOBoxValue.Location = new System.Drawing.Point(92, 44);
-            this.HomePOBoxValue.Margin = new System.Windows.Forms.Padding(4);
-            this.HomePOBoxValue.Name = "HomePOBoxValue";
-            this.HomePOBoxValue.oldText = null;
-            this.HomePOBoxValue.Size = new System.Drawing.Size(236, 22);
-            this.HomePOBoxValue.TabIndex = 3;
-            this.HomePOBoxValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.HomePOBoxValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // Country
             // 
@@ -521,32 +488,6 @@
             this.CityLabel.Text = "City:";
             this.CityLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // HomeStateValue
-            // 
-            this.HomeStateValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.HomeStateValue.Location = new System.Drawing.Point(92, 76);
-            this.HomeStateValue.Margin = new System.Windows.Forms.Padding(4);
-            this.HomeStateValue.Name = "HomeStateValue";
-            this.HomeStateValue.oldText = null;
-            this.HomeStateValue.Size = new System.Drawing.Size(236, 22);
-            this.HomeStateValue.TabIndex = 9;
-            this.HomeStateValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.HomeStateValue.Validated += new System.EventHandler(this.Value_TextChanged);
-            // 
-            // HomeCityValue
-            // 
-            this.HomeCityValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.HomeCityValue.Location = new System.Drawing.Point(399, 46);
-            this.HomeCityValue.Margin = new System.Windows.Forms.Padding(4);
-            this.HomeCityValue.Name = "HomeCityValue";
-            this.HomeCityValue.oldText = null;
-            this.HomeCityValue.Size = new System.Drawing.Size(127, 22);
-            this.HomeCityValue.TabIndex = 5;
-            this.HomeCityValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.HomeCityValue.Validated += new System.EventHandler(this.Value_TextChanged);
-            // 
             // StateLabel
             // 
             this.StateLabel.Location = new System.Drawing.Point(19, 69);
@@ -566,19 +507,6 @@
             this.ZipLabel.TabIndex = 6;
             this.ZipLabel.Text = "Zip:";
             this.ZipLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // HomeZipValue
-            // 
-            this.HomeZipValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.HomeZipValue.Location = new System.Drawing.Point(581, 47);
-            this.HomeZipValue.Margin = new System.Windows.Forms.Padding(4);
-            this.HomeZipValue.Name = "HomeZipValue";
-            this.HomeZipValue.oldText = null;
-            this.HomeZipValue.Size = new System.Drawing.Size(124, 22);
-            this.HomeZipValue.TabIndex = 7;
-            this.HomeZipValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.HomeZipValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // tbWork
             // 
@@ -663,84 +591,6 @@
             this.label6.Text = "City:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // WorkAddressValue
-            // 
-            this.WorkAddressValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.WorkAddressValue.Location = new System.Drawing.Point(89, 11);
-            this.WorkAddressValue.Margin = new System.Windows.Forms.Padding(4);
-            this.WorkAddressValue.Name = "WorkAddressValue";
-            this.WorkAddressValue.oldText = "";
-            this.WorkAddressValue.Size = new System.Drawing.Size(617, 22);
-            this.WorkAddressValue.TabIndex = 17;
-            this.WorkAddressValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.WorkAddressValue.Validated += new System.EventHandler(this.Value_TextChanged);
-            // 
-            // WorkCountryValue
-            // 
-            this.WorkCountryValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.WorkCountryValue.Location = new System.Drawing.Point(400, 75);
-            this.WorkCountryValue.Margin = new System.Windows.Forms.Padding(4);
-            this.WorkCountryValue.Name = "WorkCountryValue";
-            this.WorkCountryValue.oldText = null;
-            this.WorkCountryValue.Size = new System.Drawing.Size(307, 22);
-            this.WorkCountryValue.TabIndex = 27;
-            this.WorkCountryValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.WorkCountryValue.Validated += new System.EventHandler(this.Value_TextChanged);
-            // 
-            // WorkPOBoxValue
-            // 
-            this.WorkPOBoxValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.WorkPOBoxValue.Location = new System.Drawing.Point(89, 41);
-            this.WorkPOBoxValue.Margin = new System.Windows.Forms.Padding(4);
-            this.WorkPOBoxValue.Name = "WorkPOBoxValue";
-            this.WorkPOBoxValue.oldText = null;
-            this.WorkPOBoxValue.Size = new System.Drawing.Size(236, 22);
-            this.WorkPOBoxValue.TabIndex = 19;
-            this.WorkPOBoxValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.WorkPOBoxValue.Validated += new System.EventHandler(this.Value_TextChanged);
-            // 
-            // WorkZipValue
-            // 
-            this.WorkZipValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.WorkZipValue.Location = new System.Drawing.Point(583, 43);
-            this.WorkZipValue.Margin = new System.Windows.Forms.Padding(4);
-            this.WorkZipValue.Name = "WorkZipValue";
-            this.WorkZipValue.oldText = null;
-            this.WorkZipValue.Size = new System.Drawing.Size(124, 22);
-            this.WorkZipValue.TabIndex = 23;
-            this.WorkZipValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.WorkZipValue.Validated += new System.EventHandler(this.Value_TextChanged);
-            // 
-            // WorkCityValue
-            // 
-            this.WorkCityValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.WorkCityValue.Location = new System.Drawing.Point(400, 42);
-            this.WorkCityValue.Margin = new System.Windows.Forms.Padding(4);
-            this.WorkCityValue.Name = "WorkCityValue";
-            this.WorkCityValue.oldText = null;
-            this.WorkCityValue.Size = new System.Drawing.Size(127, 22);
-            this.WorkCityValue.TabIndex = 21;
-            this.WorkCityValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.WorkCityValue.Validated += new System.EventHandler(this.Value_TextChanged);
-            // 
-            // WorkStateValue
-            // 
-            this.WorkStateValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.WorkStateValue.Location = new System.Drawing.Point(89, 73);
-            this.WorkStateValue.Margin = new System.Windows.Forms.Padding(4);
-            this.WorkStateValue.Name = "WorkStateValue";
-            this.WorkStateValue.oldText = null;
-            this.WorkStateValue.Size = new System.Drawing.Size(240, 22);
-            this.WorkStateValue.TabIndex = 25;
-            this.WorkStateValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.WorkStateValue.Validated += new System.EventHandler(this.Value_TextChanged);
-            // 
             // tbPostal
             // 
             this.tbPostal.BackColor = System.Drawing.SystemColors.Control;
@@ -823,6 +673,388 @@
             this.label15.Text = "City:";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.FormattedTitleValue);
+            this.groupBox3.Controls.Add(this.FormattedTitleLabel);
+            this.groupBox3.Controls.Add(this.lastNameValue);
+            this.groupBox3.Controls.Add(this.label3);
+            this.groupBox3.Controls.Add(this.middleNameValue);
+            this.groupBox3.Controls.Add(this.label2);
+            this.groupBox3.Controls.Add(this.firstNameValue);
+            this.groupBox3.Controls.Add(this.label1);
+            this.groupBox3.Controls.Add(this.FormattedNameValue);
+            this.groupBox3.Controls.Add(this.FormattedNameLabel);
+            this.groupBox3.Location = new System.Drawing.Point(24, 41);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox3.Size = new System.Drawing.Size(571, 142);
+            this.groupBox3.TabIndex = 0;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Name";
+            // 
+            // FormattedTitleLabel
+            // 
+            this.FormattedTitleLabel.Location = new System.Drawing.Point(-4, 20);
+            this.FormattedTitleLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.FormattedTitleLabel.Name = "FormattedTitleLabel";
+            this.FormattedTitleLabel.Size = new System.Drawing.Size(52, 23);
+            this.FormattedTitleLabel.TabIndex = 0;
+            this.FormattedTitleLabel.Text = "Title:";
+            this.FormattedTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label3
+            // 
+            this.label3.Location = new System.Drawing.Point(341, 53);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(47, 23);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Last:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(151, 53);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(56, 23);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Middle:";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(4, 53);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(44, 23);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "First:";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // FormattedNameLabel
+            // 
+            this.FormattedNameLabel.Location = new System.Drawing.Point(148, 21);
+            this.FormattedNameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.FormattedNameLabel.Name = "FormattedNameLabel";
+            this.FormattedNameLabel.Size = new System.Drawing.Size(81, 23);
+            this.FormattedNameLabel.TabIndex = 2;
+            this.FormattedNameLabel.Text = "Full Name:";
+            this.FormattedNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.EmailAddressLabel);
+            this.groupBox2.Controls.Add(this.EmailAddressValue);
+            this.groupBox2.Controls.Add(this.PersonalWebSiteLabel);
+            this.groupBox2.Controls.Add(this.PersonalWebSiteValue);
+            this.groupBox2.Location = new System.Drawing.Point(348, 373);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Size = new System.Drawing.Size(440, 129);
+            this.groupBox2.TabIndex = 3;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Web : ";
+            // 
+            // EmailAddressLabel
+            // 
+            this.EmailAddressLabel.Location = new System.Drawing.Point(8, 27);
+            this.EmailAddressLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.EmailAddressLabel.Name = "EmailAddressLabel";
+            this.EmailAddressLabel.Size = new System.Drawing.Size(55, 23);
+            this.EmailAddressLabel.TabIndex = 0;
+            this.EmailAddressLabel.Text = "Email:";
+            this.EmailAddressLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // PersonalWebSiteLabel
+            // 
+            this.PersonalWebSiteLabel.Location = new System.Drawing.Point(13, 55);
+            this.PersonalWebSiteLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.PersonalWebSiteLabel.Name = "PersonalWebSiteLabel";
+            this.PersonalWebSiteLabel.Size = new System.Drawing.Size(49, 23);
+            this.PersonalWebSiteLabel.TabIndex = 2;
+            this.PersonalWebSiteLabel.Text = "Web:";
+            this.PersonalWebSiteLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.WorkPhoneLabel);
+            this.groupBox1.Controls.Add(this.HomePhoneLabel);
+            this.groupBox1.Controls.Add(this.HomePhoneValue);
+            this.groupBox1.Controls.Add(this.WorkPhoneValue);
+            this.groupBox1.Controls.Add(this.CellularPhoneLabel);
+            this.groupBox1.Controls.Add(this.CellularPhoneValue);
+            this.groupBox1.Location = new System.Drawing.Point(29, 373);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Size = new System.Drawing.Size(377, 129);
+            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Phones : ";
+            // 
+            // PhotoBox
+            // 
+            this.PhotoBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.PhotoBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.PhotoBox.Image = ((System.Drawing.Image)(resources.GetObject("PhotoBox.Image")));
+            this.PhotoBox.Location = new System.Drawing.Point(603, 23);
+            this.PhotoBox.Margin = new System.Windows.Forms.Padding(4);
+            this.PhotoBox.Name = "PhotoBox";
+            this.PhotoBox.Size = new System.Drawing.Size(185, 159);
+            this.PhotoBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PhotoBox.TabIndex = 53;
+            this.PhotoBox.TabStop = false;
+            this.PhotoBox.Click += new System.EventHandler(this.PhotoBox_Click);
+            // 
+            // gbNameList
+            // 
+            this.gbNameList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.gbNameList.Controls.Add(this.btnClearFilter);
+            this.gbNameList.Controls.Add(this.textBoxFilter);
+            this.gbNameList.Controls.Add(this.dgContacts);
+            this.gbNameList.Enabled = false;
+            this.gbNameList.Location = new System.Drawing.Point(17, 64);
+            this.gbNameList.Margin = new System.Windows.Forms.Padding(4);
+            this.gbNameList.Name = "gbNameList";
+            this.gbNameList.Padding = new System.Windows.Forms.Padding(4);
+            this.gbNameList.Size = new System.Drawing.Size(308, 510);
+            this.gbNameList.TabIndex = 2;
+            this.gbNameList.TabStop = false;
+            this.gbNameList.Text = "Name List :";
+            // 
+            // btnClearFilter
+            // 
+            this.btnClearFilter.Image = ((System.Drawing.Image)(resources.GetObject("btnClearFilter.Image")));
+            this.btnClearFilter.Location = new System.Drawing.Point(268, 17);
+            this.btnClearFilter.Margin = new System.Windows.Forms.Padding(4);
+            this.btnClearFilter.Name = "btnClearFilter";
+            this.btnClearFilter.Size = new System.Drawing.Size(37, 27);
+            this.btnClearFilter.TabIndex = 1;
+            this.btnClearFilter.UseVisualStyleBackColor = true;
+            this.btnClearFilter.Click += new System.EventHandler(this.btnClearFilter_Click);
+            // 
+            // textBoxFilter
+            // 
+            this.textBoxFilter.Location = new System.Drawing.Point(4, 18);
+            this.textBoxFilter.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxFilter.Name = "textBoxFilter";
+            this.textBoxFilter.Size = new System.Drawing.Size(256, 22);
+            this.textBoxFilter.TabIndex = 0;
+            this.textBoxFilter.TextChanged += new System.EventHandler(this.textBoxFilter_TextChanged);
+            // 
+            // dgContacts
+            // 
+            this.dgContacts.AllowUserToAddRows = false;
+            this.dgContacts.AllowUserToDeleteRows = false;
+            this.dgContacts.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dgContacts.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgContacts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.dgContacts.AutoGenerateColumns = false;
+            this.dgContacts.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dgContacts.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.dgContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgContacts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2});
+            this.dgContacts.DataSource = this.bsContacts;
+            this.dgContacts.Location = new System.Drawing.Point(4, 50);
+            this.dgContacts.Margin = new System.Windows.Forms.Padding(4);
+            this.dgContacts.MultiSelect = false;
+            this.dgContacts.Name = "dgContacts";
+            this.dgContacts.RowHeadersVisible = false;
+            this.dgContacts.RowHeadersWidth = 51;
+            this.dgContacts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgContacts.Size = new System.Drawing.Size(300, 455);
+            this.dgContacts.TabIndex = 2;
+            this.dgContacts.RowLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgContacts_RowLeave);
+            this.dgContacts.SelectionChanged += new System.EventHandler(this.dgContacts_SelectionChanged);
+            // 
+            // Column1
+            // 
+            this.Column1.DataPropertyName = "isSelected";
+            this.Column1.HeaderText = " ";
+            this.Column1.MinimumWidth = 6;
+            this.Column1.Name = "Column1";
+            this.Column1.Width = 50;
+            // 
+            // Column2
+            // 
+            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column2.DataPropertyName = "Name";
+            this.Column2.HeaderText = "Name";
+            this.Column2.MinimumWidth = 6;
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // HomeAddressValue
+            // 
+            this.HomeAddressValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.HomeAddressValue.Location = new System.Drawing.Point(92, 15);
+            this.HomeAddressValue.Margin = new System.Windows.Forms.Padding(4);
+            this.HomeAddressValue.Name = "HomeAddressValue";
+            this.HomeAddressValue.oldText = "";
+            this.HomeAddressValue.Size = new System.Drawing.Size(613, 22);
+            this.HomeAddressValue.TabIndex = 1;
+            this.HomeAddressValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.HomeAddressValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            // 
+            // HomeCountryValue
+            // 
+            this.HomeCountryValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.HomeCountryValue.Location = new System.Drawing.Point(399, 79);
+            this.HomeCountryValue.Margin = new System.Windows.Forms.Padding(4);
+            this.HomeCountryValue.Name = "HomeCountryValue";
+            this.HomeCountryValue.oldText = null;
+            this.HomeCountryValue.Size = new System.Drawing.Size(307, 22);
+            this.HomeCountryValue.TabIndex = 11;
+            this.HomeCountryValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.HomeCountryValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            // 
+            // HomePOBoxValue
+            // 
+            this.HomePOBoxValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.HomePOBoxValue.Location = new System.Drawing.Point(92, 44);
+            this.HomePOBoxValue.Margin = new System.Windows.Forms.Padding(4);
+            this.HomePOBoxValue.Name = "HomePOBoxValue";
+            this.HomePOBoxValue.oldText = null;
+            this.HomePOBoxValue.Size = new System.Drawing.Size(236, 22);
+            this.HomePOBoxValue.TabIndex = 3;
+            this.HomePOBoxValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.HomePOBoxValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            // 
+            // HomeStateValue
+            // 
+            this.HomeStateValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.HomeStateValue.Location = new System.Drawing.Point(92, 76);
+            this.HomeStateValue.Margin = new System.Windows.Forms.Padding(4);
+            this.HomeStateValue.Name = "HomeStateValue";
+            this.HomeStateValue.oldText = null;
+            this.HomeStateValue.Size = new System.Drawing.Size(236, 22);
+            this.HomeStateValue.TabIndex = 9;
+            this.HomeStateValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.HomeStateValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            // 
+            // HomeCityValue
+            // 
+            this.HomeCityValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.HomeCityValue.Location = new System.Drawing.Point(399, 46);
+            this.HomeCityValue.Margin = new System.Windows.Forms.Padding(4);
+            this.HomeCityValue.Name = "HomeCityValue";
+            this.HomeCityValue.oldText = null;
+            this.HomeCityValue.Size = new System.Drawing.Size(127, 22);
+            this.HomeCityValue.TabIndex = 5;
+            this.HomeCityValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.HomeCityValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            // 
+            // HomeZipValue
+            // 
+            this.HomeZipValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.HomeZipValue.Location = new System.Drawing.Point(581, 47);
+            this.HomeZipValue.Margin = new System.Windows.Forms.Padding(4);
+            this.HomeZipValue.Name = "HomeZipValue";
+            this.HomeZipValue.oldText = null;
+            this.HomeZipValue.Size = new System.Drawing.Size(124, 22);
+            this.HomeZipValue.TabIndex = 7;
+            this.HomeZipValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.HomeZipValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            // 
+            // WorkAddressValue
+            // 
+            this.WorkAddressValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.WorkAddressValue.Location = new System.Drawing.Point(89, 11);
+            this.WorkAddressValue.Margin = new System.Windows.Forms.Padding(4);
+            this.WorkAddressValue.Name = "WorkAddressValue";
+            this.WorkAddressValue.oldText = "";
+            this.WorkAddressValue.Size = new System.Drawing.Size(617, 22);
+            this.WorkAddressValue.TabIndex = 17;
+            this.WorkAddressValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.WorkAddressValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            // 
+            // WorkCountryValue
+            // 
+            this.WorkCountryValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.WorkCountryValue.Location = new System.Drawing.Point(400, 75);
+            this.WorkCountryValue.Margin = new System.Windows.Forms.Padding(4);
+            this.WorkCountryValue.Name = "WorkCountryValue";
+            this.WorkCountryValue.oldText = null;
+            this.WorkCountryValue.Size = new System.Drawing.Size(307, 22);
+            this.WorkCountryValue.TabIndex = 27;
+            this.WorkCountryValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.WorkCountryValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            // 
+            // WorkPOBoxValue
+            // 
+            this.WorkPOBoxValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.WorkPOBoxValue.Location = new System.Drawing.Point(89, 41);
+            this.WorkPOBoxValue.Margin = new System.Windows.Forms.Padding(4);
+            this.WorkPOBoxValue.Name = "WorkPOBoxValue";
+            this.WorkPOBoxValue.oldText = null;
+            this.WorkPOBoxValue.Size = new System.Drawing.Size(236, 22);
+            this.WorkPOBoxValue.TabIndex = 19;
+            this.WorkPOBoxValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.WorkPOBoxValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            // 
+            // WorkZipValue
+            // 
+            this.WorkZipValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.WorkZipValue.Location = new System.Drawing.Point(583, 43);
+            this.WorkZipValue.Margin = new System.Windows.Forms.Padding(4);
+            this.WorkZipValue.Name = "WorkZipValue";
+            this.WorkZipValue.oldText = null;
+            this.WorkZipValue.Size = new System.Drawing.Size(124, 22);
+            this.WorkZipValue.TabIndex = 23;
+            this.WorkZipValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.WorkZipValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            // 
+            // WorkCityValue
+            // 
+            this.WorkCityValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.WorkCityValue.Location = new System.Drawing.Point(400, 42);
+            this.WorkCityValue.Margin = new System.Windows.Forms.Padding(4);
+            this.WorkCityValue.Name = "WorkCityValue";
+            this.WorkCityValue.oldText = null;
+            this.WorkCityValue.Size = new System.Drawing.Size(127, 22);
+            this.WorkCityValue.TabIndex = 21;
+            this.WorkCityValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.WorkCityValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            // 
+            // WorkStateValue
+            // 
+            this.WorkStateValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.WorkStateValue.Location = new System.Drawing.Point(89, 73);
+            this.WorkStateValue.Margin = new System.Windows.Forms.Padding(4);
+            this.WorkStateValue.Name = "WorkStateValue";
+            this.WorkStateValue.oldText = null;
+            this.WorkStateValue.Size = new System.Drawing.Size(240, 22);
+            this.WorkStateValue.TabIndex = 25;
+            this.WorkStateValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.WorkStateValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            // 
             // PostalAddressValue
             // 
             this.PostalAddressValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -901,29 +1133,6 @@
             this.PostalStateValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             this.PostalStateValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
-            // groupBox3
-            // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.FormattedTitleValue);
-            this.groupBox3.Controls.Add(this.FormattedTitleLabel);
-            this.groupBox3.Controls.Add(this.lastNameValue);
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.middleNameValue);
-            this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Controls.Add(this.firstNameValue);
-            this.groupBox3.Controls.Add(this.label1);
-            this.groupBox3.Controls.Add(this.FormattedNameValue);
-            this.groupBox3.Controls.Add(this.FormattedNameLabel);
-            this.groupBox3.Location = new System.Drawing.Point(24, 41);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Size = new System.Drawing.Size(571, 142);
-            this.groupBox3.TabIndex = 0;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Name";
-            // 
             // FormattedTitleValue
             // 
             this.FormattedTitleValue.Location = new System.Drawing.Point(45, 21);
@@ -934,16 +1143,6 @@
             this.FormattedTitleValue.TabIndex = 1;
             this.FormattedTitleValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             this.FormattedTitleValue.Validated += new System.EventHandler(this.Value_TextChanged);
-            // 
-            // FormattedTitleLabel
-            // 
-            this.FormattedTitleLabel.Location = new System.Drawing.Point(-4, 20);
-            this.FormattedTitleLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.FormattedTitleLabel.Name = "FormattedTitleLabel";
-            this.FormattedTitleLabel.Size = new System.Drawing.Size(52, 23);
-            this.FormattedTitleLabel.TabIndex = 0;
-            this.FormattedTitleLabel.Text = "Title:";
-            this.FormattedTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lastNameValue
             // 
@@ -958,16 +1157,6 @@
             this.lastNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             this.lastNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(341, 53);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(47, 23);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Last:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // middleNameValue
             // 
             this.middleNameValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -981,16 +1170,6 @@
             this.middleNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             this.middleNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(151, 53);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 23);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Middle:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // firstNameValue
             // 
             this.firstNameValue.Location = new System.Drawing.Point(45, 53);
@@ -1001,16 +1180,6 @@
             this.firstNameValue.TabIndex = 5;
             this.firstNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             this.firstNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(4, 53);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 23);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "First:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // FormattedNameValue
             // 
@@ -1025,43 +1194,6 @@
             this.FormattedNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             this.FormattedNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
-            // FormattedNameLabel
-            // 
-            this.FormattedNameLabel.Location = new System.Drawing.Point(148, 21);
-            this.FormattedNameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.FormattedNameLabel.Name = "FormattedNameLabel";
-            this.FormattedNameLabel.Size = new System.Drawing.Size(81, 23);
-            this.FormattedNameLabel.TabIndex = 2;
-            this.FormattedNameLabel.Text = "Full Name:";
-            this.FormattedNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.EmailAddressLabel);
-            this.groupBox2.Controls.Add(this.EmailAddressValue);
-            this.groupBox2.Controls.Add(this.PersonalWebSiteLabel);
-            this.groupBox2.Controls.Add(this.PersonalWebSiteValue);
-            this.groupBox2.Location = new System.Drawing.Point(348, 373);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(440, 129);
-            this.groupBox2.TabIndex = 3;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Web : ";
-            // 
-            // EmailAddressLabel
-            // 
-            this.EmailAddressLabel.Location = new System.Drawing.Point(8, 27);
-            this.EmailAddressLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.EmailAddressLabel.Name = "EmailAddressLabel";
-            this.EmailAddressLabel.Size = new System.Drawing.Size(55, 23);
-            this.EmailAddressLabel.TabIndex = 0;
-            this.EmailAddressLabel.Text = "Email:";
-            this.EmailAddressLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // EmailAddressValue
             // 
             this.EmailAddressValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -1075,16 +1207,6 @@
             this.EmailAddressValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             this.EmailAddressValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
-            // PersonalWebSiteLabel
-            // 
-            this.PersonalWebSiteLabel.Location = new System.Drawing.Point(13, 55);
-            this.PersonalWebSiteLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.PersonalWebSiteLabel.Name = "PersonalWebSiteLabel";
-            this.PersonalWebSiteLabel.Size = new System.Drawing.Size(49, 23);
-            this.PersonalWebSiteLabel.TabIndex = 2;
-            this.PersonalWebSiteLabel.Text = "Web:";
-            this.PersonalWebSiteLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // PersonalWebSiteValue
             // 
             this.PersonalWebSiteValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -1097,25 +1219,6 @@
             this.PersonalWebSiteValue.TabIndex = 3;
             this.PersonalWebSiteValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             this.PersonalWebSiteValue.Validated += new System.EventHandler(this.Value_TextChanged);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.WorkPhoneLabel);
-            this.groupBox1.Controls.Add(this.HomePhoneLabel);
-            this.groupBox1.Controls.Add(this.HomePhoneValue);
-            this.groupBox1.Controls.Add(this.WorkPhoneValue);
-            this.groupBox1.Controls.Add(this.CellularPhoneLabel);
-            this.groupBox1.Controls.Add(this.CellularPhoneValue);
-            this.groupBox1.Location = new System.Drawing.Point(29, 373);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(377, 129);
-            this.groupBox1.TabIndex = 2;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Phones : ";
             // 
             // HomePhoneValue
             // 
@@ -1156,102 +1259,33 @@
             this.CellularPhoneValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             this.CellularPhoneValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
-            // PhotoBox
+            // editToolStripMenuItem
             // 
-            this.PhotoBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.PhotoBox.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.PhotoBox.Image = ((System.Drawing.Image)(resources.GetObject("PhotoBox.Image")));
-            this.PhotoBox.Location = new System.Drawing.Point(603, 23);
-            this.PhotoBox.Margin = new System.Windows.Forms.Padding(4);
-            this.PhotoBox.Name = "PhotoBox";
-            this.PhotoBox.Size = new System.Drawing.Size(185, 159);
-            this.PhotoBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.PhotoBox.TabIndex = 53;
-            this.PhotoBox.TabStop = false;
-            this.PhotoBox.Click += new System.EventHandler(this.PhotoBox_Click);
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyToolStripMenuItem});
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
+            this.editToolStripMenuItem.Text = "Edit";
             // 
-            // gbNameList
+            // copyToolStripMenuItem
             // 
-            this.gbNameList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.gbNameList.Controls.Add(this.btnClearFilter);
-            this.gbNameList.Controls.Add(this.textBoxFilter);
-            this.gbNameList.Controls.Add(this.dgContacts);
-            this.gbNameList.Enabled = false;
-            this.gbNameList.Location = new System.Drawing.Point(17, 64);
-            this.gbNameList.Margin = new System.Windows.Forms.Padding(4);
-            this.gbNameList.Name = "gbNameList";
-            this.gbNameList.Padding = new System.Windows.Forms.Padding(4);
-            this.gbNameList.Size = new System.Drawing.Size(308, 510);
-            this.gbNameList.TabIndex = 2;
-            this.gbNameList.TabStop = false;
-            this.gbNameList.Text = "Name List :";
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.copyToolStripMenuItem.Text = "Copy";
             // 
-            // btnClearFilter
+            // toolsToolStripMenuItem
             // 
-            this.btnClearFilter.Image = ((System.Drawing.Image)(resources.GetObject("btnClearFilter.Image")));
-            this.btnClearFilter.Location = new System.Drawing.Point(268, 17);
-            this.btnClearFilter.Margin = new System.Windows.Forms.Padding(4);
-            this.btnClearFilter.Name = "btnClearFilter";
-            this.btnClearFilter.Size = new System.Drawing.Size(37, 27);
-            this.btnClearFilter.TabIndex = 1;
-            this.btnClearFilter.UseVisualStyleBackColor = true;
-            this.btnClearFilter.Click += new System.EventHandler(this.btnClearFilter_Click);
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.imagesToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(58, 24);
+            this.toolsToolStripMenuItem.Text = "Tools";
             // 
-            // textBoxFilter
+            // imagesToolStripMenuItem
             // 
-            this.textBoxFilter.Location = new System.Drawing.Point(4, 18);
-            this.textBoxFilter.Margin = new System.Windows.Forms.Padding(4);
-            this.textBoxFilter.Name = "textBoxFilter";
-            this.textBoxFilter.Size = new System.Drawing.Size(256, 22);
-            this.textBoxFilter.TabIndex = 0;
-            this.textBoxFilter.TextChanged += new System.EventHandler(this.textBoxFilter_TextChanged);
-            // 
-            // dgContacts
-            // 
-            this.dgContacts.AllowUserToAddRows = false;
-            this.dgContacts.AllowUserToDeleteRows = false;
-            this.dgContacts.AllowUserToResizeRows = false;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dgContacts.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
-            this.dgContacts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.dgContacts.AutoGenerateColumns = false;
-            this.dgContacts.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dgContacts.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            this.dgContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgContacts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2});
-            this.dgContacts.DataSource = this.bsContacts;
-            this.dgContacts.Location = new System.Drawing.Point(4, 50);
-            this.dgContacts.Margin = new System.Windows.Forms.Padding(4);
-            this.dgContacts.MultiSelect = false;
-            this.dgContacts.Name = "dgContacts";
-            this.dgContacts.RowHeadersVisible = false;
-            this.dgContacts.RowHeadersWidth = 51;
-            this.dgContacts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgContacts.Size = new System.Drawing.Size(300, 455);
-            this.dgContacts.TabIndex = 2;
-            this.dgContacts.RowLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgContacts_RowLeave);
-            this.dgContacts.SelectionChanged += new System.EventHandler(this.dgContacts_SelectionChanged);
-            // 
-            // Column1
-            // 
-            this.Column1.DataPropertyName = "isSelected";
-            this.Column1.HeaderText = " ";
-            this.Column1.MinimumWidth = 6;
-            this.Column1.Name = "Column1";
-            this.Column1.Width = 50;
-            // 
-            // Column2
-            // 
-            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column2.DataPropertyName = "Name";
-            this.Column2.HeaderText = "Name";
-            this.Column2.MinimumWidth = 6;
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
+            this.imagesToolStripMenuItem.Name = "imagesToolStripMenuItem";
+            this.imagesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.imagesToolStripMenuItem.Text = "Images";
             // 
             // MainForm
             // 
@@ -1398,5 +1432,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
         private System.Windows.Forms.Button btnRemoveImage;
         private System.Windows.Forms.Button btnExportImage;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem imagesToolStripMenuItem;
     }
 }

@@ -6,7 +6,6 @@ using Thought.vCards;
 using VCFEditor.Model;
 using System.ComponentModel;
 using vCardEditor.Repository;
-using System.Collections.Generic;
 
 namespace VCFEditor.Repository
 {
@@ -86,7 +85,7 @@ namespace VCFEditor.Repository
             if (string.IsNullOrEmpty(fileName))
                 fileName = this.fileName;
 
-            //Take a copy...
+            //Take a copy if specified in the config file
             if (!ConfigRepository.Instance.OverWrite)
             {
                 string backupName = GetBackupName();
@@ -99,7 +98,10 @@ namespace VCFEditor.Repository
             {
                 //Do not save the deleted ones!
                 if (!entry.isDeleted)
-                    sb.Append(generateRawContent(entry.card));
+                {
+                    string SerializedCard = GenerateStringFromVCard(entry.card);
+                    sb.Append(SerializedCard);
+                }
                 
                 //Clean the flag for every contact, even the deleted ones.
                 entry.isDirty = false;
@@ -122,10 +124,7 @@ namespace VCFEditor.Repository
 
             return backupName;
         }
-
-        /// <summary>
-        /// Delete contact that are selected.
-        /// </summary>
+        
         public void DeleteContact()
         {
             if (_contacts != null && _contacts.Count > 0)
@@ -157,7 +156,6 @@ namespace VCFEditor.Repository
 
             return card;
         }
-
        
         private MemoryStream GenerateStreamFromString(string s)
         {
@@ -330,12 +328,8 @@ namespace VCFEditor.Repository
 
             }
         }
-        /// <summary>
-        /// Generate a VCard class from a string.
-        /// </summary>
-        /// <param name="card"></param>
-        /// <returns></returns>
-        private string generateRawContent(vCard card)
+       
+        private string GenerateStringFromVCard(vCard card)
         {
             vCardStandardWriter writer = new vCardStandardWriter();
             TextWriter tw = new StringWriter();
@@ -362,17 +356,9 @@ namespace VCFEditor.Repository
 
         public void SaveImageToDisk(string imageFile, vCardPhoto image)
         {
-            using (var ms = new MemoryStream(image.GetBytes()))
-            {
-                using (var fs = new FileStream(imageFile, FileMode.Create))
-                    ms.WriteTo(fs);
-            }
+            _fileHandler.WriteBytesToFile(imageFile, image.GetBytes());
         }
 
-
-        /// <summary>
-        /// Check if some item in the contact list is modified Every contact has a dirty flag
-        /// </summary>
         public bool dirty
         {
             get { return _contacts != null && _contacts.Any(x => x.isDirty); }

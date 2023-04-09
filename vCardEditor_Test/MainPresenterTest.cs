@@ -28,7 +28,7 @@ namespace vCardEditor_Test
 
 
             var presenter = new MainPresenter(view, repo);
-            view.NewFileOpened += Raise.EventWith(new EventArg<string>("aaa"));
+            view.NewFileOpened += Raise.EventWith(new EventArg<string>("filename.aaa"));
 
             view.Received().DisplayMessage(Arg.Any<string>(), Arg.Any<string>());
         }
@@ -45,7 +45,7 @@ namespace vCardEditor_Test
 
             
             var presenter = new MainPresenter(view, repo);
-            view.NewFileOpened += Raise.EventWith(new EventArg<string>("aaa.vcf"));
+            view.NewFileOpened += Raise.EventWith(new EventArg<string>("filename.vcf"));
 
             view.Received().DisplayContacts(Arg.Is<BindingList<Contact>>(x=>x.Count == 1));
             view.Received().DisplayContacts(Arg.Is<BindingList<Contact>>(x => x[0].card.FormattedName == "Jean Dupont1"));
@@ -64,10 +64,10 @@ namespace vCardEditor_Test
             view.AskMessage(Arg.Any<string>(), Arg.Any<string>()).Returns(true);
 
             var presenter = new MainPresenter(view, repo);
-            view.NewFileOpened += Raise.EventWith(new EventArg<string>("aaa.vcf"));
+            view.NewFileOpened += Raise.EventWith(new EventArg<string>("filename.vcf"));
             repo.Contacts[1].isDirty = true;
 
-            view.NewFileOpened += Raise.EventWith(new EventArg<string>("bbb.vcf"));
+            view.NewFileOpened += Raise.EventWith(new EventArg<string>("filename2.vcf"));
            
             view.Received().AskMessage(Arg.Any<string>(), Arg.Any<string>());
 
