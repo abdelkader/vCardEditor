@@ -44,12 +44,18 @@ namespace vCardEditor.View
         {
             InitializeComponent();
             resources = new ComponentResourceManager(typeof(MainForm));
-
+            tbcAddress.AddTab += TbcAddress_AddTab;
             BuildMRUMenu();
 
         }
 
+        private void TbcAddress_AddTab(object sender, EventArgs e)
+        {
+          //  MessageBox.Show("Test");
+        }
+
        
+
 
         private void tbsOpen_Click(object sender, EventArgs e)
         {
