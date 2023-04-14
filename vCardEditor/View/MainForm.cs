@@ -8,6 +8,7 @@ using Thought.vCards;
 using vCardEditor.Repository;
 using vCardEditor.Model;
 using System.Drawing;
+using System.Runtime.InteropServices;
 
 namespace vCardEditor.View
 {
@@ -48,15 +49,13 @@ namespace vCardEditor.View
             BuildMRUMenu();
 
         }
-
-       
-
+        
         private void tbsOpen_Click(object sender, EventArgs e)
         {
             NewFileOpened?.Invoke(sender, new EventArg<string>(string.Empty));
         }
 
-        
+
 
         public void DisplayContacts(BindingList<Contact> contacts)
         {
@@ -81,7 +80,7 @@ namespace vCardEditor.View
             AddContact?.Invoke(sender, e);
 
         }
-       
+
         private void dgContacts_SelectionChanged(object sender, EventArgs e)
         {
             if (ChangeContactsSelected != null && dgContacts.CurrentCell != null)
@@ -263,7 +262,7 @@ namespace vCardEditor.View
             PostalStateValue.Clear();
             PostalCountryValue.Clear();
         }
-        
+
 
         private void tbsDelete_Click(object sender, EventArgs e)
         {
@@ -302,7 +301,7 @@ namespace vCardEditor.View
         {
             vCard card = new vCard
             {
-                
+
                 Title = FormattedTitleValue.Text,
                 FormattedName = FormattedNameValue.Text,
                 GivenName = firstNameValue.Text,
@@ -320,7 +319,7 @@ namespace vCardEditor.View
 
             if (!string.IsNullOrEmpty(this.EmailAddressValue.Text))
                 card.EmailAddresses.Add(new vCardEmailAddress(this.EmailAddressValue.Text));
-            
+
             if (!string.IsNullOrEmpty(this.PersonalWebSiteValue.Text))
                 card.Websites.Add(new vCardWebsite(this.PersonalWebSiteValue.Text));
 
@@ -328,7 +327,7 @@ namespace vCardEditor.View
                 card.DeliveryAddresses.Add(new vCardDeliveryAddress(HomeAddressValue.Text, HomeCityValue.Text, HomeStateValue.Text, HomeCountryValue.Text,
                         HomePOBoxValue.Text, vCardDeliveryAddressTypes.Home));
 
-           
+
             if (!string.IsNullOrEmpty(this.WorkAddressValue.Text))
                 card.DeliveryAddresses.Add(new vCardDeliveryAddress(WorkAddressValue.Text, WorkCityValue.Text, WorkStateValue.Text, WorkCountryValue.Text,
                         WorkPOBoxValue.Text, vCardDeliveryAddressTypes.Work));
@@ -351,7 +350,7 @@ namespace vCardEditor.View
             Close();
         }
 
-        
+
         private void MainForm_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -377,7 +376,7 @@ namespace vCardEditor.View
                 var evt = new EventArg<string>(e.ClickedItem.Text);
                 NewFileOpened(s, evt);
             };
-            
+
             UpdateMRUMenu(ConfigRepository.Instance.Paths);
 
         }
@@ -390,7 +389,7 @@ namespace vCardEditor.View
             recentFilesMenuItem.DropDownItems.Clear();
             for (int i = 0; i < MostRecentFilesList._innerList.Count; i++)
                 recentFilesMenuItem.DropDownItems.Add(MostRecentFilesList[i]);
-                
+
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -427,8 +426,8 @@ namespace vCardEditor.View
         public string DisplayOpenDialog(string filter = "")
         {
             string filename = string.Empty;
-             openFileDialog.Filter = filter;
-            
+            openFileDialog.Filter = filter;
+
             DialogResult result = openFileDialog.ShowDialog();
             if (result == DialogResult.OK)
                 filename = openFileDialog.FileName;
@@ -465,9 +464,9 @@ namespace vCardEditor.View
                     {
                         MessageBox.Show($"Invalid file! : {fileName}");
                     }
-                    
+
                 }
-                
+
             }
 
         }
@@ -484,6 +483,6 @@ namespace vCardEditor.View
             ExportImage?.Invoke(sender, e);
         }
 
-       
+
     }
 }
