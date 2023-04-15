@@ -25,6 +25,8 @@ namespace Thought.vCards
         private string postalCode;
         private string region;
         private string street;
+        private string postOfficeBox;
+        private string extendedAddress;
 
 
         /// <summary>
@@ -37,6 +39,8 @@ namespace Thought.vCards
             this.postalCode = string.Empty;
             this.region = string.Empty;
             this.street = string.Empty;
+            this.postOfficeBox = string.Empty;
+            this.extendedAddress = string.Empty;
 			this.addressType = new List<vCardDeliveryAddressTypes>();
         }
 
@@ -50,7 +54,22 @@ namespace Thought.vCards
             Street = street;
         }
 
+        public vCardDeliveryAddress(string street, string city, string region, string country, string postalCode, string extendedAddress,  string postOfficeBox, vCardDeliveryAddressTypes addressType)
+        {
+            AddressType = new List<vCardDeliveryAddressTypes>() { addressType };
+            City = city;
+            Country = country;
+            PostalCode = postalCode;
+            Region = region;
+            Street = street;
+            ExtendedAddress = extendedAddress;
+            PostOfficeBox= postOfficeBox;
+        }
 
+        public vCardDeliveryAddress(List<vCardDeliveryAddressTypes> addressType)
+        {
+            AddressType = addressType ;
+        }
 
         /// <summary>
         ///     The type of postal address.
@@ -230,6 +249,28 @@ namespace Thought.vCards
             }
         }
 
+        public string ExtendedAddress 
+        {
+            get
+            {
+                return this.extendedAddress ?? string.Empty;
+            }
+            set
+            {
+                this.extendedAddress = value;
+            }
+        }
+        public string PostOfficeBox 
+        {
+            get
+            {
+                return this.postOfficeBox ?? string.Empty;
+            }
+            set
+            {
+                this.postOfficeBox = value;
+            }
+        }
     }
 
 }

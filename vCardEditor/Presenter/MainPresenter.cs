@@ -8,6 +8,7 @@ using vCardEditor.Model;
 using System.Linq;
 using System.IO;
 using System.Drawing;
+using System.Collections.Generic;
 
 namespace VCFEditor.Presenter
 {
@@ -33,7 +34,26 @@ namespace VCFEditor.Presenter
             _view.CloseForm += CloseForm;
             _view.ModifyImage += ModifyImage;
             _view.ExportImage += ExportImage;
+            _view.AddressAdded += _view_AddressAdded;
+            _view.AddressRemoved += _view_AddressRemoved;
 
+
+    }
+
+        private void _view_AddressRemoved(object sender, EventArg<int> e)
+        {
+            var contact = _repository.Contacts[_view.SelectedContactIndex];
+            _repository.SetDirtyFlag(_view.SelectedContactIndex);
+            
+            contact.card.DeliveryAddresses.RemoveAt(e.Data);
+        }
+
+        private void _view_AddressAdded(object sender, EventArg<List<vCardDeliveryAddressTypes>> e)
+        {
+            var contact = _repository.Contacts[_view.SelectedContactIndex];
+            _repository.SetDirtyFlag(_view.SelectedContactIndex);
+
+            contact.card.DeliveryAddresses.Add(new vCardDeliveryAddress( e.Data));
         }
 
         private void ExportImage(object sender, EventArgs e)

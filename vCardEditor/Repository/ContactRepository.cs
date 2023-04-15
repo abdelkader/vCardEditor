@@ -65,7 +65,7 @@ namespace VCFEditor.Repository
                 }
               
             }
-
+            
             OriginalContactList = Contacts;
             return Contacts;
         }
@@ -135,7 +135,7 @@ namespace VCFEditor.Repository
                     if (_contacts[i].isSelected)
                     {
                         _contacts[i].isDeleted = true;
-                        _contacts[i].isDirty = true;
+                        SetDirtyFlag(i);
                        _contacts.RemoveAt(i);
                     }
                         
@@ -342,7 +342,7 @@ namespace VCFEditor.Repository
         {
             if (index > -1)
             {
-                _contacts[index].isDirty = true;
+                SetDirtyFlag(index);
                 _contacts[index].card.Photos.Clear();
                 if (photo != null)
                     _contacts[index].card.Photos.Add(photo);

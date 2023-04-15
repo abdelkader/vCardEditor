@@ -8,7 +8,7 @@ using Thought.vCards;
 using vCardEditor.Repository;
 using vCardEditor.Model;
 using System.Drawing;
-using System.Runtime.InteropServices;
+using System.Collections.Generic;
 
 namespace vCardEditor.View
 {
@@ -25,10 +25,13 @@ namespace vCardEditor.View
         public event EventHandler TextBoxValueChanged;
         public event EventHandler<EventArg<bool>> CloseForm;
         public event EventHandler<EventArg<string>> ModifyImage;
+        public event EventHandler<EventArg<List<vCardDeliveryAddressTypes>>> AddressAdded;
+        public event EventHandler<EventArg<int>> AddressRemoved;
         public event EventHandler ExportImage;
 
         ComponentResourceManager resources;
 
+       
         public int SelectedContactIndex
         {
             get
@@ -45,11 +48,12 @@ namespace vCardEditor.View
         {
             InitializeComponent();
             resources = new ComponentResourceManager(typeof(MainForm));
-
+            tbcAddress.AddTab += (sender, e) => AddressAdded?.Invoke(sender, e);
+            tbcAddress.RemoveTab += (sender, e) => AddressRemoved?.Invoke(sender, e);
+            tbcAddress.TextChangedEvent += (sender, e) => TextBoxValueChanged?.Invoke(sender, e);
             BuildMRUMenu();
 
         }
-        
         private void tbsOpen_Click(object sender, EventArgs e)
         {
             NewFileOpened?.Invoke(sender, new EventArg<string>(string.Empty));
@@ -78,14 +82,13 @@ namespace vCardEditor.View
         private void tbsNew_Click(object sender, EventArgs e)
         {
             AddContact?.Invoke(sender, e);
-
         }
 
         private void dgContacts_SelectionChanged(object sender, EventArgs e)
         {
             if (ChangeContactsSelected != null && dgContacts.CurrentCell != null)
             {
-                vCard data = GetvCard();
+                vCard data = GetvCardFromWindow();
                 ChangeContactsSelected(sender, new EventArg<vCard>(data));
             }
             else
@@ -116,7 +119,7 @@ namespace vCardEditor.View
             SetSummaryValue(WorkPhoneValue, card.Phones.GetFirstChoice(vCardPhoneTypes.Work));
             SetSummaryValue(EmailAddressValue, card.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet));
             SetSummaryValue(PersonalWebSiteValue, card.Websites.GetFirstChoice(vCardWebsiteTypes.Personal));
-            SetAddressesValues(card.DeliveryAddresses);
+            SetAddressesValues(card);
             SetPhotoValue(card.Photos);
 
         }
@@ -136,7 +139,7 @@ namespace vCardEditor.View
             SetSummaryValue(WorkPhoneValue, string.Empty);
             SetSummaryValue(EmailAddressValue, string.Empty);
             SetSummaryValue(PersonalWebSiteValue, string.Empty);
-            SetAddressesValues(new vCardDeliveryAddressCollection());
+            SetAddressesValues(new vCard());
             SetPhotoValue(new vCardPhotoCollection());
 
         }
@@ -198,71 +201,10 @@ namespace vCardEditor.View
                 PhotoBox.Image = (Image)resources.GetObject("PhotoBox.Image");
 
         }
-        private void SetAddressesValues(vCardDeliveryAddressCollection addresses)
+        private void SetAddressesValues(vCard card)
         {
-            ClearAddressTextFields();
-
-            if (addresses.Any())
-            {
-                var HomeAddress = addresses.Where(x => x.IsHome).FirstOrDefault();
-                if (HomeAddress != null)
-                {
-                    HomeAddressValue.Text = HomeAddress.Street;
-                    HomeCityValue.Text = HomeAddress.City;
-                    HomeZipValue.Text = HomeAddress.PostalCode;
-                    HomeStateValue.Text = HomeAddress.Region;
-                    HomeCountryValue.Text = HomeAddress.Country;
-                }
-
-                var WorkAddress = addresses.Where(x => x.IsWork).FirstOrDefault();
-                if (WorkAddress != null)
-                {
-                    WorkAddressValue.Text = WorkAddress.Street;
-                    WorkCityValue.Text = WorkAddress.City;
-                    WorkZipValue.Text = WorkAddress.PostalCode;
-                    WorkStateValue.Text = WorkAddress.Region;
-                    WorkCountryValue.Text = WorkAddress.Country;
-                }
-
-                var PostalAddress = addresses.Where(x => x.IsPostal).FirstOrDefault();
-                if (PostalAddress != null)
-                {
-                    PostalAddressValue.Text = PostalAddress.Street;
-                    PostalAddressValue.Text = PostalAddress.Street;
-                    PostalCityValue.Text = PostalAddress.City;
-                    PostalZipValue.Text = PostalAddress.PostalCode;
-                    PostalStateValue.Text = PostalAddress.Region;
-                    PostalCountryValue.Text = PostalAddress.Country;
-                }
-
-            }
-
+            tbcAddress.SetAddresses(card);
         }
-
-        private void ClearAddressTextFields()
-        {
-            HomeAddressValue.Clear();
-            HomePOBoxValue.Clear();
-            HomeCityValue.Clear();
-            HomeZipValue.Clear();
-            HomeStateValue.Clear();
-            HomeCountryValue.Clear();
-
-            WorkAddressValue.Clear();
-            WorkPOBoxValue.Clear();
-            WorkCityValue.Clear();
-            WorkZipValue.Clear();
-            WorkStateValue.Clear();
-            WorkCountryValue.Clear();
-
-            PostalAddressValue.Clear();
-            PostalPOBoxValue.Clear();
-            PostalCityValue.Clear();
-            PostalZipValue.Clear();
-            PostalStateValue.Clear();
-            PostalCountryValue.Clear();
-        }
-
 
         private void tbsDelete_Click(object sender, EventArgs e)
         {
@@ -283,7 +225,7 @@ namespace vCardEditor.View
         private void textBoxFilter_TextChanged(object sender, EventArgs e)
         {
             //Save before leaving contact.
-            BeforeLeavingContact?.Invoke(sender, new EventArg<vCard>(GetvCard()));
+            BeforeLeavingContact?.Invoke(sender, new EventArg<vCard>(GetvCardFromWindow()));
 
             FilterTextChanged?.Invoke(sender, new EventArg<string>(textBoxFilter.Text));
         }
@@ -294,10 +236,10 @@ namespace vCardEditor.View
         }
 
         /// <summary>
-        /// Generate a vcard from differents fields
+        /// Generate a vcard from differents fields on the form.
         /// </summary>
         /// <returns></returns>
-        private vCard GetvCard()
+        private vCard GetvCardFromWindow()
         {
             vCard card = new vCard
             {
@@ -316,32 +258,21 @@ namespace vCardEditor.View
                 card.Phones.Add(new vCardPhone(CellularPhoneValue.Text, vCardPhoneTypes.Cellular));
             if (!string.IsNullOrEmpty(WorkPhoneValue.Text))
                 card.Phones.Add(new vCardPhone(WorkPhoneValue.Text, vCardPhoneTypes.Work));
-
             if (!string.IsNullOrEmpty(this.EmailAddressValue.Text))
                 card.EmailAddresses.Add(new vCardEmailAddress(this.EmailAddressValue.Text));
-
             if (!string.IsNullOrEmpty(this.PersonalWebSiteValue.Text))
                 card.Websites.Add(new vCardWebsite(this.PersonalWebSiteValue.Text));
 
-            if (!string.IsNullOrEmpty(this.HomeAddressValue.Text))
-                card.DeliveryAddresses.Add(new vCardDeliveryAddress(HomeAddressValue.Text, HomeCityValue.Text, HomeStateValue.Text, HomeCountryValue.Text,
-                        HomePOBoxValue.Text, vCardDeliveryAddressTypes.Home));
-
-
-            if (!string.IsNullOrEmpty(this.WorkAddressValue.Text))
-                card.DeliveryAddresses.Add(new vCardDeliveryAddress(WorkAddressValue.Text, WorkCityValue.Text, WorkStateValue.Text, WorkCountryValue.Text,
-                        WorkPOBoxValue.Text, vCardDeliveryAddressTypes.Work));
-
-            if (!string.IsNullOrEmpty(this.PostalAddressValue.Text))
-                card.DeliveryAddresses.Add(new vCardDeliveryAddress(PostalAddressValue.Text, PostalCityValue.Text, PostalStateValue.Text, PostalCountryValue.Text,
-                        PostalPOBoxValue.Text, vCardDeliveryAddressTypes.Postal));
+            
+            
+            tbcAddress.getDeliveryAddress(card);
 
             return card;
         }
 
         private void dgContacts_RowLeave(object sender, DataGridViewCellEventArgs e)
         {
-            vCard data = GetvCard();
+            vCard data = GetvCardFromWindow();
             BeforeLeavingContact?.Invoke(sender, new EventArg<vCard>(data));
         }
 
@@ -460,7 +391,7 @@ namespace vCardEditor.View
                         var evt = new EventArg<string>(fileName);
                         ModifyImage(sender, evt);
                     }
-                    catch (ArgumentException ex)
+                    catch (ArgumentException)
                     {
                         MessageBox.Show($"Invalid file! : {fileName}");
                     }
@@ -482,7 +413,5 @@ namespace vCardEditor.View
         {
             ExportImage?.Invoke(sender, e);
         }
-
-
     }
 }

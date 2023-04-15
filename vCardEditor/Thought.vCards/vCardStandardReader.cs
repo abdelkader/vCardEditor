@@ -1225,6 +1225,12 @@ namespace Thought.vCards
 			if (addressParts.Length >= 3)
 				deliveryAddress.Street = addressParts[2].Trim();
 
+            if (addressParts.Length >= 1)
+				deliveryAddress.ExtendedAddress = addressParts[1].Trim();
+
+			if (addressParts.Length >= 0)
+				deliveryAddress.PostOfficeBox = addressParts[0].Trim();
+
 			if (
 				(string.IsNullOrEmpty(deliveryAddress.City)) &&
 				(string.IsNullOrEmpty(deliveryAddress.Country)) &&
@@ -1661,6 +1667,7 @@ namespace Thought.vCards
 			// often consist of binary data.
 
 			vCardCertificate certificate = new vCardCertificate();
+			
 			certificate.Data = (byte[])property.Value;
 
 			// TODO: Support other key types.

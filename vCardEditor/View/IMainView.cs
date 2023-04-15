@@ -23,6 +23,10 @@ namespace VCFEditor.View
         event EventHandler<EventArg<bool>> CloseForm;
         event EventHandler<EventArg<string>> ModifyImage;
         event EventHandler ExportImage;
+        event EventHandler<EventArg<List<vCardDeliveryAddressTypes>>> AddressAdded;
+        event EventHandler<EventArg<int>> AddressRemoved;
+
+
         int SelectedContactIndex { get; }
         void DisplayContacts(BindingList<Contact> contacts);
         void DisplayContactDetail(vCard card, string FileName);
