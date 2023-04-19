@@ -7,7 +7,7 @@ The software is still in **early stage**.
 
 ## Installation
 
-No need to install anything. Just head to the release section and download the last release version.
+🔧 No need to install anything. Just head to the release section and download the last release version.
 
 
     
