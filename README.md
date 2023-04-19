@@ -4,7 +4,7 @@
 A Simple vcf file Editor. You can export easily edit (modify, delete) entries of a vcf file with this simple tool.
 The software is still in **early stage**. 
 
-https://github.com/abdelkader/vCardEditor/releases/latest/download/vCardEditor.exe
+[![Latest release](https://badgen.net/github/release/Naereen/Strapdown.js)](https://github.com/abdelkader/vCardEditor/releases/latest/download/vCardEditor.exe)
 
 ## Installation
 
