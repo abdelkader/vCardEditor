@@ -26,6 +26,7 @@ namespace vCardEditor.View
         public event EventHandler<EventArg<bool>> CloseForm;
         public event EventHandler<EventArg<string>> ModifyImage;
         public event EventHandler<EventArg<List<vCardDeliveryAddressTypes>>> AddressAdded;
+        public event EventHandler<EventArg<List<vCardDeliveryAddressTypes>>> AddressModified;
         public event EventHandler<EventArg<int>> AddressRemoved;
         public event EventHandler ExportImage;
 
@@ -50,6 +51,7 @@ namespace vCardEditor.View
             resources = new ComponentResourceManager(typeof(MainForm));
             tbcAddress.AddTab += (sender, e) => AddressAdded?.Invoke(sender, e);
             tbcAddress.RemoveTab += (sender, e) => AddressRemoved?.Invoke(sender, e);
+            tbcAddress.ModifyTab += (sender, e) => AddressModified?.Invoke(sender, e);
             tbcAddress.TextChangedEvent += (sender, e) => TextBoxValueChanged?.Invoke(sender, e);
             BuildMRUMenu();
 
@@ -58,8 +60,6 @@ namespace vCardEditor.View
         {
             NewFileOpened?.Invoke(sender, new EventArg<string>(string.Empty));
         }
-
-
 
         public void DisplayContacts(BindingList<Contact> contacts)
         {
@@ -143,8 +143,6 @@ namespace vCardEditor.View
             SetPhotoValue(new vCardPhotoCollection());
 
         }
-
-
 
         private void SetSummaryValue(StateTextBox valueLabel, string value)
         {
@@ -235,10 +233,7 @@ namespace vCardEditor.View
             textBoxFilter.Text = string.Empty;
         }
 
-        /// <summary>
-        /// Generate a vcard from differents fields on the form.
-        /// </summary>
-        /// <returns></returns>
+       
         private vCard GetvCardFromWindow()
         {
             vCard card = new vCard
@@ -262,9 +257,8 @@ namespace vCardEditor.View
                 card.EmailAddresses.Add(new vCardEmailAddress(this.EmailAddressValue.Text));
             if (!string.IsNullOrEmpty(this.PersonalWebSiteValue.Text))
                 card.Websites.Add(new vCardWebsite(this.PersonalWebSiteValue.Text));
+            
 
-            
-            
             tbcAddress.getDeliveryAddress(card);
 
             return card;

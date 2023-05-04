@@ -1,7 +1,7 @@
 ﻿
 namespace vCardEditor.View.Customs
 {
-    partial class AddAddress
+    partial class AddAddressDialog
     {
         /// <summary>
         /// Required designer variable.

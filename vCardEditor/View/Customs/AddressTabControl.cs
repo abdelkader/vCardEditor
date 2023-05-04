@@ -10,12 +10,10 @@ namespace vCardEditor.View.Customs
 {
     class AddressTabControl : TabControl
     {
-        
-
         public event EventHandler TextChangedEvent;
         public event EventHandler<EventArg<List<vCardDeliveryAddressTypes>>> AddTab;
         public event EventHandler<EventArg<int>> RemoveTab;
-        //public event EventHandler<EventArg<TabPage>> ModifyTab;
+        public event EventHandler<EventArg<List<vCardDeliveryAddressTypes>>> ModifyTab;
 
         public AddressTabControl()
         {
@@ -26,10 +24,8 @@ namespace vCardEditor.View.Customs
             DrawItem += tbcAddress_DrawItem;
             MouseDown += tbcAddress_MouseDown;
             Selecting += tbcAddress_Selecting;
-            HandleCreated += tabControl1_HandleCreated;
+            HandleCreated += tbcAddress_HandleCreated;
             MouseDoubleClick += AddressTabControl_MouseDoubleClick;
-
-
            
         }
 
@@ -42,6 +38,7 @@ namespace vCardEditor.View.Customs
 
             for (int i = 0; i < TabCount - 1; i++)
             {
+                if (TabPages[i].Controls.Count == 0) continue;
                 AddressBox adr = TabPages[i].Controls[0] as AddressBox;
                 card.DeliveryAddresses.Add(adr.getDeliveryAddress());
             }
@@ -49,30 +46,35 @@ namespace vCardEditor.View.Customs
 
         private void AddressTabControl_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            //NOT IMPLEMENTED
-            //TabPage checkTab;
-            //for (int i = 0; i < TabPages.Count; ++i)
-            //{
-            //    if (GetTabRect(i).Contains(e.Location))
-            //    {
-            //        var AddressBox =  TabPages[i].Controls[0] as AddressBox;
+            TabPage SlectedTab;
+            for (int i = 0; i < TabPages.Count - 1; ++i)
+            {
+                if (GetTabRect(i).Contains(e.Location))
+                {
+                    var AddressBox = TabPages[i].Controls[0] as AddressBox;
 
-            //        var diag = new AddAddress(AddressBox.AddressType);
-            //        diag.ShowDialog();
-            //        //if (diag.ShowDialog() == DialogResult.OK)
-            //        //    _card.DeliveryAddresses[i].AddressType = diag.Addresses;
-            //        //ModifyTab?.Invoke(sender, new EventArg<TabPage>(checkTab));
-            //        break; 
-            //    }
-            //}
-           
+                    var diag = new AddAddressDialog(AddressBox.AddressType);
+
+                    if (diag.ShowDialog() == DialogResult.OK)
+                    {
+                        SlectedTab = TabPages[i];
+                        SelectedTab.Text = GetTabTitle(diag.Addresses);
+                        SelectedTab.ToolTipText = string.Join(",", diag.Addresses.ConvertAll(f => f.ToString()));
+                        
+                        //_card.DeliveryAddresses[i].AddressType = diag.Addresses;
+                        ModifyTab?.Invoke(sender, new EventArg<List<vCardDeliveryAddressTypes>>(diag.Addresses));
+                    }
+                    break;
+                }
+            }
+
         }
 
 
         [DllImport("user32.dll")]
         private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
         private const int TCM_SETMINTABWIDTH = 0x1300 + 49;
-        private void tabControl1_HandleCreated(object sender, EventArgs e)
+        private void tbcAddress_HandleCreated(object sender, EventArgs e)
         {
             SendMessage(Handle, TCM_SETMINTABWIDTH, IntPtr.Zero, (IntPtr)16);
         }
@@ -90,15 +92,16 @@ namespace vCardEditor.View.Customs
             var lastIndex = TabCount - 1;
             if (GetTabRect(lastIndex).Contains(e.Location))
             {
-                var diag = new AddAddress();
+                var diag = new AddAddressDialog();
                 if (diag.ShowDialog() == DialogResult.OK)
                 {
                     vCardDeliveryAddress da = new vCardDeliveryAddress();
                     da.AddressType = diag.Addresses;
                     AddtabForAddress(da);
                     AddTab?.Invoke(sender, new EventArg<List<vCardDeliveryAddressTypes>>(diag.Addresses));
+                    SelectedIndex = TabCount - 1;
                 }
-                SelectedIndex = TabCount - 1;
+                
             }
             else
             {
@@ -114,23 +117,20 @@ namespace vCardEditor.View.Customs
                     
                     if (imageRect.Contains(e.Location))
                     {
-                        var result = MessageBox.Show("Remove tab?", "Asking", MessageBoxButtons.YesNo);
-                        if (result == DialogResult.Yes)
+                        if (MessageBox.Show("Remove tab?", "Asking", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
-                        TabPages.RemoveAt(i);
+                            TabPages.RemoveAt(i);
                             SelectedIndex = 0;
                             RemoveTab?.Invoke(sender, new EventArg<int>(i));
+                        }
 
-                    }
                         return;
-                }
+                    }
                    
-            }
+                }
                 
+            }
         }
-        }
-
-       
 
         private void tbcAddress_DrawItem(object sender, DrawItemEventArgs e)
         {
@@ -187,21 +187,15 @@ namespace vCardEditor.View.Customs
         {
             foreach (var item in card.DeliveryAddresses)
                 AddtabForAddress(item);
-
-            //Page for the "+" sign
-            TabPages.Add(new TabPage(" "));
-            }
+        }
 
         private void AddtabForAddress(vCardDeliveryAddress da)
         {
-            var title = da.AddressType[0].ToString();
-
-            if (da.AddressType.Count > 1)
-                title += "...";
+            string title = GetTabTitle(da.AddressType);
 
             var page = new TabPage($"  {title}   ");
-            TabPages.Add(page);
-            
+            TabPages.Insert(TabCount - 1, page);
+
             var ab = new AddressBox(da.Street, da.City, da.Region, da.Country,
                                 da.PostalCode, da.ExtendedAddress, da.PostOfficeBox, da.AddressType);
 
@@ -212,12 +206,24 @@ namespace vCardEditor.View.Customs
 
         }
 
+        private string GetTabTitle(List<vCardDeliveryAddressTypes> addressTypes)
+        {
+            var title = string.Empty;
+            if (addressTypes.Count > 0)
+            {
+                title = addressTypes[0].ToString();
+                if (addressTypes.Count > 1)
+                    title += "...";
+            }
+
+            return title;
+        }
 
         private void ClearTabs()
         {
 
-            //Remove every tab. We don't call Clear() as it doesn't free memory.
-            while (TabCount > 0)
+            //Remove every tab (except "+"). We don't call Clear() as it doesn't free memory.
+            while (TabCount > 1)
                 TabPages[TabCount - 1].Dispose();
         }
     }

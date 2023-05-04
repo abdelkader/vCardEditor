@@ -133,11 +133,11 @@
     <Compile Include="View\ConfigDialog.Designer.cs">
       <DependentUpon>ConfigDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\Customs\AddAddress.cs">
+    <Compile Include="View\Customs\AddAddressDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Customs\AddAddress.Designer.cs">
-      <DependentUpon>AddAddress.cs</DependentUpon>
+    <Compile Include="View\Customs\AddAddressDialog.Designer.cs">
+      <DependentUpon>AddAddressDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="View\Customs\AddressBox.cs">
       <SubType>UserControl</SubType>
@@ -176,8 +176,8 @@
     <EmbeddedResource Include="View\ConfigDialog.resx">
       <DependentUpon>ConfigDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\Customs\AddAddress.resx">
-      <DependentUpon>AddAddress.cs</DependentUpon>
+    <EmbeddedResource Include="View\Customs\AddAddressDialog.resx">
+      <DependentUpon>AddAddressDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Customs\AddressBox.resx">
       <DependentUpon>AddressBox.cs</DependentUpon>

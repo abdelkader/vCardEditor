@@ -11,12 +11,12 @@ using Thought.vCards;
 
 namespace vCardEditor.View.Customs
 {
-    public partial class AddAddress : Form
+    public partial class AddAddressDialog : Form
     {
         public List<vCardDeliveryAddressTypes> Addresses { get;}
         private readonly List<CheckBox> _checkBoxes;
 
-        public AddAddress()
+        public AddAddressDialog()
         {
             InitializeComponent();
             
@@ -24,10 +24,10 @@ namespace vCardEditor.View.Customs
             Addresses = new List<vCardDeliveryAddressTypes>();
         }
 
-        public AddAddress(List<vCardDeliveryAddressTypes> addressCollection)
+        public AddAddressDialog(List<vCardDeliveryAddressTypes> addressCollection)
         {
             InitializeComponent();
-            
+            Addresses = addressCollection;
             _checkBoxes = Controls.OfType<CheckBox>().ToList();
 
             foreach (var item in addressCollection)
@@ -72,8 +72,6 @@ namespace vCardEditor.View.Customs
                 DialogResult = DialogResult.None;
                 return;
             }
-
-            
 
             foreach (var item in total)
             {

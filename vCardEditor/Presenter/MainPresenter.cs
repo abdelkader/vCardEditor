@@ -35,10 +35,11 @@ namespace VCFEditor.Presenter
             _view.ModifyImage += ModifyImage;
             _view.ExportImage += ExportImage;
             _view.AddressAdded += _view_AddressAdded;
+            _view.AddressModified += _view_AddressModified;
             _view.AddressRemoved += _view_AddressRemoved;
+            
 
-
-    }
+        }
 
         private void _view_AddressRemoved(object sender, EventArg<int> e)
         {
@@ -56,6 +57,14 @@ namespace VCFEditor.Presenter
             contact.card.DeliveryAddresses.Add(new vCardDeliveryAddress( e.Data));
         }
 
+        private void _view_AddressModified(object sender, EventArg<List<vCardDeliveryAddressTypes>> e)
+        {
+            var contact = _repository.Contacts[_view.SelectedContactIndex];
+            _repository.SetDirtyFlag(_view.SelectedContactIndex);
+
+            contact.card.DeliveryAddresses.Clear();
+            contact.card.DeliveryAddresses.Add(new vCardDeliveryAddress(e.Data));
+        }
         private void ExportImage(object sender, EventArgs e)
         {
             
@@ -77,8 +86,6 @@ namespace VCFEditor.Presenter
             }
 
         }
-
-       
 
         private void ModifyImage(object sender, EventArg<string> e)
         {
@@ -143,7 +150,6 @@ namespace VCFEditor.Presenter
             }
 
         }
-
         public void NewFileOpened(object sender, EventArg<string> e)
         {
             BeforeOpeningNewFile(sender, e);
@@ -175,7 +181,6 @@ namespace VCFEditor.Presenter
 
         }
 
-
         public void ChangeContactSelected(object sender, EventArgs e)
         {
             if (_view.SelectedContactIndex > -1)
@@ -191,7 +196,6 @@ namespace VCFEditor.Presenter
                 _view.ClearContactDetail();
 
         }
-
 
     }
 }

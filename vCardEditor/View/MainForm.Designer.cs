@@ -32,7 +32,7 @@ namespace vCardEditor.View
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.miSave = new System.Windows.Forms.ToolStripMenuItem();
@@ -83,6 +83,7 @@ namespace vCardEditor.View
             this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbcAddress = new vCardEditor.View.Customs.AddressTabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.FormattedTitleValue = new vCardEditor.View.StateTextBox();
             this.lastNameValue = new vCardEditor.View.StateTextBox();
             this.middleNameValue = new vCardEditor.View.StateTextBox();
@@ -104,6 +105,7 @@ namespace vCardEditor.View
             ((System.ComponentModel.ISupportInitialize)(this.bsContacts)).BeginInit();
             this.gbNameList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgContacts)).BeginInit();
+            this.tbcAddress.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -585,8 +587,8 @@ namespace vCardEditor.View
             this.dgContacts.AllowUserToAddRows = false;
             this.dgContacts.AllowUserToDeleteRows = false;
             this.dgContacts.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dgContacts.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dgContacts.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgContacts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgContacts.AutoGenerateColumns = false;
@@ -628,6 +630,8 @@ namespace vCardEditor.View
             // 
             // tbcAddress
             // 
+            this.tbcAddress.Controls.Add(this.tabPage1);
+            this.tbcAddress.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.tbcAddress.Location = new System.Drawing.Point(17, 23);
             this.tbcAddress.Margin = new System.Windows.Forms.Padding(4);
             this.tbcAddress.Name = "tbcAddress";
@@ -636,6 +640,16 @@ namespace vCardEditor.View
             this.tbcAddress.ShowToolTips = true;
             this.tbcAddress.Size = new System.Drawing.Size(739, 144);
             this.tbcAddress.TabIndex = 0;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Location = new System.Drawing.Point(4, 27);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(731, 113);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = " ";
             // 
             // FormattedTitleValue
             // 
@@ -799,6 +813,7 @@ namespace vCardEditor.View
             this.gbNameList.ResumeLayout(false);
             this.gbNameList.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgContacts)).EndInit();
+            this.tbcAddress.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -866,5 +881,6 @@ namespace vCardEditor.View
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem imagesToolStripMenuItem;
         private AddressTabControl tbcAddress;
+        private System.Windows.Forms.TabPage tabPage1;
     }
 }
