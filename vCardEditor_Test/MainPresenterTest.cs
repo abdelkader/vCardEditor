@@ -41,6 +41,7 @@ namespace vCardEditor_Test
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfOneEntry);
             var repo = Substitute.For<ContactRepository>(fileHandler);
+            repo.GetExtension(Arg.Any<string>()).Returns(".vcf");
             var view = Substitute.For<IMainView>();
 
             
@@ -60,6 +61,7 @@ namespace vCardEditor_Test
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfThreeEntry);
             var repo = Substitute.For<ContactRepository>(fileHandler);
+            repo.GetExtension(Arg.Any<string>()).Returns(".vcf");
             var view = Substitute.For<IMainView>();
             view.AskMessage(Arg.Any<string>(), Arg.Any<string>()).Returns(true);
 
@@ -79,6 +81,7 @@ namespace vCardEditor_Test
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfThreeEntry);
             var repo = Substitute.For<ContactRepository>(fileHandler);
+            repo.GetExtension(Arg.Any<string>()).Returns(".vcf");
             var view = Substitute.For<IMainView>();
 
 
@@ -97,6 +100,7 @@ namespace vCardEditor_Test
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfThreeEntry);
             fileHandler.FileExist("aaa.vcf.old0").Returns(true);
             var repo = Substitute.For<ContactRepository>(fileHandler);
+            repo.GetExtension(Arg.Any<string>()).Returns(".vcf");
             var view = Substitute.For<IMainView>();
 
 
@@ -115,6 +119,7 @@ namespace vCardEditor_Test
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfThreeEntry);
             var repo = Substitute.For<ContactRepository>(fileHandler);
+            repo.GetExtension(Arg.Any<string>()).Returns(".vcf");
             var view = Substitute.For<IMainView>();
 
            
