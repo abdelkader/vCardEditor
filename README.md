@@ -18,8 +18,7 @@ The software is still in **early stage**.
 
     
 ## Screenshots
-
-![App Screenshot](https://user-images.githubusercontent.com/474542/151180600-cf169628-0761-49a9-a63d-05f751c6a9bb.png)
+![vcardeditorv0_5](https://user-images.githubusercontent.com/169070/236289228-106c1489-e01d-400c-968e-92d3e2be74ab.png)
 
 
 ## Acknowledgements
