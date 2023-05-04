@@ -66,8 +66,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Columns.cs" />
     <Compile Include="Model\FixedList.cs" />
     <Compile Include="Model\ObjectCopier.cs" />
+    <Compile Include="Model\FormState.cs" />
     <Compile Include="Repository\ConfigRepository.cs" />
     <Compile Include="Repository\ContactRepository.cs" />
     <Compile Include="Repository\FileHandler.cs" />
@@ -148,14 +150,22 @@
     <Compile Include="View\Customs\AddressTabControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="View\Customs\ColumnsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Customs\ColumnsDialog.Designer.cs">
+      <DependentUpon>ColumnsDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\EventArgs.cs" />
     <Compile Include="View\IMainView.cs" />
+    <Compile Include="View\Libs\PropertyComparer.cs" />
     <Compile Include="View\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="View\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\SortableBindingList.cs" />
     <Compile Include="View\StateTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -181,6 +191,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\Customs\AddressBox.resx">
       <DependentUpon>AddressBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Customs\ColumnsDialog.resx">
+      <DependentUpon>ColumnsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

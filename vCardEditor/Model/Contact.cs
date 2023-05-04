@@ -15,6 +15,22 @@ namespace VCFEditor.Model
                 NotifyPropertyChanged("Name");
             }
         }
+        [DisplayName("F.Name")]
+        public string FamilyName
+        {
+            get => card.FamilyName;
+        }
+
+        [DisplayName("Cellular")]
+        public string Cellular
+        {
+            get { 
+                if (card.Phones.GetFirstChoice(vCardPhoneTypes.Cellular) != null)
+                    return card.Phones.GetFirstChoice(vCardPhoneTypes.Cellular).FullNumber;
+
+                return string.Empty;
+            }
+        }
 
 
         [Browsable(false)]

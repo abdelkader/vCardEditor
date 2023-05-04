@@ -5,6 +5,7 @@ using System.Text;
 using Thought.vCards;
 using VCFEditor.Model;
 using System.ComponentModel;
+using vCardEditor.View;
 
 namespace VCFEditor.Repository
 {
@@ -12,9 +13,9 @@ namespace VCFEditor.Repository
     {
         bool dirty { get; }
         string fileName { get; set; }
-        BindingList<Contact> Contacts { get; set; }
-        BindingList<Contact> LoadContacts(string fileName);
-        BindingList<Contact> FilterContacts(string p);
+        SortableBindingList<Contact> Contacts { get; set; }
+        SortableBindingList<Contact> LoadContacts(string fileName);
+        SortableBindingList<Contact> FilterContacts(string p);
         void SaveContactsToFile(string fileName);
         void DeleteContact();
         void SetDirtyFlag(int index);
@@ -23,5 +24,7 @@ namespace VCFEditor.Repository
         void ModifyImage(int index, vCardPhoto photo);
         string GetExtension(string path);
         void SaveImageToDisk(string imageFile, vCardPhoto image);
+
+        string GenerateStringFromVCard(vCard card);
     }
 }

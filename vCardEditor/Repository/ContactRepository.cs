@@ -6,6 +6,7 @@ using Thought.vCards;
 using VCFEditor.Model;
 using System.ComponentModel;
 using vCardEditor.Repository;
+using vCardEditor.View;
 
 namespace VCFEditor.Repository
 {
@@ -21,14 +22,14 @@ namespace VCFEditor.Repository
         /// <summary>
         /// Keep a copy of contact list when filtering
         /// </summary>
-        private BindingList<Contact> OriginalContactList = null;
-        private BindingList<Contact> _contacts;
-        public BindingList<Contact> Contacts
+        private SortableBindingList<Contact> OriginalContactList = null;
+        private SortableBindingList<Contact> _contacts;
+        public SortableBindingList<Contact> Contacts
         {
             get
             {
                 if (_contacts == null)
-                    _contacts = new BindingList<Contact>();
+                    _contacts = new SortableBindingList<Contact>();
                 return _contacts;
             }
             set
@@ -42,7 +43,7 @@ namespace VCFEditor.Repository
             _fileHandler = fileHandler;
         }
 
-        public BindingList<Contact> LoadContacts(string fileName)
+        public SortableBindingList<Contact> LoadContacts(string fileName)
         {
             Contacts.Clear();
 
@@ -167,11 +168,11 @@ namespace VCFEditor.Repository
             return stream;
         }
 
-        public BindingList<Contact> FilterContacts(string filter)
+        public SortableBindingList<Contact> FilterContacts(string filter)
         {
             var list = OriginalContactList.Where(i => (i.Name.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0) && 
                                                     !i.isDeleted);
-            Contacts = new BindingList<Contact>(list.ToList());
+            Contacts = new SortableBindingList<Contact>(list.ToList());
             return Contacts;
         }
 
@@ -329,7 +330,7 @@ namespace VCFEditor.Repository
             }
         }
        
-        private string GenerateStringFromVCard(vCard card)
+        public string GenerateStringFromVCard(vCard card)
         {
             vCardStandardWriter writer = new vCardStandardWriter();
             TextWriter tw = new StringWriter();

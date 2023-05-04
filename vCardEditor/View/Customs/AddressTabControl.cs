@@ -61,7 +61,6 @@ namespace vCardEditor.View.Customs
                         SelectedTab.Text = GetTabTitle(diag.Addresses);
                         SelectedTab.ToolTipText = string.Join(",", diag.Addresses.ConvertAll(f => f.ToString()));
                         
-                        //_card.DeliveryAddresses[i].AddressType = diag.Addresses;
                         ModifyTab?.Invoke(sender, new EventArg<List<vCardDeliveryAddressTypes>>(diag.Addresses));
                     }
                     break;
@@ -187,6 +186,7 @@ namespace vCardEditor.View.Customs
         {
             foreach (var item in card.DeliveryAddresses)
                 AddtabForAddress(item);
+            SelectedIndex = 0;
         }
 
         private void AddtabForAddress(vCardDeliveryAddress da)
@@ -221,10 +221,10 @@ namespace vCardEditor.View.Customs
 
         private void ClearTabs()
         {
-
+            
             //Remove every tab (except "+"). We don't call Clear() as it doesn't free memory.
             while (TabCount > 1)
-                TabPages[TabCount - 1].Dispose();
+                TabPages[0].Dispose();
         }
     }
 }

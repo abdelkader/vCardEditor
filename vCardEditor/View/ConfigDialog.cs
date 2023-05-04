@@ -10,19 +10,8 @@ namespace vCardEditor.View
         public ConfigDialog()
         {
             InitializeComponent();
-            ConfigRepository conf = ConfigRepository.Instance;//.Clone();
+            ConfigRepository conf = ConfigRepository.Instance;//
             pgConfig.SelectedObject = conf;
-        }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-
-            this.Close();
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
     }
 }

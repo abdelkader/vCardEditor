@@ -32,7 +32,7 @@ namespace vCardEditor.View
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.miSave = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,10 +43,13 @@ namespace vCardEditor.View
             this.miQuit = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.miAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.countToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.miAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tbsNew = new System.Windows.Forms.ToolStripButton();
@@ -81,7 +84,12 @@ namespace vCardEditor.View
             this.textBoxFilter = new System.Windows.Forms.TextBox();
             this.dgContacts = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FormattedName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FamilyName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cellular = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.modifiyColumnsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tbcAddress = new vCardEditor.View.Customs.AddressTabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.FormattedTitleValue = new vCardEditor.View.StateTextBox();
@@ -105,6 +113,11 @@ namespace vCardEditor.View
             ((System.ComponentModel.ISupportInitialize)(this.bsContacts)).BeginInit();
             this.gbNameList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgContacts)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.tbcAddress.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -114,11 +127,11 @@ namespace vCardEditor.View
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
-            this.helpToolStripMenuItem,
-            this.toolsToolStripMenuItem});
+            this.toolsToolStripMenuItem,
+            this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1145, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(1197, 30);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -190,6 +203,43 @@ namespace vCardEditor.View
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
             this.copyToolStripMenuItem.Size = new System.Drawing.Size(126, 26);
             this.copyToolStripMenuItem.Text = "Copy";
+            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.imagesToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(58, 26);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // imagesToolStripMenuItem
+            // 
+            this.imagesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportToolStripMenuItem,
+            this.clearToolStripMenuItem,
+            this.countToolStripMenuItem});
+            this.imagesToolStripMenuItem.Name = "imagesToolStripMenuItem";
+            this.imagesToolStripMenuItem.Size = new System.Drawing.Size(140, 26);
+            this.imagesToolStripMenuItem.Text = "Images";
+            // 
+            // exportToolStripMenuItem
+            // 
+            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
+            this.exportToolStripMenuItem.Text = "Export";
+            // 
+            // clearToolStripMenuItem
+            // 
+            this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
+            this.clearToolStripMenuItem.Text = "Clear";
+            // 
+            // countToolStripMenuItem
+            // 
+            this.countToolStripMenuItem.Name = "countToolStripMenuItem";
+            this.countToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
+            this.countToolStripMenuItem.Text = "Count";
             // 
             // helpToolStripMenuItem
             // 
@@ -208,27 +258,13 @@ namespace vCardEditor.View
             this.miAbout.Text = "&About";
             this.miAbout.Click += new System.EventHandler(this.tbsAbout_Click);
             // 
-            // toolsToolStripMenuItem
-            // 
-            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.imagesToolStripMenuItem});
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(58, 26);
-            this.toolsToolStripMenuItem.Text = "Tools";
-            // 
-            // imagesToolStripMenuItem
-            // 
-            this.imagesToolStripMenuItem.Name = "imagesToolStripMenuItem";
-            this.imagesToolStripMenuItem.Size = new System.Drawing.Size(140, 26);
-            this.imagesToolStripMenuItem.Text = "Images";
-            // 
             // statusStrip1
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.statusStrip1.Location = new System.Drawing.Point(0, 582);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 624);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(1145, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1197, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -245,7 +281,7 @@ namespace vCardEditor.View
             this.toolStripSeparator});
             this.toolStrip1.Location = new System.Drawing.Point(0, 30);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1145, 31);
+            this.toolStrip1.Size = new System.Drawing.Size(1197, 31);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -330,12 +366,12 @@ namespace vCardEditor.View
             this.CellularPhoneLabel.Name = "CellularPhoneLabel";
             this.CellularPhoneLabel.Size = new System.Drawing.Size(60, 23);
             this.CellularPhoneLabel.TabIndex = 2;
-            this.CellularPhoneLabel.Text = "Mobile:";
+            this.CellularPhoneLabel.Text = "Cellular:";
             this.CellularPhoneLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // WorkPhoneLabel
             // 
-            this.WorkPhoneLabel.Location = new System.Drawing.Point(16, 91);
+            this.WorkPhoneLabel.Location = new System.Drawing.Point(11, 86);
             this.WorkPhoneLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.WorkPhoneLabel.Name = "WorkPhoneLabel";
             this.WorkPhoneLabel.Size = new System.Drawing.Size(60, 23);
@@ -345,9 +381,6 @@ namespace vCardEditor.View
             // 
             // gbContactDetail
             // 
-            this.gbContactDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.gbContactDetail.Controls.Add(this.btnExportImage);
             this.gbContactDetail.Controls.Add(this.btnRemoveImage);
             this.gbContactDetail.Controls.Add(this.groupBox4);
@@ -355,18 +388,20 @@ namespace vCardEditor.View
             this.gbContactDetail.Controls.Add(this.groupBox2);
             this.gbContactDetail.Controls.Add(this.groupBox1);
             this.gbContactDetail.Controls.Add(this.PhotoBox);
+            this.gbContactDetail.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbContactDetail.Enabled = false;
-            this.gbContactDetail.Location = new System.Drawing.Point(333, 64);
+            this.gbContactDetail.Location = new System.Drawing.Point(0, 0);
             this.gbContactDetail.Margin = new System.Windows.Forms.Padding(4);
             this.gbContactDetail.Name = "gbContactDetail";
             this.gbContactDetail.Padding = new System.Windows.Forms.Padding(4);
-            this.gbContactDetail.Size = new System.Drawing.Size(796, 510);
+            this.gbContactDetail.Size = new System.Drawing.Size(796, 563);
             this.gbContactDetail.TabIndex = 3;
             this.gbContactDetail.TabStop = false;
             this.gbContactDetail.Text = "Contact Detail :";
             // 
             // btnExportImage
             // 
+            this.btnExportImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExportImage.BackColor = System.Drawing.SystemColors.Window;
             this.btnExportImage.Image = ((System.Drawing.Image)(resources.GetObject("btnExportImage.Image")));
             this.btnExportImage.Location = new System.Drawing.Point(744, 170);
@@ -378,6 +413,7 @@ namespace vCardEditor.View
             // 
             // btnRemoveImage
             // 
+            this.btnRemoveImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRemoveImage.BackColor = System.Drawing.SystemColors.Window;
             this.btnRemoveImage.Image = ((System.Drawing.Image)(resources.GetObject("btnRemoveImage.Image")));
             this.btnRemoveImage.Location = new System.Drawing.Point(768, 170);
@@ -393,11 +429,11 @@ namespace vCardEditor.View
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.tbcAddress);
-            this.groupBox4.Location = new System.Drawing.Point(24, 190);
+            this.groupBox4.Location = new System.Drawing.Point(8, 190);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox4.Size = new System.Drawing.Size(764, 182);
+            this.groupBox4.Size = new System.Drawing.Size(780, 228);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Address:";
@@ -416,11 +452,11 @@ namespace vCardEditor.View
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.FormattedNameValue);
             this.groupBox3.Controls.Add(this.FormattedNameLabel);
-            this.groupBox3.Location = new System.Drawing.Point(24, 41);
+            this.groupBox3.Location = new System.Drawing.Point(8, 23);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Size = new System.Drawing.Size(571, 142);
+            this.groupBox3.Size = new System.Drawing.Size(571, 159);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Name";
@@ -477,17 +513,16 @@ namespace vCardEditor.View
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.EmailAddressLabel);
             this.groupBox2.Controls.Add(this.EmailAddressValue);
             this.groupBox2.Controls.Add(this.PersonalWebSiteLabel);
             this.groupBox2.Controls.Add(this.PersonalWebSiteValue);
-            this.groupBox2.Location = new System.Drawing.Point(348, 373);
+            this.groupBox2.Location = new System.Drawing.Point(360, 426);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(440, 129);
+            this.groupBox2.Size = new System.Drawing.Size(420, 129);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Web : ";
@@ -522,11 +557,11 @@ namespace vCardEditor.View
             this.groupBox1.Controls.Add(this.WorkPhoneValue);
             this.groupBox1.Controls.Add(this.CellularPhoneLabel);
             this.groupBox1.Controls.Add(this.CellularPhoneValue);
-            this.groupBox1.Location = new System.Drawing.Point(29, 373);
+            this.groupBox1.Location = new System.Drawing.Point(8, 426);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(377, 129);
+            this.groupBox1.Size = new System.Drawing.Size(344, 129);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Phones : ";
@@ -547,25 +582,25 @@ namespace vCardEditor.View
             // 
             // gbNameList
             // 
-            this.gbNameList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.gbNameList.Controls.Add(this.dgContacts);
             this.gbNameList.Controls.Add(this.btnClearFilter);
             this.gbNameList.Controls.Add(this.textBoxFilter);
-            this.gbNameList.Controls.Add(this.dgContacts);
+            this.gbNameList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbNameList.Enabled = false;
-            this.gbNameList.Location = new System.Drawing.Point(17, 64);
+            this.gbNameList.Location = new System.Drawing.Point(0, 0);
             this.gbNameList.Margin = new System.Windows.Forms.Padding(4);
             this.gbNameList.Name = "gbNameList";
             this.gbNameList.Padding = new System.Windows.Forms.Padding(4);
-            this.gbNameList.Size = new System.Drawing.Size(308, 510);
+            this.gbNameList.Size = new System.Drawing.Size(397, 563);
             this.gbNameList.TabIndex = 2;
             this.gbNameList.TabStop = false;
             this.gbNameList.Text = "Name List :";
             // 
             // btnClearFilter
             // 
+            this.btnClearFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClearFilter.Image = ((System.Drawing.Image)(resources.GetObject("btnClearFilter.Image")));
-            this.btnClearFilter.Location = new System.Drawing.Point(268, 17);
+            this.btnClearFilter.Location = new System.Drawing.Point(357, 17);
             this.btnClearFilter.Margin = new System.Windows.Forms.Padding(4);
             this.btnClearFilter.Name = "btnClearFilter";
             this.btnClearFilter.Size = new System.Drawing.Size(37, 27);
@@ -575,10 +610,12 @@ namespace vCardEditor.View
             // 
             // textBoxFilter
             // 
-            this.textBoxFilter.Location = new System.Drawing.Point(4, 18);
+            this.textBoxFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxFilter.Location = new System.Drawing.Point(8, 18);
             this.textBoxFilter.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxFilter.Name = "textBoxFilter";
-            this.textBoxFilter.Size = new System.Drawing.Size(256, 22);
+            this.textBoxFilter.Size = new System.Drawing.Size(341, 22);
             this.textBoxFilter.TabIndex = 0;
             this.textBoxFilter.TextChanged += new System.EventHandler(this.textBoxFilter_TextChanged);
             // 
@@ -587,27 +624,31 @@ namespace vCardEditor.View
             this.dgContacts.AllowUserToAddRows = false;
             this.dgContacts.AllowUserToDeleteRows = false;
             this.dgContacts.AllowUserToResizeRows = false;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dgContacts.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
-            this.dgContacts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dgContacts.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgContacts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgContacts.AutoGenerateColumns = false;
             this.dgContacts.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgContacts.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dgContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgContacts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
-            this.Column2});
+            this.FormattedName,
+            this.FamilyName,
+            this.Cellular});
             this.dgContacts.DataSource = this.bsContacts;
-            this.dgContacts.Location = new System.Drawing.Point(4, 50);
+            this.dgContacts.Location = new System.Drawing.Point(8, 47);
             this.dgContacts.Margin = new System.Windows.Forms.Padding(4);
             this.dgContacts.MultiSelect = false;
             this.dgContacts.Name = "dgContacts";
             this.dgContacts.RowHeadersVisible = false;
             this.dgContacts.RowHeadersWidth = 51;
             this.dgContacts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgContacts.Size = new System.Drawing.Size(300, 455);
+            this.dgContacts.Size = new System.Drawing.Size(389, 508);
             this.dgContacts.TabIndex = 2;
+            this.dgContacts.CellContextMenuStripNeeded += new System.Windows.Forms.DataGridViewCellContextMenuStripNeededEventHandler(this.dgContacts_CellContextMenuStripNeeded);
             this.dgContacts.RowLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgContacts_RowLeave);
             this.dgContacts.SelectionChanged += new System.EventHandler(this.dgContacts_SelectionChanged);
             // 
@@ -619,17 +660,72 @@ namespace vCardEditor.View
             this.Column1.Name = "Column1";
             this.Column1.Width = 50;
             // 
-            // Column2
+            // FormattedName
             // 
-            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column2.DataPropertyName = "Name";
-            this.Column2.HeaderText = "Name";
-            this.Column2.MinimumWidth = 6;
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
+            this.FormattedName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.FormattedName.DataPropertyName = "Name";
+            this.FormattedName.HeaderText = "Name";
+            this.FormattedName.MinimumWidth = 6;
+            this.FormattedName.Name = "FormattedName";
+            this.FormattedName.ReadOnly = true;
+            // 
+            // FamilyName
+            // 
+            this.FamilyName.DataPropertyName = "FamilyName";
+            this.FamilyName.HeaderText = "FamilyName";
+            this.FamilyName.MinimumWidth = 6;
+            this.FamilyName.Name = "FamilyName";
+            this.FamilyName.ReadOnly = true;
+            this.FamilyName.Visible = false;
+            this.FamilyName.Width = 125;
+            // 
+            // Cellular
+            // 
+            this.Cellular.DataPropertyName = "Cellular";
+            this.Cellular.HeaderText = "Cellular";
+            this.Cellular.MinimumWidth = 6;
+            this.Cellular.Name = "Cellular";
+            this.Cellular.ReadOnly = true;
+            this.Cellular.Visible = false;
+            this.Cellular.Width = 125;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.modifiyColumnsToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(191, 28);
+            // 
+            // modifiyColumnsToolStripMenuItem
+            // 
+            this.modifiyColumnsToolStripMenuItem.Name = "modifiyColumnsToolStripMenuItem";
+            this.modifiyColumnsToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
+            this.modifiyColumnsToolStripMenuItem.Text = "Modifiy Columns";
+            this.modifiyColumnsToolStripMenuItem.Click += new System.EventHandler(this.modifiyColumnsToolStripMenuItem_Click);
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 61);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.gbNameList);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.gbContactDetail);
+            this.splitContainer1.Size = new System.Drawing.Size(1197, 563);
+            this.splitContainer1.SplitterDistance = 397;
+            this.splitContainer1.TabIndex = 4;
             // 
             // tbcAddress
             // 
+            this.tbcAddress.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbcAddress.Controls.Add(this.tabPage1);
             this.tbcAddress.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.tbcAddress.Location = new System.Drawing.Point(17, 23);
@@ -638,7 +734,7 @@ namespace vCardEditor.View
             this.tbcAddress.Padding = new System.Drawing.Point(12, 4);
             this.tbcAddress.SelectedIndex = 0;
             this.tbcAddress.ShowToolTips = true;
-            this.tbcAddress.Size = new System.Drawing.Size(739, 144);
+            this.tbcAddress.Size = new System.Drawing.Size(755, 190);
             this.tbcAddress.TabIndex = 0;
             // 
             // tabPage1
@@ -647,7 +743,7 @@ namespace vCardEditor.View
             this.tabPage1.Location = new System.Drawing.Point(4, 27);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(731, 113);
+            this.tabPage1.Size = new System.Drawing.Size(747, 159);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = " ";
             // 
@@ -677,8 +773,6 @@ namespace vCardEditor.View
             // 
             // middleNameValue
             // 
-            this.middleNameValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.middleNameValue.Location = new System.Drawing.Point(237, 53);
             this.middleNameValue.Margin = new System.Windows.Forms.Padding(4);
             this.middleNameValue.Name = "middleNameValue";
@@ -720,7 +814,7 @@ namespace vCardEditor.View
             this.EmailAddressValue.Margin = new System.Windows.Forms.Padding(4);
             this.EmailAddressValue.Name = "EmailAddressValue";
             this.EmailAddressValue.oldText = null;
-            this.EmailAddressValue.Size = new System.Drawing.Size(360, 22);
+            this.EmailAddressValue.Size = new System.Drawing.Size(340, 22);
             this.EmailAddressValue.TabIndex = 1;
             this.EmailAddressValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             this.EmailAddressValue.Validated += new System.EventHandler(this.Value_TextChanged);
@@ -733,7 +827,7 @@ namespace vCardEditor.View
             this.PersonalWebSiteValue.Margin = new System.Windows.Forms.Padding(4);
             this.PersonalWebSiteValue.Name = "PersonalWebSiteValue";
             this.PersonalWebSiteValue.oldText = null;
-            this.PersonalWebSiteValue.Size = new System.Drawing.Size(360, 22);
+            this.PersonalWebSiteValue.Size = new System.Drawing.Size(340, 22);
             this.PersonalWebSiteValue.TabIndex = 3;
             this.PersonalWebSiteValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             this.PersonalWebSiteValue.Validated += new System.EventHandler(this.Value_TextChanged);
@@ -746,7 +840,7 @@ namespace vCardEditor.View
             this.HomePhoneValue.Margin = new System.Windows.Forms.Padding(4);
             this.HomePhoneValue.Name = "HomePhoneValue";
             this.HomePhoneValue.oldText = null;
-            this.HomePhoneValue.Size = new System.Drawing.Size(229, 22);
+            this.HomePhoneValue.Size = new System.Drawing.Size(252, 22);
             this.HomePhoneValue.TabIndex = 1;
             this.HomePhoneValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             this.HomePhoneValue.Validated += new System.EventHandler(this.Value_TextChanged);
@@ -759,7 +853,7 @@ namespace vCardEditor.View
             this.WorkPhoneValue.Margin = new System.Windows.Forms.Padding(4);
             this.WorkPhoneValue.Name = "WorkPhoneValue";
             this.WorkPhoneValue.oldText = null;
-            this.WorkPhoneValue.Size = new System.Drawing.Size(229, 22);
+            this.WorkPhoneValue.Size = new System.Drawing.Size(252, 22);
             this.WorkPhoneValue.TabIndex = 5;
             this.WorkPhoneValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             this.WorkPhoneValue.Validated += new System.EventHandler(this.Value_TextChanged);
@@ -772,7 +866,7 @@ namespace vCardEditor.View
             this.CellularPhoneValue.Margin = new System.Windows.Forms.Padding(4);
             this.CellularPhoneValue.Name = "CellularPhoneValue";
             this.CellularPhoneValue.oldText = null;
-            this.CellularPhoneValue.Size = new System.Drawing.Size(229, 22);
+            this.CellularPhoneValue.Size = new System.Drawing.Size(252, 22);
             this.CellularPhoneValue.TabIndex = 3;
             this.CellularPhoneValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             this.CellularPhoneValue.Validated += new System.EventHandler(this.Value_TextChanged);
@@ -782,9 +876,8 @@ namespace vCardEditor.View
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1145, 604);
-            this.Controls.Add(this.gbNameList);
-            this.Controls.Add(this.gbContactDetail);
+            this.ClientSize = new System.Drawing.Size(1197, 646);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -794,6 +887,7 @@ namespace vCardEditor.View
             this.Name = "MainForm";
             this.Text = "vCard Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainForm_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainForm_DragEnter);
             this.menuStrip1.ResumeLayout(false);
@@ -813,6 +907,11 @@ namespace vCardEditor.View
             this.gbNameList.ResumeLayout(false);
             this.gbNameList.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgContacts)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.tbcAddress.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -847,8 +946,6 @@ namespace vCardEditor.View
         private System.Windows.Forms.GroupBox gbNameList;
         private System.Windows.Forms.TextBox textBoxFilter;
         private System.Windows.Forms.DataGridView dgContacts;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.Button btnClearFilter;
         internal System.Windows.Forms.PictureBox PhotoBox;
         private System.Windows.Forms.ToolStripMenuItem recentFilesMenuItem;
@@ -882,5 +979,15 @@ namespace vCardEditor.View
         private System.Windows.Forms.ToolStripMenuItem imagesToolStripMenuItem;
         private AddressTabControl tbcAddress;
         private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem countToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem modifiyColumnsToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FormattedName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FamilyName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Cellular;
+        private System.Windows.Forms.SplitContainer splitContainer1;
     }
 }

@@ -35,33 +35,33 @@
             // 
             // btnClose
             // 
+            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnClose.Location = new System.Drawing.Point(337, 427);
-            this.btnClose.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(4);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(100, 28);
             this.btnClose.TabIndex = 0;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // pgConfig
             // 
             this.pgConfig.Location = new System.Drawing.Point(16, 15);
-            this.pgConfig.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pgConfig.Margin = new System.Windows.Forms.Padding(4);
             this.pgConfig.Name = "pgConfig";
             this.pgConfig.Size = new System.Drawing.Size(421, 405);
             this.pgConfig.TabIndex = 1;
             // 
             // btnCancel
             // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(229, 427);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(100, 28);
             this.btnCancel.TabIndex = 0;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // ConfigDialog
             // 
@@ -71,7 +71,7 @@
             this.Controls.Add(this.pgConfig);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnClose);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ConfigDialog";
             this.Text = "Configuration Dialog";
             this.ResumeLayout(false);

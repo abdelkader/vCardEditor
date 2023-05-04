@@ -9,11 +9,13 @@ using vCardEditor.Repository;
 using vCardEditor.Model;
 using System.Drawing;
 using System.Collections.Generic;
+using vCardEditor.View.Customs;
 
 namespace vCardEditor.View
 {
     public partial class MainForm : Form, IMainView
     {
+        public event EventHandler<EventArg<FormState>> LoadForm;
         public event EventHandler AddContact;
         public event EventHandler SaveContactsSelected;
         public event EventHandler BeforeOpeningNewFile;
@@ -29,6 +31,7 @@ namespace vCardEditor.View
         public event EventHandler<EventArg<List<vCardDeliveryAddressTypes>>> AddressModified;
         public event EventHandler<EventArg<int>> AddressRemoved;
         public event EventHandler ExportImage;
+        public event EventHandler CopyTextToClipboardEvent;
 
         ComponentResourceManager resources;
 
@@ -61,7 +64,7 @@ namespace vCardEditor.View
             NewFileOpened?.Invoke(sender, new EventArg<string>(string.Empty));
         }
 
-        public void DisplayContacts(BindingList<Contact> contacts)
+        public void DisplayContacts(SortableBindingList<Contact> contacts)
         {
             if (contacts != null)
                 bsContacts.DataSource = contacts;
@@ -324,7 +327,6 @@ namespace vCardEditor.View
 
             e.Cancel = evt.Data;
 
-            ConfigRepository.Instance.SaveConfig();
         }
 
         public bool AskMessage(string msg, string caption)
@@ -406,6 +408,114 @@ namespace vCardEditor.View
         private void btnExportImage_Click(object sender, EventArgs e)
         {
             ExportImage?.Invoke(sender, e);
+        }
+
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CopyTextToClipboardEvent?.Invoke(sender, e);
+        }
+
+        public void SendTextToClipBoard(string text)
+        {
+            Clipboard.SetText(text);
+        }
+
+        private void dgContacts_CellContextMenuStripNeeded(object sender, DataGridViewCellContextMenuStripNeededEventArgs e)
+        {
+            if (e.RowIndex == -1)
+            {
+                e.ContextMenuStrip = contextMenuStrip1;
+            }
+            
+        }
+
+        private void modifiyColumnsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<Columns> Columns = GetListColumnsForDataGrid();
+
+            var dialog = new ColumnsDialog(Columns);
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                ToggleAllColumnsToInvisible();
+                ToggleOnlySelected(dialog.Columns);
+
+            }
+        }
+
+        private List<Columns> GetListColumnsForDataGrid()
+        {
+            List<Columns> Columns = new List<Columns>();
+            for (int i = 2; i < dgContacts.Columns.Count; i++)
+            {
+                if (dgContacts.Columns[i].Visible)
+                {
+                    var name = dgContacts.Columns[i].Name;
+                    var enumType = (Columns)Enum.Parse(typeof(Columns), name, true);
+                    Columns.Add(enumType);
+                }
+
+            }
+
+            return Columns;
+        }
+
+        private void ToggleOnlySelected(List<Columns> columns)
+        {
+            foreach (var item in columns)
+            {
+                switch (item)
+                {
+                    case Columns.FamilyName:
+                        dgContacts.Columns["FamilyName"].Visible = true;
+                        break;
+                    case Columns.Cellular:
+                        dgContacts.Columns["Cellular"].Visible = true;
+                        break;
+                }
+            }
+        }
+
+        private void ToggleAllColumnsToInvisible()
+        {
+            for (int i = 2; i < dgContacts.Columns.Count; i++)
+            {
+                dgContacts.Columns[i].Visible = false;
+            }
+        }
+
+        public FormState GetFormState()
+        {
+
+            return new FormState
+            {
+                Columns = GetListColumnsForDataGrid(),
+                X = Location.X,
+                Y = Location.Y,
+                Height = Size.Height,
+                Width = Size.Width,
+                splitterPosition = splitContainer1.SplitterDistance
+            };
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            var evt = new EventArg<FormState>(new FormState());
+            LoadForm?.Invoke(sender, evt);
+
+            //TODO: Better way to check if state was serialised!
+            var state = evt.Data;
+            if (state.Width != 0 && state.Height != 0)
+            {
+                Size = new Size(state.Width, state.Height);
+                Location = new Point(state.X , state.Y);
+                splitContainer1.SplitterDistance = state.splitterPosition;
+                if (state.Columns != null)
+                {
+                    ToggleOnlySelected(state.Columns);
+                }
+            }
+            
+            
         }
     }
 }

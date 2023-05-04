@@ -1,16 +1,11 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using VCFEditor;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VCFEditor.View;
 using VCFEditor.Presenter;
 using VCFEditor.Model;
-using System.ComponentModel;
 using VCFEditor.Repository;
 using vCardEditor.Repository;
 using NSubstitute;
+using vCardEditor.View;
 
 namespace vCardEditor_Test
 {
@@ -25,9 +20,7 @@ namespace vCardEditor_Test
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfOneEntry);
             var repo = Substitute.For<ContactRepository>(fileHandler);
             var view = Substitute.For<IMainView>();
-
-
-            var presenter = new MainPresenter(view, repo);
+            _ = new MainPresenter(view, repo);
             view.NewFileOpened += Raise.EventWith(new EventArg<string>("filename.aaa"));
 
             view.Received().DisplayMessage(Arg.Any<string>(), Arg.Any<string>());
@@ -41,14 +34,15 @@ namespace vCardEditor_Test
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfOneEntry);
             var repo = Substitute.For<ContactRepository>(fileHandler);
+            repo.GetExtension(Arg.Any<string>()).Returns(".vcf");
             var view = Substitute.For<IMainView>();
 
             
             var presenter = new MainPresenter(view, repo);
             view.NewFileOpened += Raise.EventWith(new EventArg<string>("filename.vcf"));
 
-            view.Received().DisplayContacts(Arg.Is<BindingList<Contact>>(x=>x.Count == 1));
-            view.Received().DisplayContacts(Arg.Is<BindingList<Contact>>(x => x[0].card.FormattedName == "Jean Dupont1"));
+            view.Received().DisplayContacts(Arg.Is<SortableBindingList<Contact>>(x=>x.Count == 1));
+            view.Received().DisplayContacts(Arg.Is<SortableBindingList<Contact>>(x => x[0].card.FormattedName == "Jean Dupont1"));
 
         }
 
@@ -60,6 +54,7 @@ namespace vCardEditor_Test
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfThreeEntry);
             var repo = Substitute.For<ContactRepository>(fileHandler);
+            repo.GetExtension(Arg.Any<string>()).Returns(".vcf");
             var view = Substitute.For<IMainView>();
             view.AskMessage(Arg.Any<string>(), Arg.Any<string>()).Returns(true);
 
@@ -79,6 +74,7 @@ namespace vCardEditor_Test
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfThreeEntry);
             var repo = Substitute.For<ContactRepository>(fileHandler);
+            repo.GetExtension(Arg.Any<string>()).Returns(".vcf");
             var view = Substitute.For<IMainView>();
 
 
@@ -97,6 +93,7 @@ namespace vCardEditor_Test
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfThreeEntry);
             fileHandler.FileExist("aaa.vcf.old0").Returns(true);
             var repo = Substitute.For<ContactRepository>(fileHandler);
+            repo.GetExtension(Arg.Any<string>()).Returns(".vcf");
             var view = Substitute.For<IMainView>();
 
 
@@ -115,6 +112,7 @@ namespace vCardEditor_Test
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfThreeEntry);
             var repo = Substitute.For<ContactRepository>(fileHandler);
+            repo.GetExtension(Arg.Any<string>()).Returns(".vcf");
             var view = Substitute.For<IMainView>();
 
            

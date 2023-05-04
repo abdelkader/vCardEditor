@@ -39,6 +39,9 @@ namespace vCardEditor.Repository
         [Browsable(false)]
         public FixedList Paths { get; set;}
 
+        [Browsable(false)]
+        public FormState FormState;
+
         private ConfigRepository() { }
 
 

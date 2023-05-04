@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using Thought.vCards;
 using VCFEditor.Model;
-using System.ComponentModel;
-using System.Windows.Forms;
 using vCardEditor.Model;
+using vCardEditor.View;
 
 namespace VCFEditor.View
 {
     public interface IMainView
     {
-       
+        event EventHandler<EventArg<FormState>> LoadForm;
         event EventHandler AddContact;
         event EventHandler DeleteContact;
         event EventHandler BeforeOpeningNewFile;
@@ -26,9 +25,10 @@ namespace VCFEditor.View
         event EventHandler<EventArg<List<vCardDeliveryAddressTypes>>> AddressAdded;
         event EventHandler<EventArg<List<vCardDeliveryAddressTypes>>> AddressModified;
         event EventHandler<EventArg<int>> AddressRemoved;
+        event EventHandler CopyTextToClipboardEvent;
 
         int SelectedContactIndex { get; }
-        void DisplayContacts(BindingList<Contact> contacts);
+        void DisplayContacts(SortableBindingList<Contact> contacts);
         void DisplayContactDetail(vCard card, string FileName);
         void ClearContactDetail();
         bool AskMessage(string msg, string caption);
@@ -36,5 +36,9 @@ namespace VCFEditor.View
         string DisplayOpenDialog(string filter);
         string DisplaySaveDialog(string filename);
         void UpdateMRUMenu(FixedList MRUList);
+
+        void SendTextToClipBoard(string text);
+
+        FormState GetFormState();
     }
 }

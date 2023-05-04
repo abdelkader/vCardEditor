@@ -22,6 +22,7 @@ namespace VCFEditor.Presenter
             _view = view;
             _repository = repository;
 
+            _view.LoadForm += _view_LoadForm;
             _view.AddContact += AddContact;
             _view.NewFileOpened += NewFileOpened;
             _view.BeforeOpeningNewFile += BeforeOpeningNewFile;
@@ -37,8 +38,26 @@ namespace VCFEditor.Presenter
             _view.AddressAdded += _view_AddressAdded;
             _view.AddressModified += _view_AddressModified;
             _view.AddressRemoved += _view_AddressRemoved;
-            
+            _view.CopyTextToClipboardEvent += _view_CopyTextToClipboardEvent;
 
+        }
+
+        private void _view_LoadForm(object sender, EventArg<FormState> e)
+        {
+            e.Data = ConfigRepository.Instance.FormState;
+        }
+
+        private void _view_CopyTextToClipboardEvent(object sender, EventArgs e)
+        {
+            if (_view.SelectedContactIndex < 0)
+                return;
+
+            var contact = _repository.Contacts[_view.SelectedContactIndex];
+
+            string SerializedCard = _repository.GenerateStringFromVCard(contact.card);
+
+            _view.SendTextToClipBoard(SerializedCard);
+            _view.DisplayMessage("vCard copied to clipboard!", "Information");
         }
 
         private void _view_AddressRemoved(object sender, EventArg<int> e)
@@ -102,8 +121,16 @@ namespace VCFEditor.Presenter
 
         void CloseForm(object sender, EventArg<bool> e)
         {
-            if (_repository.dirty && _view.AskMessage("Exit without saving?", "Exit"))
+            if (_repository.dirty && _view.AskMessage("Exit without saving?", "Exit")) 
                 e.Data = true;
+
+            if (!e.Data)
+            {
+                var state = _view.GetFormState();
+                ConfigRepository.Instance.FormState = state;
+                ConfigRepository.Instance.SaveConfig();
+            }
+            
         }
         public void BeforeLeavingContact(object sender, EventArg<vCard> e)
         {
