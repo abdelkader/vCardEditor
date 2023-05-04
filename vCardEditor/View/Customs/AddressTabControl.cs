@@ -117,17 +117,17 @@ namespace vCardEditor.View.Customs
                         var result = MessageBox.Show("Remove tab?", "Asking", MessageBoxButtons.YesNo);
                         if (result == DialogResult.Yes)
                         {
-                            TabPages.RemoveAt(i);
+                        TabPages.RemoveAt(i);
                             SelectedIndex = 0;
                             RemoveTab?.Invoke(sender, new EventArg<int>(i));
 
-                        }
-                        return;
                     }
-                   
+                        return;
                 }
-                
+                   
             }
+                
+        }
         }
 
        
@@ -190,7 +190,7 @@ namespace vCardEditor.View.Customs
 
             //Page for the "+" sign
             TabPages.Add(new TabPage(" "));
-        }
+            }
 
         private void AddtabForAddress(vCardDeliveryAddress da)
         {

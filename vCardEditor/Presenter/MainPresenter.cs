@@ -155,7 +155,7 @@ namespace VCFEditor.Presenter
             if (!string.IsNullOrEmpty(path))
             {
                 string ext = _repository.GetExtension(path);
-                if (ext != ".vcf")
+                if (!string.Equals(ext, ".vcf", StringComparison.OrdinalIgnoreCase))
                 {
                     _view.DisplayMessage("Only vcf extension accepted!", "Error");
                     return;
