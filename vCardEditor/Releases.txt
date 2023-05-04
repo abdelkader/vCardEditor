@@ -1,0 +1,17 @@
+﻿0.5
+   A reworked control for adding/modifying or removing addresses.
+
+0.4
+    Import images/export images.
+    refactoring and bugs fixed
+
+0.3
+    Added address section.
+    refactoring and bugs fixed
+
+0.2
+    Updated the vCard library to https://github.com/acastroy/Thought.vCards
+    Replaced Moq with nsubstitute (Test mocking library).
+
+0.1
+   Intial release

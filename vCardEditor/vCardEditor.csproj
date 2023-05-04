@@ -202,6 +202,7 @@
     <Content Include="assests\Close.png" />
     <Content Include="assests\icons8-close-16.png" />
     <Content Include="assests\vCard.ico" />
+    <Content Include="Releases.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
