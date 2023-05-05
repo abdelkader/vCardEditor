@@ -23,5 +23,7 @@ namespace VCFEditor.Repository
         void ModifyImage(int index, vCardPhoto photo);
         string GetExtension(string path);
         void SaveImageToDisk(string imageFile, vCardPhoto image);
+
+        string GenerateStringFromVCard(vCard card);
     }
 }

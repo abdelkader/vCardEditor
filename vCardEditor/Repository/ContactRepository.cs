@@ -329,7 +329,7 @@ namespace VCFEditor.Repository
             }
         }
        
-        private string GenerateStringFromVCard(vCard card)
+        public string GenerateStringFromVCard(vCard card)
         {
             vCardStandardWriter writer = new vCardStandardWriter();
             TextWriter tw = new StringWriter();

@@ -37,8 +37,21 @@ namespace VCFEditor.Presenter
             _view.AddressAdded += _view_AddressAdded;
             _view.AddressModified += _view_AddressModified;
             _view.AddressRemoved += _view_AddressRemoved;
-            
+            _view.CopyTextToClipboardEvent += _view_CopyTextToClipboardEvent;
 
+        }
+
+        private void _view_CopyTextToClipboardEvent(object sender, EventArgs e)
+        {
+            if (_view.SelectedContactIndex < 0)
+                return;
+
+            var contact = _repository.Contacts[_view.SelectedContactIndex];
+
+            string SerializedCard = _repository.GenerateStringFromVCard(contact.card);
+
+            _view.SendTextToClipBoard(SerializedCard);
+            _view.DisplayMessage("vCard copied to clipboard!", "Information");
         }
 
         private void _view_AddressRemoved(object sender, EventArg<int> e)

@@ -29,6 +29,7 @@ namespace vCardEditor.View
         public event EventHandler<EventArg<List<vCardDeliveryAddressTypes>>> AddressModified;
         public event EventHandler<EventArg<int>> AddressRemoved;
         public event EventHandler ExportImage;
+        public event EventHandler CopyTextToClipboardEvent;
 
         ComponentResourceManager resources;
 
@@ -406,6 +407,16 @@ namespace vCardEditor.View
         private void btnExportImage_Click(object sender, EventArgs e)
         {
             ExportImage?.Invoke(sender, e);
+        }
+
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CopyTextToClipboardEvent?.Invoke(sender, e);
+        }
+
+        public void SendTextToClipBoard(string text)
+        {
+            Clipboard.SetText(text);
         }
     }
 }

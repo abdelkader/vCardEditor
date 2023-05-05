@@ -26,6 +26,7 @@ namespace VCFEditor.View
         event EventHandler<EventArg<List<vCardDeliveryAddressTypes>>> AddressAdded;
         event EventHandler<EventArg<List<vCardDeliveryAddressTypes>>> AddressModified;
         event EventHandler<EventArg<int>> AddressRemoved;
+        event EventHandler CopyTextToClipboardEvent;
 
         int SelectedContactIndex { get; }
         void DisplayContacts(BindingList<Contact> contacts);
@@ -36,5 +37,7 @@ namespace VCFEditor.View
         string DisplayOpenDialog(string filter);
         string DisplaySaveDialog(string filename);
         void UpdateMRUMenu(FixedList MRUList);
+
+        void SendTextToClipBoard(string text);
     }
 }
