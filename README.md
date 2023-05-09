@@ -18,16 +18,12 @@ The software is still in **early stage**.
 🔧 No need to install anything. Just head to the release section and download the last release version.
 
 
-    
-
-
-
 ### Acknowledgements
 
  - 🧰 [Wonderful library of parsing and generating vcf format](https://github.com/drlongnecker/Thought.vCards)
  - 📖 [MVP pattern from this example](https://github.com/lennykean/NoteCards)
-
-
+ - 🧰 [SortableBindingList](http://timvw.be/2008/08/02/presenting-the-sortablebindinglistt-take-two/)
+ - 🧰 [Custom TabControl](https://github.com/r-aghaei/TabControlWithCloseButtonAndAddButton)
 
 ### Release notes
 Check release text file.
