@@ -21,27 +21,27 @@ namespace VCFEditor.Presenter
             _view = view;
             _repository = repository;
 
-            _view.LoadForm += _view_LoadForm;
-            _view.AddContact += AddContact;
-            _view.NewFileOpened += NewFileOpened;
-            _view.BeforeOpeningNewFile += BeforeOpeningNewFile;
-            _view.SaveContactsSelected += SaveContacts;
-            _view.ChangeContactsSelected += ChangeContactSelected;
-            _view.DeleteContact += DeleteContact;
-            _view.FilterTextChanged += FilterTextChanged;
-            _view.TextBoxValueChanged += TextBoxValueChanged;
-            _view.BeforeLeavingContact += BeforeLeavingContact;
-            _view.CloseForm += CloseForm;
-            _view.ModifyImage += ModifyImage;
-            _view.ExportImage += ExportImage;
-            _view.AddressAdded += _view_AddressAdded;
-            _view.AddressModified += _view_AddressModified;
-            _view.AddressRemoved += _view_AddressRemoved;
-            _view.CopyTextToClipboardEvent += _view_CopyTextToClipboardEvent;
+            _view.LoadForm += LoadFormEvent;
+            _view.AddContact += AddContactEvent;
+            _view.NewFileOpened += NewFileOpenedEvent;
+            _view.BeforeOpeningNewFile += BeforeOpeningNewFileEvent;
+            _view.SaveContactsSelected += SaveContactsEvent;
+            _view.ChangeContactsSelected += ChangeContactSelectedEvent;
+            _view.DeleteContact += DeleteContactEvent;
+            _view.FilterTextChanged += FilterTextChangedEvent;
+            _view.TextBoxValueChanged += TextBoxValueChangedEvent;
+            _view.BeforeLeavingContact += BeforeLeavingContactEvent;
+            _view.CloseForm += CloseFormEvent;
+            _view.ModifyImage += ModifyImageEvent;
+            _view.ExportImage += ExportImageEvent;
+            _view.AddressAdded += AddressAddedEvent;
+            _view.AddressModified += AddressModifiedEvent;
+            _view.AddressRemoved += AddressRemovedEvent;
+            _view.CopyTextToClipboardEvent += CopyTextToClipboardEvent;
 
         }
 
-        private void _view_CopyTextToClipboardEvent(object sender, EventArgs e)
+        private void CopyTextToClipboardEvent(object sender, EventArgs e)
         {
             if (_view.SelectedContactIndex < 0)
                 return;
@@ -53,13 +53,13 @@ namespace VCFEditor.Presenter
             _view.SendTextToClipBoard(SerializedCard);
             _view.DisplayMessage("vCard copied to clipboard!", "Information");
         }
-        private void _view_LoadForm(object sender, EventArg<FormState> e)
+        private void LoadFormEvent(object sender, EventArg<FormState> e)
         {
             e.Data = ConfigRepository.Instance.FormState;
         }
 
 
-        private void _view_AddressRemoved(object sender, EventArg<int> e)
+        private void AddressRemovedEvent(object sender, EventArg<int> e)
         {
             var contact = _repository.Contacts[_view.SelectedContactIndex];
             _repository.SetDirtyFlag(_view.SelectedContactIndex);
@@ -67,7 +67,7 @@ namespace VCFEditor.Presenter
             contact.card.DeliveryAddresses.RemoveAt(e.Data);
         }
 
-        private void _view_AddressAdded(object sender, EventArg<List<vCardDeliveryAddressTypes>> e)
+        private void AddressAddedEvent(object sender, EventArg<List<vCardDeliveryAddressTypes>> e)
         {
             var contact = _repository.Contacts[_view.SelectedContactIndex];
             _repository.SetDirtyFlag(_view.SelectedContactIndex);
@@ -75,7 +75,7 @@ namespace VCFEditor.Presenter
             contact.card.DeliveryAddresses.Add(new vCardDeliveryAddress( e.Data));
         }
 
-        private void _view_AddressModified(object sender, EventArg<List<vCardDeliveryAddressTypes>> e)
+        private void AddressModifiedEvent(object sender, EventArg<List<vCardDeliveryAddressTypes>> e)
         {
             var contact = _repository.Contacts[_view.SelectedContactIndex];
             _repository.SetDirtyFlag(_view.SelectedContactIndex);
@@ -83,7 +83,7 @@ namespace VCFEditor.Presenter
             contact.card.DeliveryAddresses.Clear();
             contact.card.DeliveryAddresses.Add(new vCardDeliveryAddress(e.Data));
         }
-        private void ExportImage(object sender, EventArgs e)
+        private void ExportImageEvent(object sender, EventArgs e)
         {
             
             if (_view.SelectedContactIndex > -1)
@@ -102,7 +102,7 @@ namespace VCFEditor.Presenter
             }
         }
 
-        private void ModifyImage(object sender, EventArg<string> e)
+        private void ModifyImageEvent(object sender, EventArg<string> e)
         {
             if (!string.IsNullOrEmpty(e.Data) )
             {
@@ -114,7 +114,7 @@ namespace VCFEditor.Presenter
 
         }
 
-        void CloseForm(object sender, EventArg<bool> e)
+        void CloseFormEvent(object sender, EventArg<bool> e)
         {
             if (_repository.dirty && _view.AskMessage("Exit without saving?", "Exit")) 
                 e.Data = true;
@@ -127,12 +127,12 @@ namespace VCFEditor.Presenter
             }
             
         }
-        public void BeforeLeavingContact(object sender, EventArg<vCard> e)
+        public void BeforeLeavingContactEvent(object sender, EventArg<vCard> e)
         {
             _repository.SaveDirtyVCard(_view.SelectedContactIndex, e.Data);
         }
 
-        public void TextBoxValueChanged(object sender, EventArgs e)
+        public void TextBoxValueChangedEvent(object sender, EventArgs e)
         {
             var tb = sender as StateTextBox;
             if (tb != null && tb.oldText != tb.Text)
@@ -140,30 +140,30 @@ namespace VCFEditor.Presenter
 
         }
 
-        public void FilterTextChanged(object sender, EventArg<string> e)
+        public void FilterTextChangedEvent(object sender, EventArg<string> e)
         {
             var FilteredContacts = _repository.FilterContacts(e.Data);
             _view.DisplayContacts(FilteredContacts);
         }
 
-        private void AddContact(object sender, EventArgs e)
+        private void AddContactEvent(object sender, EventArgs e)
         {
             _repository.AddEmptyContact();
         }
 
-        private void DeleteContact(object sender, EventArgs e)
+        private void DeleteContactEvent(object sender, EventArgs e)
         {
             _repository.DeleteContact();
         }
 
-        private void SaveContacts(object sender, EventArgs e)
+        private void SaveContactsEvent(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(_repository.fileName))
                 _repository.SaveContactsToFile(_repository.fileName);
 
         }
 
-        private void BeforeOpeningNewFile(object sender, EventArgs e)
+        private void BeforeOpeningNewFileEvent(object sender, EventArgs e)
         {
             if (_repository.Contacts != null && _repository.dirty)
             {
@@ -172,9 +172,9 @@ namespace VCFEditor.Presenter
             }
 
         }
-        public void NewFileOpened(object sender, EventArg<string> e)
+        public void NewFileOpenedEvent(object sender, EventArg<string> e)
         {
-            BeforeOpeningNewFile(sender, e);
+            BeforeOpeningNewFileEvent(sender, e);
             
             string path = e.Data;
             if (string.IsNullOrEmpty(path))
@@ -203,7 +203,7 @@ namespace VCFEditor.Presenter
 
         }
 
-        public void ChangeContactSelected(object sender, EventArgs e)
+        public void ChangeContactSelectedEvent(object sender, EventArgs e)
         {
             if (_view.SelectedContactIndex > -1)
             {

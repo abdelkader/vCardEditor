@@ -10,9 +10,9 @@ namespace vCardEditor.View.Customs
     public partial class ColumnsDialog : Form
     {
         private readonly List<CheckBox> _checkBoxes;
-        public List<Columns> Columns { get; }
+        public List<Column> Columns { get; }
 
-        public ColumnsDialog(List<Columns> columns)
+        public ColumnsDialog(List<Column> columns)
         {
             InitializeComponent();
             _checkBoxes = Controls.OfType<CheckBox>().ToList();
@@ -22,10 +22,10 @@ namespace vCardEditor.View.Customs
             {
                 switch (item)
                 {
-                    case Model.Columns.FamilyName:
+                    case Model.Column.FamilyName:
                         cbFamilyName.Checked = true;
                         break;
-                    case Model.Columns.Cellular:
+                    case Model.Column.Cellular:
                         cbCellular.Checked = true;
                         break;
                     
@@ -42,7 +42,7 @@ namespace vCardEditor.View.Customs
 
             foreach (var item in total)
             {
-                var enumType = (Columns)Enum.Parse(typeof(Columns), item.Text, true);
+                var enumType = (Column)Enum.Parse(typeof(Column), item.Text, true);
                 Columns.Add(enumType);
             }
         }

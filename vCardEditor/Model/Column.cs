@@ -1,6 +1,6 @@
 ﻿namespace vCardEditor.Model
 {
-    public enum Columns
+    public enum Column
     {
         Name = 0,
         FamilyName,

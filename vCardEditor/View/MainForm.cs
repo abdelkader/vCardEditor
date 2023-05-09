@@ -431,7 +431,7 @@ namespace vCardEditor.View
 
         private void modifiyColumnsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            List<Columns> Columns = GetListColumnsForDataGrid();
+            List<Column> Columns = GetListColumnsForDataGrid();
 
             var dialog = new ColumnsDialog(Columns);
             if (dialog.ShowDialog() == DialogResult.OK)
@@ -442,15 +442,15 @@ namespace vCardEditor.View
             }
         }
 
-        private List<Columns> GetListColumnsForDataGrid()
+        private List<Column> GetListColumnsForDataGrid()
         {
-            List<Columns> Columns = new List<Columns>();
+            List<Column> Columns = new List<Column>();
             for (int i = 2; i < dgContacts.Columns.Count; i++)
             {
                 if (dgContacts.Columns[i].Visible)
                 {
                     var name = dgContacts.Columns[i].Name;
-                    var enumType = (Columns)Enum.Parse(typeof(Columns), name, true);
+                    var enumType = (Column)Enum.Parse(typeof(Column), name, true);
                     Columns.Add(enumType);
                 }
 
@@ -459,16 +459,16 @@ namespace vCardEditor.View
             return Columns;
         }
 
-        private void ToggleOnlySelected(List<Columns> columns)
+        private void ToggleOnlySelected(List<Column> columns)
         {
             foreach (var item in columns)
             {
                 switch (item)
                 {
-                    case Columns.FamilyName:
+                    case Column.FamilyName:
                         dgContacts.Columns["FamilyName"].Visible = true;
                         break;
-                    case Columns.Cellular:
+                    case Column.Cellular:
                         dgContacts.Columns["Cellular"].Visible = true;
                         break;
                 }

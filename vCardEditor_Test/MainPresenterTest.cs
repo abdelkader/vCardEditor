@@ -6,6 +6,7 @@ using VCFEditor.Repository;
 using vCardEditor.Repository;
 using NSubstitute;
 using vCardEditor.View;
+using System;
 
 namespace vCardEditor_Test
 {
@@ -97,7 +98,7 @@ namespace vCardEditor_Test
             var view = Substitute.For<IMainView>();
 
 
-            var presenter = new MainPresenter(view, repo);
+            _ = new MainPresenter(view, repo);
             view.NewFileOpened += Raise.EventWith(new EventArg<string>("aaa.vcf"));
 
             view.SaveContactsSelected += Raise.Event();
@@ -116,7 +117,7 @@ namespace vCardEditor_Test
             var view = Substitute.For<IMainView>();
 
            
-            var presenter = new MainPresenter(view, repo);
+            _ = new MainPresenter(view, repo);
             view.NewFileOpened += Raise.EventWith(new EventArg<string>("aaa.vcf"));
             
             //Mouse click on second row.
@@ -130,9 +131,25 @@ namespace vCardEditor_Test
         }
 
 
+        [TestMethod]
+        public void CopyTextToClipboardEvent_ShouldCopyvCard()
+        {
+
+            var fileHandler = Substitute.For<IFileHandler>();
+            fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfOneEntry);
+            var repo = Substitute.For<ContactRepository>(fileHandler);
+            var view = Substitute.For<IMainView>();
+            view.SelectedContactIndex.Returns(0);
+            _ = new MainPresenter(view, repo);
+            repo.LoadContacts("aaa.vcf");
+            view.CopyTextToClipboardEvent += Raise.Event();
+
+            view.Received().SendTextToClipBoard(Arg.Any<string>());
+            view.Received().DisplayMessage("vCard copied to clipboard!", "Information");
+            
+        }
 
 
-       
 
     }
 }

@@ -4,7 +4,7 @@ namespace vCardEditor.Model
 {
     public struct FormState
     {
-        public List<Columns> Columns { get; set; }
+        public List<Column> Columns { get; set; }
         public int X { get; set; }
 
         public int Y { get; set; }
