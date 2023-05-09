@@ -67,7 +67,6 @@ namespace vCardEditor.View
             this.btnExportImage = new System.Windows.Forms.Button();
             this.btnRemoveImage = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.tbcAddress = new vCardEditor.View.Customs.AddressTabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.FormattedTitleValue = new vCardEditor.View.StateTextBox();
@@ -131,7 +130,6 @@ namespace vCardEditor.View
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.tbcAddress.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1

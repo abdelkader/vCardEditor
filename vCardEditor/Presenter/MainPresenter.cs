@@ -7,7 +7,6 @@ using vCardEditor.Repository;
 using vCardEditor.Model;
 using System.Linq;
 using System.IO;
-using System.Drawing;
 using System.Collections.Generic;
 
 namespace VCFEditor.Presenter
@@ -53,23 +52,12 @@ namespace VCFEditor.Presenter
 
             _view.SendTextToClipBoard(SerializedCard);
             _view.DisplayMessage("vCard copied to clipboard!", "Information");
+        }
         private void _view_LoadForm(object sender, EventArg<FormState> e)
         {
             e.Data = ConfigRepository.Instance.FormState;
         }
 
-        private void _view_CopyTextToClipboardEvent(object sender, EventArgs e)
-        {
-            if (_view.SelectedContactIndex < 0)
-                return;
-
-            var contact = _repository.Contacts[_view.SelectedContactIndex];
-
-            string SerializedCard = _repository.GenerateStringFromVCard(contact.card);
-
-            _view.SendTextToClipBoard(SerializedCard);
-            _view.DisplayMessage("vCard copied to clipboard!", "Information");
-        }
 
         private void _view_AddressRemoved(object sender, EventArg<int> e)
         {
@@ -111,10 +99,7 @@ namespace VCFEditor.Presenter
                     string imageFile = _view.DisplaySaveDialog(newPath);
                     _repository.SaveImageToDisk(imageFile, image);
                 }
-                    
-
             }
-
         }
 
         private void ModifyImage(object sender, EventArg<string> e)
@@ -122,7 +107,6 @@ namespace VCFEditor.Presenter
             if (!string.IsNullOrEmpty(e.Data) )
             {
                 vCardPhoto photo = new vCardPhoto(e.Data);
-                
                 _repository.ModifyImage(_view.SelectedContactIndex, photo);
             }
             else
