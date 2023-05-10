@@ -360,6 +360,11 @@ namespace VCFEditor.Repository
             _fileHandler.WriteBytesToFile(imageFile, image.GetBytes());
         }
 
+        public string ChangeExtension(string path, string extension)
+        {
+            return _fileHandler.ChangeExtension(path, extension);
+        }
+
         public bool dirty
         {
             get { return _contacts != null && _contacts.Any(x => x.isDirty); }

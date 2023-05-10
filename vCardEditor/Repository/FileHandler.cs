@@ -15,6 +15,11 @@ namespace vCardEditor.Repository
             return Path.GetExtension(path);
         }
 
+        public string ChangeExtension(string path, string extension)
+        {
+            return Path.ChangeExtension(path, extension);
+        }
+
         public void MoveFile(string newFilename, string oldFilename)
         {
             File.Move(newFilename, oldFilename);

@@ -91,7 +91,7 @@ namespace vCardEditor_Test
         }
 
         [TestMethod]
-        public void SaveFile_ExistAlready()
+        public void SaveFile_ExistAlready_Test()
         {
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfThreeEntry);
@@ -111,7 +111,7 @@ namespace vCardEditor_Test
 
 
         [TestMethod]
-        public void DeleteTest()
+        public void DeleteContact_ShouldDelete_Test()
         {
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfThreeEntry);
@@ -135,7 +135,7 @@ namespace vCardEditor_Test
 
 
         [TestMethod]
-        public void CopyTextToClipboardEvent_ShouldCopyvCard()
+        public void CopyTextToClipboardHandler_ShouldCopyvCard()
         {
 
             var fileHandler = Substitute.For<IFileHandler>();
@@ -153,7 +153,7 @@ namespace vCardEditor_Test
         }
 
         [TestMethod]
-        public void AddressRemovedEvent_ShouldRemove()
+        public void AddressRemovedHandler_ShouldRemove_Test()
         {
 
             var fileHandler = Substitute.For<IFileHandler>();
@@ -174,7 +174,7 @@ namespace vCardEditor_Test
         }
 
         [TestMethod]
-        public void AddressAddedEvent_ShouldAddAddress()
+        public void AddressAddedHandler_ShouldAddAddress_Test()
         {
 
             var fileHandler = Substitute.For<IFileHandler>();
@@ -197,7 +197,7 @@ namespace vCardEditor_Test
         }
 
         [TestMethod]
-        public void AddressModifiedEvent_ShouldModifyAddress()
+        public void AddressModifiedHandler_ShouldModifyAddress_Test()
         {
 
             var fileHandler = Substitute.For<IFileHandler>();
@@ -216,9 +216,28 @@ namespace vCardEditor_Test
             Assert.AreEqual(1, contact[0].card.DeliveryAddresses.Count);
             Assert.AreEqual(2, contact[0].card.DeliveryAddresses[0].AddressType.Count);
 
-
         }
 
+        [TestMethod]
+        public void ExportImage_ShouldExportArrayByte_Test()
+        {
+
+            var fileHandler = Substitute.For<IFileHandler>();
+            fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfwithInternalPhoto);
+            var repo = Substitute.For<ContactRepository>(fileHandler);
+            var view = Substitute.For<IMainView>();
+            view.SelectedContactIndex.Returns(0);
+            _ = new MainPresenter(view, repo);
+            var contact = repo.LoadContacts("aaa.vcf");
+
+            
+            view.ExportImage += Raise.Event();
+
+            fileHandler.Received().WriteBytesToFile(Arg.Any<string>(), Arg.Any<Byte[]>());
+
+
+
+        }
 
     }
 }

@@ -23,6 +23,7 @@ namespace VCFEditor.Repository
         void AddEmptyContact();
         void ModifyImage(int index, vCardPhoto photo);
         string GetExtension(string path);
+        string ChangeExtension(string path, string extension);
         void SaveImageToDisk(string imageFile, vCardPhoto image);
 
         string GenerateStringFromVCard(vCard card);
