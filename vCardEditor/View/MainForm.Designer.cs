@@ -67,16 +67,28 @@ namespace vCardEditor.View
             this.btnExportImage = new System.Windows.Forms.Button();
             this.btnRemoveImage = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.tbcAddress = new vCardEditor.View.Customs.AddressTabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.FormattedTitleValue = new vCardEditor.View.StateTextBox();
             this.FormattedTitleLabel = new System.Windows.Forms.Label();
+            this.lastNameValue = new vCardEditor.View.StateTextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.middleNameValue = new vCardEditor.View.StateTextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.firstNameValue = new vCardEditor.View.StateTextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.FormattedNameValue = new vCardEditor.View.StateTextBox();
             this.FormattedNameLabel = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.EmailAddressLabel = new System.Windows.Forms.Label();
+            this.EmailAddressValue = new vCardEditor.View.StateTextBox();
             this.PersonalWebSiteLabel = new System.Windows.Forms.Label();
+            this.PersonalWebSiteValue = new vCardEditor.View.StateTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.HomePhoneValue = new vCardEditor.View.StateTextBox();
+            this.WorkPhoneValue = new vCardEditor.View.StateTextBox();
+            this.CellularPhoneValue = new vCardEditor.View.StateTextBox();
             this.PhotoBox = new System.Windows.Forms.PictureBox();
             this.bsContacts = new System.Windows.Forms.BindingSource(this.components);
             this.gbNameList = new System.Windows.Forms.GroupBox();
@@ -90,22 +102,11 @@ namespace vCardEditor.View
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.modifiyColumnsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.tbcAddress = new vCardEditor.View.Customs.AddressTabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.FormattedTitleValue = new vCardEditor.View.StateTextBox();
-            this.lastNameValue = new vCardEditor.View.StateTextBox();
-            this.middleNameValue = new vCardEditor.View.StateTextBox();
-            this.firstNameValue = new vCardEditor.View.StateTextBox();
-            this.FormattedNameValue = new vCardEditor.View.StateTextBox();
-            this.EmailAddressValue = new vCardEditor.View.StateTextBox();
-            this.PersonalWebSiteValue = new vCardEditor.View.StateTextBox();
-            this.HomePhoneValue = new vCardEditor.View.StateTextBox();
-            this.WorkPhoneValue = new vCardEditor.View.StateTextBox();
-            this.CellularPhoneValue = new vCardEditor.View.StateTextBox();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.gbContactDetail.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.tbcAddress.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -118,7 +119,6 @@ namespace vCardEditor.View
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.tbcAddress.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -131,7 +131,7 @@ namespace vCardEditor.View
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1197, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(1197, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -145,7 +145,7 @@ namespace vCardEditor.View
             this.recentFilesMenuItem,
             this.miQuit});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 26);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // miSave
@@ -195,7 +195,7 @@ namespace vCardEditor.View
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.copyToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(49, 26);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
             this.editToolStripMenuItem.Text = "Edit";
             // 
             // copyToolStripMenuItem
@@ -210,7 +210,7 @@ namespace vCardEditor.View
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.imagesToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(58, 26);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(58, 24);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // imagesToolStripMenuItem
@@ -246,7 +246,7 @@ namespace vCardEditor.View
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.miAbout});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 26);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // miAbout
@@ -279,9 +279,9 @@ namespace vCardEditor.View
             this.toolStripSeparator1,
             this.tbsAbout,
             this.toolStripSeparator});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 30);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 28);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1197, 31);
+            this.toolStrip1.Size = new System.Drawing.Size(1197, 27);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -291,7 +291,7 @@ namespace vCardEditor.View
             this.tbsNew.Image = ((System.Drawing.Image)(resources.GetObject("tbsNew.Image")));
             this.tbsNew.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbsNew.Name = "tbsNew";
-            this.tbsNew.Size = new System.Drawing.Size(29, 28);
+            this.tbsNew.Size = new System.Drawing.Size(29, 24);
             this.tbsNew.Text = "&Nouveau";
             this.tbsNew.Click += new System.EventHandler(this.tbsNew_Click);
             // 
@@ -301,7 +301,7 @@ namespace vCardEditor.View
             this.tbsOpen.Image = ((System.Drawing.Image)(resources.GetObject("tbsOpen.Image")));
             this.tbsOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbsOpen.Name = "tbsOpen";
-            this.tbsOpen.Size = new System.Drawing.Size(29, 28);
+            this.tbsOpen.Size = new System.Drawing.Size(29, 24);
             this.tbsOpen.Text = "&Open";
             this.tbsOpen.Click += new System.EventHandler(this.tbsOpen_Click);
             // 
@@ -311,7 +311,7 @@ namespace vCardEditor.View
             this.tbsSave.Image = ((System.Drawing.Image)(resources.GetObject("tbsSave.Image")));
             this.tbsSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbsSave.Name = "tbsSave";
-            this.tbsSave.Size = new System.Drawing.Size(29, 28);
+            this.tbsSave.Size = new System.Drawing.Size(29, 24);
             this.tbsSave.Text = "&Save";
             this.tbsSave.Click += new System.EventHandler(this.tbsSave_Click);
             // 
@@ -321,14 +321,14 @@ namespace vCardEditor.View
             this.tbsDelete.Image = ((System.Drawing.Image)(resources.GetObject("tbsDelete.Image")));
             this.tbsDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbsDelete.Name = "tbsDelete";
-            this.tbsDelete.Size = new System.Drawing.Size(29, 28);
+            this.tbsDelete.Size = new System.Drawing.Size(29, 24);
             this.tbsDelete.Text = "Delete";
             this.tbsDelete.Click += new System.EventHandler(this.tbsDelete_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
             // 
             // tbsAbout
             // 
@@ -336,14 +336,14 @@ namespace vCardEditor.View
             this.tbsAbout.Image = ((System.Drawing.Image)(resources.GetObject("tbsAbout.Image")));
             this.tbsAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbsAbout.Name = "tbsAbout";
-            this.tbsAbout.Size = new System.Drawing.Size(29, 28);
+            this.tbsAbout.Size = new System.Drawing.Size(29, 24);
             this.tbsAbout.Text = "&?";
             this.tbsAbout.Click += new System.EventHandler(this.tbsAbout_Click);
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(6, 31);
+            this.toolStripSeparator.Size = new System.Drawing.Size(6, 27);
             // 
             // openFileDialog
             // 
@@ -394,7 +394,7 @@ namespace vCardEditor.View
             this.gbContactDetail.Margin = new System.Windows.Forms.Padding(4);
             this.gbContactDetail.Name = "gbContactDetail";
             this.gbContactDetail.Padding = new System.Windows.Forms.Padding(4);
-            this.gbContactDetail.Size = new System.Drawing.Size(796, 563);
+            this.gbContactDetail.Size = new System.Drawing.Size(796, 569);
             this.gbContactDetail.TabIndex = 3;
             this.gbContactDetail.TabStop = false;
             this.gbContactDetail.Text = "Contact Detail :";
@@ -433,10 +433,36 @@ namespace vCardEditor.View
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox4.Size = new System.Drawing.Size(780, 228);
+            this.groupBox4.Size = new System.Drawing.Size(780, 234);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Address:";
+            // 
+            // tbcAddress
+            // 
+            this.tbcAddress.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbcAddress.Controls.Add(this.tabPage1);
+            this.tbcAddress.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.tbcAddress.Location = new System.Drawing.Point(17, 23);
+            this.tbcAddress.Margin = new System.Windows.Forms.Padding(4);
+            this.tbcAddress.Name = "tbcAddress";
+            this.tbcAddress.Padding = new System.Drawing.Point(12, 4);
+            this.tbcAddress.SelectedIndex = 0;
+            this.tbcAddress.ShowToolTips = true;
+            this.tbcAddress.Size = new System.Drawing.Size(755, 196);
+            this.tbcAddress.TabIndex = 0;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Location = new System.Drawing.Point(4, 27);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(747, 165);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = " ";
             // 
             // groupBox3
             // 
@@ -461,6 +487,17 @@ namespace vCardEditor.View
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Name";
             // 
+            // FormattedTitleValue
+            // 
+            this.FormattedTitleValue.Location = new System.Drawing.Point(45, 21);
+            this.FormattedTitleValue.Margin = new System.Windows.Forms.Padding(4);
+            this.FormattedTitleValue.Name = "FormattedTitleValue";
+            this.FormattedTitleValue.oldText = null;
+            this.FormattedTitleValue.Size = new System.Drawing.Size(100, 22);
+            this.FormattedTitleValue.TabIndex = 1;
+            this.FormattedTitleValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.FormattedTitleValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            // 
             // FormattedTitleLabel
             // 
             this.FormattedTitleLabel.Location = new System.Drawing.Point(-4, 20);
@@ -470,6 +507,19 @@ namespace vCardEditor.View
             this.FormattedTitleLabel.TabIndex = 0;
             this.FormattedTitleLabel.Text = "Title:";
             this.FormattedTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lastNameValue
+            // 
+            this.lastNameValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lastNameValue.Location = new System.Drawing.Point(395, 53);
+            this.lastNameValue.Margin = new System.Windows.Forms.Padding(4);
+            this.lastNameValue.Name = "lastNameValue";
+            this.lastNameValue.oldText = null;
+            this.lastNameValue.Size = new System.Drawing.Size(168, 22);
+            this.lastNameValue.TabIndex = 9;
+            this.lastNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.lastNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // label3
             // 
@@ -481,6 +531,17 @@ namespace vCardEditor.View
             this.label3.Text = "Last:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // middleNameValue
+            // 
+            this.middleNameValue.Location = new System.Drawing.Point(237, 53);
+            this.middleNameValue.Margin = new System.Windows.Forms.Padding(4);
+            this.middleNameValue.Name = "middleNameValue";
+            this.middleNameValue.oldText = null;
+            this.middleNameValue.Size = new System.Drawing.Size(95, 22);
+            this.middleNameValue.TabIndex = 7;
+            this.middleNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.middleNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            // 
             // label2
             // 
             this.label2.Location = new System.Drawing.Point(151, 53);
@@ -491,6 +552,17 @@ namespace vCardEditor.View
             this.label2.Text = "Middle:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // firstNameValue
+            // 
+            this.firstNameValue.Location = new System.Drawing.Point(45, 53);
+            this.firstNameValue.Margin = new System.Windows.Forms.Padding(4);
+            this.firstNameValue.Name = "firstNameValue";
+            this.firstNameValue.oldText = null;
+            this.firstNameValue.Size = new System.Drawing.Size(100, 22);
+            this.firstNameValue.TabIndex = 5;
+            this.firstNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.firstNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            // 
             // label1
             // 
             this.label1.Location = new System.Drawing.Point(4, 53);
@@ -500,6 +572,19 @@ namespace vCardEditor.View
             this.label1.TabIndex = 4;
             this.label1.Text = "First:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // FormattedNameValue
+            // 
+            this.FormattedNameValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FormattedNameValue.Location = new System.Drawing.Point(237, 21);
+            this.FormattedNameValue.Margin = new System.Windows.Forms.Padding(4);
+            this.FormattedNameValue.Name = "FormattedNameValue";
+            this.FormattedNameValue.oldText = null;
+            this.FormattedNameValue.Size = new System.Drawing.Size(324, 22);
+            this.FormattedNameValue.TabIndex = 3;
+            this.FormattedNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.FormattedNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // FormattedNameLabel
             // 
@@ -518,7 +603,7 @@ namespace vCardEditor.View
             this.groupBox2.Controls.Add(this.EmailAddressValue);
             this.groupBox2.Controls.Add(this.PersonalWebSiteLabel);
             this.groupBox2.Controls.Add(this.PersonalWebSiteValue);
-            this.groupBox2.Location = new System.Drawing.Point(360, 426);
+            this.groupBox2.Location = new System.Drawing.Point(360, 432);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
@@ -537,6 +622,19 @@ namespace vCardEditor.View
             this.EmailAddressLabel.Text = "Email:";
             this.EmailAddressLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // EmailAddressValue
+            // 
+            this.EmailAddressValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.EmailAddressValue.Location = new System.Drawing.Point(71, 26);
+            this.EmailAddressValue.Margin = new System.Windows.Forms.Padding(4);
+            this.EmailAddressValue.Name = "EmailAddressValue";
+            this.EmailAddressValue.oldText = null;
+            this.EmailAddressValue.Size = new System.Drawing.Size(360, 22);
+            this.EmailAddressValue.TabIndex = 1;
+            this.EmailAddressValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.EmailAddressValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            // 
             // PersonalWebSiteLabel
             // 
             this.PersonalWebSiteLabel.Location = new System.Drawing.Point(13, 55);
@@ -546,6 +644,19 @@ namespace vCardEditor.View
             this.PersonalWebSiteLabel.TabIndex = 2;
             this.PersonalWebSiteLabel.Text = "Web:";
             this.PersonalWebSiteLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // PersonalWebSiteValue
+            // 
+            this.PersonalWebSiteValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PersonalWebSiteValue.Location = new System.Drawing.Point(71, 55);
+            this.PersonalWebSiteValue.Margin = new System.Windows.Forms.Padding(4);
+            this.PersonalWebSiteValue.Name = "PersonalWebSiteValue";
+            this.PersonalWebSiteValue.oldText = null;
+            this.PersonalWebSiteValue.Size = new System.Drawing.Size(360, 22);
+            this.PersonalWebSiteValue.TabIndex = 3;
+            this.PersonalWebSiteValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.PersonalWebSiteValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // groupBox1
             // 
@@ -557,7 +668,7 @@ namespace vCardEditor.View
             this.groupBox1.Controls.Add(this.WorkPhoneValue);
             this.groupBox1.Controls.Add(this.CellularPhoneLabel);
             this.groupBox1.Controls.Add(this.CellularPhoneValue);
-            this.groupBox1.Location = new System.Drawing.Point(8, 426);
+            this.groupBox1.Location = new System.Drawing.Point(8, 432);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
@@ -565,6 +676,45 @@ namespace vCardEditor.View
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Phones : ";
+            // 
+            // HomePhoneValue
+            // 
+            this.HomePhoneValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.HomePhoneValue.Location = new System.Drawing.Point(80, 25);
+            this.HomePhoneValue.Margin = new System.Windows.Forms.Padding(4);
+            this.HomePhoneValue.Name = "HomePhoneValue";
+            this.HomePhoneValue.oldText = null;
+            this.HomePhoneValue.Size = new System.Drawing.Size(229, 22);
+            this.HomePhoneValue.TabIndex = 1;
+            this.HomePhoneValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.HomePhoneValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            // 
+            // WorkPhoneValue
+            // 
+            this.WorkPhoneValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.WorkPhoneValue.Location = new System.Drawing.Point(80, 89);
+            this.WorkPhoneValue.Margin = new System.Windows.Forms.Padding(4);
+            this.WorkPhoneValue.Name = "WorkPhoneValue";
+            this.WorkPhoneValue.oldText = null;
+            this.WorkPhoneValue.Size = new System.Drawing.Size(229, 22);
+            this.WorkPhoneValue.TabIndex = 5;
+            this.WorkPhoneValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.WorkPhoneValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            // 
+            // CellularPhoneValue
+            // 
+            this.CellularPhoneValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CellularPhoneValue.Location = new System.Drawing.Point(80, 55);
+            this.CellularPhoneValue.Margin = new System.Windows.Forms.Padding(4);
+            this.CellularPhoneValue.Name = "CellularPhoneValue";
+            this.CellularPhoneValue.oldText = null;
+            this.CellularPhoneValue.Size = new System.Drawing.Size(229, 22);
+            this.CellularPhoneValue.TabIndex = 3;
+            this.CellularPhoneValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.CellularPhoneValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // PhotoBox
             // 
@@ -591,7 +741,7 @@ namespace vCardEditor.View
             this.gbNameList.Margin = new System.Windows.Forms.Padding(4);
             this.gbNameList.Name = "gbNameList";
             this.gbNameList.Padding = new System.Windows.Forms.Padding(4);
-            this.gbNameList.Size = new System.Drawing.Size(397, 563);
+            this.gbNameList.Size = new System.Drawing.Size(397, 569);
             this.gbNameList.TabIndex = 2;
             this.gbNameList.TabStop = false;
             this.gbNameList.Text = "Name List :";
@@ -623,7 +773,7 @@ namespace vCardEditor.View
             this.dgContacts.RowHeadersVisible = false;
             this.dgContacts.RowHeadersWidth = 51;
             this.dgContacts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgContacts.Size = new System.Drawing.Size(389, 508);
+            this.dgContacts.Size = new System.Drawing.Size(389, 514);
             this.dgContacts.TabIndex = 2;
             this.dgContacts.CellContextMenuStripNeeded += new System.Windows.Forms.DataGridViewCellContextMenuStripNeededEventHandler(this.dgContacts_CellContextMenuStripNeeded);
             this.dgContacts.RowLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgContacts_RowLeave);
@@ -707,7 +857,7 @@ namespace vCardEditor.View
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 61);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 55);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -717,159 +867,9 @@ namespace vCardEditor.View
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.gbContactDetail);
-            this.splitContainer1.Size = new System.Drawing.Size(1197, 563);
+            this.splitContainer1.Size = new System.Drawing.Size(1197, 569);
             this.splitContainer1.SplitterDistance = 397;
             this.splitContainer1.TabIndex = 4;
-            // 
-            // tbcAddress
-            // 
-            this.tbcAddress.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbcAddress.Controls.Add(this.tabPage1);
-            this.tbcAddress.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
-            this.tbcAddress.Location = new System.Drawing.Point(17, 23);
-            this.tbcAddress.Margin = new System.Windows.Forms.Padding(4);
-            this.tbcAddress.Name = "tbcAddress";
-            this.tbcAddress.Padding = new System.Drawing.Point(12, 4);
-            this.tbcAddress.SelectedIndex = 0;
-            this.tbcAddress.ShowToolTips = true;
-            this.tbcAddress.Size = new System.Drawing.Size(755, 190);
-            this.tbcAddress.TabIndex = 0;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage1.Location = new System.Drawing.Point(4, 27);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(747, 159);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = " ";
-            // 
-            // FormattedTitleValue
-            // 
-            this.FormattedTitleValue.Location = new System.Drawing.Point(45, 21);
-            this.FormattedTitleValue.Margin = new System.Windows.Forms.Padding(4);
-            this.FormattedTitleValue.Name = "FormattedTitleValue";
-            this.FormattedTitleValue.oldText = null;
-            this.FormattedTitleValue.Size = new System.Drawing.Size(100, 22);
-            this.FormattedTitleValue.TabIndex = 1;
-            this.FormattedTitleValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.FormattedTitleValue.Validated += new System.EventHandler(this.Value_TextChanged);
-            // 
-            // lastNameValue
-            // 
-            this.lastNameValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lastNameValue.Location = new System.Drawing.Point(395, 53);
-            this.lastNameValue.Margin = new System.Windows.Forms.Padding(4);
-            this.lastNameValue.Name = "lastNameValue";
-            this.lastNameValue.oldText = null;
-            this.lastNameValue.Size = new System.Drawing.Size(168, 22);
-            this.lastNameValue.TabIndex = 9;
-            this.lastNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.lastNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
-            // 
-            // middleNameValue
-            // 
-            this.middleNameValue.Location = new System.Drawing.Point(237, 53);
-            this.middleNameValue.Margin = new System.Windows.Forms.Padding(4);
-            this.middleNameValue.Name = "middleNameValue";
-            this.middleNameValue.oldText = null;
-            this.middleNameValue.Size = new System.Drawing.Size(95, 22);
-            this.middleNameValue.TabIndex = 7;
-            this.middleNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.middleNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
-            // 
-            // firstNameValue
-            // 
-            this.firstNameValue.Location = new System.Drawing.Point(45, 53);
-            this.firstNameValue.Margin = new System.Windows.Forms.Padding(4);
-            this.firstNameValue.Name = "firstNameValue";
-            this.firstNameValue.oldText = null;
-            this.firstNameValue.Size = new System.Drawing.Size(100, 22);
-            this.firstNameValue.TabIndex = 5;
-            this.firstNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.firstNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
-            // 
-            // FormattedNameValue
-            // 
-            this.FormattedNameValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.FormattedNameValue.Location = new System.Drawing.Point(237, 21);
-            this.FormattedNameValue.Margin = new System.Windows.Forms.Padding(4);
-            this.FormattedNameValue.Name = "FormattedNameValue";
-            this.FormattedNameValue.oldText = null;
-            this.FormattedNameValue.Size = new System.Drawing.Size(324, 22);
-            this.FormattedNameValue.TabIndex = 3;
-            this.FormattedNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.FormattedNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
-            // 
-            // EmailAddressValue
-            // 
-            this.EmailAddressValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.EmailAddressValue.Location = new System.Drawing.Point(71, 26);
-            this.EmailAddressValue.Margin = new System.Windows.Forms.Padding(4);
-            this.EmailAddressValue.Name = "EmailAddressValue";
-            this.EmailAddressValue.oldText = null;
-            this.EmailAddressValue.Size = new System.Drawing.Size(360, 22);
-            this.EmailAddressValue.TabIndex = 1;
-            this.EmailAddressValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.EmailAddressValue.Validated += new System.EventHandler(this.Value_TextChanged);
-            // 
-            // PersonalWebSiteValue
-            // 
-            this.PersonalWebSiteValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PersonalWebSiteValue.Location = new System.Drawing.Point(71, 55);
-            this.PersonalWebSiteValue.Margin = new System.Windows.Forms.Padding(4);
-            this.PersonalWebSiteValue.Name = "PersonalWebSiteValue";
-            this.PersonalWebSiteValue.oldText = null;
-            this.PersonalWebSiteValue.Size = new System.Drawing.Size(360, 22);
-            this.PersonalWebSiteValue.TabIndex = 3;
-            this.PersonalWebSiteValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.PersonalWebSiteValue.Validated += new System.EventHandler(this.Value_TextChanged);
-            // 
-            // HomePhoneValue
-            // 
-            this.HomePhoneValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.HomePhoneValue.Location = new System.Drawing.Point(80, 25);
-            this.HomePhoneValue.Margin = new System.Windows.Forms.Padding(4);
-            this.HomePhoneValue.Name = "HomePhoneValue";
-            this.HomePhoneValue.oldText = null;
-            this.HomePhoneValue.Size = new System.Drawing.Size(229, 22);
-            this.HomePhoneValue.TabIndex = 1;
-            this.HomePhoneValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.HomePhoneValue.Validated += new System.EventHandler(this.Value_TextChanged);
-            // 
-            // WorkPhoneValue
-            // 
-            this.WorkPhoneValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.WorkPhoneValue.Location = new System.Drawing.Point(80, 89);
-            this.WorkPhoneValue.Margin = new System.Windows.Forms.Padding(4);
-            this.WorkPhoneValue.Name = "WorkPhoneValue";
-            this.WorkPhoneValue.oldText = null;
-            this.WorkPhoneValue.Size = new System.Drawing.Size(229, 22);
-            this.WorkPhoneValue.TabIndex = 5;
-            this.WorkPhoneValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.WorkPhoneValue.Validated += new System.EventHandler(this.Value_TextChanged);
-            // 
-            // CellularPhoneValue
-            // 
-            this.CellularPhoneValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.CellularPhoneValue.Location = new System.Drawing.Point(80, 55);
-            this.CellularPhoneValue.Margin = new System.Windows.Forms.Padding(4);
-            this.CellularPhoneValue.Name = "CellularPhoneValue";
-            this.CellularPhoneValue.oldText = null;
-            this.CellularPhoneValue.Size = new System.Drawing.Size(229, 22);
-            this.CellularPhoneValue.TabIndex = 3;
-            this.CellularPhoneValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.CellularPhoneValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // MainForm
             // 
@@ -896,6 +896,7 @@ namespace vCardEditor.View
             this.toolStrip1.PerformLayout();
             this.gbContactDetail.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
+            this.tbcAddress.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -912,7 +913,6 @@ namespace vCardEditor.View
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.tbcAddress.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

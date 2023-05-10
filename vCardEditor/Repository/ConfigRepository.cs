@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Xml.Serialization;
 using System.IO;
 using System.ComponentModel;
 using vCardEditor.Model;
-using System.Runtime.Serialization;
 
 namespace vCardEditor.Repository
 {
     [XmlRoot("Config")]
     [Serializable]
-    public class ConfigRepository
+    public class ConfigRepository : IConfigRepository
     {
         private static string ConfigFileName
         {
@@ -37,7 +35,7 @@ namespace vCardEditor.Repository
         public int Maximum { get; set; }
 
         [Browsable(false)]
-        public FixedList Paths { get; set;}
+        public FixedList Paths { get; set; }
 
         [Browsable(false)]
         public FormState FormState;
@@ -96,6 +94,6 @@ namespace vCardEditor.Repository
             return configData;
         }
 
-       
+
     }
 }

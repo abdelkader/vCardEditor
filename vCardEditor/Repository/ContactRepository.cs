@@ -38,6 +38,12 @@ namespace VCFEditor.Repository
             }
         }
 
+        private bool _dirty;
+        public bool dirty
+        {
+            get { return (_contacts != null && _contacts.Any(x => x.isDirty)) || _dirty; }
+            set { _dirty = true; }
+        }
         public ContactRepository(IFileHandler fileHandler)
         {
             _fileHandler = fileHandler;
@@ -47,7 +53,6 @@ namespace VCFEditor.Repository
         {
             Contacts.Clear();
 
-            //TODO: Clean end of line from spaces..
             this.fileName = fileName;
             string[] lines = _fileHandler.ReadAllLines(fileName);
 
@@ -135,9 +140,8 @@ namespace VCFEditor.Repository
                 {
                     if (_contacts[i].isSelected)
                     {
-                        _contacts[i].isDeleted = true;
-                        SetDirtyFlag(i);
-                       _contacts.RemoveAt(i);
+                        _dirty = true;
+                        _contacts.RemoveAt(i);
                     }
                         
                 }
@@ -177,11 +181,6 @@ namespace VCFEditor.Repository
         }
 
 
-        /// <summary>
-        /// Save modified card info in the raw content.
-        /// </summary>
-        /// <param name="card"></param>
-        /// <param name="index"></param>
         public void SetDirtyFlag(int index)
         {
             if (index > -1)
@@ -365,10 +364,7 @@ namespace VCFEditor.Repository
             return _fileHandler.ChangeExtension(path, extension);
         }
 
-        public bool dirty
-        {
-            get { return _contacts != null && _contacts.Any(x => x.isDirty); }
-        }
+        
 
     }
 }

@@ -118,7 +118,6 @@ namespace vCardEditor_Test
             var repo = Substitute.For<ContactRepository>(fileHandler);
             repo.GetExtension(Arg.Any<string>()).Returns(".vcf");
             var view = Substitute.For<IMainView>();
-
            
             _ = new MainPresenter(view, repo);
             view.NewFileOpened += Raise.EventWith(new EventArg<string>("aaa.vcf"));
@@ -164,12 +163,9 @@ namespace vCardEditor_Test
             _ = new MainPresenter(view, repo);
             var contact = repo.LoadContacts("aaa.vcf");
 
-            
-
             view.AddressRemoved += Raise.EventWith(new EventArg<int>(0));
 
             Assert.AreEqual(1, contact[0].card.DeliveryAddresses.Count);
-
 
         }
 
@@ -221,7 +217,23 @@ namespace vCardEditor_Test
         [TestMethod]
         public void ExportImage_ShouldExportArrayByte_Test()
         {
+            var fileHandler = Substitute.For<IFileHandler>();
+            fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfwithInternalPhoto);
+            var repo = Substitute.For<ContactRepository>(fileHandler);
+            var view = Substitute.For<IMainView>();
+            view.SelectedContactIndex.Returns(0);
+            _ = new MainPresenter(view, repo);
+            _ = repo.LoadContacts("aaa.vcf");
+            
+            view.ExportImage += Raise.Event();
 
+            fileHandler.Received().WriteBytesToFile(Arg.Any<string>(), Arg.Any<Byte[]>());
+
+        }
+
+        [TestMethod]
+        public void ModifyImage_ShouldModify_Test()
+        {
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfwithInternalPhoto);
             var repo = Substitute.For<ContactRepository>(fileHandler);
@@ -230,14 +242,41 @@ namespace vCardEditor_Test
             _ = new MainPresenter(view, repo);
             var contact = repo.LoadContacts("aaa.vcf");
 
-            
-            view.ExportImage += Raise.Event();
+            view.ModifyImage += Raise.EventWith(new EventArg<string>(""));
 
-            fileHandler.Received().WriteBytesToFile(Arg.Any<string>(), Arg.Any<Byte[]>());
-
-
-
+            Assert.AreEqual(0, contact[0].card.Photos.Count);
+            Assert.IsTrue(contact[0].isDirty);
         }
+
+        [TestMethod]
+        public void Closeform_ShouldClose_Test()
+        {
+            var fileHandler = Substitute.For<IFileHandler>();
+            fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfwithInternalPhoto);
+            var repo = Substitute.For<ContactRepository>(fileHandler);
+            var view = Substitute.For<IMainView>();
+            view.SelectedContactIndex.Returns(0);
+            view.AskMessage(Arg.Any<string>(), Arg.Any<string>()).Returns(true);
+            _ = new MainPresenter(view, repo);
+            _ = repo.LoadContacts("aaa.vcf");
+
+            view.CloseForm += Raise.EventWith(new EventArg<bool>(false));
+
+            ConfigRepository.Instance.Received(); 
+            
+        }
+
+        /*
+         if (_repository.dirty && _view.AskMessage("Exit without saving?", "Exit")) 
+                e.Data = true;
+
+            if (!e.Data)
+            {
+                var state = _view.GetFormState();
+                ConfigRepository.Instance.FormState = state;
+                ConfigRepository.Instance.SaveConfig();
+            }
+         */
 
     }
 }

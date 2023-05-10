@@ -73,12 +73,13 @@
     <Compile Include="Repository\ConfigRepository.cs" />
     <Compile Include="Repository\ContactRepository.cs" />
     <Compile Include="Repository\FileHandler.cs" />
-    <Compile Include="Repository\IContactRepository.cs" />
+    <Compile Include="Repository\Interfaces\IConfigRepository.cs" />
+    <Compile Include="Repository\Interfaces\IContactRepository.cs" />
     <Compile Include="Model\Contact.cs" />
     <Compile Include="Presenter\MainPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\IFileHandler.cs" />
+    <Compile Include="Repository\Interfaces\IFileHandler.cs" />
     <Compile Include="Thought.vCards\vCard.cs" />
     <Compile Include="Thought.vCards\vCardAccessClassification.cs" />
     <Compile Include="Thought.vCards\vCardCertificate.cs" />
