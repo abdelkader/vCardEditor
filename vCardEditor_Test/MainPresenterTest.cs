@@ -7,6 +7,9 @@ using vCardEditor.Repository;
 using NSubstitute;
 using vCardEditor.View;
 using System;
+using AutoFixture;
+using Thought.vCards;
+using System.Collections.Generic;
 
 namespace vCardEditor_Test
 {
@@ -149,6 +152,72 @@ namespace vCardEditor_Test
             
         }
 
+        [TestMethod]
+        public void AddressRemovedEvent_ShouldRemove()
+        {
+
+            var fileHandler = Substitute.For<IFileHandler>();
+            fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfOneEntryWithTwoAddress);
+            var repo = Substitute.For<ContactRepository>(fileHandler);
+            var view = Substitute.For<IMainView>();
+            view.SelectedContactIndex.Returns(0);
+            _ = new MainPresenter(view, repo);
+            var contact = repo.LoadContacts("aaa.vcf");
+
+            
+
+            view.AddressRemoved += Raise.EventWith(new EventArg<int>(0));
+
+            Assert.AreEqual(1, contact[0].card.DeliveryAddresses.Count);
+
+
+        }
+
+        [TestMethod]
+        public void AddressAddedEvent_ShouldAddAddress()
+        {
+
+            var fileHandler = Substitute.For<IFileHandler>();
+            fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfOneEntryWithTwoAddress);
+            var repo = Substitute.For<ContactRepository>(fileHandler);
+            var view = Substitute.For<IMainView>();
+            view.SelectedContactIndex.Returns(0);
+            _ = new MainPresenter(view, repo);
+            var contact = repo.LoadContacts("aaa.vcf");
+
+            var fixture = new Fixture { RepeatCount = 2 };
+            var lstvCardDeliveryAddressTypes = fixture.Create <List<vCardDeliveryAddressTypes>>();
+
+            view.AddressAdded += Raise.EventWith(new EventArg<List<vCardDeliveryAddressTypes>>(lstvCardDeliveryAddressTypes));
+
+            Assert.AreEqual(2 + 1, contact[0].card.DeliveryAddresses.Count);
+            Assert.AreEqual(2, contact[0].card.DeliveryAddresses[2].AddressType.Count);
+
+
+        }
+
+        [TestMethod]
+        public void AddressModifiedEvent_ShouldModifyAddress()
+        {
+
+            var fileHandler = Substitute.For<IFileHandler>();
+            fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfOneEntryWithTwoAddress);
+            var repo = Substitute.For<ContactRepository>(fileHandler);
+            var view = Substitute.For<IMainView>();
+            view.SelectedContactIndex.Returns(0);
+            _ = new MainPresenter(view, repo);
+            var contact = repo.LoadContacts("aaa.vcf");
+
+            var fixture = new Fixture { RepeatCount = 2 };
+            var lstvCardDeliveryAddressTypes = fixture.Create<List<vCardDeliveryAddressTypes>>();
+
+            view.AddressModified += Raise.EventWith(new EventArg<List<vCardDeliveryAddressTypes>>(lstvCardDeliveryAddressTypes));
+
+            Assert.AreEqual(1, contact[0].card.DeliveryAddresses.Count);
+            Assert.AreEqual(2, contact[0].card.DeliveryAddresses[0].AddressType.Count);
+
+
+        }
 
 
     }

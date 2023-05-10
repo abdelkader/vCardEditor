@@ -184,5 +184,20 @@
 
         }
 
+        public static string[] vcfOneEntryWithTwoAddress
+        {
+            get
+            {
+                string s = @"BEGIN:VCARD\n" +
+                        "VERSION:2.1\n" +
+                        "FN:Jean Dupont1\n" +
+                        "N:Dupont;Jean\n" +
+                        "ADR;WORK;PREF;QUOTED-PRINTABLE:;Bruxelles 1200=Belgique;6A Rue Th. Decuyper\n" +
+                        "ADR;Home;PREF;QUOTED-PRINTABLE:;Bruxelles 1200=Belgique;6A Rue Th. Decuyper\n" +
+                        "END:VCARD";
+                return s.Split('\n');
+            }
+        }
+
     }
 }
