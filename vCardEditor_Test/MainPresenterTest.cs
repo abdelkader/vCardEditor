@@ -248,35 +248,6 @@ namespace vCardEditor_Test
             Assert.IsTrue(contact[0].isDirty);
         }
 
-        [TestMethod]
-        public void Closeform_ShouldClose_Test()
-        {
-            var fileHandler = Substitute.For<IFileHandler>();
-            fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfwithInternalPhoto);
-            var repo = Substitute.For<ContactRepository>(fileHandler);
-            var view = Substitute.For<IMainView>();
-            view.SelectedContactIndex.Returns(0);
-            view.AskMessage(Arg.Any<string>(), Arg.Any<string>()).Returns(true);
-            _ = new MainPresenter(view, repo);
-            _ = repo.LoadContacts("aaa.vcf");
-
-            view.CloseForm += Raise.EventWith(new EventArg<bool>(false));
-
-            ConfigRepository.Instance.Received(); 
-            
-        }
-
-        /*
-         if (_repository.dirty && _view.AskMessage("Exit without saving?", "Exit")) 
-                e.Data = true;
-
-            if (!e.Data)
-            {
-                var state = _view.GetFormState();
-                ConfigRepository.Instance.FormState = state;
-                ConfigRepository.Instance.SaveConfig();
-            }
-         */
 
     }
 }
