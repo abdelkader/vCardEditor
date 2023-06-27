@@ -14,6 +14,7 @@
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,7 +27,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -70,6 +70,7 @@
     <Compile Include="Model\FixedList.cs" />
     <Compile Include="Model\ObjectCopier.cs" />
     <Compile Include="Model\FormState.cs" />
+    <Compile Include="Model\PropertyComparer.cs" />
     <Compile Include="Repository\ConfigRepository.cs" />
     <Compile Include="Repository\ContactRepository.cs" />
     <Compile Include="Repository\FileHandler.cs" />
@@ -159,7 +160,6 @@
     </Compile>
     <Compile Include="View\EventArgs.cs" />
     <Compile Include="View\IMainView.cs" />
-    <Compile Include="View\Libs\PropertyComparer.cs" />
     <Compile Include="View\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -168,6 +168,21 @@
     </Compile>
     <Compile Include="View\SortableBindingList.cs" />
     <Compile Include="View\StateTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="View\UIToolbox\CollapseBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="View\UIToolbox\CollapsibleGroupBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\UIToolbox\ExpandingPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="View\UIToolbox\ImageButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="View\UIToolbox\OwnerDrawButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -199,6 +214,21 @@
     <EmbeddedResource Include="View\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\UIToolbox\CollapseBox.resx">
+      <DependentUpon>CollapseBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\UIToolbox\CollapsibleGroupBox.resx">
+      <DependentUpon>CollapsibleGroupBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\UIToolbox\ExpandingPanel.resx">
+      <DependentUpon>ExpandingPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\UIToolbox\ImageButton.resx">
+      <DependentUpon>ImageButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\UIToolbox\OwnerDrawButton.resx">
+      <DependentUpon>OwnerDrawButton.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -225,6 +255,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

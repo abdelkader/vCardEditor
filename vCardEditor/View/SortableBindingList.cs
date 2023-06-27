@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using vCardEditor.View.Libs;
+using vCardEditor.Model;
+
 
 namespace vCardEditor.View
 {

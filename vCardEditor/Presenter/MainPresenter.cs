@@ -56,6 +56,12 @@ namespace VCFEditor.Presenter
         private void LoadFormHandler(object sender, EventArg<FormState> e)
         {
             e.Data = ConfigRepository.Instance.FormState;
+            var paths = Environment.GetCommandLineArgs();
+            if (paths.Length > 1)
+            {
+                var evt = new EventArg<string>(paths[1]);
+                NewFileOpenedHandler(sender, evt);
+            }
         }
 
 
