@@ -1,4 +1,4 @@
-<h3>Already implemented &#9989; </h3>
+<h3>Already implemented &#9989; in version 5.0 </h3>
 <table>
     <tr>
         <td rowspan="2"><b>Name</b></td>
@@ -262,16 +262,8 @@
         <td>Optional</td>
         <td>Optional</td>
         <td>Incorporated without</td>
-        <td>Represents the actual text that should be put on the mailing label when delivering a physical package to the person/object associated with the vCard (related to the ADR property).</td>
+        <td>Represents the actual text that should be put on the mailing label when delivering a physical package to the person/object associated with the vCard (related to the ADR property).<br>Not supported in version 4.0. Instead, this information is stored in the LABEL parameter of the ADR property. Example: ADR;TYPE=home;LABEL=&quot;123 Main St\nNew York, NY 12345&quot;:;;123 Main St;New York;NY;12345;USA</td>
         <td>LABEL;TYPE=HOME:123 Main St.\nSpringfield, IL 12345\nUSA</td>
-    </tr>
-     <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>Not supported in version 4.0. Instead, this information is stored in the LABEL parameter of the ADR property. Example: ADR;TYPE=home;LABEL=&quot;123 Main St\nNew York, NY 12345&quot;:;;123 Main St;New York;NY;12345;USA</td>
-        <td></td>
     </tr>
     <tr>
         <td>LANG</td>
@@ -312,50 +304,14 @@
         <td>Undefined</td>
         <td>Undefined</td>
         <td>Optional</td>
-        <td>Defines a member that is part of the group that this vCard represents. Acceptable values include:</td>
+        <td>Defines a member that is part of the group that this vCard represents. Acceptable values include:
+        <ul><li>a &quot;mailto:&quot; URL containing an email address</li>
+        <li>a UID which references the member&#39;s own vCard</li>
+        </ul>
+        The KIND property must be set to &quot;group&quot; in order to use this property.
+        </td>
         <td>MEMBER:urn:uuid:03a0e51f-d1aa-4385-8a53-e29025acd8af</td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>a &quot;mailto:&quot; URL containing an email address</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>a UID which references the member&#39;s own vCard</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>The KIND property must be set to &quot;group&quot; in order to use this property.</td>
-        <td></td>
-    </tr>
-    <tr>
+    </tr><tr>
         <td>NOTE</td>
         <td>Optional</td>
         <td>Optional</td>
@@ -392,41 +348,14 @@
         <td>Undefined</td>
         <td>Undefined</td>
         <td>Optional</td>
-        <td>Another entity that the person is related to. Acceptable values include:</td>
+        <td>Another entity that the person is related to. Acceptable values include:
+        <ul>
+        <li>a &quot;mailto:&quot; URL containing an email address</li>
+        <li>a UID which references the person&#39;s own vCard</li>
+        </ul>
+        </td>
         <td>RELATED;TYPE=friend:urn:uuid:03a0e51f-d1aa-4385-8a53-e29025acd8af</td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>a &quot;mailto:&quot; URL containing an email address</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>a UID which references the person&#39;s own vCard</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
+    </tr> 
     <tr>
         <td>REV</td>
         <td>Optional</td>
@@ -448,72 +377,26 @@
         <td>Undefined</td>
         <td>Optional</td>
         <td>Incorporated without</td>
-        <td>Defines a string that should be used when an application sorts this vCard in some way.</td>
+        <td>Defines a string that should be used when an application sorts this vCard in some way.<br/>Not supported in version 4.0. Instead, this information is stored in the SORT-AS parameter of the N and/or ORG properties.</td>
         <td>SORT-STRING:Doe</td>
     </tr>
     <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>Not supported in version 4.0. Instead, this information is stored in the SORT-AS parameter of the N and/or ORG properties.</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>SOUND</td>
-        <td>Optional</td>
-        <td>Optional</td>
-        <td>Optional</td>
-        <td>By default, if this property is not grouped with other properties it specifies the pronunciation of the FN property of the vCard object. It may point to an external URL or may be embedded in the vCard as a Base64 encoded block of text.</td>
+        <td rowspan="6">SOUND</td>
+        <td rowspan="6">Optional</td>
+        <td rowspan="6">Optional</td>
+        <td rowspan="6">Optional</td>
+        <td rowspan="6">By default, if this property is not grouped with other properties it specifies the pronunciation of the FN property of the vCard object. It may point to an external URL or may be embedded in the vCard as a Base64 encoded block of text.</td>
         <td>2.1: SOUND;OGG:http://example.com/sound.ogg</td>
     </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>2.1: SOUND;OGG;ENCODING=BASE64:[base64-data]</td>
+    <tr><td>2.1: SOUND;OGG;ENCODING=BASE64:[base64-data]</td>
     </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>3.0: SOUND;TYPE=OGG:http://example.com/sound.ogg</td>
+    <tr><td>3.0: SOUND;TYPE=OGG:http://example.com/sound.ogg</td>
     </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>3.0: SOUND;TYPE=OGG;ENCODING=b:[base64-data]</td>
+    <tr><td>3.0: SOUND;TYPE=OGG;ENCODING=b:[base64-data]</td>
     </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>4.0: SOUND;MEDIATYPE=audio/ogg:http://example.com/sound.ogg</td>
+    <tr><td>4.0: SOUND;MEDIATYPE=audio/ogg:http://example.com/sound.ogg</td>
     </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>4.0: SOUND:data:audio/ogg;base64,[base64-data]</td>
+    <tr><td>4.0: SOUND:data:audio/ogg;base64,[base64-data]</td>
     </tr>
     <tr>
         <td>SOURCE</td>
@@ -529,15 +412,7 @@
         <td>Optional</td>
         <td>Optional</td>
         <td>The time zone of the vCard object.</td>
-        <td>2.1, 3.0: TZ:-0500</td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>4.0: TZ:America/New_York</td>
+        <td>2.1, 3.0: TZ:-0500 <br/>4.0: TZ:America/New_York</td>
     </tr>
     <tr>
         <td>UID</td>
@@ -564,4 +439,5 @@
         <td>XML:&lt;b&gt;Not an xCard XML element&lt;/b&gt;</td>
     </tr>
 </table>
+
 
