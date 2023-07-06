@@ -1,3 +1,6 @@
+Some properties are not supported by the library **Tought.vCards**. 
+AGENT, ANNIVERSARY, CALADRURI, CALURI, CLIENTPIDMAP, FBURL, GENDER, KIND, LANG, LOGO, MEMBER, PROFILE, RELATED, SORT-STRING, SOUND.
+
 <h3>Already implemented &#9989; in version 5.0 </h3>
 <table>
     <tr>
