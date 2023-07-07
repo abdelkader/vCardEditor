@@ -19,7 +19,6 @@ namespace vCardEditor.View
         public event EventHandler<EventArg<FormState>> LoadForm;
         public event EventHandler AddContact;
         public event EventHandler SaveContactsSelected;
-        public event EventHandler BeforeOpeningNewFile;
         public event EventHandler DeleteContact;
         public event EventHandler<EventArg<string>> NewFileOpened;
         public event EventHandler ChangeContactsSelected;

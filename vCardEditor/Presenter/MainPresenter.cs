@@ -24,7 +24,6 @@ namespace VCFEditor.Presenter
             _view.LoadForm += LoadFormHandler;
             _view.AddContact += AddContactHandler;
             _view.NewFileOpened += NewFileOpenedHandler;
-            _view.BeforeOpeningNewFile += BeforeOpeningNewFileHandler;
             _view.SaveContactsSelected += SaveContactsHandler;
             _view.ChangeContactsSelected += ChangeContactSelectedHandler;
             _view.DeleteContact += DeleteContactHandler;
@@ -170,7 +169,7 @@ namespace VCFEditor.Presenter
 
         }
 
-        private void BeforeOpeningNewFileHandler(object sender, EventArgs e)
+        private void BeforeOpeningNewFileHandler()
         {
             if (_repository.Contacts != null && _repository.dirty)
             {
@@ -181,7 +180,7 @@ namespace VCFEditor.Presenter
         }
         public void NewFileOpenedHandler(object sender, EventArg<string> e)
         {
-            BeforeOpeningNewFileHandler(sender, e);
+            BeforeOpeningNewFileHandler();
             
             string path = e.Data;
             if (string.IsNullOrEmpty(path))

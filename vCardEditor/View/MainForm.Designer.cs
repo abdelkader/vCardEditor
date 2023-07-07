@@ -803,6 +803,9 @@ namespace vCardEditor.View
             this.FormattedTitleValue.oldText = null;
             this.FormattedTitleValue.Size = new System.Drawing.Size(100, 22);
             this.FormattedTitleValue.TabIndex = 1;
+            this.FormattedTitleValue.oldText = null;
+            this.FormattedTitleValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.FormattedTitleValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // lastNameValue
             // 
@@ -814,6 +817,9 @@ namespace vCardEditor.View
             this.lastNameValue.oldText = null;
             this.lastNameValue.Size = new System.Drawing.Size(158, 22);
             this.lastNameValue.TabIndex = 9;
+            this.lastNameValue.oldText = null;
+            this.lastNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.lastNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // middleNameValue
             // 
@@ -823,6 +829,9 @@ namespace vCardEditor.View
             this.middleNameValue.oldText = null;
             this.middleNameValue.Size = new System.Drawing.Size(95, 22);
             this.middleNameValue.TabIndex = 7;
+            this.middleNameValue.oldText = null;
+            this.middleNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.middleNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // firstNameValue
             // 
@@ -832,6 +841,9 @@ namespace vCardEditor.View
             this.firstNameValue.oldText = null;
             this.firstNameValue.Size = new System.Drawing.Size(100, 22);
             this.firstNameValue.TabIndex = 5;
+            this.firstNameValue.oldText = null;
+            this.firstNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.firstNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // FormattedNameValue
             // 
@@ -843,6 +855,9 @@ namespace vCardEditor.View
             this.FormattedNameValue.oldText = null;
             this.FormattedNameValue.Size = new System.Drawing.Size(314, 22);
             this.FormattedNameValue.TabIndex = 3;
+            this.FormattedNameValue.oldText = null;
+            this.FormattedNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.FormattedNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // EmailAddressValue
             // 
@@ -854,6 +869,9 @@ namespace vCardEditor.View
             this.EmailAddressValue.oldText = null;
             this.EmailAddressValue.Size = new System.Drawing.Size(360, 22);
             this.EmailAddressValue.TabIndex = 1;
+            this.EmailAddressValue.oldText = null;
+            this.EmailAddressValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.EmailAddressValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // PersonalWebSiteValue
             // 
@@ -865,6 +883,9 @@ namespace vCardEditor.View
             this.PersonalWebSiteValue.oldText = null;
             this.PersonalWebSiteValue.Size = new System.Drawing.Size(360, 22);
             this.PersonalWebSiteValue.TabIndex = 3;
+            this.PersonalWebSiteValue.oldText = null;
+            this.PersonalWebSiteValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.PersonalWebSiteValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // HomePhoneValue
             // 
@@ -876,6 +897,9 @@ namespace vCardEditor.View
             this.HomePhoneValue.oldText = null;
             this.HomePhoneValue.Size = new System.Drawing.Size(219, 22);
             this.HomePhoneValue.TabIndex = 1;
+            this.HomePhoneValue.oldText = null;
+            this.HomePhoneValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.HomePhoneValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // WorkPhoneValue
             // 
@@ -887,6 +911,9 @@ namespace vCardEditor.View
             this.WorkPhoneValue.oldText = null;
             this.WorkPhoneValue.Size = new System.Drawing.Size(219, 22);
             this.WorkPhoneValue.TabIndex = 5;
+            this.WorkPhoneValue.oldText = null;
+            this.WorkPhoneValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.WorkPhoneValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // CellularPhoneValue
             // 
@@ -898,6 +925,9 @@ namespace vCardEditor.View
             this.CellularPhoneValue.oldText = null;
             this.CellularPhoneValue.Size = new System.Drawing.Size(219, 22);
             this.CellularPhoneValue.TabIndex = 3;
+            this.CellularPhoneValue.oldText = null;
+            this.CellularPhoneValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.CellularPhoneValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // MainForm
             // 
