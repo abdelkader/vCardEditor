@@ -37,7 +37,13 @@ namespace VCFEditor.Presenter
             _view.AddressModified += AddressModifiedHandler;
             _view.AddressRemoved += AddressRemovedHandler;
             _view.CopyTextToClipboardEvent += CopyTextToClipboardHandler;
+            _view.AddExtraField += _view_AddExtraField;
 
+        }
+
+        private void _view_AddExtraField(object sender, EventArg<vCardPropeties> e)
+        {
+            _view.AddExtraTextGroup(e.Data, string.Empty);
         }
 
         private void CopyTextToClipboardHandler(object sender, EventArgs e)

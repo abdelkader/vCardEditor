@@ -25,7 +25,7 @@ namespace VCFEditor.View
         event EventHandler<EventArg<List<vCardDeliveryAddressTypes>>> AddressModified;
         event EventHandler<EventArg<int>> AddressRemoved;
         event EventHandler CopyTextToClipboardEvent;
-
+        event EventHandler<EventArg<vCardPropeties>> AddExtraField;
         int SelectedContactIndex { get; }
         void DisplayContacts(SortableBindingList<Contact> contacts);
         void DisplayContactDetail(vCard card, string FileName);
@@ -39,5 +39,6 @@ namespace VCFEditor.View
         void SendTextToClipBoard(string text);
 
         FormState GetFormState();
+        void AddExtraTextGroup(vCardPropeties type, string content);
     }
 }

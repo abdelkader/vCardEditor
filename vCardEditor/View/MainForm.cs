@@ -17,19 +17,20 @@ namespace vCardEditor.View
     public partial class MainForm : Form, IMainView
     {
         public event EventHandler<EventArg<FormState>> LoadForm;
-        public event EventHandler AddContact;
+        public event EventHandler<EventArg<vCard>> BeforeLeavingContact;
+        public event EventHandler<EventArg<List<vCardDeliveryAddressTypes>>> AddressModified;
+        public event EventHandler<EventArg<List<vCardDeliveryAddressTypes>>> AddressAdded;
+        public event EventHandler<EventArg<string>> NewFileOpened;
+        public event EventHandler<EventArg<string>> FilterTextChanged;
+        public event EventHandler<EventArg<string>> ModifyImage;
+        public event EventHandler<EventArg<bool>> CloseForm;
+        public event EventHandler<EventArg<int>> AddressRemoved;
+        public event EventHandler<EventArg<vCardPropeties>> AddExtraField;
         public event EventHandler SaveContactsSelected;
         public event EventHandler DeleteContact;
-        public event EventHandler<EventArg<string>> NewFileOpened;
+        public event EventHandler AddContact;
         public event EventHandler ChangeContactsSelected;
-        public event EventHandler<EventArg<vCard>> BeforeLeavingContact;
-        public event EventHandler<EventArg<string>> FilterTextChanged;
         public event EventHandler TextBoxValueChanged;
-        public event EventHandler<EventArg<bool>> CloseForm;
-        public event EventHandler<EventArg<string>> ModifyImage;
-        public event EventHandler<EventArg<List<vCardDeliveryAddressTypes>>> AddressAdded;
-        public event EventHandler<EventArg<List<vCardDeliveryAddressTypes>>> AddressModified;
-        public event EventHandler<EventArg<int>> AddressRemoved;
         public event EventHandler ExportImage;
         public event EventHandler CopyTextToClipboardEvent;
 
@@ -56,9 +57,11 @@ namespace vCardEditor.View
             tbcAddress.RemoveTab += (sender, e) => AddressRemoved?.Invoke(sender, e);
             tbcAddress.ModifyTab += (sender, e) => AddressModified?.Invoke(sender, e);
             tbcAddress.TextChangedEvent += (sender, e) => TextBoxValueChanged?.Invoke(sender, e);
+            btnClearFilter.Click += (sender, e) => textBoxFilter.Clear();
             BuildMRUMenu();
 
         }
+                
         private void tbsOpen_Click(object sender, EventArgs e)
         {
             NewFileOpened?.Invoke(sender, new EventArg<string>(string.Empty));
@@ -106,7 +109,7 @@ namespace vCardEditor.View
         public void DisplayContactDetail(vCard card, string FileName)
         {
             if (card == null)
-                throw new ArgumentException("card must be valid!");
+                throw new ArgumentException("vCard must be valid!");
 
             Text = string.Format("{0} - vCard Editor", FileName);
             gbContactDetail.Enabled = true;
@@ -138,23 +141,23 @@ namespace vCardEditor.View
             if (card.Notes.Count > 0)
             {
                 foreach (var note in card.Notes)
-                    SetNote(note);
+                    AddExtraTextGroup(vCardPropeties.NOTE, note.Text);
             }
 
             if (!string.IsNullOrEmpty(card.Organization))
             {
-                SetOrgranisation(card.Organization);
+                AddExtraTextGroup(vCardPropeties.ORG, card.Organization);
             }
 
             
         }
 
-        private void SetOrgranisation(string organization)
+        public void AddExtraTextGroup(vCardPropeties type, string content)
         {
             ExtraTextGroup etg = new ExtraTextGroup();
-            etg.Content = organization;
-            etg.Caption = "Org :";
-            etg.CardProp = vCardPropeties.ORG;
+            etg.Content = content;
+            etg.Caption = type.ToString() + " :";
+            etg.CardProp = type;
             etg.TextChangedEvent += (sender, e) => TextBoxValueChanged?.Invoke(sender, e);
             etg.ControlDeleted += (sender, e) =>
             {
@@ -163,23 +166,6 @@ namespace vCardEditor.View
             };
 
             flowLayoutPanel1.Controls.Add(etg);
-        }
-
-        private void SetNote(vCardNote note)
-        {
-            ExtraTextGroup etg = new ExtraTextGroup();
-            etg.Content = note.Text;
-            etg.Caption = "Note :";
-            etg.CardProp = vCardPropeties.NOTE;
-            etg.TextChangedEvent += (sender, e) => TextBoxValueChanged?.Invoke(sender, e);
-            etg.ControlDeleted += (sender, e) =>
-            {
-                var send = sender as Control;
-                flowLayoutPanel1.Controls.Remove(send.Parent);
-            };
-
-            flowLayoutPanel1.Controls.Add(etg);
-            
         }
 
         public void ClearContactDetail()
@@ -286,11 +272,7 @@ namespace vCardEditor.View
             FilterTextChanged?.Invoke(sender, new EventArg<string>(textBoxFilter.Text));
         }
 
-        private void btnClearFilter_Click(object sender, EventArgs e)
-        {
-            textBoxFilter.Text = string.Empty;
-        }
-
+      
        
         private vCard GetvCardFromWindow()
         {
@@ -315,10 +297,16 @@ namespace vCardEditor.View
                 card.EmailAddresses.Add(new vCardEmailAddress(this.EmailAddressValue.Text));
             if (!string.IsNullOrEmpty(this.PersonalWebSiteValue.Text))
                 card.Websites.Add(new vCardWebsite(this.PersonalWebSiteValue.Text));
-            
+
 
             tbcAddress.getDeliveryAddress(card);
+            getExtraData(card);
 
+            return card;
+        }
+
+        private void getExtraData(vCard card)
+        {
             foreach (var item in flowLayoutPanel1.Controls)
             {
                 var tbc = item as ExtraTextGroup;
@@ -334,8 +322,6 @@ namespace vCardEditor.View
                         break;
                 }
             }
-
-            return card;
         }
 
         private void dgContacts_RowLeave(object sender, DataGridViewCellEventArgs e)
@@ -586,17 +572,19 @@ namespace vCardEditor.View
                 }
             }
 
-            //TextboxCollapseGroup cgp = new TextboxCollapseGroup();
-            ////cgp.Controls.Add(new TextBox());
-            //cgp.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            
-            //flowLayoutPanel1.Controls.Add(cgp);
-
-
-
 
         }
 
-      
+        private void addNotesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var evt = new EventArg<vCardPropeties>(vCardPropeties.NOTE);
+            AddExtraField?.Invoke(sender, evt);
+        }
+
+        private void addOrgToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var evt = new EventArg<vCardPropeties>(vCardPropeties.ORG);
+            AddExtraField?.Invoke(sender, evt);
+        }
     }
 }
