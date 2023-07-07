@@ -203,7 +203,17 @@ namespace VCFEditor.Repository
                 SaveEmail(NewCard, card);
                 SaveWebUrl(NewCard, card);
                 SaveAddresses(NewCard, card);
+                SaveExtraField(NewCard, card);
             }
+        }
+
+        private void SaveExtraField(vCard newCard, vCard card)
+        {
+            card.Notes.Clear();
+            foreach (var item in newCard.Notes)
+                card.Notes.Add(new vCardNote(item.Text));
+
+            card.Organization = newCard.Organization;
         }
 
         private void SaveAddresses(vCard NewCard, vCard card)

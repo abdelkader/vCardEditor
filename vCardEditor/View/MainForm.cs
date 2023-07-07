@@ -10,6 +10,7 @@ using vCardEditor.Model;
 using System.Drawing;
 using System.Collections.Generic;
 using vCardEditor.View.Customs;
+using vCardEditor.View.UIToolbox;
 
 namespace vCardEditor.View
 {
@@ -125,6 +126,61 @@ namespace vCardEditor.View
             SetAddressesValues(card);
             SetPhotoValue(card.Photos);
 
+            SetExtraField(card);
+
+        }
+
+        private void SetExtraField(vCard card)
+        {
+            //Clear everything
+            flowLayoutPanel1.Controls.Clear();
+
+
+            if (card.Notes.Count > 0)
+            {
+                foreach (var note in card.Notes)
+                    SetNote(note);
+            }
+
+            if (!string.IsNullOrEmpty(card.Organization))
+            {
+                SetOrgranisation(card.Organization);
+            }
+
+            
+        }
+
+        private void SetOrgranisation(string organization)
+        {
+            ExtraTextGroup etg = new ExtraTextGroup();
+            etg.Content = organization;
+            etg.Caption = "Org :";
+            etg.CardProp = vCardPropeties.ORG;
+            etg.TextChangedEvent += (sender, e) => TextBoxValueChanged?.Invoke(sender, e);
+            etg.ControlDeleted += (sender, e) =>
+            {
+                var send = sender as Control;
+                flowLayoutPanel1.Controls.Remove(send.Parent);
+            };
+
+            flowLayoutPanel1.Controls.Add(etg);
+        }
+
+        private void SetNote(vCardNote note)
+        {
+            ExtraTextGroup etg = new ExtraTextGroup();
+            etg.Content = note.Text;
+            etg.Caption = "Note :";
+            etg.CardProp = vCardPropeties.NOTE;
+            etg.TextChangedEvent += (sender, e) => TextBoxValueChanged?.Invoke(sender, e);
+            etg.ControlDeleted += (sender, e) =>
+            {
+                var send = sender as Control;
+                flowLayoutPanel1.Controls.Remove(send.Parent);
+            };
+
+            flowLayoutPanel1.Controls.Add(etg);
+            
         }
 
         public void ClearContactDetail()
@@ -144,7 +200,7 @@ namespace vCardEditor.View
             SetSummaryValue(PersonalWebSiteValue, string.Empty);
             SetAddressesValues(new vCard());
             SetPhotoValue(new vCardPhotoCollection());
-
+            flowLayoutPanel1.Controls.Clear();
         }
 
         private void SetSummaryValue(StateTextBox valueLabel, string value)
@@ -263,6 +319,22 @@ namespace vCardEditor.View
             
 
             tbcAddress.getDeliveryAddress(card);
+
+            foreach (var item in flowLayoutPanel1.Controls)
+            {
+                var tbc = item as ExtraTextGroup;
+                switch (tbc.CardProp)
+                {
+                    case vCardPropeties.NOTE:
+                        card.Notes.Add(tbc.Content);
+                        break;
+                    case vCardPropeties.ORG:
+                        card.Organization = tbc.Content;
+                        break;
+                    default:
+                        break;
+                }
+            }
 
             return card;
         }
@@ -514,8 +586,18 @@ namespace vCardEditor.View
                     ToggleOnlySelected(state.Columns);
                 }
             }
+
+            //TextboxCollapseGroup cgp = new TextboxCollapseGroup();
+            ////cgp.Controls.Add(new TextBox());
+            //cgp.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             
-            
+            //flowLayoutPanel1.Controls.Add(cgp);
+
+
+
+
         }
+
+      
     }
 }

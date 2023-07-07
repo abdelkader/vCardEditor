@@ -1,4 +1,10 @@
-﻿0.5
+﻿0.5.2
+   added an option to Right-click on a ".vcf"" file  –> Open With —> vCardEditor
+
+0.5.1
+   Fixed clearing fields when changing contact
+   
+0.5
    A reworked control for adding/modifying or removing addresses.
 
 0.4

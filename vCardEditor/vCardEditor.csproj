@@ -66,6 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\vCardPropeties.cs" />
     <Compile Include="Model\Column.cs" />
     <Compile Include="Model\FixedList.cs" />
     <Compile Include="Model\ObjectCopier.cs" />
@@ -170,20 +171,11 @@
     <Compile Include="View\StateTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="View\UIToolbox\CollapseBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="View\UIToolbox\CollapsibleGroupBox.cs">
+    <Compile Include="View\Customs\ExtraTextGroup.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="View\UIToolbox\ExpandingPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="View\UIToolbox\ImageButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="View\UIToolbox\OwnerDrawButton.cs">
-      <SubType>Component</SubType>
+    <Compile Include="View\Customs\ExtraTextGroup.Designer.cs">
+      <DependentUpon>ExtraTextGroup.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -214,20 +206,8 @@
     <EmbeddedResource Include="View\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\UIToolbox\CollapseBox.resx">
-      <DependentUpon>CollapseBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\UIToolbox\CollapsibleGroupBox.resx">
-      <DependentUpon>CollapsibleGroupBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\UIToolbox\ExpandingPanel.resx">
-      <DependentUpon>ExpandingPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\UIToolbox\ImageButton.resx">
-      <DependentUpon>ImageButton.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\UIToolbox\OwnerDrawButton.resx">
-      <DependentUpon>OwnerDrawButton.cs</DependentUpon>
+    <EmbeddedResource Include="View\Customs\ExtraTextGroup.resx">
+      <DependentUpon>ExtraTextGroup.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
