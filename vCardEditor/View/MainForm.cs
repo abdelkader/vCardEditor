@@ -559,20 +559,20 @@ namespace vCardEditor.View
             var evt = new EventArg<FormState>(new FormState());
             LoadForm?.Invoke(sender, evt);
 
-            //TODO: Better way to check if state was serialised!
-            var state = evt.Data;
+        }
+
+        public void LoadIntialState(FormState state)
+        {
             if (state.Width != 0 && state.Height != 0)
             {
                 Size = new Size(state.Width, state.Height);
-                Location = new Point(state.X , state.Y);
+                Location = new Point(state.X, state.Y);
                 splitContainer1.SplitterDistance = state.splitterPosition;
                 if (state.Columns != null)
                 {
                     ToggleOnlySelected(state.Columns);
                 }
             }
-
-
         }
 
         private void addNotesToolStripMenuItem_Click(object sender, EventArgs e)

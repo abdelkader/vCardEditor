@@ -39,6 +39,7 @@ namespace VCFEditor.View
         void SendTextToClipBoard(string text);
 
         FormState GetFormState();
+        void LoadIntialState(FormState state);
         void AddExtraTextGroup(vCardPropeties type, string content);
     }
 }
