@@ -16,7 +16,7 @@ namespace Thought.vCards
     /// <seealso cref="vCardPhoneCollection"/>
     /// <seealso cref="vCardPhoneTypes"/>
     [Serializable]
-    public class vCardPhone
+    public class vCardPhone : vCardRoot
     {
 
         private string fullNumber;

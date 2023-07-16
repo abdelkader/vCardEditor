@@ -111,6 +111,7 @@
     <Compile Include="Thought.vCards\vCardProperty.cs" />
     <Compile Include="Thought.vCards\vCardPropertyCollection.cs" />
     <Compile Include="Thought.vCards\vCardReader.cs" />
+    <Compile Include="Thought.vCards\vCardRoot.cs" />
     <Compile Include="Thought.vCards\vCardSocialProfile.cs" />
     <Compile Include="Thought.vCards\vCardSocialProfileCollection.cs" />
     <Compile Include="Thought.vCards\vCardSource.cs" />
@@ -159,6 +160,25 @@
     <Compile Include="View\Customs\ColumnsDialog.Designer.cs">
       <DependentUpon>ColumnsDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Customs\CustumInputDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Customs\CustumInputDialog.Designer.cs">
+      <DependentUpon>CustumInputDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Customs\ExtendedPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Customs\ExtendedPanel.Designer.cs">
+      <DependentUpon>ExtendedPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Customs\PanelType.cs" />
+    <Compile Include="View\Customs\RemovableTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Customs\RemovableTextBox.Designer.cs">
+      <DependentUpon>RemovableTextBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\EventArgs.cs" />
     <Compile Include="View\IMainView.cs" />
     <Compile Include="View\MainForm.cs">
@@ -202,6 +222,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\Customs\ColumnsDialog.resx">
       <DependentUpon>ColumnsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Customs\CustumInputDialog.resx">
+      <DependentUpon>CustumInputDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Customs\ExtendedPanel.resx">
+      <DependentUpon>ExtendedPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Customs\RemovableTextBox.resx">
+      <DependentUpon>RemovableTextBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

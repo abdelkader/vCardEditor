@@ -37,6 +37,7 @@ namespace vCardEditor_Test
            
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfOneEntry);
+            fileHandler.FileExist(Arg.Any<string>()).Returns(true);
             var repo = Substitute.For<ContactRepository>(fileHandler);
             repo.GetExtension(Arg.Any<string>()).Returns(".vcf");
             var view = Substitute.For<IMainView>();
@@ -57,6 +58,7 @@ namespace vCardEditor_Test
 
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfThreeEntry);
+            fileHandler.FileExist(Arg.Any<string>()).Returns(true);
             var repo = Substitute.For<ContactRepository>(fileHandler);
             repo.GetExtension(Arg.Any<string>()).Returns(".vcf");
             var view = Substitute.For<IMainView>();
@@ -90,6 +92,8 @@ namespace vCardEditor_Test
             fileHandler.Received().MoveFile("aaa.vcf", "aaa.vcf.old0");
         }
 
+
+
         [TestMethod]
         public void SaveFile_ExistAlready_Test()
         {
@@ -115,6 +119,7 @@ namespace vCardEditor_Test
         {
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfThreeEntry);
+            fileHandler.FileExist(Arg.Any<string>()).Returns(true);
             var repo = Substitute.For<ContactRepository>(fileHandler);
             repo.GetExtension(Arg.Any<string>()).Returns(".vcf");
             var view = Substitute.For<IMainView>();
@@ -139,6 +144,7 @@ namespace vCardEditor_Test
 
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfOneEntry);
+            fileHandler.FileExist(Arg.Any<string>()).Returns(true);
             var repo = Substitute.For<ContactRepository>(fileHandler);
             var view = Substitute.For<IMainView>();
             view.SelectedContactIndex.Returns(0);
@@ -157,6 +163,7 @@ namespace vCardEditor_Test
 
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfOneEntryWithTwoAddress);
+            fileHandler.FileExist(Arg.Any<string>()).Returns(true);
             var repo = Substitute.For<ContactRepository>(fileHandler);
             var view = Substitute.For<IMainView>();
             view.SelectedContactIndex.Returns(0);
@@ -165,7 +172,7 @@ namespace vCardEditor_Test
 
             view.AddressRemoved += Raise.EventWith(new EventArg<int>(0));
 
-            Assert.AreEqual(1, contact[0].card.DeliveryAddresses.Count);
+            Assert.AreEqual(1, repo.Contacts[0].card.DeliveryAddresses.Count);
 
         }
 
@@ -175,6 +182,7 @@ namespace vCardEditor_Test
 
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfOneEntryWithTwoAddress);
+            fileHandler.FileExist(Arg.Any<string>()).Returns(true);
             var repo = Substitute.For<ContactRepository>(fileHandler);
             var view = Substitute.For<IMainView>();
             view.SelectedContactIndex.Returns(0);
@@ -186,8 +194,8 @@ namespace vCardEditor_Test
 
             view.AddressAdded += Raise.EventWith(new EventArg<List<vCardDeliveryAddressTypes>>(lstvCardDeliveryAddressTypes));
 
-            Assert.AreEqual(2 + 1, contact[0].card.DeliveryAddresses.Count);
-            Assert.AreEqual(2, contact[0].card.DeliveryAddresses[2].AddressType.Count);
+            Assert.AreEqual(2 + 1, repo.Contacts[0].card.DeliveryAddresses.Count);
+            Assert.AreEqual(2, repo.Contacts[0].card.DeliveryAddresses[2].AddressType.Count);
 
 
         }
@@ -198,6 +206,7 @@ namespace vCardEditor_Test
 
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfOneEntryWithTwoAddress);
+            fileHandler.FileExist(Arg.Any<string>()).Returns(true);
             var repo = Substitute.For<ContactRepository>(fileHandler);
             var view = Substitute.For<IMainView>();
             view.SelectedContactIndex.Returns(0);
@@ -209,8 +218,8 @@ namespace vCardEditor_Test
 
             view.AddressModified += Raise.EventWith(new EventArg<List<vCardDeliveryAddressTypes>>(lstvCardDeliveryAddressTypes));
 
-            Assert.AreEqual(1, contact[0].card.DeliveryAddresses.Count);
-            Assert.AreEqual(2, contact[0].card.DeliveryAddresses[0].AddressType.Count);
+            Assert.AreEqual(1, repo.Contacts[0].card.DeliveryAddresses.Count);
+            Assert.AreEqual(2, repo.Contacts[0].card.DeliveryAddresses[0].AddressType.Count);
 
         }
 
@@ -219,6 +228,7 @@ namespace vCardEditor_Test
         {
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfwithInternalPhoto);
+            fileHandler.FileExist(Arg.Any<string>()).Returns(true);
             var repo = Substitute.For<ContactRepository>(fileHandler);
             var view = Substitute.For<IMainView>();
             view.SelectedContactIndex.Returns(0);
@@ -236,6 +246,7 @@ namespace vCardEditor_Test
         {
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfwithInternalPhoto);
+            fileHandler.FileExist(Arg.Any<string>()).Returns(true);
             var repo = Substitute.For<ContactRepository>(fileHandler);
             var view = Substitute.For<IMainView>();
             view.SelectedContactIndex.Returns(0);
@@ -244,8 +255,8 @@ namespace vCardEditor_Test
 
             view.ModifyImage += Raise.EventWith(new EventArg<string>(""));
 
-            Assert.AreEqual(0, contact[0].card.Photos.Count);
-            Assert.IsTrue(contact[0].isDirty);
+            Assert.AreEqual(0, repo.Contacts[0].card.Photos.Count);
+            Assert.IsTrue(repo.Contacts[0].isDirty);
         }
 
 

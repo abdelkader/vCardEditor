@@ -39,7 +39,7 @@ namespace vCardEditor.View.UIToolbox
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.BackgroundImage = global::vCardEditor.Properties.Resources.Close;
             this.btnClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnClose.Location = new System.Drawing.Point(594, 27);
+            this.btnClose.Location = new System.Drawing.Point(594, 18);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(23, 23);
             this.btnClose.TabIndex = 1;

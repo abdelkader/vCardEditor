@@ -49,11 +49,18 @@ namespace VCFEditor.Repository
             _fileHandler = fileHandler;
         }
 
-        public SortableBindingList<Contact> LoadContacts(string fileName)
+        public bool LoadContacts(string fileName)
         {
             Contacts.Clear();
 
             this.fileName = fileName;
+
+            if (!_fileHandler.FileExist(fileName))
+            {
+                OriginalContactList = null;
+                return false;
+            }
+            
             string[] lines = _fileHandler.ReadAllLines(fileName);
 
             StringBuilder RawContent = new StringBuilder();
@@ -73,7 +80,7 @@ namespace VCFEditor.Repository
             }
             
             OriginalContactList = Contacts;
-            return Contacts;
+            return true;
         }
        
         public void AddEmptyContact()
@@ -204,7 +211,16 @@ namespace VCFEditor.Repository
                 SaveWebUrl(NewCard, card);
                 SaveAddresses(NewCard, card);
                 SaveExtraField(NewCard, card);
+                SaveExtraPhones(NewCard, card);
             }
+        }
+
+        private void SaveExtraPhones(vCard newCard, vCard card)
+        {
+            card.Phones.Clear();
+            foreach (var item in newCard.Phones)
+                card.Phones.Add(new vCardPhone(item.FullNumber, item.PhoneType));
+
         }
 
         private void SaveExtraField(vCard newCard, vCard card)

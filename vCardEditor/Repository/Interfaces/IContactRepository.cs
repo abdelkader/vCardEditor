@@ -14,7 +14,7 @@ namespace VCFEditor.Repository
         bool dirty { get; }
         string fileName { get; set; }
         SortableBindingList<Contact> Contacts { get; set; }
-        SortableBindingList<Contact> LoadContacts(string fileName);
+        bool LoadContacts(string fileName);
         SortableBindingList<Contact> FilterContacts(string p);
         void SaveContactsToFile(string fileName);
         void DeleteContact();

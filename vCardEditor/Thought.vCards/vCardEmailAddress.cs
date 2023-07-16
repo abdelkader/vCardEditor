@@ -21,7 +21,7 @@ namespace Thought.vCards
     /// </remarks>
     /// <seealso cref="vCardEmailAddressCollection"/>
     /// <seealso cref="vCardEmailAddressType"/>
-    public class vCardEmailAddress
+    public class vCardEmailAddress : vCardRoot
     {
 
         private string address;

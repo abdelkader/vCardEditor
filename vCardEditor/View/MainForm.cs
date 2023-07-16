@@ -52,12 +52,15 @@ namespace vCardEditor.View
         public MainForm()
         {
             InitializeComponent();
+            
             resources = new ComponentResourceManager(typeof(MainForm));
             tbcAddress.AddTab += (sender, e) => AddressAdded?.Invoke(sender, e);
             tbcAddress.RemoveTab += (sender, e) => AddressRemoved?.Invoke(sender, e);
             tbcAddress.ModifyTab += (sender, e) => AddressModified?.Invoke(sender, e);
             tbcAddress.TextChangedEvent += (sender, e) => TextBoxValueChanged?.Invoke(sender, e);
             btnClearFilter.Click += (sender, e) => textBoxFilter.Clear();
+            extendedPanelPhones.ContentTextChanged += (sender, e) => TextBoxValueChanged?.Invoke(sender, e);
+            extendedPanelWeb.ContentTextChanged += (sender, e) => TextBoxValueChanged?.Invoke(sender, e);
             BuildMRUMenu();
 
         }
@@ -108,36 +111,54 @@ namespace vCardEditor.View
 
         public void DisplayContactDetail(vCard card, string FileName)
         {
+
             if (card == null)
                 throw new ArgumentException("vCard must be valid!");
 
+            ClearContactDetail();
+           
             Text = string.Format("{0} - vCard Editor", FileName);
-            gbContactDetail.Enabled = true;
+            //gbContactDetail.Enabled = true;
+            tcMainTab.Enabled = true;
             gbNameList.Enabled = true;
 
+            SetSummaryValue(FormattedTitleValue, card.Title);
             SetSummaryValue(firstNameValue, card.GivenName);
             SetSummaryValue(lastNameValue, card.FamilyName);
             SetSummaryValue(middleNameValue, card.AdditionalNames);
-            SetSummaryValue(FormattedTitleValue, card.Title);
             SetSummaryValue(FormattedNameValue, card.FormattedName);
-            SetSummaryValue(HomePhoneValue, card.Phones.GetFirstChoice(vCardPhoneTypes.Home));
-            SetSummaryValue(CellularPhoneValue, card.Phones.GetFirstChoice(vCardPhoneTypes.Cellular));
-            SetSummaryValue(WorkPhoneValue, card.Phones.GetFirstChoice(vCardPhoneTypes.Work));
-            SetSummaryValue(EmailAddressValue, card.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet));
-            SetSummaryValue(PersonalWebSiteValue, card.Websites.GetFirstChoice(vCardWebsiteTypes.Personal));
+            
             SetAddressesValues(card);
             SetPhotoValue(card.Photos);
 
-            SetExtraField(card);
+            SetExtraInfos(card);
+            
+            SetExtraTabFields(card);
 
         }
 
-        private void SetExtraField(vCard card)
+        private void SetExtraInfos(vCard card)
         {
-            //Clear everything
-            flowLayoutPanel1.Controls.Clear();
+            foreach (var item in card.EmailAddresses)
+            {
+                extendedPanelWeb.AddControl(item);
+            }
 
+            foreach (var item in card.Websites)
+            {
+                extendedPanelWeb.AddControl(item);
+            }
 
+            foreach (var item in card.Phones)
+            {
+                extendedPanelPhones.AddControl(item);
+            }
+        }
+
+        
+
+        private void SetExtraTabFields(vCard card)
+        {
             if (card.Notes.Count > 0)
             {
                 foreach (var note in card.Notes)
@@ -170,7 +191,8 @@ namespace vCardEditor.View
 
         public void ClearContactDetail()
         {
-            gbContactDetail.Enabled = false;
+            //gbContactDetail.Enabled = false;
+            tcMainTab.Enabled = false;
             gbNameList.Enabled = false;
 
             SetSummaryValue(firstNameValue, string.Empty);
@@ -178,14 +200,12 @@ namespace vCardEditor.View
             SetSummaryValue(middleNameValue, string.Empty);
             SetSummaryValue(FormattedTitleValue, string.Empty);
             SetSummaryValue(FormattedNameValue, string.Empty);
-            SetSummaryValue(HomePhoneValue, string.Empty);
-            SetSummaryValue(CellularPhoneValue, string.Empty);
-            SetSummaryValue(WorkPhoneValue, string.Empty);
-            SetSummaryValue(EmailAddressValue, string.Empty);
-            SetSummaryValue(PersonalWebSiteValue, string.Empty);
+           
             SetAddressesValues(new vCard());
             SetPhotoValue(new vCardPhotoCollection());
             flowLayoutPanel1.Controls.Clear();
+            extendedPanelPhones.ClearFields();
+            extendedPanelWeb.ClearFields();
         }
 
         private void SetSummaryValue(StateTextBox valueLabel, string value)
@@ -196,28 +216,6 @@ namespace vCardEditor.View
             //Clear textbox if value is empty!
             valueLabel.Text = value;
             valueLabel.oldText = value;
-        }
-
-        private void SetSummaryValue(StateTextBox valueLabel, vCardEmailAddress email)
-        {
-            valueLabel.Text = string.Empty;
-            if (email != null)
-                SetSummaryValue(valueLabel, email.Address);
-        }
-
-        private void SetSummaryValue(StateTextBox valueLabel, vCardPhone phone)
-        {
-            valueLabel.Text = string.Empty;
-            if (phone != null)
-                SetSummaryValue(valueLabel, phone.FullNumber);
-
-        }
-
-        private void SetSummaryValue(StateTextBox valueLabel, vCardWebsite webSite)
-        {
-            valueLabel.Text = string.Empty;
-            if (webSite != null)
-                SetSummaryValue(valueLabel, webSite.Url.ToString());
         }
 
         void SetPhotoValue(vCardPhotoCollection photos)
@@ -287,23 +285,52 @@ namespace vCardEditor.View
 
             };
 
-            if (!string.IsNullOrEmpty(HomePhoneValue.Text))
-                card.Phones.Add(new vCardPhone(HomePhoneValue.Text, vCardPhoneTypes.Home));
-            if (!string.IsNullOrEmpty(CellularPhoneValue.Text))
-                card.Phones.Add(new vCardPhone(CellularPhoneValue.Text, vCardPhoneTypes.Cellular));
-            if (!string.IsNullOrEmpty(WorkPhoneValue.Text))
-                card.Phones.Add(new vCardPhone(WorkPhoneValue.Text, vCardPhoneTypes.Work));
-            if (!string.IsNullOrEmpty(this.EmailAddressValue.Text))
-                card.EmailAddresses.Add(new vCardEmailAddress(this.EmailAddressValue.Text));
-            if (!string.IsNullOrEmpty(this.PersonalWebSiteValue.Text))
-                card.Websites.Add(new vCardWebsite(this.PersonalWebSiteValue.Text));
-
-
             tbcAddress.getDeliveryAddress(card);
+            getExtraPhones(card);
+            getExtraWeb(card);
             getExtraData(card);
-
             return card;
         }
+
+        private void getExtraPhones(vCard card)
+        {
+            card.Phones.Clear();
+            foreach (var item in extendedPanelPhones.GetExtraFields())
+            {
+                if (item is vCardPhone) 
+                {
+                    vCardPhone phone = item as vCardPhone;
+                    card.Phones.Add(phone);
+                }
+            }
+
+        }
+        private void getExtraWeb(vCard card)
+        {
+            card.Websites.Clear();
+            card.EmailAddresses.Clear();
+
+            foreach (var item in extendedPanelWeb.GetExtraFields())
+            {
+                switch (item)
+                {
+                    case vCardEmailAddress email:
+                        card.EmailAddresses.Add(email);
+                        break;
+
+                    case vCardWebsite website:
+                        card.Websites.Add(website);
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
+
+        }
+
+       
 
         private void getExtraData(vCard card)
         {
@@ -586,5 +613,6 @@ namespace vCardEditor.View
             var evt = new EventArg<vCardPropeties>(vCardPropeties.ORG);
             AddExtraField?.Invoke(sender, evt);
         }
+       
     }
 }

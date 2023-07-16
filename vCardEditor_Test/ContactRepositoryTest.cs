@@ -21,9 +21,9 @@ namespace vCardEditor_Test
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfEmtpy);
             var repo = Substitute.For<ContactRepository>(fileHandler);
             
-            var contacts = repo.LoadContacts("file.vcf");
+            repo.LoadContacts("file.vcf");
             
-            Assert.IsTrue(contacts.Count == 0);
+            Assert.IsTrue(repo.Contacts.Count == 0);
         }
 
         [TestMethod]
@@ -31,22 +31,24 @@ namespace vCardEditor_Test
         {
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfIncorrect);
+            fileHandler.FileExist(Arg.Any<string>()).Returns(true);
             var repo = Substitute.For<ContactRepository>(fileHandler);
 
-            var contacts = repo.LoadContacts("file.vcf");
+            repo.LoadContacts("file.vcf");
 
-            Assert.IsTrue(contacts.Count == 0);
+            Assert.IsTrue(repo.Contacts.Count == 0);
         }
 
         [TestMethod]
         public void NewFileOpened_Utf8Entry_Test()
         {
             var fileHandler = Substitute.For<IFileHandler>();
+            fileHandler.FileExist(Arg.Any<string>()).Returns(true);
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfUtf8Entry);
             var repo = Substitute.For<ContactRepository>(fileHandler);
             var contacts = repo.LoadContacts("file.vcf");
 
-            Assert.AreEqual(contacts[0].Name, "Oum Alaâ");
+            Assert.AreEqual(repo.Contacts[0].Name, "Oum Alaâ");
         }
 
         [TestMethod]
@@ -54,9 +56,10 @@ namespace vCardEditor_Test
         {
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfOneEntry);
+            fileHandler.FileExist(Arg.Any<string>()).Returns(true);
             var repo = Substitute.For<ContactRepository>(fileHandler);
             var contacts = repo.LoadContacts("file.vcf");
-            Assert.IsTrue(contacts[0].card.DeliveryAddresses.FirstOrDefault().AddressType.Contains(vCardDeliveryAddressTypes.Work));
+            Assert.IsTrue(repo.Contacts[0].card.DeliveryAddresses.FirstOrDefault().AddressType.Contains(vCardDeliveryAddressTypes.Work));
         }
 
         [TestMethod]
@@ -64,7 +67,8 @@ namespace vCardEditor_Test
         {
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfFourEntry);
-            
+            fileHandler.FileExist(Arg.Any<string>()).Returns(true);
+
             var repo = Substitute.For<ContactRepository>(fileHandler);
             repo.LoadContacts("file.vcf");
             repo.Contacts[0].isDirty=true;
@@ -85,6 +89,7 @@ namespace vCardEditor_Test
         {
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfFourEntry);
+            fileHandler.FileExist(Arg.Any<string>()).Returns(true);
 
             var repo = Substitute.For<ContactRepository>(fileHandler);
             repo.LoadContacts("file.vcf");
@@ -94,7 +99,7 @@ namespace vCardEditor_Test
 
 
             var card = repo.Contacts[0].card;
-            Assert.AreEqual(card.Phones.GetFirstChoice(vCardPhoneTypes.Cellular).FullNumber, string.Empty);
+            Assert.AreEqual(card.Phones.Count, 0);
         }
 
         [TestMethod]
@@ -102,6 +107,7 @@ namespace vCardEditor_Test
         {
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfFourEntry);
+            fileHandler.FileExist(Arg.Any<string>()).Returns(true);
             var repo = Substitute.For<ContactRepository>(fileHandler);
             repo.LoadContacts("file.vcf");
             repo.Contacts[2].isDirty = true;
@@ -120,6 +126,7 @@ namespace vCardEditor_Test
         {
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfFourEntry);
+            fileHandler.FileExist(Arg.Any<string>()).Returns(true);
             var repo = Substitute.For<ContactRepository>(fileHandler);
             repo.LoadContacts("file.vcf");
             repo.Contacts[3].isDirty = true;
@@ -136,6 +143,7 @@ namespace vCardEditor_Test
         {
             var fileHandler = Substitute.For<IFileHandler>();
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfWikiv21);
+            fileHandler.FileExist(Arg.Any<string>()).Returns(true);
             var repo = Substitute.For<ContactRepository>(fileHandler);
             repo.LoadContacts("file.vcf");
             repo.Contacts[0].isDirty = true;
@@ -144,6 +152,34 @@ namespace vCardEditor_Test
 
             var card = repo.Contacts[0].card;
             Assert.IsNull(card.Phones.GetFirstChoice(vCardPhoneTypes.Cellular));
+        }
+
+        [TestMethod]
+        public void AddEmptyContact_ContactNotNull_Test()
+        {
+            var fileHandler = Substitute.For<IFileHandler>();
+            fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfOneEntry);
+            fileHandler.FileExist(Arg.Any<string>()).Returns(true);
+
+            var repo = Substitute.For<ContactRepository>(fileHandler);
+            repo.LoadContacts("file.vcf");
+
+            repo.AddEmptyContact();
+
+            
+            Assert.IsTrue(repo.Contacts.Count > 0);
+        }
+
+        [TestMethod]
+        public void AddEmptyContact_ContactIsNull_Test()
+        {
+            var fileHandler = Substitute.For<IFileHandler>();
+            var repo = Substitute.For<ContactRepository>(fileHandler);
+
+            repo.AddEmptyContact();
+
+
+            Assert.IsTrue(repo.Contacts.Count == 0);
         }
     }
 }

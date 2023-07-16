@@ -15,7 +15,7 @@ namespace Thought.vCards
     /// </summary>
     /// <seealso cref="vCardWebsiteCollection"/>
     /// <seealso cref="vCardWebsiteTypes"/>
-    public class vCardWebsite
+    public class vCardWebsite : vCardRoot
     {
 
         private string url;

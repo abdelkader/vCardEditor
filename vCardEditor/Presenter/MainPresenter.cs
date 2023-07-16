@@ -208,9 +208,11 @@ namespace VCFEditor.Presenter
                     MostRecentUsedFiles.Enqueue(path);
                     _view.UpdateMRUMenu(MostRecentUsedFiles);
                 }
-                
-                _repository.LoadContacts(path);
-                _view.DisplayContacts(_repository.Contacts);
+
+                if (!_repository.LoadContacts(path))
+                    _view.DisplayMessage("File seems missing or corrupted!", "Error");
+                else
+                    _view.DisplayContacts(_repository.Contacts);
             }
 
 
@@ -218,6 +220,7 @@ namespace VCFEditor.Presenter
 
         public void ChangeContactSelectedHandler(object sender, EventArgs e)
         {
+
             if (_view.SelectedContactIndex > -1)
             {
                 vCard card = _repository.Contacts[_view.SelectedContactIndex].card;
