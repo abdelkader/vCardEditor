@@ -66,6 +66,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Libs\QRCoder\AbstractQRCode.cs" />
+    <Compile Include="Libs\QRCoder\ArtQRCode.cs" />
+    <Compile Include="Libs\QRCoder\ASCIIQRCode.cs" />
+    <Compile Include="Libs\QRCoder\Base64QRCode.cs" />
+    <Compile Include="Libs\QRCoder\BitmapByteQRCode.cs" />
+    <Compile Include="Libs\QRCoder\Exceptions\DataTooLongException.cs" />
+    <Compile Include="Libs\QRCoder\Extensions\StringValueAttribute.cs" />
+    <Compile Include="Libs\QRCoder\Framework4.0Methods\Stream4Methods.cs" />
+    <Compile Include="Libs\QRCoder\Framework4.0Methods\String4Methods.cs" />
+    <Compile Include="Libs\QRCoder\PayloadGenerator.cs" />
+    <Compile Include="Libs\QRCoder\PdfByteQRCode.cs" />
+    <Compile Include="Libs\QRCoder\PngByteQRCode.cs" />
+    <Compile Include="Libs\QRCoder\PostscriptQRCode.cs" />
+    <Compile Include="Libs\QRCoder\QRCode.cs" />
+    <Compile Include="Libs\QRCoder\QRCodeData.cs" />
+    <Compile Include="Libs\QRCoder\QRCodeGenerator.cs" />
+    <Compile Include="Libs\QRCoder\SvgQRCode.cs" />
     <Compile Include="Model\vCardPropeties.cs" />
     <Compile Include="Model\Column.cs" />
     <Compile Include="Model\FixedList.cs" />
@@ -187,6 +204,12 @@
     <Compile Include="View\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\QRDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\QRDialog.Designer.cs">
+      <DependentUpon>QRDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\SortableBindingList.cs" />
     <Compile Include="View\StateTextBox.cs">
       <SubType>Component</SubType>
@@ -238,7 +261,11 @@
     <EmbeddedResource Include="View\Customs\ExtraTextGroup.resx">
       <DependentUpon>ExtraTextGroup.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\QRDialog.resx">
+      <DependentUpon>QRDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="Libs\QRCoder\Assets\nuget-readme.md" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -255,6 +282,7 @@
     <Content Include="assests\Close.png" />
     <Content Include="assests\icons8-close-16.png" />
     <Content Include="assests\vCard.ico" />
+    <Content Include="Libs\QRCoder\Assets\nuget-icon.png" />
     <Content Include="Releases.txt" />
   </ItemGroup>
   <ItemGroup>
