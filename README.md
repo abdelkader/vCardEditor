@@ -24,6 +24,7 @@ The software is still in **early stage**.
  - 📖 [MVP pattern from this example](https://github.com/lennykean/NoteCards)
  - 🧰 [SortableBindingList](http://timvw.be/2008/08/02/presenting-the-sortablebindinglistt-take-two/)
  - 🧰 [Custom TabControl](https://github.com/r-aghaei/TabControlWithCloseButtonAndAddButton)
+ - 🧰 [QRCoder](https://github.com/codebude/QRCoder)
 
 ## 📑 Release notes
 Check release text file for history.
