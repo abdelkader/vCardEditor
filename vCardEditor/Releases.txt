@@ -1,4 +1,7 @@
-﻿0.5.2
+﻿0.5.3
+   Support of QR Code.
+
+0.5.2
    added an option to Right-click on a ".vcf"" file  –> Open With —> vCardEditor
 
 0.5.1
