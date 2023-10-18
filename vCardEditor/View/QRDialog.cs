@@ -9,43 +9,30 @@ namespace vCardEditor.View
 {
     public partial class QRDialog : Form
     {
-        public QRDialog()
+        public QRDialog(string content)
         {
             InitializeComponent();
+            RenderQrCode(content);
         }
 
-        private void RenderQrCode()
+        public void RenderQrCode(string code)
         {
-
-            QRCodeGenerator.ECCLevel eccLevel = (QRCodeGenerator.ECCLevel)0;
+            //TODO Change ECCLevel
+            QRCodeGenerator.ECCLevel eccLevel = 0;
 
             using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
-            using (QRCodeData qrCodeData = qrGenerator.CreateQrCode("BEGIN:VCARD\r\nVERSION:3.0\r\nN:Chlef université;sarah;;;\r\nFN:sarah Chlef université\r\nADR;TYPE=HOME:;;sdad;;das;;\r\nEMAIL;TYPE=INTERNET:sibri02@yahoo.fr\r\nNOTE:I am proficient in Tiger-Crane Style\\,\\nand I am more than proficient in the exquisite art of the Samurai sword.\r\nNOTE:eee\r\nORG:Google\\;GMail Team\\;Spam Detection Squad\r\nTEL;TYPE=CELL;TYPE=OTHER;TYPE=VOICE:+213560348275\r\nTEL;TYPE=OTHER;TYPE=FAX:+2131122\r\nEND:VCARD\r\n", eccLevel))
+            using (QRCodeData qrCodeData = qrGenerator.CreateQrCode(code, eccLevel))
             using (QRCode qrCode = new QRCode(qrCodeData))
             {
-                pictureBoxQRCode.BackgroundImage = qrCode.GetGraphic(20, GetPrimaryColor(), GetBackgroundColor(), null, 1);
-
+                pictureBoxQRCode.BackgroundImage = qrCode.GetGraphic(20, Color.Black, Color.White, null, 1);
                 pictureBoxQRCode.Size = new System.Drawing.Size(pictureBoxQRCode.Width, pictureBoxQRCode.Height);
-                //Set the SizeMode to center the image.
-                pictureBoxQRCode.SizeMode = PictureBoxSizeMode.CenterImage;
-
                 pictureBoxQRCode.SizeMode = PictureBoxSizeMode.StretchImage;
             }
         }
 
-        private Color GetPrimaryColor()
-        {
-            return Color.Black;
-        }
-
-        private Color GetBackgroundColor()
-        {
-            return Color.White;
-        }
-
         private void btnClose_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void btnExport_Click(object sender, EventArgs e)
@@ -56,16 +43,10 @@ namespace vCardEditor.View
             saveFileDialog1.Title = "Save an Image File";
             saveFileDialog1.ShowDialog();
 
-            // If the file name is not an empty string open it for saving.
             if (saveFileDialog1.FileName != "")
             {
-                // Saves the Image via a FileStream created by the OpenFile method.
                 using (FileStream fs = (System.IO.FileStream)saveFileDialog1.OpenFile())
                 {
-                    // Saves the Image in the appropriate ImageFormat based upon the
-                    // File type selected in the dialog box.
-                    // NOTE that the FilterIndex property is one-based.
-
                     ImageFormat imageFormat = null;
                     switch (saveFileDialog1.FilterIndex)
                     {

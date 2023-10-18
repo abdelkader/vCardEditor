@@ -59,17 +59,18 @@ namespace vCardEditor.View
             this.tbsOpen = new System.Windows.Forms.ToolStripButton();
             this.tbsSave = new System.Windows.Forms.ToolStripButton();
             this.tbsDelete = new System.Windows.Forms.ToolStripButton();
+            this.tbsQR = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tbsAbout = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.bsContacts = new System.Windows.Forms.BindingSource(this.components);
             this.gbNameList = new System.Windows.Forms.GroupBox();
             this.dgContacts = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.FormattedName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FamilyName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cellular = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bsContacts = new System.Windows.Forms.BindingSource(this.components);
             this.btnClearFilter = new System.Windows.Forms.Button();
             this.textBoxFilter = new System.Windows.Forms.TextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -100,9 +101,9 @@ namespace vCardEditor.View
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bsContacts)).BeginInit();
             this.gbNameList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgContacts)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsContacts)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -296,6 +297,7 @@ namespace vCardEditor.View
             this.tbsOpen,
             this.tbsSave,
             this.tbsDelete,
+            this.tbsQR,
             this.toolStripSeparator1,
             this.tbsAbout,
             this.toolStripSeparator});
@@ -344,6 +346,16 @@ namespace vCardEditor.View
             this.tbsDelete.Size = new System.Drawing.Size(29, 24);
             this.tbsDelete.Text = "Delete";
             this.tbsDelete.Click += new System.EventHandler(this.tbsDelete_Click);
+            // 
+            // tbsQR
+            // 
+            this.tbsQR.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbsQR.Image = global::vCardEditor.Properties.Resources.nuget_icon;
+            this.tbsQR.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbsQR.Name = "tbsQR";
+            this.tbsQR.Size = new System.Drawing.Size(29, 24);
+            this.tbsQR.Text = "toolStripButton1";
+            this.tbsQR.Click += new System.EventHandler(this.tbsQR_Click);
             // 
             // toolStripSeparator1
             // 
@@ -545,6 +557,7 @@ namespace vCardEditor.View
             this.extendedPanelWeb.Caption = "";
             this.extendedPanelWeb.Location = new System.Drawing.Point(402, 389);
             this.extendedPanelWeb.Name = "extendedPanelWeb";
+            this.extendedPanelWeb.panelType = vCardEditor.View.Customs.PanelType.Web;
             this.extendedPanelWeb.Size = new System.Drawing.Size(381, 155);
             this.extendedPanelWeb.TabIndex = 59;
             // 
@@ -554,6 +567,7 @@ namespace vCardEditor.View
             this.extendedPanelPhones.Caption = "";
             this.extendedPanelPhones.Location = new System.Drawing.Point(13, 389);
             this.extendedPanelPhones.Name = "extendedPanelPhones";
+            this.extendedPanelPhones.panelType = vCardEditor.View.Customs.PanelType.Phone;
             this.extendedPanelPhones.Size = new System.Drawing.Size(367, 155);
             this.extendedPanelPhones.TabIndex = 58;
             // 
@@ -809,10 +823,10 @@ namespace vCardEditor.View
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bsContacts)).EndInit();
             this.gbNameList.ResumeLayout(false);
             this.gbNameList.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgContacts)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsContacts)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -898,5 +912,6 @@ namespace vCardEditor.View
         private AddressTabControl tbcAddress;
         private System.Windows.Forms.TabPage tabPage3;
         internal System.Windows.Forms.PictureBox PhotoBox;
+        private System.Windows.Forms.ToolStripButton tbsQR;
     }
 }

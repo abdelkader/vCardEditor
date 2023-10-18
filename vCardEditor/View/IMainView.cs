@@ -21,6 +21,7 @@ namespace VCFEditor.View
         event EventHandler<EventArg<bool>> CloseForm;
         event EventHandler<EventArg<string>> ModifyImage;
         event EventHandler ExportImage;
+        event EventHandler ExportQR;
         event EventHandler<EventArg<List<vCardDeliveryAddressTypes>>> AddressAdded;
         event EventHandler<EventArg<List<vCardDeliveryAddressTypes>>> AddressModified;
         event EventHandler<EventArg<int>> AddressRemoved;
@@ -41,5 +42,6 @@ namespace VCFEditor.View
         FormState GetFormState();
         void LoadIntialState(FormState state);
         void AddExtraTextGroup(vCardPropeties type, string content);
+        void DisplayQRCode(string content);
     }
 }

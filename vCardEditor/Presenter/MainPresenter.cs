@@ -33,6 +33,7 @@ namespace VCFEditor.Presenter
             _view.CloseForm += CloseFormHandler;
             _view.ModifyImage += ModifyImageHandler;
             _view.ExportImage += ExportImageHandler;
+            _view.ExportQR += ExportQRHandler;
             _view.AddressAdded += AddressAddedHandler;
             _view.AddressModified += AddressModifiedHandler;
             _view.AddressRemoved += AddressRemovedHandler;
@@ -112,6 +113,18 @@ namespace VCFEditor.Presenter
                     string imageFile = _view.DisplaySaveDialog(newPath);
                     _repository.SaveImageToDisk(imageFile, image);
                 }
+            }
+        }
+
+        private void ExportQRHandler(object sender, EventArgs e)
+        {
+
+            if (_view.SelectedContactIndex > -1)
+            {
+                var card = _repository.Contacts[_view.SelectedContactIndex].card;
+                string content = _repository.GenerateStringFromVCard(card);
+
+                _view.DisplayQRCode(content);
             }
         }
 

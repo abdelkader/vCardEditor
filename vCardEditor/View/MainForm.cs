@@ -32,6 +32,7 @@ namespace vCardEditor.View
         public event EventHandler ChangeContactsSelected;
         public event EventHandler TextBoxValueChanged;
         public event EventHandler ExportImage;
+        public event EventHandler ExportQR;
         public event EventHandler CopyTextToClipboardEvent;
 
         ComponentResourceManager resources;
@@ -449,8 +450,10 @@ namespace vCardEditor.View
         public string DisplaySaveDialog(string filename)
         {
 
-            var saveFileDialog = new SaveFileDialog();
-            saveFileDialog.FileName = filename;
+            var saveFileDialog = new SaveFileDialog
+            {
+                FileName = filename
+            };
 
             DialogResult result = saveFileDialog.ShowDialog();
             if (result == DialogResult.OK)
@@ -613,6 +616,16 @@ namespace vCardEditor.View
             var evt = new EventArg<vCardPropeties>(vCardPropeties.ORG);
             AddExtraField?.Invoke(sender, evt);
         }
-       
+
+        private void tbsQR_Click(object sender, EventArgs e)
+        {
+            ExportQR?.Invoke(sender, e);
+        }
+
+        public void DisplayQRCode(string content)
+        {
+            QRDialog qr = new QRDialog(content);
+            qr.ShowDialog();
+        }
     }
 }
