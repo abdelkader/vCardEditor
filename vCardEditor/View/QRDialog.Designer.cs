@@ -32,7 +32,6 @@ namespace vCardEditor.View
             this.btnExport = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.pictureBoxQRCode = new System.Windows.Forms.PictureBox();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQRCode)).BeginInit();
             this.SuspendLayout();
             // 
@@ -91,6 +90,5 @@ namespace vCardEditor.View
         private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.PictureBox pictureBoxQRCode;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
