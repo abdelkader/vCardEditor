@@ -60,12 +60,12 @@ namespace vCardEditor.View.Customs
             // 
             // ExtAdressLabel
             // 
-            this.ExtAdressLabel.Location = new System.Drawing.Point(1, 42);
+            this.ExtAdressLabel.Location = new System.Drawing.Point(4, 45);
             this.ExtAdressLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ExtAdressLabel.Name = "ExtAdressLabel";
-            this.ExtAdressLabel.Size = new System.Drawing.Size(87, 23);
+            this.ExtAdressLabel.Size = new System.Drawing.Size(40, 23);
             this.ExtAdressLabel.TabIndex = 26;
-            this.ExtAdressLabel.Text = "Ext Address:";
+            this.ExtAdressLabel.Text = "Ext:";
             this.ExtAdressLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // StreetLabel
@@ -93,14 +93,13 @@ namespace vCardEditor.View.Customs
             // 
             // POBoxLabel
             // 
-            this.POBoxLabel.Location = new System.Drawing.Point(334, 75);
+            this.POBoxLabel.Location = new System.Drawing.Point(338, 75);
             this.POBoxLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.POBoxLabel.Name = "POBoxLabel";
-            this.POBoxLabel.Size = new System.Drawing.Size(59, 23);
+            this.POBoxLabel.Size = new System.Drawing.Size(38, 23);
             this.POBoxLabel.TabIndex = 16;
-            this.POBoxLabel.Text = "PO Box:";
+            this.POBoxLabel.Text = "PO :";
             this.POBoxLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            
             // 
             // CountryValue
             // 
@@ -129,7 +128,7 @@ namespace vCardEditor.View.Customs
             // 
             this.POBoxValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.POBoxValue.Location = new System.Drawing.Point(397, 75);
+            this.POBoxValue.Location = new System.Drawing.Point(397, 76);
             this.POBoxValue.Margin = new System.Windows.Forms.Padding(4);
             this.POBoxValue.Name = "POBoxValue";
             this.POBoxValue.oldText = null;
@@ -140,7 +139,7 @@ namespace vCardEditor.View.Customs
             // 
             // CityLabel
             // 
-            this.CityLabel.Location = new System.Drawing.Point(338, 45);
+            this.CityLabel.Location = new System.Drawing.Point(338, 46);
             this.CityLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.CityLabel.Name = "CityLabel";
             this.CityLabel.Size = new System.Drawing.Size(32, 23);
@@ -176,7 +175,7 @@ namespace vCardEditor.View.Customs
             // 
             // StateLabel
             // 
-            this.StateLabel.Location = new System.Drawing.Point(17, 74);
+            this.StateLabel.Location = new System.Drawing.Point(2, 74);
             this.StateLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.StateLabel.Name = "StateLabel";
             this.StateLabel.Size = new System.Drawing.Size(61, 23);

@@ -244,6 +244,8 @@ namespace VCFEditor.Repository
                     adr.PostalCode = item.PostalCode;
                     adr.Region = item.Region;
                     adr.Street = item.Street;
+                    adr.ExtendedAddress = item.ExtendedAddress;
+                    adr.PostOfficeBox = item.PostOfficeBox;
                 }
                 else
                     card.DeliveryAddresses.Add(new vCardDeliveryAddress(item.Street, item.City, item.Region, item.Country,
