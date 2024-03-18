@@ -4,9 +4,11 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using vCardEditor.Repository;
 
 namespace vCardEditor.View
 {
@@ -105,30 +107,40 @@ namespace vCardEditor.View
 
         private async void updateButton_Click(object sender, EventArgs e)
         {
-            string url = "https://raw.githubusercontent.com/abdelkader/vCardEditor/master/vCardEditor/Releases.txt";
-            using (var client = new System.Net.WebClient())
+            string url = ConfigRepository.Instance.VersionUrl;
+
+            try
             {
-                string result = await client.DownloadStringTaskAsync(url);
-                if (result.Length > 0)
+                using (var client = new System.Net.WebClient())
                 {
-                    using (var reader = new StringReader(result))
+                    string result = await client.DownloadStringTaskAsync(url);
+                    if (result.Length > 0)
                     {
-                        string firstline = reader.ReadLine();
-                        var split1 = firstline.Split('.');
-                        string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                        using (var reader = new StringReader(result))
+                        {
+                            string InternetVersion = reader.ReadLine();
+                            string AssemblyVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                            Version v1 = new Version(InternetVersion);
+                            Version v2 = new Version(AssemblyVersion);
 
-                        var split2 = version.Split('.');
+                            if (v1.CompareTo(v2) > 0)
+                                MessageBox.Show(String.Format("New version {0} found!", result));
+                            else
+                                MessageBox.Show("You have the latest version!");
+                        }
 
-                        if ((int.Parse(split1[1]) > int.Parse(split2[1]))
-                            ||
-                           (int.Parse(split1[2]) > int.Parse(split2[2])))
-                            MessageBox.Show(String.Format("New version {0} found!", result));
-                        else
-                            MessageBox.Show("You have the latest version!");
                     }
-
-                }
                 
+                }
+
+            }
+            catch (WebException )
+            {
+                MessageBox.Show("Could not download version information from GitHub.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception )
+            {
+                MessageBox.Show("Error processing version information.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

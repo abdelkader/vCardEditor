@@ -33,7 +33,10 @@ namespace vCardEditor.Repository
         public bool OverWrite { get; set; }
         [Description("Maximum entries for MRU ")]
         public int Maximum { get; set; }
-
+        
+        [Description("Url for checking application version")]
+        public string VersionUrl { get; set; }
+        
         [Browsable(false)]
         public FixedList Paths { get; set; }
 
@@ -86,7 +89,8 @@ namespace vCardEditor.Repository
                 configData = new ConfigRepository
                 {
                     Maximum = MAX_RECENT_FILES,
-                    Paths = new FixedList(MAX_RECENT_FILES)
+                    Paths = new FixedList(MAX_RECENT_FILES),
+                    VersionUrl = "https://raw.githubusercontent.com/abdelkader/vCardEditor/master/vCardEditor/Releases.txt"
                 };
             }
 
