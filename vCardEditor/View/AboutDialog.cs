@@ -107,32 +107,24 @@ namespace vCardEditor.View
 
         private async void updateButton_Click(object sender, EventArgs e)
         {
-            string url = ConfigRepository.Instance.VersionUrl;
-
             try
             {
-                using (var client = new System.Net.WebClient())
+                using (var client = new WebClient())
                 {
-                    string result = await client.DownloadStringTaskAsync(url);
-                    if (result.Length > 0)
+                    string result = await client.DownloadStringTaskAsync(ConfigRepository.Instance.VersionUrl);
+                    using (var reader = new StringReader(result))
                     {
-                        using (var reader = new StringReader(result))
-                        {
-                            string InternetVersion = reader.ReadLine();
-                            string AssemblyVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-                            Version v1 = new Version(InternetVersion);
-                            Version v2 = new Version(AssemblyVersion);
+                        string InternetVersion = reader.ReadLine();
+                        string AssemblyVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                        Version v1 = new Version(InternetVersion);
+                        Version v2 = new Version(AssemblyVersion);
 
-                            if (v1.CompareTo(v2) > 0)
-                                MessageBox.Show(String.Format("New version {0} found!", result));
-                            else
-                                MessageBox.Show("You have the latest version!");
-                        }
-
+                        if (v1.CompareTo(v2) > 0)
+                            MessageBox.Show(string.Format("New version {0} found!", result), "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        else
+                            MessageBox.Show("You have the latest version!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                
                 }
-
             }
             catch (WebException )
             {

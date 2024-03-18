@@ -1,5 +1,7 @@
 ﻿0.5.4
    Fix a regression when saving Phones, Website, Email
+   added the update button in the about dialog to check the latest version.
+
 0.5.3
    Support of QR Code.
 
