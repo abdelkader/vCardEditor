@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace vCardEditor.View
@@ -100,5 +102,34 @@ namespace vCardEditor.View
             }
         }
         #endregion
+
+        private async void updateButton_Click(object sender, EventArgs e)
+        {
+            string url = "https://raw.githubusercontent.com/abdelkader/vCardEditor/master/vCardEditor/Releases.txt";
+            using (var client = new System.Net.WebClient())
+            {
+                string result = await client.DownloadStringTaskAsync(url);
+                if (result.Length > 0)
+                {
+                    using (var reader = new StringReader(result))
+                    {
+                        string firstline = reader.ReadLine();
+                        var split1 = firstline.Split('.');
+                        string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
+                        var split2 = version.Split('.');
+
+                        if ((int.Parse(split1[1]) > int.Parse(split2[1]))
+                            ||
+                           (int.Parse(split1[2]) > int.Parse(split2[2])))
+                            MessageBox.Show(String.Format("New version {0} found!", result));
+                        else
+                            MessageBox.Show("You have the latest version!");
+                    }
+
+                }
+                
+            }
+        }
     }
 }
