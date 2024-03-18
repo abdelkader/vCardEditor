@@ -84,6 +84,10 @@ namespace vCardEditor.View
             {
                 //make sure the last changes in the textboxes is saved.
                 Validate();
+
+                //Make sure to save changes for the current row.
+                dgContacts_RowLeave(null, null);
+
                 SaveContactsSelected(sender, e);
             }
 

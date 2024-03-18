@@ -69,20 +69,37 @@ namespace VCFEditor.Repository
             for (int i = 0; i < lines.Length; i++)
             {
                 RawContent.AppendLine(lines[i]);
-                if (string.Equals(lines[i].TrimEnd(), "END:VCARD", StringComparison.OrdinalIgnoreCase))
+                try
                 {
-                    contact.card = ParseRawContent(RawContent);
-                    Contacts.Add(contact);
-                    contact = new Contact();
-                    RawContent.Length = 0;
+                    if (string.Equals(lines[i].TrimEnd(), "END:VCARD", StringComparison.OrdinalIgnoreCase))
+                    {
+                        contact.card = ParseRawContent(RawContent);
+                        Contacts.Add(contact);
+                        contact = new Contact();
+                        RawContent.Length = 0;
+                    }
                 }
-              
+                catch (Exception)
+                {
+                    OriginalContactList = null;
+                    return false;
+                }
             }
             
             OriginalContactList = Contacts;
             return true;
         }
-       
+
+        private vCard ParseRawContent(StringBuilder rawContent)
+        {
+            vCard card = null;
+
+            using (StringReader reader = new StringReader(rawContent.ToString()))
+                card = new vCard(reader);
+
+            return card;
+        }
+
         public void AddEmptyContact()
         {
             if (_contacts != null && _contacts.Count > 0)
@@ -118,9 +135,9 @@ namespace VCFEditor.Repository
                 
                 //Clean the flag for every contact, even the deleted ones.
                 entry.isDirty = false;
-            }
                 
-
+            }
+            _dirty = false;
             _fileHandler.WriteAllText(fileName, sb.ToString());
         }
 
@@ -156,28 +173,6 @@ namespace VCFEditor.Repository
 
         }
        
-        private vCard ParseRawContent(StringBuilder rawContent)
-        {
-            vCard card = null;
-
-            using (MemoryStream s = GenerateStreamFromString(rawContent.ToString()))
-            using (TextReader streamReader = new StreamReader(s, Encoding.UTF8))
-            {
-                card = new vCard(streamReader);
-            }
-
-            return card;
-        }
-       
-        private MemoryStream GenerateStreamFromString(string s)
-        {
-            MemoryStream stream = new MemoryStream();
-            StreamWriter writer = new StreamWriter(stream);
-            writer.Write(s);
-            writer.Flush();
-            stream.Position = 0;
-            return stream;
-        }
 
         public SortableBindingList<Contact> FilterContacts(string filter)
         {
@@ -360,10 +355,11 @@ namespace VCFEditor.Repository
         public string GenerateStringFromVCard(vCard card)
         {
             vCardStandardWriter writer = new vCardStandardWriter();
-            TextWriter tw = new StringWriter();
-            writer.Write(card, tw);
-
-            return tw.ToString();
+            using (TextWriter tw = new StringWriter())
+            {
+                writer.Write(card, tw);
+                return tw.ToString();
+            }
         }
 
         public void ModifyImage(int index, vCardPhoto photo)
