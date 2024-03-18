@@ -22,52 +22,15 @@ namespace vCardEditor.View.Customs
 
         private void ContentTextBox_Validated(object sender, EventArgs e)
         {
-            var card = this.Tag;
-
-            if (card is vCardPhone)
-            {
-                var phone = card as vCardPhone;
-                phone.FullNumber = Content;
-            }
-            else if (card is vCardEmailAddress)
-            {
-                var email = card as vCardEmailAddress;
-                email.Address = Content;
-            }
-            else if (card is vCardWebsite)
-            {
-                var web = card as vCardWebsite;
-                web.Url = Content;
-            }
-
-
+            var card = this.Tag as vCardRoot;
+            card.ChangeContent(Content);
         }
 
         public RemovableTextBox(vCardRoot cardType) : this()
         {
-            //CardType = cardType;
             this.Tag = cardType;
-            switch (cardType)
-            {
-                case vCardPhone phone:
-                    Title = phone.PhoneType.ToString();
-                    Content = phone.FullNumber;
-                    break;
-
-                case vCardEmailAddress email:
-                    Title = email.EmailType.ToString();
-                    Content = email.Address;
-                    break;
-
-                case vCardWebsite website:
-                    Title = website.WebsiteType.ToString();
-                    Content = website.Url;
-                    break;
-                   
-                default:
-                    break;
-            }
-            
+            Title = cardType.GetNameType();
+            Content = cardType.ToString();
         }
 
 

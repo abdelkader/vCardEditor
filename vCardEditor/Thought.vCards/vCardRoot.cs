@@ -1,6 +1,8 @@
 ﻿namespace Thought.vCards
 {
-    public class vCardRoot
+    abstract public class vCardRoot
     {
+        abstract public void ChangeContent(string text);
+        abstract public string GetNameType();
     }
 }

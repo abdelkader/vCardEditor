@@ -120,6 +120,16 @@ namespace Thought.vCards
         
         }
 
+        public override void ChangeContent(string text)
+        {
+            this.address = text;
+        }
+
+        public override string GetNameType()
+        {
+            return EmailType.ToString();
+        }
+
 
         /// <summary>
         ///     Builds a string that represents the email address.

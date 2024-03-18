@@ -154,6 +154,16 @@ namespace Thought.vCards
             }
         }
 
+        public override void ChangeContent(string text)
+        {
+            this.url = text;
+        }
+
+        public override string GetNameType()
+        {
+            return WebsiteType.ToString();
+        }
+
 
         /// <summary>
         ///     Returns the string representation (URL) of the web site.

@@ -1,4 +1,6 @@
-﻿0.5.3
+﻿0.5.4
+   Fix a regression when saving Phones, Website, Email
+0.5.3
    Support of QR Code.
 
 0.5.2

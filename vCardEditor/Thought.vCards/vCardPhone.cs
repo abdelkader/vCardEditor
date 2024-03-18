@@ -42,6 +42,10 @@ namespace Thought.vCards
             this.fullNumber = fullNumber;
         }
 
+        public override string ToString()
+        {
+            return this.fullNumber;
+        }
 
         /// <summary>
         ///     Creates a new <see cref="vCardPhone"/> with the specified number and subtype.
@@ -452,6 +456,15 @@ namespace Thought.vCards
             }
         }
 
+        public override void ChangeContent(string text)
+        {
+            this.FullNumber = text;
+        }
+
+        public override string GetNameType()
+        {
+            return PhoneType.ToString();
+        }
     }
 
 }
