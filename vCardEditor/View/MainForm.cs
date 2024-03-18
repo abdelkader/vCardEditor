@@ -201,8 +201,10 @@ namespace vCardEditor.View
             SetSummaryValue(middleNameValue, string.Empty);
             SetSummaryValue(FormattedTitleValue, string.Empty);
             SetSummaryValue(FormattedNameValue, string.Empty);
-           
-            SetAddressesValues(new vCard());
+
+            //SetAddressesValues(new vCard());
+            
+
             SetPhotoValue(new vCardPhotoCollection());
             flowLayoutPanel1.Controls.Clear();
             extendedPanelPhones.ClearFields();
