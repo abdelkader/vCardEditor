@@ -9,8 +9,8 @@ namespace vCardEditor.View
 
         protected override void OnLostFocus(EventArgs e)
         {
-            base.OnLostFocus(e);
             oldText = this.Text;
+            base.OnLostFocus(e);
         }
 
     }
