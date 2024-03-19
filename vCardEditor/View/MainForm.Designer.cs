@@ -32,7 +32,7 @@ namespace vCardEditor.View
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.miSave = new System.Windows.Forms.ToolStripMenuItem();
@@ -96,7 +96,12 @@ namespace vCardEditor.View
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.PhotoBox = new System.Windows.Forms.PictureBox();
             this.TapPageExtra = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panelTabExtra = new System.Windows.Forms.Panel();
+            this.btnAddExtraText = new System.Windows.Forms.Button();
+            this.menuExtraField = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.miNote = new System.Windows.Forms.ToolStripMenuItem();
+            this.miOrg = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.gbNameList.SuspendLayout();
@@ -114,6 +119,8 @@ namespace vCardEditor.View
             this.tbcAddress.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PhotoBox)).BeginInit();
             this.TapPageExtra.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.menuExtraField.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -197,7 +204,7 @@ namespace vCardEditor.View
             // copyToolStripMenuItem
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(167, 26);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.copyToolStripMenuItem.Text = "Copy";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
             // 
@@ -207,7 +214,7 @@ namespace vCardEditor.View
             this.addNotesToolStripMenuItem,
             this.addOrgToolStripMenuItem});
             this.extraFieldsToolStripMenuItem.Name = "extraFieldsToolStripMenuItem";
-            this.extraFieldsToolStripMenuItem.Size = new System.Drawing.Size(167, 26);
+            this.extraFieldsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.extraFieldsToolStripMenuItem.Text = "Extra Fields";
             // 
             // addNotesToolStripMenuItem
@@ -400,8 +407,8 @@ namespace vCardEditor.View
             this.dgContacts.AllowUserToAddRows = false;
             this.dgContacts.AllowUserToDeleteRows = false;
             this.dgContacts.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dgContacts.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dgContacts.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgContacts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -780,7 +787,7 @@ namespace vCardEditor.View
             // TapPageExtra
             // 
             this.TapPageExtra.BackColor = System.Drawing.SystemColors.Control;
-            this.TapPageExtra.Controls.Add(this.panelTabExtra);
+            this.TapPageExtra.Controls.Add(this.groupBox1);
             this.TapPageExtra.Location = new System.Drawing.Point(4, 25);
             this.TapPageExtra.Name = "TapPageExtra";
             this.TapPageExtra.Padding = new System.Windows.Forms.Padding(3);
@@ -788,14 +795,60 @@ namespace vCardEditor.View
             this.TapPageExtra.TabIndex = 1;
             this.TapPageExtra.Text = "Extra";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnAddExtraText);
+            this.groupBox1.Controls.Add(this.panelTabExtra);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(3, 3);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(786, 551);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            // 
             // panelTabExtra
             // 
             this.panelTabExtra.AutoScroll = true;
             this.panelTabExtra.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelTabExtra.Location = new System.Drawing.Point(3, 3);
+            this.panelTabExtra.Location = new System.Drawing.Point(3, 18);
             this.panelTabExtra.Name = "panelTabExtra";
-            this.panelTabExtra.Size = new System.Drawing.Size(786, 551);
-            this.panelTabExtra.TabIndex = 0;
+            this.panelTabExtra.Size = new System.Drawing.Size(780, 530);
+            this.panelTabExtra.TabIndex = 1;
+            // 
+            // btnAddExtraText
+            // 
+            this.btnAddExtraText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddExtraText.BackColor = System.Drawing.SystemColors.Window;
+            this.btnAddExtraText.Image = global::vCardEditor.Properties.Resources.Add;
+            this.btnAddExtraText.Location = new System.Drawing.Point(732, 0);
+            this.btnAddExtraText.Name = "btnAddExtraText";
+            this.btnAddExtraText.Size = new System.Drawing.Size(39, 22);
+            this.btnAddExtraText.TabIndex = 59;
+            this.btnAddExtraText.UseVisualStyleBackColor = true;
+            this.btnAddExtraText.Click += new System.EventHandler(this.btnAddExtraText_Click);
+            // 
+            // menuExtraField
+            // 
+            this.menuExtraField.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuExtraField.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.miNote,
+            this.miOrg});
+            this.menuExtraField.Name = "contextMenuStrip1";
+            this.menuExtraField.Size = new System.Drawing.Size(211, 80);
+            // 
+            // miNote
+            // 
+            this.miNote.Name = "miNote";
+            this.miNote.Size = new System.Drawing.Size(210, 24);
+            this.miNote.Text = "Note";
+            this.miNote.Click += new System.EventHandler(this.miNote_Click);
+            // 
+            // miOrg
+            // 
+            this.miOrg.Name = "miOrg";
+            this.miOrg.Size = new System.Drawing.Size(210, 24);
+            this.miOrg.Text = "Organisation";
+            this.miOrg.Click += new System.EventHandler(this.miOrg_Click);
             // 
             // MainForm
             // 
@@ -837,6 +890,8 @@ namespace vCardEditor.View
             this.tbcAddress.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PhotoBox)).EndInit();
             this.TapPageExtra.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.menuExtraField.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -909,6 +964,11 @@ namespace vCardEditor.View
         private System.Windows.Forms.TabPage tabPage3;
         internal System.Windows.Forms.PictureBox PhotoBox;
         private System.Windows.Forms.ToolStripButton tbsQR;
+        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Panel panelTabExtra;
+        private System.Windows.Forms.Button btnAddExtraText;
+        private System.Windows.Forms.ContextMenuStrip menuExtraField;
+        private System.Windows.Forms.ToolStripMenuItem miNote;
+        private System.Windows.Forms.ToolStripMenuItem miOrg;
     }
 }

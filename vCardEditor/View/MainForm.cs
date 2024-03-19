@@ -615,6 +615,17 @@ namespace vCardEditor.View
                 }
             }
         }
+        private void tbsQR_Click(object sender, EventArgs e)
+        {
+            ExportQR?.Invoke(sender, e);
+        }
+
+        public void DisplayQRCode(string content)
+        {
+            QRDialog qr = new QRDialog(content);
+            qr.ShowDialog();
+        }
+
 
         private void addNotesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -628,15 +639,25 @@ namespace vCardEditor.View
             AddExtraField?.Invoke(sender, evt);
         }
 
-        private void tbsQR_Click(object sender, EventArgs e)
+        private void btnAddExtraText_Click(object sender, EventArgs e)
         {
-            ExportQR?.Invoke(sender, e);
+            Button btnSender = (Button)sender;
+            Point ptLowerLeft = new Point(0, btnSender.Height);
+            ptLowerLeft = btnSender.PointToScreen(ptLowerLeft);
+            menuExtraField.Show(ptLowerLeft);
         }
 
-        public void DisplayQRCode(string content)
+
+        private void miNote_Click(object sender, EventArgs e)
         {
-            QRDialog qr = new QRDialog(content);
-            qr.ShowDialog();
+            var evt = new EventArg<vCardPropeties>(vCardPropeties.NOTE);
+            AddExtraField?.Invoke(sender, evt);
+        }
+
+        private void miOrg_Click(object sender, EventArgs e)
+        {
+            var evt = new EventArg<vCardPropeties>(vCardPropeties.ORG);
+            AddExtraField?.Invoke(sender, evt);
         }
     }
 }
