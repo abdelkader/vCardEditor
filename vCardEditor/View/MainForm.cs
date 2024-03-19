@@ -52,6 +52,9 @@ namespace vCardEditor.View
 
         public MainForm()
         {
+            this.extendedPanelWeb = new vCardEditor.View.Customs.ExtendedPanel(PanelType.Web);
+            this.extendedPanelPhones = new vCardEditor.View.Customs.ExtendedPanel(PanelType.Phone);
+
             InitializeComponent();
             
             resources = new ComponentResourceManager(typeof(MainForm));
@@ -190,6 +193,8 @@ namespace vCardEditor.View
                 var send = sender as Control;
                 flowLayoutPanel1.Controls.Remove(send.Parent);
             };
+            
+
 
             flowLayoutPanel1.Controls.Add(etg);
         }
