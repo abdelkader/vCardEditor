@@ -47,6 +47,8 @@ namespace vCardEditor.View.UIToolbox
             // 
             // txtContent
             // 
+            this.txtContent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtContent.Location = new System.Drawing.Point(56, 4);
             this.txtContent.Multiline = true;
             this.txtContent.Name = "txtContent";

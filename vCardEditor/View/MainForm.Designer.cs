@@ -96,7 +96,7 @@ namespace vCardEditor.View
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.PhotoBox = new System.Windows.Forms.PictureBox();
             this.TapPageExtra = new System.Windows.Forms.TabPage();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.panelTabExtra = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.gbNameList.SuspendLayout();
@@ -780,7 +780,7 @@ namespace vCardEditor.View
             // TapPageExtra
             // 
             this.TapPageExtra.BackColor = System.Drawing.SystemColors.Control;
-            this.TapPageExtra.Controls.Add(this.flowLayoutPanel1);
+            this.TapPageExtra.Controls.Add(this.panelTabExtra);
             this.TapPageExtra.Location = new System.Drawing.Point(4, 25);
             this.TapPageExtra.Name = "TapPageExtra";
             this.TapPageExtra.Padding = new System.Windows.Forms.Padding(3);
@@ -788,15 +788,14 @@ namespace vCardEditor.View
             this.TapPageExtra.TabIndex = 1;
             this.TapPageExtra.Text = "Extra";
             // 
-            // flowLayoutPanel1
+            // panelTabExtra
             // 
-            this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.Control;
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(786, 551);
-            this.flowLayoutPanel1.TabIndex = 0;
+            this.panelTabExtra.AutoScroll = true;
+            this.panelTabExtra.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelTabExtra.Location = new System.Drawing.Point(3, 3);
+            this.panelTabExtra.Name = "panelTabExtra";
+            this.panelTabExtra.Size = new System.Drawing.Size(786, 551);
+            this.panelTabExtra.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -887,7 +886,6 @@ namespace vCardEditor.View
         private System.Windows.Forms.TabControl tcMainTab;
         private System.Windows.Forms.TabPage TapPageMain;
         private System.Windows.Forms.TabPage TapPageExtra;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.ToolStripMenuItem extraFieldsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addNotesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addOrgToolStripMenuItem;
@@ -911,5 +909,6 @@ namespace vCardEditor.View
         private System.Windows.Forms.TabPage tabPage3;
         internal System.Windows.Forms.PictureBox PhotoBox;
         private System.Windows.Forms.ToolStripButton tbsQR;
+        private System.Windows.Forms.Panel panelTabExtra;
     }
 }

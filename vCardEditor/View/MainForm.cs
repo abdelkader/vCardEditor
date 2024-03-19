@@ -191,12 +191,12 @@ namespace vCardEditor.View
             etg.ControlDeleted += (sender, e) =>
             {
                 var send = sender as Control;
-                flowLayoutPanel1.Controls.Remove(send.Parent);
+                panelTabExtra.Controls.Remove(send.Parent);
             };
-            
+            etg.Dock = DockStyle.Top;
 
 
-            flowLayoutPanel1.Controls.Add(etg);
+            panelTabExtra.Controls.Add(etg);
         }
 
         public void ClearContactDetail()
@@ -215,7 +215,7 @@ namespace vCardEditor.View
             
 
             SetPhotoValue(new vCardPhotoCollection());
-            flowLayoutPanel1.Controls.Clear();
+            panelTabExtra.Controls.Clear();
             extendedPanelPhones.ClearFields();
             extendedPanelWeb.ClearFields();
         }
@@ -346,7 +346,7 @@ namespace vCardEditor.View
 
         private void getExtraData(vCard card)
         {
-            foreach (var item in flowLayoutPanel1.Controls)
+            foreach (var item in panelTabExtra.Controls)
             {
                 var tbc = item as ExtraTextGroup;
                 switch (tbc.CardProp)
