@@ -1,4 +1,8 @@
-﻿0.5.4
+﻿0.5.5
+   redisgn the extra tab
+   Fix some bugs
+
+0.5.4
    Fix a regression when saving Phones, Website, Email
    added the update button in the about dialog to check the latest version.
 
