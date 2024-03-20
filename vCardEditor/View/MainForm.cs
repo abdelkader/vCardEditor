@@ -49,6 +49,8 @@ namespace vCardEditor.View
             }
 
         }
+        
+        private int LastRowIndex = -1;
 
         public MainForm()
         {
@@ -101,13 +103,21 @@ namespace vCardEditor.View
 
         private void dgContacts_SelectionChanged(object sender, EventArgs e)
         {
-            if (ChangeContactsSelected != null && dgContacts.CurrentCell != null)
+            //Weired, the selection is fired multiple times...
+            int RowIndex = dgContacts.CurrentCell.RowIndex;
+            if (LastRowIndex != RowIndex)
             {
-                vCard data = GetvCardFromWindow();
-                ChangeContactsSelected(sender, new EventArg<vCard>(data));
+
+                if (ChangeContactsSelected != null && dgContacts.CurrentCell != null)
+                {
+                    vCard data = GetvCardFromWindow();
+                    ChangeContactsSelected(sender, new EventArg<vCard>(data));
+                }
+                else
+                    ChangeContactsSelected(sender, new EventArg<vCard>(null));
+
+                LastRowIndex = RowIndex;
             }
-            else
-                ChangeContactsSelected(sender, new EventArg<vCard>(null));
         }
 
         private void Value_TextChanged(object sender, EventArgs e)
@@ -516,6 +526,7 @@ namespace vCardEditor.View
             Clipboard.SetText(text);
         }
 
+       
         private void dgContacts_CellContextMenuStripNeeded(object sender, DataGridViewCellContextMenuStripNeededEventArgs e)
         {
             if (e.RowIndex == -1)
@@ -667,5 +678,7 @@ namespace vCardEditor.View
         {
             TapPageExtra.Text = string.Format("Extra ({0})", panelTabExtra.Controls.Count);
         }
+
+        
     }
 }

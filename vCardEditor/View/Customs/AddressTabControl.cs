@@ -186,7 +186,7 @@ namespace vCardEditor.View.Customs
         {
             foreach (var item in card.DeliveryAddresses)
                 AddtabForAddress(item);
-            //SelectedIndex = 0;
+            SelectedIndex = 0;
         }
 
         private void AddtabForAddress(vCardDeliveryAddress da)
