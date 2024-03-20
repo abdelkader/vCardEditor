@@ -34,7 +34,7 @@ namespace vCardEditor.View
         public event EventHandler ExportImage;
         public event EventHandler ExportQR;
         public event EventHandler CopyTextToClipboardEvent;
-
+       
         ComponentResourceManager resources;
 
        
@@ -52,8 +52,6 @@ namespace vCardEditor.View
 
         public MainForm()
         {
-            this.extendedPanelWeb = new vCardEditor.View.Customs.ExtendedPanel(PanelType.Web);
-            this.extendedPanelPhones = new vCardEditor.View.Customs.ExtendedPanel(PanelType.Phone);
 
             InitializeComponent();
             
@@ -309,7 +307,7 @@ namespace vCardEditor.View
             card.Phones.Clear();
             foreach (var item in extendedPanelPhones.GetExtraFields())
             {
-                if (item is vCardPhone) 
+                if (item is vCardPhone)
                 {
                     vCardPhone phone = item as vCardPhone;
                     card.Phones.Add(phone);
@@ -658,6 +656,16 @@ namespace vCardEditor.View
         {
             var evt = new EventArg<vCardPropeties>(vCardPropeties.ORG);
             AddExtraField?.Invoke(sender, evt);
+        }
+
+        private void panelTabExtra_ControlAdded(object sender, ControlEventArgs e)
+        {
+            TapPageExtra.Text = string.Format("Extra ({0})", panelTabExtra.Controls.Count);
+        }
+
+        private void panelTabExtra_ControlRemoved(object sender, ControlEventArgs e)
+        {
+            TapPageExtra.Text = string.Format("Extra ({0})", panelTabExtra.Controls.Count);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace vCardEditor.View
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.miSave = new System.Windows.Forms.ToolStripMenuItem();
@@ -80,28 +80,30 @@ namespace vCardEditor.View
             this.TapPageMain = new System.Windows.Forms.TabPage();
             this.btnExportImage = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.FormattedTitleValue = new vCardEditor.View.StateTextBox();
             this.FormattedTitleLabel = new System.Windows.Forms.Label();
-            this.lastNameValue = new vCardEditor.View.StateTextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.middleNameValue = new vCardEditor.View.StateTextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.firstNameValue = new vCardEditor.View.StateTextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.FormattedNameValue = new vCardEditor.View.StateTextBox();
             this.FormattedNameLabel = new System.Windows.Forms.Label();
             this.btnRemoveImage = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.tbcAddress = new vCardEditor.View.Customs.AddressTabControl();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.PhotoBox = new System.Windows.Forms.PictureBox();
             this.TapPageExtra = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.panelTabExtra = new System.Windows.Forms.Panel();
             this.btnAddExtraText = new System.Windows.Forms.Button();
+            this.panelTabExtra = new System.Windows.Forms.Panel();
             this.menuExtraField = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.miNote = new System.Windows.Forms.ToolStripMenuItem();
             this.miOrg = new System.Windows.Forms.ToolStripMenuItem();
+            this.FormattedTitleValue = new vCardEditor.View.StateTextBox();
+            this.lastNameValue = new vCardEditor.View.StateTextBox();
+            this.middleNameValue = new vCardEditor.View.StateTextBox();
+            this.firstNameValue = new vCardEditor.View.StateTextBox();
+            this.FormattedNameValue = new vCardEditor.View.StateTextBox();
+            this.tbcAddress = new vCardEditor.View.Customs.AddressTabControl();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.extendedPanelPhones = new vCardEditor.View.Customs.ExtendedPanel();
+            this.extendedPanelWeb = new vCardEditor.View.Customs.ExtendedPanel();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.gbNameList.SuspendLayout();
@@ -116,11 +118,11 @@ namespace vCardEditor.View
             this.TapPageMain.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.tbcAddress.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PhotoBox)).BeginInit();
             this.TapPageExtra.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.menuExtraField.SuspendLayout();
+            this.tbcAddress.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -133,7 +135,7 @@ namespace vCardEditor.View
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1202, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1202, 30);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -147,7 +149,7 @@ namespace vCardEditor.View
             this.recentFilesMenuItem,
             this.miQuit});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 26);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // miSave
@@ -198,13 +200,13 @@ namespace vCardEditor.View
             this.copyToolStripMenuItem,
             this.extraFieldsToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(49, 26);
             this.editToolStripMenuItem.Text = "Edit";
             // 
             // copyToolStripMenuItem
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(167, 26);
             this.copyToolStripMenuItem.Text = "Copy";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
             // 
@@ -214,7 +216,7 @@ namespace vCardEditor.View
             this.addNotesToolStripMenuItem,
             this.addOrgToolStripMenuItem});
             this.extraFieldsToolStripMenuItem.Name = "extraFieldsToolStripMenuItem";
-            this.extraFieldsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.extraFieldsToolStripMenuItem.Size = new System.Drawing.Size(167, 26);
             this.extraFieldsToolStripMenuItem.Text = "Extra Fields";
             // 
             // addNotesToolStripMenuItem
@@ -236,7 +238,7 @@ namespace vCardEditor.View
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.imagesToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(58, 24);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(58, 26);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // imagesToolStripMenuItem
@@ -272,7 +274,7 @@ namespace vCardEditor.View
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.miAbout});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 26);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // miAbout
@@ -306,9 +308,9 @@ namespace vCardEditor.View
             this.toolStripSeparator1,
             this.tbsAbout,
             this.toolStripSeparator});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 28);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 30);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1202, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(1202, 31);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -318,7 +320,7 @@ namespace vCardEditor.View
             this.tbsNew.Image = ((System.Drawing.Image)(resources.GetObject("tbsNew.Image")));
             this.tbsNew.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbsNew.Name = "tbsNew";
-            this.tbsNew.Size = new System.Drawing.Size(29, 24);
+            this.tbsNew.Size = new System.Drawing.Size(29, 28);
             this.tbsNew.Text = "&Nouveau";
             this.tbsNew.Click += new System.EventHandler(this.tbsNew_Click);
             // 
@@ -328,7 +330,7 @@ namespace vCardEditor.View
             this.tbsOpen.Image = ((System.Drawing.Image)(resources.GetObject("tbsOpen.Image")));
             this.tbsOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbsOpen.Name = "tbsOpen";
-            this.tbsOpen.Size = new System.Drawing.Size(29, 24);
+            this.tbsOpen.Size = new System.Drawing.Size(29, 28);
             this.tbsOpen.Text = "&Open";
             this.tbsOpen.Click += new System.EventHandler(this.tbsOpen_Click);
             // 
@@ -338,7 +340,7 @@ namespace vCardEditor.View
             this.tbsSave.Image = ((System.Drawing.Image)(resources.GetObject("tbsSave.Image")));
             this.tbsSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbsSave.Name = "tbsSave";
-            this.tbsSave.Size = new System.Drawing.Size(29, 24);
+            this.tbsSave.Size = new System.Drawing.Size(29, 28);
             this.tbsSave.Text = "&Save";
             this.tbsSave.Click += new System.EventHandler(this.tbsSave_Click);
             // 
@@ -348,7 +350,7 @@ namespace vCardEditor.View
             this.tbsDelete.Image = ((System.Drawing.Image)(resources.GetObject("tbsDelete.Image")));
             this.tbsDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbsDelete.Name = "tbsDelete";
-            this.tbsDelete.Size = new System.Drawing.Size(29, 24);
+            this.tbsDelete.Size = new System.Drawing.Size(29, 28);
             this.tbsDelete.Text = "Delete";
             this.tbsDelete.Click += new System.EventHandler(this.tbsDelete_Click);
             // 
@@ -358,14 +360,14 @@ namespace vCardEditor.View
             this.tbsQR.Image = global::vCardEditor.Properties.Resources.nuget_icon;
             this.tbsQR.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbsQR.Name = "tbsQR";
-            this.tbsQR.Size = new System.Drawing.Size(29, 24);
+            this.tbsQR.Size = new System.Drawing.Size(29, 28);
             this.tbsQR.Text = "&QR Code";
             this.tbsQR.Click += new System.EventHandler(this.tbsQR_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
             // 
             // tbsAbout
             // 
@@ -373,14 +375,14 @@ namespace vCardEditor.View
             this.tbsAbout.Image = ((System.Drawing.Image)(resources.GetObject("tbsAbout.Image")));
             this.tbsAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbsAbout.Name = "tbsAbout";
-            this.tbsAbout.Size = new System.Drawing.Size(29, 24);
+            this.tbsAbout.Size = new System.Drawing.Size(29, 28);
             this.tbsAbout.Text = "&?";
             this.tbsAbout.Click += new System.EventHandler(this.tbsAbout_Click);
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator.Size = new System.Drawing.Size(6, 31);
             // 
             // openFileDialog
             // 
@@ -397,7 +399,7 @@ namespace vCardEditor.View
             this.gbNameList.Margin = new System.Windows.Forms.Padding(4);
             this.gbNameList.Name = "gbNameList";
             this.gbNameList.Padding = new System.Windows.Forms.Padding(4);
-            this.gbNameList.Size = new System.Drawing.Size(398, 586);
+            this.gbNameList.Size = new System.Drawing.Size(398, 580);
             this.gbNameList.TabIndex = 2;
             this.gbNameList.TabStop = false;
             this.gbNameList.Text = "Name List :";
@@ -407,8 +409,8 @@ namespace vCardEditor.View
             this.dgContacts.AllowUserToAddRows = false;
             this.dgContacts.AllowUserToDeleteRows = false;
             this.dgContacts.AllowUserToResizeRows = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dgContacts.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dgContacts.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgContacts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -429,7 +431,7 @@ namespace vCardEditor.View
             this.dgContacts.RowHeadersVisible = false;
             this.dgContacts.RowHeadersWidth = 51;
             this.dgContacts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgContacts.Size = new System.Drawing.Size(390, 533);
+            this.dgContacts.Size = new System.Drawing.Size(390, 527);
             this.dgContacts.TabIndex = 2;
             this.dgContacts.CellContextMenuStripNeeded += new System.Windows.Forms.DataGridViewCellContextMenuStripNeededEventHandler(this.dgContacts_CellContextMenuStripNeeded);
             this.dgContacts.RowLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgContacts_RowLeave);
@@ -512,7 +514,7 @@ namespace vCardEditor.View
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 55);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 61);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -522,7 +524,7 @@ namespace vCardEditor.View
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tcMainTab);
-            this.splitContainer1.Size = new System.Drawing.Size(1202, 586);
+            this.splitContainer1.Size = new System.Drawing.Size(1202, 580);
             this.splitContainer1.SplitterDistance = 398;
             this.splitContainer1.TabIndex = 4;
             // 
@@ -535,7 +537,7 @@ namespace vCardEditor.View
             this.tcMainTab.Location = new System.Drawing.Point(0, 0);
             this.tcMainTab.Name = "tcMainTab";
             this.tcMainTab.SelectedIndex = 0;
-            this.tcMainTab.Size = new System.Drawing.Size(800, 586);
+            this.tcMainTab.Size = new System.Drawing.Size(800, 580);
             this.tcMainTab.TabIndex = 0;
             // 
             // TapPageMain
@@ -551,30 +553,9 @@ namespace vCardEditor.View
             this.TapPageMain.Location = new System.Drawing.Point(4, 25);
             this.TapPageMain.Name = "TapPageMain";
             this.TapPageMain.Padding = new System.Windows.Forms.Padding(3);
-            this.TapPageMain.Size = new System.Drawing.Size(792, 557);
+            this.TapPageMain.Size = new System.Drawing.Size(792, 551);
             this.TapPageMain.TabIndex = 0;
             this.TapPageMain.Text = "Main";
-            // 
-            // extendedPanelWeb
-            // 
-            this.extendedPanelWeb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.extendedPanelWeb.Caption = "";
-            this.extendedPanelWeb.Location = new System.Drawing.Point(402, 389);
-            this.extendedPanelWeb.Name = "extendedPanelWeb";
-            this.extendedPanelWeb.panelType = vCardEditor.View.Customs.PanelType.Web;
-            this.extendedPanelWeb.Size = new System.Drawing.Size(381, 155);
-            this.extendedPanelWeb.TabIndex = 59;
-            // 
-            // extendedPanelPhones
-            // 
-            this.extendedPanelPhones.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.extendedPanelPhones.Caption = "";
-            this.extendedPanelPhones.Location = new System.Drawing.Point(13, 389);
-            this.extendedPanelPhones.Name = "extendedPanelPhones";
-            this.extendedPanelPhones.panelType = vCardEditor.View.Customs.PanelType.Phone;
-            this.extendedPanelPhones.Size = new System.Drawing.Size(367, 155);
-            this.extendedPanelPhones.TabIndex = 58;
             // 
             // btnExportImage
             // 
@@ -610,17 +591,6 @@ namespace vCardEditor.View
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Name";
             // 
-            // FormattedTitleValue
-            // 
-            this.FormattedTitleValue.Location = new System.Drawing.Point(45, 21);
-            this.FormattedTitleValue.Margin = new System.Windows.Forms.Padding(4);
-            this.FormattedTitleValue.Name = "FormattedTitleValue";
-            this.FormattedTitleValue.oldText = null;
-            this.FormattedTitleValue.Size = new System.Drawing.Size(100, 22);
-            this.FormattedTitleValue.TabIndex = 1;
-            this.FormattedTitleValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.FormattedTitleValue.Validated += new System.EventHandler(this.Value_TextChanged);
-            // 
             // FormattedTitleLabel
             // 
             this.FormattedTitleLabel.Location = new System.Drawing.Point(7, 20);
@@ -630,19 +600,6 @@ namespace vCardEditor.View
             this.FormattedTitleLabel.TabIndex = 0;
             this.FormattedTitleLabel.Text = "Title:";
             this.FormattedTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lastNameValue
-            // 
-            this.lastNameValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lastNameValue.Location = new System.Drawing.Point(393, 53);
-            this.lastNameValue.Margin = new System.Windows.Forms.Padding(4);
-            this.lastNameValue.Name = "lastNameValue";
-            this.lastNameValue.oldText = null;
-            this.lastNameValue.Size = new System.Drawing.Size(158, 22);
-            this.lastNameValue.TabIndex = 9;
-            this.lastNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.lastNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // label3
             // 
@@ -654,17 +611,6 @@ namespace vCardEditor.View
             this.label3.Text = "Last:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // middleNameValue
-            // 
-            this.middleNameValue.Location = new System.Drawing.Point(237, 53);
-            this.middleNameValue.Margin = new System.Windows.Forms.Padding(4);
-            this.middleNameValue.Name = "middleNameValue";
-            this.middleNameValue.oldText = null;
-            this.middleNameValue.Size = new System.Drawing.Size(95, 22);
-            this.middleNameValue.TabIndex = 7;
-            this.middleNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.middleNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
-            // 
             // label2
             // 
             this.label2.Location = new System.Drawing.Point(151, 53);
@@ -675,17 +621,6 @@ namespace vCardEditor.View
             this.label2.Text = "Middle:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // firstNameValue
-            // 
-            this.firstNameValue.Location = new System.Drawing.Point(45, 53);
-            this.firstNameValue.Margin = new System.Windows.Forms.Padding(4);
-            this.firstNameValue.Name = "firstNameValue";
-            this.firstNameValue.oldText = null;
-            this.firstNameValue.Size = new System.Drawing.Size(100, 22);
-            this.firstNameValue.TabIndex = 5;
-            this.firstNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.firstNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
-            // 
             // label1
             // 
             this.label1.Location = new System.Drawing.Point(4, 53);
@@ -695,19 +630,6 @@ namespace vCardEditor.View
             this.label1.TabIndex = 4;
             this.label1.Text = "First:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // FormattedNameValue
-            // 
-            this.FormattedNameValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.FormattedNameValue.Location = new System.Drawing.Point(237, 21);
-            this.FormattedNameValue.Margin = new System.Windows.Forms.Padding(4);
-            this.FormattedNameValue.Name = "FormattedNameValue";
-            this.FormattedNameValue.oldText = null;
-            this.FormattedNameValue.Size = new System.Drawing.Size(314, 22);
-            this.FormattedNameValue.TabIndex = 3;
-            this.FormattedNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.FormattedNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // FormattedNameLabel
             // 
@@ -732,8 +654,7 @@ namespace vCardEditor.View
             // 
             // groupBox4
             // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.tbcAddress);
             this.groupBox4.Location = new System.Drawing.Point(13, 184);
@@ -744,6 +665,146 @@ namespace vCardEditor.View
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Address:";
+            // 
+            // PhotoBox
+            // 
+            this.PhotoBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.PhotoBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.PhotoBox.Image = ((System.Drawing.Image)(resources.GetObject("PhotoBox.Image")));
+            this.PhotoBox.Location = new System.Drawing.Point(584, 7);
+            this.PhotoBox.Margin = new System.Windows.Forms.Padding(4);
+            this.PhotoBox.Name = "PhotoBox";
+            this.PhotoBox.Size = new System.Drawing.Size(185, 159);
+            this.PhotoBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PhotoBox.TabIndex = 55;
+            this.PhotoBox.TabStop = false;
+            // 
+            // TapPageExtra
+            // 
+            this.TapPageExtra.BackColor = System.Drawing.SystemColors.Control;
+            this.TapPageExtra.Controls.Add(this.groupBox1);
+            this.TapPageExtra.Location = new System.Drawing.Point(4, 25);
+            this.TapPageExtra.Name = "TapPageExtra";
+            this.TapPageExtra.Padding = new System.Windows.Forms.Padding(3);
+            this.TapPageExtra.Size = new System.Drawing.Size(792, 551);
+            this.TapPageExtra.TabIndex = 1;
+            this.TapPageExtra.Text = "Extra";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnAddExtraText);
+            this.groupBox1.Controls.Add(this.panelTabExtra);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(3, 3);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(786, 545);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            // 
+            // btnAddExtraText
+            // 
+            this.btnAddExtraText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddExtraText.BackColor = System.Drawing.SystemColors.Window;
+            this.btnAddExtraText.Image = global::vCardEditor.Properties.Resources.Add;
+            this.btnAddExtraText.Location = new System.Drawing.Point(732, 0);
+            this.btnAddExtraText.Name = "btnAddExtraText";
+            this.btnAddExtraText.Size = new System.Drawing.Size(39, 22);
+            this.btnAddExtraText.TabIndex = 59;
+            this.btnAddExtraText.UseVisualStyleBackColor = true;
+            this.btnAddExtraText.Click += new System.EventHandler(this.btnAddExtraText_Click);
+            // 
+            // panelTabExtra
+            // 
+            this.panelTabExtra.AutoScroll = true;
+            this.panelTabExtra.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelTabExtra.Location = new System.Drawing.Point(3, 18);
+            this.panelTabExtra.Name = "panelTabExtra";
+            this.panelTabExtra.Size = new System.Drawing.Size(780, 524);
+            this.panelTabExtra.TabIndex = 1;
+            this.panelTabExtra.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.panelTabExtra_ControlAdded);
+            this.panelTabExtra.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.panelTabExtra_ControlRemoved);
+            // 
+            // menuExtraField
+            // 
+            this.menuExtraField.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuExtraField.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.miNote,
+            this.miOrg});
+            this.menuExtraField.Name = "contextMenuStrip1";
+            this.menuExtraField.Size = new System.Drawing.Size(164, 52);
+            // 
+            // miNote
+            // 
+            this.miNote.Name = "miNote";
+            this.miNote.Size = new System.Drawing.Size(163, 24);
+            this.miNote.Text = "Note";
+            this.miNote.Click += new System.EventHandler(this.miNote_Click);
+            // 
+            // miOrg
+            // 
+            this.miOrg.Name = "miOrg";
+            this.miOrg.Size = new System.Drawing.Size(163, 24);
+            this.miOrg.Text = "Organisation";
+            this.miOrg.Click += new System.EventHandler(this.miOrg_Click);
+            // 
+            // FormattedTitleValue
+            // 
+            this.FormattedTitleValue.Location = new System.Drawing.Point(45, 21);
+            this.FormattedTitleValue.Margin = new System.Windows.Forms.Padding(4);
+            this.FormattedTitleValue.Name = "FormattedTitleValue";
+            this.FormattedTitleValue.oldText = null;
+            this.FormattedTitleValue.Size = new System.Drawing.Size(100, 22);
+            this.FormattedTitleValue.TabIndex = 1;
+            this.FormattedTitleValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.FormattedTitleValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            // 
+            // lastNameValue
+            // 
+            this.lastNameValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lastNameValue.Location = new System.Drawing.Point(393, 53);
+            this.lastNameValue.Margin = new System.Windows.Forms.Padding(4);
+            this.lastNameValue.Name = "lastNameValue";
+            this.lastNameValue.oldText = null;
+            this.lastNameValue.Size = new System.Drawing.Size(158, 22);
+            this.lastNameValue.TabIndex = 9;
+            this.lastNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.lastNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            // 
+            // middleNameValue
+            // 
+            this.middleNameValue.Location = new System.Drawing.Point(237, 53);
+            this.middleNameValue.Margin = new System.Windows.Forms.Padding(4);
+            this.middleNameValue.Name = "middleNameValue";
+            this.middleNameValue.oldText = null;
+            this.middleNameValue.Size = new System.Drawing.Size(95, 22);
+            this.middleNameValue.TabIndex = 7;
+            this.middleNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.middleNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            // 
+            // firstNameValue
+            // 
+            this.firstNameValue.Location = new System.Drawing.Point(45, 53);
+            this.firstNameValue.Margin = new System.Windows.Forms.Padding(4);
+            this.firstNameValue.Name = "firstNameValue";
+            this.firstNameValue.oldText = null;
+            this.firstNameValue.Size = new System.Drawing.Size(100, 22);
+            this.firstNameValue.TabIndex = 5;
+            this.firstNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.firstNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            // 
+            // FormattedNameValue
+            // 
+            this.FormattedNameValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FormattedNameValue.Location = new System.Drawing.Point(237, 21);
+            this.FormattedNameValue.Margin = new System.Windows.Forms.Padding(4);
+            this.FormattedNameValue.Name = "FormattedNameValue";
+            this.FormattedNameValue.oldText = null;
+            this.FormattedNameValue.Size = new System.Drawing.Size(314, 22);
+            this.FormattedNameValue.TabIndex = 3;
+            this.FormattedNameValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
+            this.FormattedNameValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // tbcAddress
             // 
@@ -771,84 +832,28 @@ namespace vCardEditor.View
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = " ";
             // 
-            // PhotoBox
+            // extendedPanelPhones
             // 
-            this.PhotoBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.PhotoBox.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.PhotoBox.Image = ((System.Drawing.Image)(resources.GetObject("PhotoBox.Image")));
-            this.PhotoBox.Location = new System.Drawing.Point(584, 7);
-            this.PhotoBox.Margin = new System.Windows.Forms.Padding(4);
-            this.PhotoBox.Name = "PhotoBox";
-            this.PhotoBox.Size = new System.Drawing.Size(185, 159);
-            this.PhotoBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.PhotoBox.TabIndex = 55;
-            this.PhotoBox.TabStop = false;
+            this.extendedPanelPhones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.extendedPanelPhones.Caption = "";
+            this.extendedPanelPhones.Location = new System.Drawing.Point(13, 389);
+            this.extendedPanelPhones.Name = "extendedPanelPhones";
+            this.extendedPanelPhones.panelType = vCardEditor.View.Customs.PanelType.Phone;
+            this.extendedPanelPhones.Size = new System.Drawing.Size(367, 155);
+            this.extendedPanelPhones.TabIndex = 58;
             // 
-            // TapPageExtra
+            // extendedPanelWeb
             // 
-            this.TapPageExtra.BackColor = System.Drawing.SystemColors.Control;
-            this.TapPageExtra.Controls.Add(this.groupBox1);
-            this.TapPageExtra.Location = new System.Drawing.Point(4, 25);
-            this.TapPageExtra.Name = "TapPageExtra";
-            this.TapPageExtra.Padding = new System.Windows.Forms.Padding(3);
-            this.TapPageExtra.Size = new System.Drawing.Size(792, 557);
-            this.TapPageExtra.TabIndex = 1;
-            this.TapPageExtra.Text = "Extra";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.btnAddExtraText);
-            this.groupBox1.Controls.Add(this.panelTabExtra);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(3, 3);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(786, 551);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            // 
-            // panelTabExtra
-            // 
-            this.panelTabExtra.AutoScroll = true;
-            this.panelTabExtra.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelTabExtra.Location = new System.Drawing.Point(3, 18);
-            this.panelTabExtra.Name = "panelTabExtra";
-            this.panelTabExtra.Size = new System.Drawing.Size(780, 530);
-            this.panelTabExtra.TabIndex = 1;
-            // 
-            // btnAddExtraText
-            // 
-            this.btnAddExtraText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddExtraText.BackColor = System.Drawing.SystemColors.Window;
-            this.btnAddExtraText.Image = global::vCardEditor.Properties.Resources.Add;
-            this.btnAddExtraText.Location = new System.Drawing.Point(732, 0);
-            this.btnAddExtraText.Name = "btnAddExtraText";
-            this.btnAddExtraText.Size = new System.Drawing.Size(39, 22);
-            this.btnAddExtraText.TabIndex = 59;
-            this.btnAddExtraText.UseVisualStyleBackColor = true;
-            this.btnAddExtraText.Click += new System.EventHandler(this.btnAddExtraText_Click);
-            // 
-            // menuExtraField
-            // 
-            this.menuExtraField.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuExtraField.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.miNote,
-            this.miOrg});
-            this.menuExtraField.Name = "contextMenuStrip1";
-            this.menuExtraField.Size = new System.Drawing.Size(211, 80);
-            // 
-            // miNote
-            // 
-            this.miNote.Name = "miNote";
-            this.miNote.Size = new System.Drawing.Size(210, 24);
-            this.miNote.Text = "Note";
-            this.miNote.Click += new System.EventHandler(this.miNote_Click);
-            // 
-            // miOrg
-            // 
-            this.miOrg.Name = "miOrg";
-            this.miOrg.Size = new System.Drawing.Size(210, 24);
-            this.miOrg.Text = "Organisation";
-            this.miOrg.Click += new System.EventHandler(this.miOrg_Click);
+            this.extendedPanelWeb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.extendedPanelWeb.Caption = "";
+            this.extendedPanelWeb.Location = new System.Drawing.Point(386, 389);
+            this.extendedPanelWeb.Name = "extendedPanelWeb";
+            this.extendedPanelWeb.panelType = vCardEditor.View.Customs.PanelType.Web;
+            this.extendedPanelWeb.Size = new System.Drawing.Size(397, 155);
+            this.extendedPanelWeb.TabIndex = 59;
             // 
             // MainForm
             // 
@@ -887,11 +892,11 @@ namespace vCardEditor.View
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
-            this.tbcAddress.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PhotoBox)).EndInit();
             this.TapPageExtra.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.menuExtraField.ResumeLayout(false);
+            this.tbcAddress.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -944,8 +949,6 @@ namespace vCardEditor.View
         private System.Windows.Forms.ToolStripMenuItem extraFieldsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addNotesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addOrgToolStripMenuItem;
-        private ExtendedPanel extendedPanelWeb;
-        private ExtendedPanel extendedPanelPhones;
         private System.Windows.Forms.Button btnExportImage;
         private System.Windows.Forms.GroupBox groupBox3;
         internal StateTextBox FormattedTitleValue;
@@ -970,5 +973,7 @@ namespace vCardEditor.View
         private System.Windows.Forms.ContextMenuStrip menuExtraField;
         private System.Windows.Forms.ToolStripMenuItem miNote;
         private System.Windows.Forms.ToolStripMenuItem miOrg;
+        private ExtendedPanel extendedPanelWeb;
+        private ExtendedPanel extendedPanelPhones;
     }
 }

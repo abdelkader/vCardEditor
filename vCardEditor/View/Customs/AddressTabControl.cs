@@ -186,7 +186,7 @@ namespace vCardEditor.View.Customs
         {
             foreach (var item in card.DeliveryAddresses)
                 AddtabForAddress(item);
-            SelectedIndex = 0;
+            //SelectedIndex = 0;
         }
 
         private void AddtabForAddress(vCardDeliveryAddress da)
@@ -200,6 +200,7 @@ namespace vCardEditor.View.Customs
                                 da.PostalCode, da.ExtendedAddress, da.PostOfficeBox, da.AddressType);
 
             ab.TextChangedEvent += (s, e) => TextChangedEvent?.Invoke(s, e);
+            ab.Dock = DockStyle.Fill;
             page.Controls.Add(ab);
             page.ToolTipText = string.Join(",", da.AddressType.ConvertAll(f => f.ToString()));
 

@@ -47,20 +47,18 @@ namespace vCardEditor.View.Customs
             // 
             // ExtAddrValue
             // 
-            this.ExtAddrValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExtAddrValue.Location = new System.Drawing.Point(90, 45);
+            this.ExtAddrValue.Location = new System.Drawing.Point(68, 45);
             this.ExtAddrValue.Margin = new System.Windows.Forms.Padding(4);
             this.ExtAddrValue.Name = "ExtAddrValue";
             this.ExtAddrValue.oldText = null;
-            this.ExtAddrValue.Size = new System.Drawing.Size(237, 22);
+            this.ExtAddrValue.Size = new System.Drawing.Size(190, 22);
             this.ExtAddrValue.TabIndex = 27;
             this.ExtAddrValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             this.ExtAddrValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // ExtAdressLabel
             // 
-            this.ExtAdressLabel.Location = new System.Drawing.Point(4, 45);
+            this.ExtAdressLabel.Location = new System.Drawing.Point(5, 44);
             this.ExtAdressLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ExtAdressLabel.Name = "ExtAdressLabel";
             this.ExtAdressLabel.Size = new System.Drawing.Size(40, 23);
@@ -73,7 +71,7 @@ namespace vCardEditor.View.Customs
             this.StreetLabel.Location = new System.Drawing.Point(2, 14);
             this.StreetLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.StreetLabel.Name = "StreetLabel";
-            this.StreetLabel.Size = new System.Drawing.Size(65, 23);
+            this.StreetLabel.Size = new System.Drawing.Size(64, 23);
             this.StreetLabel.TabIndex = 14;
             this.StreetLabel.Text = "Address:";
             this.StreetLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -82,18 +80,18 @@ namespace vCardEditor.View.Customs
             // 
             this.StreetValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.StreetValue.Location = new System.Drawing.Point(90, 14);
+            this.StreetValue.Location = new System.Drawing.Point(68, 14);
             this.StreetValue.Margin = new System.Windows.Forms.Padding(4);
             this.StreetValue.Name = "StreetValue";
             this.StreetValue.oldText = "";
-            this.StreetValue.Size = new System.Drawing.Size(613, 22);
+            this.StreetValue.Size = new System.Drawing.Size(632, 22);
             this.StreetValue.TabIndex = 15;
             this.StreetValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             this.StreetValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // POBoxLabel
             // 
-            this.POBoxLabel.Location = new System.Drawing.Point(338, 75);
+            this.POBoxLabel.Location = new System.Drawing.Point(267, 76);
             this.POBoxLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.POBoxLabel.Name = "POBoxLabel";
             this.POBoxLabel.Size = new System.Drawing.Size(38, 23);
@@ -105,18 +103,18 @@ namespace vCardEditor.View.Customs
             // 
             this.CountryValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.CountryValue.Location = new System.Drawing.Point(579, 76);
+            this.CountryValue.Location = new System.Drawing.Point(557, 76);
             this.CountryValue.Margin = new System.Windows.Forms.Padding(4);
             this.CountryValue.Name = "CountryValue";
             this.CountryValue.oldText = null;
-            this.CountryValue.Size = new System.Drawing.Size(125, 22);
+            this.CountryValue.Size = new System.Drawing.Size(143, 22);
             this.CountryValue.TabIndex = 25;
             this.CountryValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             this.CountryValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // Country
             // 
-            this.Country.Location = new System.Drawing.Point(505, 76);
+            this.Country.Location = new System.Drawing.Point(486, 74);
             this.Country.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Country.Name = "Country";
             this.Country.Size = new System.Drawing.Size(65, 23);
@@ -126,20 +124,18 @@ namespace vCardEditor.View.Customs
             // 
             // POBoxValue
             // 
-            this.POBoxValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.POBoxValue.Location = new System.Drawing.Point(397, 76);
+            this.POBoxValue.Location = new System.Drawing.Point(315, 77);
             this.POBoxValue.Margin = new System.Windows.Forms.Padding(4);
             this.POBoxValue.Name = "POBoxValue";
             this.POBoxValue.oldText = null;
-            this.POBoxValue.Size = new System.Drawing.Size(100, 22);
+            this.POBoxValue.Size = new System.Drawing.Size(166, 22);
             this.POBoxValue.TabIndex = 17;
             this.POBoxValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             this.POBoxValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // CityLabel
             // 
-            this.CityLabel.Location = new System.Drawing.Point(338, 46);
+            this.CityLabel.Location = new System.Drawing.Point(267, 44);
             this.CityLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.CityLabel.Name = "CityLabel";
             this.CityLabel.Size = new System.Drawing.Size(32, 23);
@@ -151,31 +147,29 @@ namespace vCardEditor.View.Customs
             // 
             this.RegionValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.RegionValue.Location = new System.Drawing.Point(90, 75);
+            this.RegionValue.Location = new System.Drawing.Point(557, 44);
             this.RegionValue.Margin = new System.Windows.Forms.Padding(4);
             this.RegionValue.Name = "RegionValue";
             this.RegionValue.oldText = null;
-            this.RegionValue.Size = new System.Drawing.Size(236, 22);
+            this.RegionValue.Size = new System.Drawing.Size(143, 22);
             this.RegionValue.TabIndex = 23;
             this.RegionValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             this.RegionValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // CityValue
             // 
-            this.CityValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.CityValue.Location = new System.Drawing.Point(397, 45);
+            this.CityValue.Location = new System.Drawing.Point(316, 46);
             this.CityValue.Margin = new System.Windows.Forms.Padding(4);
             this.CityValue.Name = "CityValue";
             this.CityValue.oldText = null;
-            this.CityValue.Size = new System.Drawing.Size(127, 22);
+            this.CityValue.Size = new System.Drawing.Size(166, 22);
             this.CityValue.TabIndex = 19;
             this.CityValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
             this.CityValue.Validated += new System.EventHandler(this.Value_TextChanged);
             // 
             // StateLabel
             // 
-            this.StateLabel.Location = new System.Drawing.Point(2, 74);
+            this.StateLabel.Location = new System.Drawing.Point(486, 46);
             this.StateLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.StateLabel.Name = "StateLabel";
             this.StateLabel.Size = new System.Drawing.Size(61, 23);
@@ -185,31 +179,29 @@ namespace vCardEditor.View.Customs
             // 
             // ZipLabel
             // 
-            this.ZipLabel.Location = new System.Drawing.Point(533, 45);
+            this.ZipLabel.Location = new System.Drawing.Point(5, 75);
             this.ZipLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ZipLabel.Name = "ZipLabel";
             this.ZipLabel.Size = new System.Drawing.Size(37, 23);
-            this.ZipLabel.TabIndex = 20;
+            this.ZipLabel.TabIndex = 28;
             this.ZipLabel.Text = "Zip:";
             this.ZipLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // ZipValue
             // 
-            this.ZipValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ZipValue.Location = new System.Drawing.Point(579, 46);
+            this.ZipValue.Location = new System.Drawing.Point(68, 77);
             this.ZipValue.Margin = new System.Windows.Forms.Padding(4);
             this.ZipValue.Name = "ZipValue";
             this.ZipValue.oldText = null;
-            this.ZipValue.Size = new System.Drawing.Size(124, 22);
-            this.ZipValue.TabIndex = 21;
-            this.ZipValue.LostFocus += new System.EventHandler(this.Value_TextChanged);
-            this.ZipValue.Validated += new System.EventHandler(this.Value_TextChanged);
+            this.ZipValue.Size = new System.Drawing.Size(190, 22);
+            this.ZipValue.TabIndex = 29;
             // 
             // AddressBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.ZipLabel);
+            this.Controls.Add(this.ZipValue);
             this.Controls.Add(this.ExtAddrValue);
             this.Controls.Add(this.ExtAdressLabel);
             this.Controls.Add(this.StreetLabel);
@@ -222,8 +214,6 @@ namespace vCardEditor.View.Customs
             this.Controls.Add(this.RegionValue);
             this.Controls.Add(this.CityValue);
             this.Controls.Add(this.StateLabel);
-            this.Controls.Add(this.ZipLabel);
-            this.Controls.Add(this.ZipValue);
             this.Name = "AddressBox";
             this.Size = new System.Drawing.Size(706, 104);
             this.ResumeLayout(false);

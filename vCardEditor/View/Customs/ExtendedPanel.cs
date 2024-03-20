@@ -9,20 +9,10 @@ namespace vCardEditor.View.Customs
 
     public partial class ExtendedPanel : UserControl
     {
-        public event EventHandler ContentTextChanged;
-
-        public string Caption
-        {
-            get { return PanelContent.Text; }
-            set { PanelContent.Text = value; }
-        }
-
-        public PanelType panelType { get; set; }
-
-        public ExtendedPanel(PanelType _panel)
+        public ExtendedPanel()
         {
             InitializeComponent();
-            panelType = _panel;
+           
             miCell.Click += MenuItemClickHandlers;
             miCell.Tag = new vCardPhone(string.Empty, vCardPhoneTypes.Cellular);
             
@@ -47,7 +37,15 @@ namespace vCardEditor.View.Customs
             //}
 
         }
+        public event EventHandler ContentTextChanged;
 
+        public string Caption
+        {
+            get { return PanelContent.Text; }
+            set { PanelContent.Text = value; }
+        }
+
+        public PanelType panelType { get; set; }
         private void MenuItemClickHandlers(object sender, EventArgs e)
         {
             var tag = (sender as ToolStripMenuItem).Tag;
