@@ -36,8 +36,8 @@ namespace vCardEditor.View.Customs
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.cbInternational = new System.Windows.Forms.CheckBox();
-            this.cbCustom = new System.Windows.Forms.CheckBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.cbParcel = new System.Windows.Forms.CheckBox();
+            this.cbPreferred = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cbHome
@@ -73,7 +73,7 @@ namespace vCardEditor.View.Customs
             // cbDomestic
             // 
             this.cbDomestic.AutoSize = true;
-            this.cbDomestic.Location = new System.Drawing.Point(12, 94);
+            this.cbDomestic.Location = new System.Drawing.Point(143, 40);
             this.cbDomestic.Name = "cbDomestic";
             this.cbDomestic.Size = new System.Drawing.Size(88, 21);
             this.cbDomestic.TabIndex = 3;
@@ -82,8 +82,9 @@ namespace vCardEditor.View.Customs
             // 
             // btnOK
             // 
+            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(95, 187);
+            this.btnOK.Location = new System.Drawing.Point(95, 161);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 7;
@@ -93,9 +94,10 @@ namespace vCardEditor.View.Customs
             // 
             // btnCancel
             // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.CausesValidation = false;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(176, 187);
+            this.btnCancel.Location = new System.Drawing.Point(176, 161);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 8;
@@ -105,37 +107,41 @@ namespace vCardEditor.View.Customs
             // cbInternational
             // 
             this.cbInternational.AutoSize = true;
-            this.cbInternational.Location = new System.Drawing.Point(12, 121);
+            this.cbInternational.Location = new System.Drawing.Point(143, 12);
             this.cbInternational.Name = "cbInternational";
             this.cbInternational.Size = new System.Drawing.Size(108, 21);
             this.cbInternational.TabIndex = 9;
             this.cbInternational.Text = "International";
             this.cbInternational.UseVisualStyleBackColor = true;
             // 
-            // cbCustom
+            // cbParcel
             // 
-            this.cbCustom.AutoSize = true;
-            this.cbCustom.Location = new System.Drawing.Point(12, 148);
-            this.cbCustom.Name = "cbCustom";
-            this.cbCustom.Size = new System.Drawing.Size(81, 21);
-            this.cbCustom.TabIndex = 10;
-            this.cbCustom.Text = "Custom:";
-            this.cbCustom.UseVisualStyleBackColor = true;
+            this.cbParcel.AutoSize = true;
+            this.cbParcel.Location = new System.Drawing.Point(143, 67);
+            this.cbParcel.Name = "cbParcel";
+            this.cbParcel.Size = new System.Drawing.Size(70, 21);
+            this.cbParcel.TabIndex = 10;
+            this.cbParcel.Text = "Parcel";
+            this.cbParcel.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // cbPreferred
             // 
-            this.textBox1.Location = new System.Drawing.Point(90, 149);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(161, 22);
-            this.textBox1.TabIndex = 11;
+            this.cbPreferred.AutoSize = true;
+            this.cbPreferred.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbPreferred.Location = new System.Drawing.Point(95, 113);
+            this.cbPreferred.Name = "cbPreferred";
+            this.cbPreferred.Size = new System.Drawing.Size(99, 21);
+            this.cbPreferred.TabIndex = 11;
+            this.cbPreferred.Text = "Preferred";
+            this.cbPreferred.UseVisualStyleBackColor = true;
             // 
-            // AddAddress
+            // AddAddressDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(263, 223);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.cbCustom);
+            this.ClientSize = new System.Drawing.Size(263, 196);
+            this.Controls.Add(this.cbPreferred);
+            this.Controls.Add(this.cbParcel);
             this.Controls.Add(this.cbInternational);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
@@ -143,7 +149,7 @@ namespace vCardEditor.View.Customs
             this.Controls.Add(this.cbPostal);
             this.Controls.Add(this.cbWork);
             this.Controls.Add(this.cbHome);
-            this.Name = "AddAddress";
+            this.Name = "AddAddressDialog";
             this.Text = "Address Type";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -159,7 +165,7 @@ namespace vCardEditor.View.Customs
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.CheckBox cbInternational;
-        private System.Windows.Forms.CheckBox cbCustom;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.CheckBox cbParcel;
+        private System.Windows.Forms.CheckBox cbPreferred;
     }
 }

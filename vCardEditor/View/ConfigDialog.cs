@@ -10,7 +10,7 @@ namespace vCardEditor.View
         public ConfigDialog()
         {
             InitializeComponent();
-            ConfigRepository conf = ConfigRepository.Instance;//
+            ConfigRepository conf = ConfigRepository.Instance;
             pgConfig.SelectedObject = conf;
         }
     }
