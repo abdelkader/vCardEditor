@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Thought.vCards;
 
@@ -74,6 +70,7 @@ namespace vCardEditor.View.Customs
                 return;
             }
             
+            Addresses.Clear();
             foreach (var item in checkedItems)
             {
                 var enumType = (vCardDeliveryAddressTypes)Enum.Parse(typeof(vCardDeliveryAddressTypes), item.Text, true);
@@ -82,6 +79,5 @@ namespace vCardEditor.View.Customs
            
 
         }
-
     }
 }

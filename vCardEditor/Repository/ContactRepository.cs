@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using Thought.vCards;
 using VCFEditor.Model;
-using System.ComponentModel;
 using vCardEditor.Repository;
 using vCardEditor.View;
 
