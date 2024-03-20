@@ -98,7 +98,7 @@ namespace vCardEditor.View.Customs
                     da.AddressType = diag.Addresses;
                     AddtabForAddress(da);
                     AddTab?.Invoke(sender, new EventArg<List<vCardDeliveryAddressTypes>>(diag.Addresses));
-                    SelectedIndex = TabCount - 1;
+                    SelectedIndex = TabCount - 2;
                 }
                 
             }
