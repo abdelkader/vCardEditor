@@ -434,7 +434,6 @@ namespace vCardEditor.View
             this.dgContacts.Size = new System.Drawing.Size(390, 533);
             this.dgContacts.TabIndex = 2;
             this.dgContacts.CellContextMenuStripNeeded += new System.Windows.Forms.DataGridViewCellContextMenuStripNeededEventHandler(this.dgContacts_CellContextMenuStripNeeded);
-            this.dgContacts.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgContacts_RowEnter);
             this.dgContacts.RowLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgContacts_RowLeave);
             this.dgContacts.SelectionChanged += new System.EventHandler(this.dgContacts_SelectionChanged);
             // 
