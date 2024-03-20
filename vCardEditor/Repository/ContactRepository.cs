@@ -64,7 +64,7 @@ namespace VCFEditor.Repository
             string[] lines = _fileHandler.ReadAllLines(fileName);
 
             StringBuilder RawContent = new StringBuilder();
-            Contact contact = new Contact();
+            Contact contact;
 
             for (int i = 0; i < lines.Length; i++)
             {
@@ -73,9 +73,12 @@ namespace VCFEditor.Repository
                 {
                     if (string.Equals(lines[i].TrimEnd(), "END:VCARD", StringComparison.OrdinalIgnoreCase))
                     {
-                        contact.card = ParseRawContent(RawContent);
+                        contact = new Contact
+                        {
+                            card = ParseRawContent(RawContent)
+                        };
+
                         Contacts.Add(contact);
-                        contact = new Contact();
                         RawContent.Length = 0;
                     }
                 }
@@ -116,7 +119,7 @@ namespace VCFEditor.Repository
                 fileName = this.fileName;
 
             //Take a copy if specified in the config file
-            if (!ConfigRepository.Instance.OverWrite)
+            if (!ConfigRepository.Instance.Overwrite)
             {
                 string backupName = GetBackupName();
                 _fileHandler.MoveFile(fileName, backupName);

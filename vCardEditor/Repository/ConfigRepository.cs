@@ -30,7 +30,7 @@ namespace vCardEditor.Repository
         }
 
         [Description("Overwrite the file when saving")]
-        public bool OverWrite { get; set; }
+        public bool Overwrite { get; set; }
         [Description("Maximum entries for MRU ")]
         public int Maximum { get; set; }
         
