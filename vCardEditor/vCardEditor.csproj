@@ -211,7 +211,7 @@
       <DependentUpon>QRDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="View\SortableBindingList.cs" />
-    <Compile Include="View\StateTextBox.cs">
+    <Compile Include="View\Customs\StateTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="View\Customs\ExtraTextGroup.cs">

@@ -31,7 +31,7 @@ namespace vCardEditor.View.Customs
         {
             this.btnRemove = new System.Windows.Forms.Button();
             this.TitleLabel = new System.Windows.Forms.Label();
-            this.ContentTextBox = new vCardEditor.View.StateTextBox();
+            this.ContentTextBox = new vCardEditor.View.Customs.StateTextBox();
             this.SuspendLayout();
             // 
             // btnRemove

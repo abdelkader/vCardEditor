@@ -30,7 +30,7 @@ namespace vCardEditor.View.UIToolbox
         private void InitializeComponent()
         {
             this.btnClose = new System.Windows.Forms.Button();
-            this.txtContent = new vCardEditor.View.StateTextBox();
+            this.txtContent = new vCardEditor.View.Customs.StateTextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -78,7 +78,7 @@ namespace vCardEditor.View.UIToolbox
 
         #endregion
         private System.Windows.Forms.Button btnClose;
-        private StateTextBox txtContent;
+        private Customs.StateTextBox txtContent;
         private System.Windows.Forms.Label label2;
     }
 }

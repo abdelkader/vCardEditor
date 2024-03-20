@@ -95,11 +95,11 @@ namespace vCardEditor.View
             this.menuExtraField = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.miNote = new System.Windows.Forms.ToolStripMenuItem();
             this.miOrg = new System.Windows.Forms.ToolStripMenuItem();
-            this.FormattedTitleValue = new vCardEditor.View.StateTextBox();
-            this.lastNameValue = new vCardEditor.View.StateTextBox();
-            this.middleNameValue = new vCardEditor.View.StateTextBox();
-            this.firstNameValue = new vCardEditor.View.StateTextBox();
-            this.FormattedNameValue = new vCardEditor.View.StateTextBox();
+            this.FormattedTitleValue = new vCardEditor.View.Customs.StateTextBox();
+            this.lastNameValue = new vCardEditor.View.Customs.StateTextBox();
+            this.middleNameValue = new vCardEditor.View.Customs.StateTextBox();
+            this.firstNameValue = new vCardEditor.View.Customs.StateTextBox();
+            this.FormattedNameValue = new vCardEditor.View.Customs.StateTextBox();
             this.tbcAddress = new vCardEditor.View.Customs.AddressTabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.extendedPanelPhones = new vCardEditor.View.Customs.ExtendedPanel();

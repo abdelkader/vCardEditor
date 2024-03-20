@@ -29,20 +29,20 @@ namespace vCardEditor.View.Customs
         /// </summary>
         private void InitializeComponent()
         {
-            this.ExtAddrValue = new vCardEditor.View.StateTextBox();
+            this.ExtAddrValue = new vCardEditor.View.Customs.StateTextBox();
             this.ExtAdressLabel = new System.Windows.Forms.Label();
             this.StreetLabel = new System.Windows.Forms.Label();
-            this.StreetValue = new vCardEditor.View.StateTextBox();
+            this.StreetValue = new vCardEditor.View.Customs.StateTextBox();
             this.POBoxLabel = new System.Windows.Forms.Label();
-            this.CountryValue = new vCardEditor.View.StateTextBox();
+            this.CountryValue = new vCardEditor.View.Customs.StateTextBox();
             this.Country = new System.Windows.Forms.Label();
-            this.POBoxValue = new vCardEditor.View.StateTextBox();
+            this.POBoxValue = new vCardEditor.View.Customs.StateTextBox();
             this.CityLabel = new System.Windows.Forms.Label();
-            this.RegionValue = new vCardEditor.View.StateTextBox();
-            this.CityValue = new vCardEditor.View.StateTextBox();
+            this.RegionValue = new vCardEditor.View.Customs.StateTextBox();
+            this.CityValue = new vCardEditor.View.Customs.StateTextBox();
             this.StateLabel = new System.Windows.Forms.Label();
             this.ZipLabel = new System.Windows.Forms.Label();
-            this.ZipValue = new vCardEditor.View.StateTextBox();
+            this.ZipValue = new vCardEditor.View.Customs.StateTextBox();
             this.SuspendLayout();
             // 
             // ExtAddrValue

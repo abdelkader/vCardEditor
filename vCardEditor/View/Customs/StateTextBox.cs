@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace vCardEditor.View
+namespace vCardEditor.View.Customs
 {
     public class StateTextBox : TextBox
     {

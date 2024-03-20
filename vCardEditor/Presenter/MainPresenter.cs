@@ -1,12 +1,11 @@
 ﻿using System;
 using Thought.vCards;
 using VCFEditor.View;
-using vCardEditor.View;
+using vCardEditor.View.Customs;
 using VCFEditor.Repository;
 using vCardEditor.Repository;
 using vCardEditor.Model;
 using System.Linq;
-using System.IO;
 using System.Collections.Generic;
 
 namespace VCFEditor.Presenter
