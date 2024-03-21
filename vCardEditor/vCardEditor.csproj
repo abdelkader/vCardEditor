@@ -143,7 +143,6 @@
     <Compile Include="Libs\Thought.vCards\vCardWebsiteCollection.cs" />
     <Compile Include="Libs\Thought.vCards\vCardWebsiteTypes.cs" />
     <Compile Include="Libs\Thought.vCards\vCardWriter.cs" />
-    <Compile Include="Libs\Thought.vCards\WarningMessages.Designer.cs" />
     <Compile Include="View\AboutDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -230,7 +229,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Libs\Thought.vCards\WarningMessages.resx" />
     <EmbeddedResource Include="View\AboutDialog.resx">
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </EmbeddedResource>

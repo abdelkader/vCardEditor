@@ -103,6 +103,10 @@ namespace vCardEditor.View
 
         private void dgContacts_SelectionChanged(object sender, EventArgs e)
         {
+            if (dgContacts.CurrentCell == null)
+                return;
+
+            
             //Weired, the selection is fired multiple times...
             int RowIndex = dgContacts.CurrentCell.RowIndex;
             if (LastRowIndex != RowIndex)

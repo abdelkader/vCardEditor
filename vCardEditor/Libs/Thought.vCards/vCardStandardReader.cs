@@ -2290,10 +2290,7 @@ namespace Thought.vCards
 
 				firstLine = firstLine.Trim();
 				if (firstLine.Length == 0)
-				{
-					Warnings.Add(Thought.vCards.WarningMessages.BlankLine);
 					continue;
-				}
 
 				// Get the index of the colon (:) in this
 				// property line.  All vCard properties are
@@ -2301,10 +2298,7 @@ namespace Thought.vCards
 
 				int colonIndex = firstLine.IndexOf(':');
 				if (colonIndex == -1)
-				{
-					Warnings.Add(Thought.vCards.WarningMessages.ColonMissing);
 					continue;
-				}
 
 				// Get the name portion of the property.  This
 				// portion contains the property name as well
@@ -2312,10 +2306,7 @@ namespace Thought.vCards
 
 				string namePart = firstLine.Substring(0, colonIndex).Trim();
 				if (string.IsNullOrEmpty(namePart))
-				{
-					Warnings.Add(Thought.vCards.WarningMessages.EmptyName);
 					continue;
-				}
 
 				// Split apart the name portion of the property.
 				// A property can have subproperties, separated
@@ -2323,17 +2314,14 @@ namespace Thought.vCards
 
 				string[] nameParts = namePart.Split(';');
 				for (int i = 0; i < nameParts.Length; i++)
-					nameParts[i] = nameParts[i].Trim();
+						nameParts[i] = nameParts[i].Trim();
 
 				// The name of the property is supposed to
 				// be first on the line.  An empty name is not
 				// legal syntax.
 
 				if (nameParts[0].Length == 0)
-				{
-					Warnings.Add(Thought.vCards.WarningMessages.EmptyName);
 					continue;
-				}
 
 				// At this point there is sufficient text
 				// to define a vCard property.  The only
@@ -2362,13 +2350,14 @@ namespace Thought.vCards
 					if (subNameValue.Length == 1)
 					{
 
-						// The Split function above returned a single
-						// array element.  This means no equal (=) sign
-						// was present.  The subproperty consists of
-						// a name only.
-
-						property.Subproperties.Add(
-							nameParts[index].Trim());
+                        // The Split function above returned a single
+                        // array element.  This means no equal (=) sign
+                        // was present.  The subproperty consists of
+                        // a name only.
+                        if (!string.IsNullOrEmpty(subNameValue[0]))
+                        {
+							property.Subproperties.Add(nameParts[index].Trim());
+                        }
 					}
 					else
 					{
