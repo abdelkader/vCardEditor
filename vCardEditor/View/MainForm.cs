@@ -138,7 +138,7 @@ namespace vCardEditor.View
             ClearContactDetail();
            
             Text = string.Format("{0} - vCard Editor", FileName);
-            //gbContactDetail.Enabled = true;
+         
             tcMainTab.Enabled = true;
             gbNameList.Enabled = true;
 
@@ -152,7 +152,6 @@ namespace vCardEditor.View
             SetPhotoValue(card.Photos);
 
             SetExtraInfos(card);
-            
             SetExtraTabFields(card);
 
         }
@@ -160,30 +159,21 @@ namespace vCardEditor.View
         private void SetExtraInfos(vCard card)
         {
             foreach (var item in card.EmailAddresses)
-            {
                 extendedPanelWeb.AddControl(item);
-            }
 
             foreach (var item in card.Websites)
-            {
                 extendedPanelWeb.AddControl(item);
-            }
 
             foreach (var item in card.Phones)
-            {
                 extendedPanelPhones.AddControl(item);
-            }
         }
 
         
 
         private void SetExtraTabFields(vCard card)
         {
-            if (card.Notes.Count > 0)
-            {
-                foreach (var note in card.Notes)
-                    AddExtraTextGroup(vCardPropeties.NOTE, note.Text);
-            }
+            foreach (var note in card.Notes)
+                AddExtraTextGroup(vCardPropeties.NOTE, note.Text);
 
             if (!string.IsNullOrEmpty(card.Organization))
             {
@@ -213,7 +203,6 @@ namespace vCardEditor.View
 
         public void ClearContactDetail()
         {
-            //gbContactDetail.Enabled = false;
             tcMainTab.Enabled = false;
             gbNameList.Enabled = false;
 
@@ -222,9 +211,6 @@ namespace vCardEditor.View
             SetSummaryValue(middleNameValue, string.Empty);
             SetSummaryValue(FormattedTitleValue, string.Empty);
             SetSummaryValue(FormattedNameValue, string.Empty);
-
-            //SetAddressesValues(new vCard());
-            
 
             SetPhotoValue(new vCardPhotoCollection());
             panelTabExtra.Controls.Clear();
@@ -292,6 +278,8 @@ namespace vCardEditor.View
             BeforeLeavingContact?.Invoke(sender, new EventArg<vCard>(GetvCardFromWindow()));
             FilterTextChanged?.Invoke(sender, new EventArg<string>(textBoxFilter.Text));
 
+            LastRowIndex = -1;
+            dgContacts.ClearSelection();
             textBoxFilter.Focus();
         }
 
