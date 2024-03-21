@@ -290,8 +290,9 @@ namespace vCardEditor.View
         {
             //Save before leaving contact.
             BeforeLeavingContact?.Invoke(sender, new EventArg<vCard>(GetvCardFromWindow()));
-
             FilterTextChanged?.Invoke(sender, new EventArg<string>(textBoxFilter.Text));
+
+            textBoxFilter.Focus();
         }
 
       
