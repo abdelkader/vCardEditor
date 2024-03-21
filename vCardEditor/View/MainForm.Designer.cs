@@ -590,6 +590,7 @@ namespace vCardEditor.View
             this.btnExportImage.Size = new System.Drawing.Size(21, 23);
             this.btnExportImage.TabIndex = 57;
             this.btnExportImage.UseVisualStyleBackColor = true;
+            this.btnExportImage.Click += new System.EventHandler(this.btnExportImage_Click);
             // 
             // groupBox3
             // 
@@ -733,6 +734,7 @@ namespace vCardEditor.View
             this.btnRemoveImage.Size = new System.Drawing.Size(20, 23);
             this.btnRemoveImage.TabIndex = 56;
             this.btnRemoveImage.UseVisualStyleBackColor = true;
+            this.btnRemoveImage.Click += new System.EventHandler(this.btnRemoveImage_Click);
             // 
             // groupBox4
             // 
@@ -786,6 +788,7 @@ namespace vCardEditor.View
             this.PhotoBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.PhotoBox.TabIndex = 55;
             this.PhotoBox.TabStop = false;
+            this.PhotoBox.Click += new System.EventHandler(this.PhotoBox_Click);
             // 
             // TapPageExtra
             // 
@@ -794,7 +797,7 @@ namespace vCardEditor.View
             this.TapPageExtra.Location = new System.Drawing.Point(4, 25);
             this.TapPageExtra.Name = "TapPageExtra";
             this.TapPageExtra.Padding = new System.Windows.Forms.Padding(3);
-            this.TapPageExtra.Size = new System.Drawing.Size(792, 551);
+            this.TapPageExtra.Size = new System.Drawing.Size(792, 557);
             this.TapPageExtra.TabIndex = 1;
             this.TapPageExtra.Text = "Extra";
             // 
@@ -805,7 +808,7 @@ namespace vCardEditor.View
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(786, 545);
+            this.groupBox1.Size = new System.Drawing.Size(786, 551);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
@@ -827,7 +830,7 @@ namespace vCardEditor.View
             this.panelTabExtra.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelTabExtra.Location = new System.Drawing.Point(3, 18);
             this.panelTabExtra.Name = "panelTabExtra";
-            this.panelTabExtra.Size = new System.Drawing.Size(780, 524);
+            this.panelTabExtra.Size = new System.Drawing.Size(780, 530);
             this.panelTabExtra.TabIndex = 1;
             this.panelTabExtra.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.panelTabExtra_ControlAdded);
             this.panelTabExtra.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.panelTabExtra_ControlRemoved);

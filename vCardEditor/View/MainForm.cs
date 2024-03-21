@@ -683,7 +683,5 @@ namespace vCardEditor.View
         {
             TapPageExtra.Text = string.Format("Extra ({0})", panelTabExtra.Controls.Count);
         }
-
-        
     }
 }
