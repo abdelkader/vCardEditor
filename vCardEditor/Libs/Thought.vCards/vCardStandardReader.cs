@@ -1906,13 +1906,12 @@ namespace Thought.vCards
 		/// </summary>
 		private void ReadInto_PHOTO(vCard card, vCardProperty property)
 		{
+			string[] Formats = { "GIF", "CGM", "WMF", "JPEG", "BMP", "MET", "PMB", "DIB", "PICT", "TIFF", "PS", "PDF" };
+			string imageType = property.Subproperties.GetValue("TYPE", Formats);
 
-			string imageType = property.Subproperties.GetValue("TYPE");
-			
 			// The PHOTO property contains an embedded (encoded) image
 			// or a link to an image.  A URL (linked) image is supposed
 			// to be indicated with the VALUE=URI subproperty.
-
 			string valueType = property.Subproperties.GetValue("VALUE");
 
 			//URI is the standard, but I've seen examples online of URL
