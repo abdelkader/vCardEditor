@@ -390,7 +390,10 @@ namespace VCFEditor.Repository
             return _fileHandler.ChangeExtension(path, extension);
         }
 
-        
-
+        public string GenerateFileName(string fileName, int index, string extension)
+        {
+            string result = Path.Combine(Path.GetDirectoryName(fileName), index.ToString() + "." + extension);
+            return result;
+        }
     }
 }

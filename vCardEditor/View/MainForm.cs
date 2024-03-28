@@ -36,7 +36,9 @@ namespace vCardEditor.View
         public event EventHandler CopyTextToClipboardEvent;
         public event EventHandler CountImagesEvent;
         public event EventHandler ClearImagesEvent;
+        public event EventHandler BatchExportImagesEvent;
         
+
 
         ComponentResourceManager resources;
 
@@ -695,6 +697,11 @@ namespace vCardEditor.View
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ClearImagesEvent?.Invoke(sender, e);
+        }
+
+        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BatchExportImagesEvent?.Invoke(sender, e);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace VCFEditor.View
         event EventHandler<EventArg<vCardPropeties>> AddExtraField;
         event EventHandler CountImagesEvent;
         event EventHandler ClearImagesEvent;
-        
+        event EventHandler BatchExportImagesEvent;
         int SelectedContactIndex { get; }
         void DisplayContacts(SortableBindingList<Contact> contacts);
         void DisplayContactDetail(vCard card, string FileName);

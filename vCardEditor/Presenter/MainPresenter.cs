@@ -41,17 +41,38 @@ namespace VCFEditor.Presenter
             _view.AddExtraField += _view_AddExtraField;
             _view.CountImagesEvent += _view_CountImages;
             _view.ClearImagesEvent += _view_ClearImages;
+            _view.BatchExportImagesEvent += _view_BatchExportImagesEvent;
 
+        }
+
+        private void _view_BatchExportImagesEvent(object sender, EventArgs e)
+        {
+            if (_repository.Contacts == null || _repository.Contacts.Count == 0)
+                return;
+
+            int count = 0;
+            for (int i = 0; i < _repository.Contacts.Count; i++)
+            {
+                if (_repository.Contacts[i].card.Photos.Count > 0)
+                {
+                    count++;
+                    SaveCardPhoto(_repository.Contacts[i].card, i);
+
+                }
+            }
+
+            if (count > 0)
+                _view.DisplayMessage($"{count} contact(s) processed!", "Photo Count");
+            else
+                _view.DisplayMessage($"No picture found!", "Photo Count");
         }
 
         private void _view_ClearImages(object sender, EventArgs e)
         {
-
             if (_repository.Contacts == null || _repository.Contacts.Count == 0)
                 return;
             
             int count = 0;
-
             for (int i = 0; i < _repository.Contacts.Count; i++)
             {
                 if (_repository.Contacts[i].card.Photos.Count > 0)
@@ -67,7 +88,7 @@ namespace VCFEditor.Presenter
 
 
             if (count > 0)
-                _view.DisplayMessage($"Number of contacts containing picture = {count} processed!", "Photo Count");
+                _view.DisplayMessage($"{count} contact(s) processed!", "Photo Count");
             else
                 _view.DisplayMessage($"No picture found!", "Photo Count");
         }
@@ -79,7 +100,7 @@ namespace VCFEditor.Presenter
 
             var count = _repository.Contacts.Count(x => x.card.Photos.Count > 0);
             if (count > 0)
-                _view.DisplayMessage($"Number of contacts containing picture = {count}", "Photo Count");
+                _view.DisplayMessage($"{count} contact(s) containing a picture = ", "Photo Count");
             else
                 _view.DisplayMessage($"No picture found!", "Photo Count");
         }
@@ -145,16 +166,25 @@ namespace VCFEditor.Presenter
             {
                 //TODO: image can be url, or file location.
                 var card = _repository.Contacts[_view.SelectedContactIndex].card;
-                var image = card.Photos.FirstOrDefault();
+                SaveCardPhoto(card, _view.SelectedContactIndex,  true);
+            }
+        }
 
-                if (image != null)
-                {
-                    
-                    var newPath = _repository.ChangeExtension(_repository.fileName, image.Extension);
+        private void SaveCardPhoto(vCard card, int index, bool askUser = false)
+        {
+            //TODO: Save every image for a vCard.
+            var image = card.Photos.FirstOrDefault();
 
-                    string imageFile = _view.DisplaySaveDialog(newPath);
-                    _repository.SaveImageToDisk(imageFile, image);
-                }
+            if (image != null)
+            {
+
+                var newPath = _repository.GenerateFileName(_repository.fileName, index,  image.Extension);
+
+                //string ImagePath = string.Empty;
+                //if (askUser)
+                //    ImagePath = _view.DisplaySaveDialog(newPath);
+                
+                _repository.SaveImageToDisk(newPath, image);
             }
         }
 
