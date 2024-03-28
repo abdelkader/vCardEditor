@@ -1,4 +1,12 @@
-﻿0.5.5
+﻿0.5.7
+   added a feature to batch export/clear/count images.
+   Fix bug when opening files by menu.
+   some buttons click were not working properly.
+
+0.5.6
+   Not released!
+
+0.5.5
    redisgn the extra tab
    Fix some bugs
 
