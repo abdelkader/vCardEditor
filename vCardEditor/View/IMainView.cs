@@ -28,6 +28,8 @@ namespace VCFEditor.View
         event EventHandler CopyTextToClipboardEvent;
         event EventHandler<EventArg<vCardPropeties>> AddExtraField;
         event EventHandler CountImagesEvent;
+        event EventHandler ClearImagesEvent;
+        
         int SelectedContactIndex { get; }
         void DisplayContacts(SortableBindingList<Contact> contacts);
         void DisplayContactDetail(vCard card, string FileName);
@@ -44,5 +46,7 @@ namespace VCFEditor.View
         void LoadIntialState(FormState state);
         void AddExtraTextGroup(vCardPropeties type, string content);
         void DisplayQRCode(string content);
+
+        void ClearImageFromForm();
     }
 }

@@ -155,7 +155,7 @@ namespace vCardEditor.View
             // miSave
             // 
             this.miSave.Name = "miSave";
-            this.miSave.Size = new System.Drawing.Size(224, 26);
+            this.miSave.Size = new System.Drawing.Size(162, 26);
             this.miSave.Text = "&Save";
             this.miSave.Click += new System.EventHandler(this.tbsSave_Click);
             // 
@@ -164,34 +164,33 @@ namespace vCardEditor.View
             this.miOpen.Image = ((System.Drawing.Image)(resources.GetObject("miOpen.Image")));
             this.miOpen.ImageTransparentColor = System.Drawing.Color.Fuchsia;
             this.miOpen.Name = "miOpen";
-            this.miOpen.Size = new System.Drawing.Size(224, 26);
+            this.miOpen.Size = new System.Drawing.Size(162, 26);
             this.miOpen.Text = "&Open";
             this.miOpen.Click += new System.EventHandler(this.tbsOpen_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(221, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(159, 6);
             // 
             // miConfig
             // 
             this.miConfig.Name = "miConfig";
-            this.miConfig.Size = new System.Drawing.Size(224, 26);
+            this.miConfig.Size = new System.Drawing.Size(162, 26);
             this.miConfig.Text = "Preference";
             this.miConfig.Click += new System.EventHandler(this.miConfig_Click);
             // 
             // recentFilesMenuItem
             // 
             this.recentFilesMenuItem.Name = "recentFilesMenuItem";
-            this.recentFilesMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.recentFilesMenuItem.Size = new System.Drawing.Size(162, 26);
             this.recentFilesMenuItem.Text = "Recent";
-            
             // 
             // miQuit
             // 
             this.miQuit.Image = ((System.Drawing.Image)(resources.GetObject("miQuit.Image")));
             this.miQuit.Name = "miQuit";
-            this.miQuit.Size = new System.Drawing.Size(224, 26);
+            this.miQuit.Size = new System.Drawing.Size(162, 26);
             this.miQuit.Text = "&Quit";
             this.miQuit.Click += new System.EventHandler(this.miQuit_Click);
             // 
@@ -249,25 +248,26 @@ namespace vCardEditor.View
             this.clearToolStripMenuItem,
             this.countToolStripMenuItem});
             this.imagesToolStripMenuItem.Name = "imagesToolStripMenuItem";
-            this.imagesToolStripMenuItem.Size = new System.Drawing.Size(140, 26);
+            this.imagesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.imagesToolStripMenuItem.Text = "Images";
             // 
             // exportToolStripMenuItem
             // 
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.exportToolStripMenuItem.Text = "Export";
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.clearToolStripMenuItem.Text = "Clear";
+            this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
             // countToolStripMenuItem
             // 
             this.countToolStripMenuItem.Name = "countToolStripMenuItem";
-            this.countToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
+            this.countToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.countToolStripMenuItem.Text = "Count";
             this.countToolStripMenuItem.Click += new System.EventHandler(this.countToolStripMenuItem_Click);
             // 

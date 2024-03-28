@@ -14,6 +14,7 @@ namespace VCFEditor.Presenter
     {
         private readonly IMainView _view;
         private readonly IContactRepository _repository;
+        
 
         public MainPresenter(IMainView view, IContactRepository repository)
         {
@@ -39,7 +40,36 @@ namespace VCFEditor.Presenter
             _view.CopyTextToClipboardEvent += CopyTextToClipboardHandler;
             _view.AddExtraField += _view_AddExtraField;
             _view.CountImagesEvent += _view_CountImages;
+            _view.ClearImagesEvent += _view_ClearImages;
 
+        }
+
+        private void _view_ClearImages(object sender, EventArgs e)
+        {
+
+            if (_repository.Contacts == null || _repository.Contacts.Count == 0)
+                return;
+            
+            int count = 0;
+
+            for (int i = 0; i < _repository.Contacts.Count; i++)
+            {
+                if (_repository.Contacts[i].card.Photos.Count > 0)
+                {
+                    count++;
+                    _repository.ModifyImage(i, null);   
+                    
+                    //remove from the form the image displayed.
+                    if (_view.SelectedContactIndex == i)
+                        _view.ClearImageFromForm();
+                }
+            }
+
+
+            if (count > 0)
+                _view.DisplayMessage($"Number of contacts containing picture = {count} processed!", "Photo Count");
+            else
+                _view.DisplayMessage($"No picture found!", "Photo Count");
         }
 
         private void _view_CountImages(object sender, EventArgs e)

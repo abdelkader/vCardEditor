@@ -35,11 +35,13 @@ namespace vCardEditor.View
         public event EventHandler ExportQR;
         public event EventHandler CopyTextToClipboardEvent;
         public event EventHandler CountImagesEvent;
+        public event EventHandler ClearImagesEvent;
+        
 
         ComponentResourceManager resources;
 
         private int LastRowIndex = -1;
-       
+
         public int SelectedContactIndex
         {
             get
@@ -51,13 +53,13 @@ namespace vCardEditor.View
             }
 
         }
-        
+
 
         public MainForm()
         {
 
             InitializeComponent();
-            
+
             resources = new ComponentResourceManager(typeof(MainForm));
             tbcAddress.AddTab += (sender, e) => AddressAdded?.Invoke(sender, e);
             tbcAddress.RemoveTab += (sender, e) => AddressRemoved?.Invoke(sender, e);
@@ -69,7 +71,7 @@ namespace vCardEditor.View
             BuildMRUMenu();
 
         }
-                
+
         private void tbsOpen_Click(object sender, EventArgs e)
         {
             OpenFile(sender, string.Empty);
@@ -118,7 +120,7 @@ namespace vCardEditor.View
             if (dgContacts.CurrentCell == null)
                 return;
 
-            
+
             //Weired, the selection is fired multiple times...
             int RowIndex = dgContacts.CurrentCell.RowIndex;
             if (LastRowIndex != RowIndex)
@@ -148,9 +150,9 @@ namespace vCardEditor.View
                 throw new ArgumentException("vCard must be valid!");
 
             ClearContactDetail();
-           
+
             Text = string.Format("{0} - vCard Editor", FileName);
-         
+
             tcMainTab.Enabled = true;
             gbNameList.Enabled = true;
 
@@ -159,7 +161,7 @@ namespace vCardEditor.View
             SetSummaryValue(lastNameValue, card.FamilyName);
             SetSummaryValue(middleNameValue, card.AdditionalNames);
             SetSummaryValue(FormattedNameValue, card.FormattedName);
-            
+
             SetAddressesValues(card);
             SetPhotoValue(card.Photos);
 
@@ -180,7 +182,7 @@ namespace vCardEditor.View
                 extendedPanelPhones.AddControl(item);
         }
 
-        
+
 
         private void SetExtraTabFields(vCard card)
         {
@@ -192,7 +194,7 @@ namespace vCardEditor.View
                 AddExtraTextGroup(vCardPropeties.ORG, card.Organization);
             }
 
-            
+
         }
 
         public void AddExtraTextGroup(vCardPropeties type, string content)
@@ -295,8 +297,8 @@ namespace vCardEditor.View
             textBoxFilter.Focus();
         }
 
-      
-       
+
+
         private vCard GetvCardFromWindow()
         {
             vCard card = new vCard
@@ -355,7 +357,7 @@ namespace vCardEditor.View
 
         }
 
-       
+
 
         private void getExtraData(vCard card)
         {
@@ -401,11 +403,11 @@ namespace vCardEditor.View
                 MessageBox.Show("Only one file at the time!");
                 return;
             }
-            
+
             OpenFile(sender, FileList[0]);
         }
 
-       
+
 
         private void BuildMRUMenu()
         {
@@ -503,6 +505,11 @@ namespace vCardEditor.View
 
             }
 
+        }
+
+        public void ClearImageFromForm()
+        {
+            PhotoBox.Image = (Image)resources.GetObject("PhotoBox.Image");
         }
 
         private void btnRemoveImage_Click(object sender, EventArgs e)
@@ -685,6 +692,9 @@ namespace vCardEditor.View
             CountImagesEvent?.Invoke(sender, e);
         }
 
-        
+        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ClearImagesEvent?.Invoke(sender, e);
+        }
     }
 }
