@@ -27,6 +27,7 @@ namespace VCFEditor.View
         event EventHandler<EventArg<int>> AddressRemoved;
         event EventHandler CopyTextToClipboardEvent;
         event EventHandler<EventArg<vCardPropeties>> AddExtraField;
+        event EventHandler CountImagesEvent;
         int SelectedContactIndex { get; }
         void DisplayContacts(SortableBindingList<Contact> contacts);
         void DisplayContactDetail(vCard card, string FileName);

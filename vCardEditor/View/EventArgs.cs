@@ -12,5 +12,7 @@ namespace VCFEditor.View
         }
 
         public T Data { get; set; }
+
+        public bool CanCancel { get; set; }
     }
 }

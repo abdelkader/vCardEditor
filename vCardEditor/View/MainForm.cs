@@ -34,9 +34,11 @@ namespace vCardEditor.View
         public event EventHandler ExportImage;
         public event EventHandler ExportQR;
         public event EventHandler CopyTextToClipboardEvent;
-       
+        public event EventHandler CountImagesEvent;
+
         ComponentResourceManager resources;
 
+        private int LastRowIndex = -1;
        
         public int SelectedContactIndex
         {
@@ -50,7 +52,6 @@ namespace vCardEditor.View
 
         }
         
-        private int LastRowIndex = -1;
 
         public MainForm()
         {
@@ -71,7 +72,18 @@ namespace vCardEditor.View
                 
         private void tbsOpen_Click(object sender, EventArgs e)
         {
-            NewFileOpened?.Invoke(sender, new EventArg<string>(string.Empty));
+            OpenFile(sender, string.Empty);
+        }
+
+
+        private void OpenFile(object sender, string filename)
+        {
+            var evt = new EventArg<string>(filename);
+
+            NewFileOpened?.Invoke(sender, new EventArg<string>(filename));
+
+            if (!evt.CanCancel)
+                LastRowIndex = -1;
         }
 
         public void DisplayContacts(SortableBindingList<Contact> contacts)
@@ -389,19 +401,15 @@ namespace vCardEditor.View
                 MessageBox.Show("Only one file at the time!");
                 return;
             }
-
-            NewFileOpened(sender, new EventArg<string>(FileList[0]));
-
+            
+            OpenFile(sender, FileList[0]);
         }
+
+       
 
         private void BuildMRUMenu()
         {
-            recentFilesMenuItem.DropDownItemClicked += (s, e) =>
-            {
-                var evt = new EventArg<string>(e.ClickedItem.Text);
-                NewFileOpened(s, evt);
-            };
-
+            recentFilesMenuItem.DropDownItemClicked += (s, e) => OpenFile(s, e.ClickedItem.Text);
             UpdateMRUMenu(ConfigRepository.Instance.Paths);
 
         }
@@ -671,5 +679,12 @@ namespace vCardEditor.View
         {
             TapPageExtra.Text = string.Format("Extra ({0})", panelTabExtra.Controls.Count);
         }
+
+        private void countToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CountImagesEvent?.Invoke(sender, e);
+        }
+
+        
     }
 }

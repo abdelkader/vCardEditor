@@ -38,7 +38,20 @@ namespace VCFEditor.Presenter
             _view.AddressRemoved += AddressRemovedHandler;
             _view.CopyTextToClipboardEvent += CopyTextToClipboardHandler;
             _view.AddExtraField += _view_AddExtraField;
+            _view.CountImagesEvent += _view_CountImages;
 
+        }
+
+        private void _view_CountImages(object sender, EventArgs e)
+        {
+            if (_repository.Contacts == null)
+                return;
+
+            var count = _repository.Contacts.Count(x => x.card.Photos.Count > 0);
+            if (count > 0)
+                _view.DisplayMessage($"Number of contacts containing picture = {count}", "Photo Count");
+            else
+                _view.DisplayMessage($"No picture found!", "Photo Count");
         }
 
         private void _view_AddExtraField(object sender, EventArg<vCardPropeties> e)
