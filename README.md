@@ -11,7 +11,7 @@
 ## vCard Editor
 A Simple vcf file Editor. You can export easily edit (modify, delete) entries of a vcf file with this simple tool.
 The software is still in **early stage**. 
-<p align="center"><img src="https://github-production-user-asset-6210df.s3.amazonaws.com/169070/314156766-87b3b6f6-44fa-485e-b297-868a8efd952f.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240319%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240319T170859Z&X-Amz-Expires=300&X-Amz-Signature=42b469a4914c48a2670d3ab127a2a55971da882c92ec000f865c32d5ee1a5330&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=0" width="800"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/169070/236289228-106c1489-e01d-400c-968e-92d3e2be74ab.png" width="800"></p>
 
 
 ## ✅ Features
