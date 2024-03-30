@@ -135,7 +135,7 @@ namespace vCardEditor.View
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1202, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1202, 30);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -149,7 +149,7 @@ namespace vCardEditor.View
             this.recentFilesMenuItem,
             this.miQuit});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 26);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // miSave
@@ -200,7 +200,7 @@ namespace vCardEditor.View
             this.copyToolStripMenuItem,
             this.extraFieldsToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(49, 26);
             this.editToolStripMenuItem.Text = "Edit";
             // 
             // copyToolStripMenuItem
@@ -238,7 +238,7 @@ namespace vCardEditor.View
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.imagesToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(58, 24);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(58, 26);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // imagesToolStripMenuItem
@@ -248,27 +248,27 @@ namespace vCardEditor.View
             this.clearToolStripMenuItem,
             this.countToolStripMenuItem});
             this.imagesToolStripMenuItem.Name = "imagesToolStripMenuItem";
-            this.imagesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.imagesToolStripMenuItem.Size = new System.Drawing.Size(140, 26);
             this.imagesToolStripMenuItem.Text = "Images";
             // 
             // exportToolStripMenuItem
             // 
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
             this.exportToolStripMenuItem.Text = "Export";
             this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
             // countToolStripMenuItem
             // 
             this.countToolStripMenuItem.Name = "countToolStripMenuItem";
-            this.countToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.countToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
             this.countToolStripMenuItem.Text = "Count";
             this.countToolStripMenuItem.Click += new System.EventHandler(this.countToolStripMenuItem_Click);
             // 
@@ -277,7 +277,7 @@ namespace vCardEditor.View
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.miAbout});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 26);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // miAbout
@@ -311,9 +311,9 @@ namespace vCardEditor.View
             this.toolStripSeparator1,
             this.tbsAbout,
             this.toolStripSeparator});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 28);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 30);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1202, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(1202, 31);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -323,7 +323,7 @@ namespace vCardEditor.View
             this.tbsNew.Image = ((System.Drawing.Image)(resources.GetObject("tbsNew.Image")));
             this.tbsNew.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbsNew.Name = "tbsNew";
-            this.tbsNew.Size = new System.Drawing.Size(29, 24);
+            this.tbsNew.Size = new System.Drawing.Size(29, 28);
             this.tbsNew.Text = "&Nouveau";
             this.tbsNew.Click += new System.EventHandler(this.tbsNew_Click);
             // 
@@ -333,7 +333,7 @@ namespace vCardEditor.View
             this.tbsOpen.Image = ((System.Drawing.Image)(resources.GetObject("tbsOpen.Image")));
             this.tbsOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbsOpen.Name = "tbsOpen";
-            this.tbsOpen.Size = new System.Drawing.Size(29, 24);
+            this.tbsOpen.Size = new System.Drawing.Size(29, 28);
             this.tbsOpen.Text = "&Open";
             this.tbsOpen.Click += new System.EventHandler(this.tbsOpen_Click);
             // 
@@ -343,7 +343,7 @@ namespace vCardEditor.View
             this.tbsSave.Image = ((System.Drawing.Image)(resources.GetObject("tbsSave.Image")));
             this.tbsSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbsSave.Name = "tbsSave";
-            this.tbsSave.Size = new System.Drawing.Size(29, 24);
+            this.tbsSave.Size = new System.Drawing.Size(29, 28);
             this.tbsSave.Text = "&Save";
             this.tbsSave.Click += new System.EventHandler(this.tbsSave_Click);
             // 
@@ -353,7 +353,7 @@ namespace vCardEditor.View
             this.tbsDelete.Image = ((System.Drawing.Image)(resources.GetObject("tbsDelete.Image")));
             this.tbsDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbsDelete.Name = "tbsDelete";
-            this.tbsDelete.Size = new System.Drawing.Size(29, 24);
+            this.tbsDelete.Size = new System.Drawing.Size(29, 28);
             this.tbsDelete.Text = "Delete";
             this.tbsDelete.Click += new System.EventHandler(this.tbsDelete_Click);
             // 
@@ -363,14 +363,14 @@ namespace vCardEditor.View
             this.tbsQR.Image = global::vCardEditor.Properties.Resources.nuget_icon;
             this.tbsQR.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbsQR.Name = "tbsQR";
-            this.tbsQR.Size = new System.Drawing.Size(29, 24);
+            this.tbsQR.Size = new System.Drawing.Size(29, 28);
             this.tbsQR.Text = "&QR Code";
             this.tbsQR.Click += new System.EventHandler(this.tbsQR_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
             // 
             // tbsAbout
             // 
@@ -378,14 +378,14 @@ namespace vCardEditor.View
             this.tbsAbout.Image = ((System.Drawing.Image)(resources.GetObject("tbsAbout.Image")));
             this.tbsAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbsAbout.Name = "tbsAbout";
-            this.tbsAbout.Size = new System.Drawing.Size(29, 24);
+            this.tbsAbout.Size = new System.Drawing.Size(29, 28);
             this.tbsAbout.Text = "&?";
             this.tbsAbout.Click += new System.EventHandler(this.tbsAbout_Click);
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator.Size = new System.Drawing.Size(6, 31);
             // 
             // openFileDialog
             // 
@@ -402,7 +402,7 @@ namespace vCardEditor.View
             this.gbNameList.Margin = new System.Windows.Forms.Padding(4);
             this.gbNameList.Name = "gbNameList";
             this.gbNameList.Padding = new System.Windows.Forms.Padding(4);
-            this.gbNameList.Size = new System.Drawing.Size(398, 586);
+            this.gbNameList.Size = new System.Drawing.Size(398, 580);
             this.gbNameList.TabIndex = 2;
             this.gbNameList.TabStop = false;
             this.gbNameList.Text = "Name List :";
@@ -434,7 +434,7 @@ namespace vCardEditor.View
             this.dgContacts.RowHeadersVisible = false;
             this.dgContacts.RowHeadersWidth = 51;
             this.dgContacts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgContacts.Size = new System.Drawing.Size(390, 533);
+            this.dgContacts.Size = new System.Drawing.Size(390, 527);
             this.dgContacts.TabIndex = 2;
             this.dgContacts.CellContextMenuStripNeeded += new System.Windows.Forms.DataGridViewCellContextMenuStripNeededEventHandler(this.dgContacts_CellContextMenuStripNeeded);
             this.dgContacts.RowLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgContacts_RowLeave);
@@ -517,7 +517,7 @@ namespace vCardEditor.View
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 55);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 61);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -527,7 +527,7 @@ namespace vCardEditor.View
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tcMainTab);
-            this.splitContainer1.Size = new System.Drawing.Size(1202, 586);
+            this.splitContainer1.Size = new System.Drawing.Size(1202, 580);
             this.splitContainer1.SplitterDistance = 398;
             this.splitContainer1.TabIndex = 4;
             // 
@@ -540,7 +540,7 @@ namespace vCardEditor.View
             this.tcMainTab.Location = new System.Drawing.Point(0, 0);
             this.tcMainTab.Name = "tcMainTab";
             this.tcMainTab.SelectedIndex = 0;
-            this.tcMainTab.Size = new System.Drawing.Size(800, 586);
+            this.tcMainTab.Size = new System.Drawing.Size(800, 580);
             this.tcMainTab.TabIndex = 0;
             // 
             // TapPageMain
@@ -556,7 +556,7 @@ namespace vCardEditor.View
             this.TapPageMain.Location = new System.Drawing.Point(4, 25);
             this.TapPageMain.Name = "TapPageMain";
             this.TapPageMain.Padding = new System.Windows.Forms.Padding(3);
-            this.TapPageMain.Size = new System.Drawing.Size(792, 557);
+            this.TapPageMain.Size = new System.Drawing.Size(792, 551);
             this.TapPageMain.TabIndex = 0;
             this.TapPageMain.Text = "Main";
             // 
@@ -569,7 +569,7 @@ namespace vCardEditor.View
             this.extendedPanelWeb.Location = new System.Drawing.Point(386, 389);
             this.extendedPanelWeb.Name = "extendedPanelWeb";
             this.extendedPanelWeb.panelType = vCardEditor.View.Customs.PanelType.Web;
-            this.extendedPanelWeb.Size = new System.Drawing.Size(397, 161);
+            this.extendedPanelWeb.Size = new System.Drawing.Size(397, 155);
             this.extendedPanelWeb.TabIndex = 59;
             // 
             // extendedPanelPhones
@@ -580,7 +580,7 @@ namespace vCardEditor.View
             this.extendedPanelPhones.Location = new System.Drawing.Point(13, 389);
             this.extendedPanelPhones.Name = "extendedPanelPhones";
             this.extendedPanelPhones.panelType = vCardEditor.View.Customs.PanelType.Phone;
-            this.extendedPanelPhones.Size = new System.Drawing.Size(367, 161);
+            this.extendedPanelPhones.Size = new System.Drawing.Size(367, 155);
             this.extendedPanelPhones.TabIndex = 58;
             // 
             // btnExportImage

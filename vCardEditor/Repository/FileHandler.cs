@@ -22,7 +22,9 @@ namespace vCardEditor.Repository
 
         public void MoveFile(string newFilename, string oldFilename)
         {
-            File.Move(newFilename, oldFilename);
+            if (File.Exists(newFilename))
+                File.Move(newFilename, oldFilename);
+           
         }
 
         public string[] ReadAllLines(string filename)

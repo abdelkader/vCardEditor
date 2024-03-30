@@ -247,6 +247,7 @@ namespace VCFEditor.Presenter
         private void AddContactHandler(object sender, EventArgs e)
         {
             _repository.AddEmptyContact();
+            _view.DisplayContacts(_repository.Contacts);
         }
 
         private void DeleteContactHandler(object sender, EventArgs e)
@@ -256,8 +257,15 @@ namespace VCFEditor.Presenter
 
         private void SaveContactsHandler(object sender, EventArgs e)
         {
+            string filename;
             if (!string.IsNullOrEmpty(_repository.fileName))
-                _repository.SaveContactsToFile(_repository.fileName);
+                filename = _repository.fileName;
+            else
+                filename = _view.DisplaySaveDialog("");
+
+                
+            _repository.SaveContactsToFile(filename);
+
 
         }
 

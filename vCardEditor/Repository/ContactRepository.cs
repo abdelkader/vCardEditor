@@ -104,11 +104,8 @@ namespace VCFEditor.Repository
 
         public void AddEmptyContact()
         {
-            if (_contacts != null && _contacts.Count > 0)
-            {
-                Contact contact = new Contact();
-                Contacts.Add(contact);
-            }
+            Contact contact = new Contact();
+            Contacts.Add(contact);
         }
 
         public void SaveContactsToFile(string fileName)
