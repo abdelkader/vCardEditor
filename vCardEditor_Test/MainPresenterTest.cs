@@ -273,5 +273,28 @@ namespace vCardEditor_Test
             Assert.IsTrue(repo.Contacts.Count == 1);
         }
 
+        [TestMethod]
+        public void SaveSplittedFile_ShouldCall3TimesFileSaving_Test()
+        {
+
+            var fileHandler = Substitute.For<IFileHandler>();
+            fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfFourEntry);
+            fileHandler.FileExist(Arg.Any<string>()).Returns(true);
+
+            var repo = Substitute.For<ContactRepository>(fileHandler);
+            
+            repo.LoadContacts("aaa.vcf");
+            repo.Contacts[3].isDeleted = true;
+
+            var view = Substitute.For<IMainView>();
+            view.DisplayOpenFolderDialog().Returns("aaa");
+            _ = new MainPresenter(view, repo);
+            view.SplitFileEvent += Raise.Event();
+
+            //Should save only 3 files.
+            fileHandler.Received(3).WriteAllText(Arg.Any<string>(), Arg.Any<string>());
+            
+        }
+
     }
 }
