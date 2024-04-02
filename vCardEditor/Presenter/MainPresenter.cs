@@ -280,11 +280,12 @@ namespace VCFEditor.Presenter
                 return;
 
             string Path = _view.DisplayOpenFolderDialog();
-            int count = 0;
             if (!string.IsNullOrEmpty(Path))
-                count = _repository.SaveSplittedFiles(Path);
+            {
+                int count = _repository.SaveSplittedFiles(Path);
+                _view.DisplayMessage(string.Format("{0} contact(s) processed!", count), "Information");
+            }
 
-            _view.DisplayMessage(string.Format("{0} contact(s) processed!", count), "Information");
         }
 
         private void BeforeOpeningNewFileHandler()
