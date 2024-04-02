@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Thought.vCards;
 using VCFEditor.Model;
-using System.ComponentModel;
 using vCardEditor.View;
 
 namespace VCFEditor.Repository
@@ -28,5 +24,6 @@ namespace VCFEditor.Repository
 
         string GenerateStringFromVCard(vCard card);
         string GenerateFileName(string fileName, int index, string extension);
+        int SaveSplittedFiles(string Path);
     }
 }

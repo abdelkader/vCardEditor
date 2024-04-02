@@ -389,8 +389,47 @@ namespace VCFEditor.Repository
 
         public string GenerateFileName(string fileName, int index, string extension)
         {
-            string result = Path.Combine(Path.GetDirectoryName(fileName), index.ToString() + "." + extension);
+            string result = _fileHandler.GetFileNameWithExtension(fileName, index, extension);
             return result;
+        }
+
+        public int SaveSplittedFiles(string FolderPath)
+        {
+            //Do not save the deleted ones!
+            var contactsToSave = Contacts.Where(x => !x.isDeleted).ToList();
+            int count;
+            for (count = 0; count < contactsToSave.Count(); count++)
+            {
+                var entry = contactsToSave[count];
+                string SerializedCard = GenerateStringFromVCard(entry.card);
+
+                //Check if filename for the card is empty, and generate one if empty
+                if (string.IsNullOrEmpty(entry.path))
+                    entry.path = GenerateFileName(FolderPath, entry.FamilyName, count);
+
+                _fileHandler.WriteAllText(entry.path, SerializedCard);
+
+                //Clean the flag for every contact, even the deleted ones.
+                entry.isDirty = false;
+
+            }
+            
+            //Clean the global flag for the entire vCard Catalog.
+            _dirty = false;
+            
+            //return number of contacts processed!
+            return count;
+        }
+
+        private string GenerateFileName(string FolderPath, string familyName, int index)
+        {
+            string FinalPath;
+            if (string.IsNullOrEmpty(familyName))
+                FinalPath = _fileHandler.GetVcfFileName(FolderPath, index.ToString());
+            else
+                FinalPath = _fileHandler.GetVcfFileName(FolderPath, familyName);
+
+            return FinalPath;
         }
     }
 }

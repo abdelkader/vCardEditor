@@ -45,5 +45,15 @@ namespace vCardEditor.Repository
                     ms.WriteTo(fs);
             }
         }
+
+        public string GetVcfFileName(string folderPath, string filename)
+        {
+            return Path.Combine(folderPath, filename + ".vcf");
+        }
+
+        public string GetFileNameWithExtension(string fileName, int index, string extension)
+        {
+            return Path.Combine(Path.GetDirectoryName(fileName), index.ToString() + "." + extension);
+        }
     }
 }

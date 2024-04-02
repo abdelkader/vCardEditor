@@ -44,6 +44,9 @@ namespace VCFEditor.Model
         
         [Browsable(false)]
         public bool isDeleted { get; set; }
+        
+        [Browsable(false)]
+        public string path { get; set; }
      
 
         public Contact()
@@ -51,6 +54,11 @@ namespace VCFEditor.Model
             card = new vCard();
             isSelected = false;
             isDirty = false;
+        }
+
+        public Contact(string path) : this()
+        {
+            this.path = path;
         }
 
         private void NotifyPropertyChanged(string name)

@@ -9,5 +9,7 @@
         string GetExtension(string path);
         string ChangeExtension(string path, string extension);
         void WriteBytesToFile(string imageFile, byte[] image);
+        string GetVcfFileName(string folderPath, string familyName);
+        string GetFileNameWithExtension(string fileName, int index, string extension);
     }
 }

@@ -30,6 +30,7 @@ namespace VCFEditor.View
         event EventHandler CountImagesEvent;
         event EventHandler ClearImagesEvent;
         event EventHandler BatchExportImagesEvent;
+        event EventHandler SplitFileEvent;
         int SelectedContactIndex { get; }
         void DisplayContacts(SortableBindingList<Contact> contacts);
         void DisplayContactDetail(vCard card, string FileName);
@@ -48,5 +49,6 @@ namespace VCFEditor.View
         void DisplayQRCode(string content);
 
         void ClearImageFromForm();
+        string DisplayOpenFolderDialog();
     }
 }

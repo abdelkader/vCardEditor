@@ -37,7 +37,9 @@ namespace vCardEditor.View
         public event EventHandler CountImagesEvent;
         public event EventHandler ClearImagesEvent;
         public event EventHandler BatchExportImagesEvent;
+        public event EventHandler SplitFileEvent;
         
+
 
 
         ComponentResourceManager resources;
@@ -99,6 +101,9 @@ namespace vCardEditor.View
 
         private void tbsSave_Click(object sender, EventArgs e)
         {
+            if (dgContacts.RowCount == 0)
+                return;
+
             if (SaveContactsSelected != null)
             {
                 //make sure the last changes in the textboxes is saved.
@@ -702,6 +707,26 @@ namespace vCardEditor.View
         private void exportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             BatchExportImagesEvent?.Invoke(sender, e);
+        }
+
+        private void openFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Test");
+        }
+
+        private void splitToFilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SplitFileEvent?.Invoke(sender, e);
+        }
+
+        public string DisplayOpenFolderDialog()
+        {
+            string result = string.Empty;
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            if (dialog.ShowDialog() == DialogResult.OK)
+                result = dialog.SelectedPath;
+
+            return result;
         }
     }
 }

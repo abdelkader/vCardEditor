@@ -259,6 +259,19 @@ namespace vCardEditor_Test
             Assert.IsTrue(repo.Contacts[0].isDirty);
         }
 
+        [TestMethod]
+        public void AddContact_ShouldCreateEmtptyContactFile_Test()
+        {
+
+            var fileHandler = Substitute.For<IFileHandler>();
+            var repo = Substitute.For<ContactRepository>(fileHandler);
+            var view = Substitute.For<IMainView>();
+            _ = new MainPresenter(view, repo);
+            view.AddContact += Raise.Event();
+
+            view.Received().DisplayContacts(Arg.Any<SortableBindingList<Contact>>());
+            Assert.IsTrue(repo.Contacts.Count == 1);
+        }
 
     }
 }

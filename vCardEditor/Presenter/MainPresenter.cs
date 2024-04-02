@@ -42,8 +42,13 @@ namespace VCFEditor.Presenter
             _view.CountImagesEvent += _view_CountImages;
             _view.ClearImagesEvent += _view_ClearImages;
             _view.BatchExportImagesEvent += _view_BatchExportImagesEvent;
+            _view.SplitFileEvent += SaveSplittedFileHandler;
+
+
 
         }
+
+        
 
         private void _view_BatchExportImagesEvent(object sender, EventArgs e)
         {
@@ -267,6 +272,19 @@ namespace VCFEditor.Presenter
             _repository.SaveContactsToFile(filename);
 
 
+        }
+
+        private void SaveSplittedFileHandler(object sender, EventArgs e)
+        {
+            if (_repository.Contacts == null || _repository.Contacts.Count == 0)
+                return;
+
+            string Path = _view.DisplayOpenFolderDialog();
+            int count = 0;
+            if (!string.IsNullOrEmpty(Path))
+                count = _repository.SaveSplittedFiles(Path);
+
+            _view.DisplayMessage(string.Format("{0} contact(s) processed!", count), "Information");
         }
 
         private void BeforeOpeningNewFileHandler()

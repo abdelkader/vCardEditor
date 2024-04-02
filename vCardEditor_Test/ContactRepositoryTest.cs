@@ -178,8 +178,7 @@ namespace vCardEditor_Test
 
             repo.AddEmptyContact();
 
-
-            Assert.IsTrue(repo.Contacts.Count == 0);
+            Assert.IsTrue(repo.Contacts.Count == 1);
         }
     }
 }
