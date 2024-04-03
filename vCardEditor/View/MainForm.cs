@@ -37,6 +37,7 @@ namespace vCardEditor.View
         public event EventHandler CountImagesEvent;
         public event EventHandler ClearImagesEvent;
         public event EventHandler BatchExportImagesEvent;
+        public event EventHandler<EventArg<string>> OpenFolderEvent;
         public event EventHandler SplitFileEvent;
         
 
@@ -418,6 +419,7 @@ namespace vCardEditor.View
 
         private void BuildMRUMenu()
         {
+            //TODO: Open File or Folder.
             recentFilesMenuItem.DropDownItemClicked += (s, e) => OpenFile(s, e.ClickedItem.Text);
             UpdateMRUMenu(ConfigRepository.Instance.Paths);
 
@@ -711,7 +713,8 @@ namespace vCardEditor.View
 
         private void openFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Test");
+            var evt = new EventArg<string>(string.Empty);
+            OpenFolderEvent?.Invoke(sender, evt);
         }
 
         private void splitToFilesToolStripMenuItem_Click(object sender, EventArgs e)

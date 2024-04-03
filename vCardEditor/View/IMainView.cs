@@ -30,6 +30,7 @@ namespace VCFEditor.View
         event EventHandler CountImagesEvent;
         event EventHandler ClearImagesEvent;
         event EventHandler BatchExportImagesEvent;
+        event EventHandler<EventArg<string>> OpenFolderEvent;
         event EventHandler SplitFileEvent;
         int SelectedContactIndex { get; }
         void DisplayContacts(SortableBindingList<Contact> contacts);

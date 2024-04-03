@@ -55,5 +55,12 @@ namespace vCardEditor.Repository
         {
             return Path.Combine(Path.GetDirectoryName(fileName), index.ToString() + "." + extension);
         }
+
+        public string[] GetFiles(string path, string ext)
+        {
+            string[] filePaths = Directory.GetFiles(path, ext,SearchOption.TopDirectoryOnly);
+            return filePaths;
+        }
+
     }
 }

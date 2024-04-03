@@ -11,6 +11,7 @@ namespace VCFEditor.Repository
         string fileName { get; set; }
         SortableBindingList<Contact> Contacts { get; set; }
         bool LoadContacts(string fileName);
+        bool LoadMultipleFilesContact(string path);
         SortableBindingList<Contact> FilterContacts(string p);
         void SaveContactsToFile(string fileName);
         void DeleteContact();
@@ -25,5 +26,6 @@ namespace VCFEditor.Repository
         string GenerateStringFromVCard(vCard card);
         string GenerateFileName(string fileName, int index, string extension);
         int SaveSplittedFiles(string Path);
+
     }
 }

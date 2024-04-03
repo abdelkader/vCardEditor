@@ -1,4 +1,6 @@
-﻿namespace vCardEditor.Repository
+﻿using System.IO;
+
+namespace vCardEditor.Repository
 {
     public interface IFileHandler
     {
@@ -11,5 +13,6 @@
         void WriteBytesToFile(string imageFile, byte[] image);
         string GetVcfFileName(string folderPath, string familyName);
         string GetFileNameWithExtension(string fileName, int index, string extension);
+        string[] GetFiles(string path, string ext);
     }
 }

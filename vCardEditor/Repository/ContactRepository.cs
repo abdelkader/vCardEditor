@@ -48,18 +48,34 @@ namespace VCFEditor.Repository
             _fileHandler = fileHandler;
         }
 
+        public bool LoadMultipleFilesContact(string path)
+        {
+            Contacts.Clear();
+            
+            string[] filePaths = _fileHandler.GetFiles(path, "*.vcf");
+            foreach (var item in filePaths)
+            {
+                var result = LoadContactFromFile(item);
+                OriginalContactList.AddRange(result);
+            }
+            return true;
+        }
+
         public bool LoadContacts(string fileName)
         {
             Contacts.Clear();
-
             this.fileName = fileName;
+            OriginalContactList = LoadContactFromFile(fileName);
+            return true;
+        }
 
+        public SortableBindingList<Contact> LoadContactFromFile(string fileName)
+        {
             if (!_fileHandler.FileExist(fileName))
-            {
-                OriginalContactList = null;
-                return false;
-            }
-            
+                return null;
+
+            SortableBindingList<Contact> ListOfContacts = new SortableBindingList<Contact>();
+
             string[] lines = _fileHandler.ReadAllLines(fileName);
 
             StringBuilder RawContent = new StringBuilder();
@@ -72,26 +88,19 @@ namespace VCFEditor.Repository
                 {
                     if (string.Equals(lines[i].TrimEnd(), "END:VCARD", StringComparison.OrdinalIgnoreCase))
                     {
-                        contact = new Contact
-                        {
-                            card = ParseRawContent(RawContent)
-                        };
-
-                        Contacts.Add(contact);
+                        contact = new Contact(ParseRawContent(RawContent));
+                        ListOfContacts.Add(contact);
                         RawContent.Length = 0;
                     }
                 }
                 catch (Exception)
                 {
-                    OriginalContactList = null;
-                    return false;
+                    return null;
                 }
             }
-            
-            OriginalContactList = Contacts;
-            return true;
-        }
 
+            return ListOfContacts;
+        }
         private vCard ParseRawContent(StringBuilder rawContent)
         {
             vCard card = null;

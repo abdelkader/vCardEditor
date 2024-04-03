@@ -56,6 +56,13 @@ namespace VCFEditor.Model
             isDirty = false;
         }
 
+        public Contact(vCard card)
+        {
+            this.card = card;
+            isSelected = false;
+            isDirty = false;
+        }
+
         public Contact(string path) : this()
         {
             this.path = path;

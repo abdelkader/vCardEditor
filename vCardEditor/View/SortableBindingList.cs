@@ -95,5 +95,36 @@ namespace vCardEditor.View
 
             return -1;
         }
+
+        //https://stackoverflow.com/questions/43331145/how-can-i-improve-performance-of-an-addrange-method-on-a-custom-bindinglist
+        public void AddRange(IEnumerable<T> collection)
+        {
+            if (collection == null)
+                throw new ArgumentNullException(nameof(collection));
+
+            // Remember the current setting for RaiseListChangedEvents
+            // (if it was already deactivated, we shouldn't activate it after adding!).
+            var oldRaiseEventsValue = RaiseListChangedEvents;
+
+            try
+            {
+                RaiseListChangedEvents = false;
+
+                foreach (var value in collection)
+                    Add(value);
+            }
+            // Restore the old setting for RaiseListChangedEvents (even if there was an exception),
+            // and fire the ListChanged-event once (if RaiseListChangedEvents is activated).
+            finally
+            {
+                RaiseListChangedEvents = oldRaiseEventsValue;
+
+                if (RaiseListChangedEvents)
+                    ResetBindings();
+            }
+
+        }
+
+
     }
 }

@@ -43,12 +43,59 @@ namespace VCFEditor.Presenter
             _view.ClearImagesEvent += _view_ClearImages;
             _view.BatchExportImagesEvent += _view_BatchExportImagesEvent;
             _view.SplitFileEvent += SaveSplittedFileHandler;
+            _view.OpenFolderEvent += OpenFolderHandler;
 
 
 
         }
 
-        
+        private void OpenFolderHandler(object sender, EventArg<string> e)
+        {
+            BeforeOpeningNewFileHandler();
+
+            string path = e.Data;
+            if (string.IsNullOrEmpty(path))
+                path = _view.DisplayOpenFolderDialog();
+
+            if (!string.IsNullOrEmpty(path))
+            {
+                _repository.LoadMultipleFilesContact(path);
+            }
+            //TODO: handle MostRecentUsedFiles.
+        }
+
+        public void NewFileOpenedHandler(object sender, EventArg<string> e)
+        {
+            BeforeOpeningNewFileHandler();
+
+            string path = e.Data;
+            if (string.IsNullOrEmpty(path))
+                path = _view.DisplayOpenDialog("vCard Files|*.vcf");
+
+            if (!string.IsNullOrEmpty(path))
+            {
+                string ext = _repository.GetExtension(path);
+                if (!string.Equals(ext, ".vcf", StringComparison.OrdinalIgnoreCase))
+                {
+                    _view.DisplayMessage("Only vcf extension accepted!", "Error");
+                    return;
+                }
+
+                FixedList MostRecentUsedFiles = ConfigRepository.Instance.Paths;
+                if (!MostRecentUsedFiles.Contains(path))
+                {
+                    MostRecentUsedFiles.Enqueue(path);
+                    _view.UpdateMRUMenu(MostRecentUsedFiles);
+                }
+
+                if (!_repository.LoadContacts(path))
+                    _view.DisplayMessage("File seems missing or corrupted!", "Error");
+                else
+                    _view.DisplayContacts(_repository.Contacts);
+            }
+
+
+        }
 
         private void _view_BatchExportImagesEvent(object sender, EventArgs e)
         {
@@ -297,38 +344,7 @@ namespace VCFEditor.Presenter
             }
 
         }
-        public void NewFileOpenedHandler(object sender, EventArg<string> e)
-        {
-            BeforeOpeningNewFileHandler();
-            
-            string path = e.Data;
-            if (string.IsNullOrEmpty(path))
-                path = _view.DisplayOpenDialog("vCard Files|*.vcf");
-            
-            if (!string.IsNullOrEmpty(path))
-            {
-                string ext = _repository.GetExtension(path);
-                if (!string.Equals(ext, ".vcf", StringComparison.OrdinalIgnoreCase))
-                {
-                    _view.DisplayMessage("Only vcf extension accepted!", "Error");
-                    return;
-                }
-
-                FixedList MostRecentUsedFiles = ConfigRepository.Instance.Paths;
-                if (!MostRecentUsedFiles.Contains(path))
-                {
-                    MostRecentUsedFiles.Enqueue(path);
-                    _view.UpdateMRUMenu(MostRecentUsedFiles);
-                }
-
-                if (!_repository.LoadContacts(path))
-                    _view.DisplayMessage("File seems missing or corrupted!", "Error");
-                else
-                    _view.DisplayContacts(_repository.Contacts);
-            }
-
-
-        }
+       
 
         public void ChangeContactSelectedHandler(object sender, EventArgs e)
         {
