@@ -56,15 +56,11 @@ namespace VCFEditor.Repository
             if (filePaths.Count() == 0)
                 return false;
 
-            if (OriginalContactList == null)
-                OriginalContactList = new SortableBindingList<Contact>();
-            else
-                OriginalContactList.Clear();
-
             foreach (var item in filePaths)
             {
                 var result = LoadContactFromFile(item);
-                OriginalContactList.AddRange(result);
+                Contacts.AddRange(result);
+                OriginalContactList = Contacts;
             }
             return true;
         }
@@ -73,7 +69,8 @@ namespace VCFEditor.Repository
         {
             Contacts.Clear();
             this.fileName = fileName;
-            OriginalContactList = LoadContactFromFile(fileName);
+            Contacts = LoadContactFromFile(fileName);
+            OriginalContactList = Contacts;
             return true;
         }
 
