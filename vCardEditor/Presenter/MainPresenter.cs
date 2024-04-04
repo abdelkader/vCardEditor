@@ -23,7 +23,7 @@ namespace VCFEditor.Presenter
 
             _view.LoadForm += LoadFormHandler;
             _view.AddContact += AddContactHandler;
-            _view.NewFileOpened += NewFileOpenedHandler;
+            _view.NewFileOpened += OpenNewFileHandler;
             _view.SaveContactsSelected += SaveContactsHandler;
             _view.ChangeContactsSelected += ChangeContactSelectedHandler;
             _view.DeleteContact += DeleteContactHandler;
@@ -43,13 +43,13 @@ namespace VCFEditor.Presenter
             _view.ClearImagesEvent += _view_ClearImages;
             _view.BatchExportImagesEvent += _view_BatchExportImagesEvent;
             _view.SplitFileEvent += SaveSplittedFileHandler;
-            _view.OpenFolderEvent += OpenFolderHandler;
+            _view.OpenFolderEvent += OpenNewFolderHandler;
 
 
 
         }
 
-        private void OpenFolderHandler(object sender, EventArg<string> e)
+        private void OpenNewFolderHandler(object sender, EventArg<string> e)
         {
             BeforeOpeningNewFileHandler();
 
@@ -59,18 +59,26 @@ namespace VCFEditor.Presenter
 
             if (!string.IsNullOrEmpty(path))
             {
-                _repository.LoadMultipleFilesContact(path);
+                var Loaded =_repository.LoadMultipleFilesContact(path);
+                if (!Loaded)
+                {
+                    _view.DisplayMessage("No file loaded!", "Error");
+                    return;
+                }
+
+                AddPathToMostRecentUsedFiles(path);
+                _view.DisplayContacts(_repository.Contacts);
             }
-            //TODO: handle MostRecentUsedFiles.
+            
         }
 
-        public void NewFileOpenedHandler(object sender, EventArg<string> e)
+        public void OpenNewFileHandler(object sender, EventArg<string> e)
         {
             BeforeOpeningNewFileHandler();
 
             string path = e.Data;
             if (string.IsNullOrEmpty(path))
-                path = _view.DisplayOpenDialog("vCard Files|*.vcf");
+                path = _view.DisplayOpenFileDialog("vCard Files|*.vcf");
 
             if (!string.IsNullOrEmpty(path))
             {
@@ -81,22 +89,27 @@ namespace VCFEditor.Presenter
                     return;
                 }
 
-                FixedList MostRecentUsedFiles = ConfigRepository.Instance.Paths;
-                if (!MostRecentUsedFiles.Contains(path))
-                {
-                    MostRecentUsedFiles.Enqueue(path);
-                    _view.UpdateMRUMenu(MostRecentUsedFiles);
-                }
 
                 if (!_repository.LoadContacts(path))
                     _view.DisplayMessage("File seems missing or corrupted!", "Error");
                 else
+                {
                     _view.DisplayContacts(_repository.Contacts);
+                    AddPathToMostRecentUsedFiles(path);
+                }
             }
 
-
+            
         }
-
+        private void AddPathToMostRecentUsedFiles(string path)
+        {
+            FixedList MostRecentUsedFiles = ConfigRepository.Instance.Paths;
+            if (!MostRecentUsedFiles.Contains(path))
+            {
+                MostRecentUsedFiles.Enqueue(path);
+                _view.UpdateMRUMenu(MostRecentUsedFiles);
+            }
+        }
         private void _view_BatchExportImagesEvent(object sender, EventArgs e)
         {
             if (_repository.Contacts == null || _repository.Contacts.Count == 0)
@@ -181,7 +194,7 @@ namespace VCFEditor.Presenter
             if (paths.Length > 1)
             {
                 var evt = new EventArg<string>(paths[1]);
-                NewFileOpenedHandler(sender, evt);
+                OpenNewFileHandler(sender, evt);
             }
 
         }
@@ -340,7 +353,8 @@ namespace VCFEditor.Presenter
             if (_repository.Contacts != null && _repository.dirty)
             {
                 if (!_view.AskMessage("Save current file before?", "Load"))
-                    _repository.SaveContactsToFile(_repository.fileName);
+                    SaveContactsHandler(null, null);
+                    //_repository.SaveContactsToFile(_repository.fileName);
             }
 
         }

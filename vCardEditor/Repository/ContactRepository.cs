@@ -53,6 +53,14 @@ namespace VCFEditor.Repository
             Contacts.Clear();
             
             string[] filePaths = _fileHandler.GetFiles(path, "*.vcf");
+            if (filePaths.Count() == 0)
+                return false;
+
+            if (OriginalContactList == null)
+                OriginalContactList = new SortableBindingList<Contact>();
+            else
+                OriginalContactList.Clear();
+
             foreach (var item in filePaths)
             {
                 var result = LoadContactFromFile(item);
@@ -114,6 +122,7 @@ namespace VCFEditor.Repository
         public void AddEmptyContact()
         {
             Contact contact = new Contact();
+            contact.isDirty = true;
             Contacts.Add(contact);
         }
 

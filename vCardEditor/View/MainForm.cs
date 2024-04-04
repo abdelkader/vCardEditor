@@ -466,7 +466,7 @@ namespace vCardEditor.View
         {
             MessageBox.Show(msg, caption);
         }
-        public string DisplayOpenDialog(string filter = "")
+        public string DisplayOpenFileDialog(string filter = "")
         {
             string filename = string.Empty;
             openFileDialog.Filter = filter;
@@ -496,7 +496,7 @@ namespace vCardEditor.View
         {
             if (ModifyImage != null)
             {
-                var fileName = DisplayOpenDialog();
+                var fileName = DisplayOpenFileDialog();
                 if (!string.IsNullOrEmpty(fileName))
                 {
                     try
