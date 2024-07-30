@@ -19,7 +19,7 @@ namespace vCardEditor.View.Customs
             miHome.Tag = new vCardPhone(string.Empty, vCardPhoneTypes.Home);
             miHome.Click += MenuItemClickHandlers;
 
-            miWork.Tag = new vCardPhone(string.Empty, vCardPhoneTypes.Home);
+            miWork.Tag = new vCardPhone(string.Empty, vCardPhoneTypes.Work);
             miWork.Click += MenuItemClickHandlers;
 
             miEmail.Tag = new vCardEmailAddress(string.Empty, vCardEmailAddressType.Internet);
