@@ -95,6 +95,7 @@ namespace vCardEditor.View
 
         public void DisplayContacts(SortableBindingList<Contact> contacts)
         {
+            bsContacts.DataSource = null;
             if (contacts != null)
                 bsContacts.DataSource = contacts;
 
