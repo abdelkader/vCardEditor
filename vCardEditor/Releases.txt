@@ -1,4 +1,7 @@
-﻿0.5.7
+﻿0.5.8
+   Merged PR #42, #45
+   
+0.5.7
    added a feature to batch export/clear/count images.
    Fix bug when opening files by menu.
    some buttons click were not working properly.
