@@ -113,10 +113,13 @@ namespace vCardEditor.View.Customs
 
         private void RemoveControl(object sender, EventArgs e)
         {
-            var par = (sender as Control).Parent;
-            PanelContent.Controls.Remove(par);
+            if (MessageBox.Show("Are you sure?", "Question", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                var par = (sender as Control).Parent;
+                PanelContent.Controls.Remove(par);
 
-            ReplaceControls();
+                ReplaceControls();
+            }
         }
 
         private void ReplaceControls()
