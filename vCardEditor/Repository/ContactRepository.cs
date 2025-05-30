@@ -3,9 +3,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Thought.vCards;
-using VCFEditor.Model;
 using vCardEditor.Repository;
 using vCardEditor.View;
+using VCFEditor.Model;
 
 namespace VCFEditor.Repository
 {
@@ -13,16 +13,13 @@ namespace VCFEditor.Repository
     {
         public string fileName { get; set; }
         private IFileHandler _fileHandler;
-        /// <summary>
-        /// Formatted name.
-        /// </summary>
-        public const string KeyName = "FN";
 
         /// <summary>
         /// Keep a copy of contact list when filtering
         /// </summary>
         private SortableBindingList<Contact> OriginalContactList = null;
         private SortableBindingList<Contact> _contacts;
+        
         public SortableBindingList<Contact> Contacts
         {
             get
@@ -43,6 +40,7 @@ namespace VCFEditor.Repository
             get { return (_contacts != null && _contacts.Any(x => x.isDirty)) || _dirty; }
             set { _dirty = true; }
         }
+
         public ContactRepository(IFileHandler fileHandler)
         {
             _fileHandler = fileHandler;
@@ -106,6 +104,7 @@ namespace VCFEditor.Repository
 
             return ListOfContacts;
         }
+
         private vCard ParseRawContent(StringBuilder rawContent)
         {
             vCard card = null;
@@ -181,12 +180,9 @@ namespace VCFEditor.Repository
                         _dirty = true;
                         _contacts.RemoveAt(i);
                     }
-                        
                 }
             }
-
         }
-       
 
         public SortableBindingList<Contact> FilterContacts(string filter)
         {
@@ -195,7 +191,6 @@ namespace VCFEditor.Repository
             Contacts = new SortableBindingList<Contact>(list.ToList());
             return Contacts;
         }
-
 
         public void SetDirtyFlag(int index)
         {
@@ -229,7 +224,6 @@ namespace VCFEditor.Repository
             card.Phones.Clear();
             foreach (var item in newCard.Phones)
                 card.Phones.Add(new vCardPhone(item.FullNumber, item.PhoneType));
-
         }
 
         private void SaveExtraField(vCard newCard, vCard card)
@@ -259,7 +253,6 @@ namespace VCFEditor.Repository
                 else
                     card.DeliveryAddresses.Add(new vCardDeliveryAddress(item.Street, item.City, item.Region, item.Country,
                         item.PostalCode, item.AddressType.FirstOrDefault()));
-                
             }
         }
 
@@ -277,7 +270,6 @@ namespace VCFEditor.Repository
             {
                 if (card.Phones.GetFirstChoice(vCardPhoneTypes.Home) != null)
                     card.Phones.GetFirstChoice(vCardPhoneTypes.Home).FullNumber = string.Empty;
-
             }
 
 
@@ -293,7 +285,6 @@ namespace VCFEditor.Repository
             {
                 if (card.Phones.GetFirstChoice(vCardPhoneTypes.Cellular) != null)
                     card.Phones.GetFirstChoice(vCardPhoneTypes.Cellular).FullNumber = string.Empty;
-
             }
 
             //Work
@@ -308,7 +299,6 @@ namespace VCFEditor.Repository
             {
                 if (card.Phones.GetFirstChoice(vCardPhoneTypes.Work) != null)
                     card.Phones.GetFirstChoice(vCardPhoneTypes.Work).FullNumber = string.Empty;
-
             }
         }
 
@@ -328,9 +318,7 @@ namespace VCFEditor.Repository
             {
                 if (card.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet) != null)
                     card.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet).Address = string.Empty;
-
             }
-
         }
 
         private void SaveWebUrl(vCard NewCard, vCard card)
@@ -347,7 +335,6 @@ namespace VCFEditor.Repository
             {
                 if (card.Websites.GetFirstChoice(vCardWebsiteTypes.Personal) != null)
                     card.Websites.GetFirstChoice(vCardWebsiteTypes.Personal).Url = string.Empty;
-
             }
 
 
@@ -362,7 +349,6 @@ namespace VCFEditor.Repository
             {
                 if (card.Websites.GetFirstChoice(vCardWebsiteTypes.Work) != null)
                     card.Websites.GetFirstChoice(vCardWebsiteTypes.Work).Url = string.Empty;
-
             }
         }
        
@@ -415,7 +401,7 @@ namespace VCFEditor.Repository
             int count;
             for (count = 0; count < contactsToSave.Count(); count++)
             {
-                var entry = contactsToSave[count];
+                Contact entry = contactsToSave[count];
                 string SerializedCard = GenerateStringFromVCard(entry.card);
 
                 //Check if filename for the card is empty, and generate one if empty
@@ -426,7 +412,6 @@ namespace VCFEditor.Repository
 
                 //Clean the flag for every contact, even the deleted ones.
                 entry.isDirty = false;
-
             }
             
             //Clean the global flag for the entire vCard Catalog.

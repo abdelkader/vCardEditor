@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using vCardEditor.Repository;
 
@@ -40,7 +35,7 @@ namespace vCardEditor.View
                         return titleAttribute.Title;
                     }
                 }
-                return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
+                return Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
             }
         }
 
@@ -109,10 +104,10 @@ namespace vCardEditor.View
         {
             try
             {
-                using (var client = new WebClient())
+                using (WebClient client = new WebClient())
                 {
                     string result = await client.DownloadStringTaskAsync(ConfigRepository.Instance.VersionUrl);
-                    using (var reader = new StringReader(result))
+                    using (StringReader reader = new StringReader(result))
                     {
                         string InternetVersion = reader.ReadLine();
                         string AssemblyVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
@@ -126,11 +121,11 @@ namespace vCardEditor.View
                     }
                 }
             }
-            catch (WebException )
+            catch (WebException)
             {
                 MessageBox.Show("Could not download version information from GitHub.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            catch (Exception )
+            catch (Exception)
             {
                 MessageBox.Show("Error processing version information.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

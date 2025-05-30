@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Thought.vCards;
-using VCFEditor.View;
+using vCardEditor.Model;
+using vCardEditor.Repository;
 using vCardEditor.View.Customs;
 using VCFEditor.Repository;
-using vCardEditor.Repository;
-using vCardEditor.Model;
-using System.Linq;
-using System.Collections.Generic;
+using VCFEditor.View;
 
 namespace VCFEditor.Presenter
 {
@@ -14,7 +14,6 @@ namespace VCFEditor.Presenter
     {
         private readonly IMainView _view;
         private readonly IContactRepository _repository;
-        
 
         public MainPresenter(IMainView view, IContactRepository repository)
         {
@@ -44,9 +43,6 @@ namespace VCFEditor.Presenter
             _view.BatchExportImagesEvent += _view_BatchExportImagesEvent;
             _view.SplitFileEvent += SaveSplittedFileHandler;
             _view.OpenFolderEvent += OpenNewFolderHandler;
-
-
-
         }
 
         private void OpenNewFolderHandler(object sender, EventArg<string> e)
@@ -59,7 +55,7 @@ namespace VCFEditor.Presenter
 
             if (!string.IsNullOrEmpty(path))
             {
-                var Loaded =_repository.LoadMultipleFilesContact(path);
+                bool Loaded =_repository.LoadMultipleFilesContact(path);
                 if (!Loaded)
                 {
                     _view.DisplayMessage("No file loaded!", "Error");
@@ -69,7 +65,6 @@ namespace VCFEditor.Presenter
                 AddPathToMostRecentUsedFiles(path);
                 _view.DisplayContacts(_repository.Contacts);
             }
-            
         }
 
         public void OpenNewFileHandler(object sender, EventArg<string> e)
@@ -89,7 +84,6 @@ namespace VCFEditor.Presenter
                     return;
                 }
 
-
                 if (!_repository.LoadContacts(path))
                     _view.DisplayMessage("File seems missing or corrupted!", "Error");
                 else
@@ -98,9 +92,8 @@ namespace VCFEditor.Presenter
                     AddPathToMostRecentUsedFiles(path);
                 }
             }
-
-            
         }
+
         private void AddPathToMostRecentUsedFiles(string path)
         {
             FixedList MostRecentUsedFiles = ConfigRepository.Instance.Paths;
@@ -110,6 +103,7 @@ namespace VCFEditor.Presenter
                 _view.UpdateMRUMenu(MostRecentUsedFiles);
             }
         }
+
         private void _view_BatchExportImagesEvent(object sender, EventArgs e)
         {
             if (_repository.Contacts == null || _repository.Contacts.Count == 0)
@@ -122,7 +116,6 @@ namespace VCFEditor.Presenter
                 {
                     count++;
                     SaveCardPhoto(_repository.Contacts[i].card, i);
-
                 }
             }
 
@@ -151,7 +144,6 @@ namespace VCFEditor.Presenter
                 }
             }
 
-
             if (count > 0)
                 _view.DisplayMessage($"{count} contact(s) processed!", "Photo Count");
             else
@@ -163,7 +155,7 @@ namespace VCFEditor.Presenter
             if (_repository.Contacts == null)
                 return;
 
-            var count = _repository.Contacts.Count(x => x.card.Photos.Count > 0);
+            int count = _repository.Contacts.Count(x => x.card.Photos.Count > 0);
             if (count > 0)
                 _view.DisplayMessage($"{count} contact(s) containing a picture = ", "Photo Count");
             else
@@ -187,18 +179,17 @@ namespace VCFEditor.Presenter
             _view.SendTextToClipBoard(SerializedCard);
             _view.DisplayMessage("vCard copied to clipboard!", "Information");
         }
+
         private void LoadFormHandler(object sender, EventArg<FormState> e)
         {
             _view.LoadIntialState(ConfigRepository.Instance.FormState);
-            var paths = Environment.GetCommandLineArgs();
+            string[] paths = Environment.GetCommandLineArgs();
             if (paths.Length > 1)
             {
                 var evt = new EventArg<string>(paths[1]);
                 OpenNewFileHandler(sender, evt);
             }
-
         }
-
 
         private void AddressRemovedHandler(object sender, EventArg<int> e)
         {
@@ -224,13 +215,13 @@ namespace VCFEditor.Presenter
             contact.card.DeliveryAddresses.Clear();
             contact.card.DeliveryAddresses.Add(new vCardDeliveryAddress(e.Data));
         }
+
         private void ExportImageHandler(object sender, EventArgs e)
         {
-            
             if (_view.SelectedContactIndex > -1)
             {
                 //TODO: image can be url, or file location.
-                var card = _repository.Contacts[_view.SelectedContactIndex].card;
+                vCard card = _repository.Contacts[_view.SelectedContactIndex].card;
                 SaveCardPhoto(card, _view.SelectedContactIndex,  true);
             }
         }
@@ -238,12 +229,11 @@ namespace VCFEditor.Presenter
         private void SaveCardPhoto(vCard card, int index, bool askUser = false)
         {
             //TODO: Save every image for a vCard.
-            var image = card.Photos.FirstOrDefault();
+            vCardPhoto image = card.Photos.FirstOrDefault();
 
             if (image != null)
             {
-
-                var newPath = _repository.GenerateFileName(_repository.fileName, index,  image.Extension);
+                string newPath = _repository.GenerateFileName(_repository.fileName, index,  image.Extension);
 
                 //string ImagePath = string.Empty;
                 //if (askUser)
@@ -255,10 +245,9 @@ namespace VCFEditor.Presenter
 
         private void ExportQRHandler(object sender, EventArgs e)
         {
-
             if (_view.SelectedContactIndex > -1)
             {
-                var card = _repository.Contacts[_view.SelectedContactIndex].card;
+                vCard card = _repository.Contacts[_view.SelectedContactIndex].card;
                 string content = _repository.GenerateStringFromVCard(card);
 
                 _view.DisplayQRCode(content);
@@ -267,14 +256,13 @@ namespace VCFEditor.Presenter
 
         private void ModifyImageHandler(object sender, EventArg<string> e)
         {
-            if (!string.IsNullOrEmpty(e.Data) )
+            if (!string.IsNullOrEmpty(e.Data))
             {
                 vCardPhoto photo = new vCardPhoto(e.Data);
                 _repository.ModifyImage(_view.SelectedContactIndex, photo);
             }
             else
                 _repository.ModifyImage(_view.SelectedContactIndex, null);
-
         }
 
         void CloseFormHandler(object sender, EventArg<bool> e)
@@ -284,12 +272,12 @@ namespace VCFEditor.Presenter
 
             if (!e.Data)
             {
-                var state = _view.GetFormState();
+                FormState state = _view.GetFormState();
                 ConfigRepository.Instance.FormState = state;
                 ConfigRepository.Instance.SaveConfig();
             }
-            
         }
+
         public void BeforeLeavingContactHandler(object sender, EventArg<vCard> e)
         {
             _repository.SaveDirtyVCard(_view.SelectedContactIndex, e.Data);
@@ -297,10 +285,9 @@ namespace VCFEditor.Presenter
 
         public void TextBoxValueChangedHandler(object sender, EventArgs e)
         {
-            var tb = sender as StateTextBox;
+            StateTextBox tb = sender as StateTextBox;
             if (tb != null && tb.oldText != tb.Text)
                 _repository.SetDirtyFlag(_view.SelectedContactIndex);
-
         }
 
         public void FilterTextChangedHandler(object sender, EventArg<string> e)
@@ -328,10 +315,7 @@ namespace VCFEditor.Presenter
             else
                 filename = _view.DisplaySaveDialog("");
 
-                
             _repository.SaveContactsToFile(filename);
-
-
         }
 
         private void SaveSplittedFileHandler(object sender, EventArgs e)
@@ -345,7 +329,6 @@ namespace VCFEditor.Presenter
                 int count = _repository.SaveSplittedFiles(Path);
                 _view.DisplayMessage(string.Format("{0} contact(s) processed!", count), "Information");
             }
-
         }
 
         private void BeforeOpeningNewFileHandler()
@@ -356,13 +339,10 @@ namespace VCFEditor.Presenter
                     SaveContactsHandler(null, null);
                     //_repository.SaveContactsToFile(_repository.fileName);
             }
-
         }
-       
 
         public void ChangeContactSelectedHandler(object sender, EventArgs e)
         {
-
             if (_view.SelectedContactIndex > -1)
             {
                 vCard card = _repository.Contacts[_view.SelectedContactIndex].card;
@@ -374,8 +354,6 @@ namespace VCFEditor.Presenter
             }
             else
                 _view.ClearContactDetail();
-
         }
-
     }
 }

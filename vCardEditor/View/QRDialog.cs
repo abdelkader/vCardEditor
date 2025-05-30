@@ -29,8 +29,6 @@ namespace vCardEditor.View
                 pictureBoxQRCode.BackgroundImage = qrCode.GetGraphic(20, Color.Black, Color.White, null, 1);
                 pictureBoxQRCode.Size = new Size(pictureBoxQRCode.Width, pictureBoxQRCode.Height);
                 pictureBoxQRCode.SizeMode = PictureBoxSizeMode.StretchImage;
-
-                
             }
         }
 
@@ -61,30 +59,27 @@ namespace vCardEditor.View
                 }
                 else
                 {
-                    using (FileStream fs = (System.IO.FileStream)saveFileDialog1.OpenFile())
+                    using (FileStream fs = (FileStream)saveFileDialog1.OpenFile())
                     {
-                    
-                   
-                            ImageFormat imageFormat = null;
-                            switch (saveFileDialog1.FilterIndex)
-                            {
-                                case 1:
-                                    imageFormat = ImageFormat.Bmp;
-                                    break;
-                                case 2:
-                                    imageFormat = ImageFormat.Png;
-                                    break;
-                                case 3:
-                                    imageFormat = ImageFormat.Jpeg;
-                                    break;
-                                case 4:
-                                    imageFormat = ImageFormat.Gif;
-                                    break;
-                                default:
-                                    throw new NotSupportedException("File extension is not supported");
-                            }
-                            pictureBoxQRCode.BackgroundImage.Save(fs, imageFormat);
-                  
+                        ImageFormat imageFormat = null;
+                        switch (saveFileDialog1.FilterIndex)
+                        {
+                            case 1:
+                                imageFormat = ImageFormat.Bmp;
+                                break;
+                            case 2:
+                                imageFormat = ImageFormat.Png;
+                                break;
+                            case 3:
+                                imageFormat = ImageFormat.Jpeg;
+                                break;
+                            case 4:
+                                imageFormat = ImageFormat.Gif;
+                                break;
+                            default:
+                                throw new NotSupportedException("File extension is not supported");
+                        }
+                        pictureBoxQRCode.BackgroundImage.Save(fs, imageFormat);
                     }
                 }
             }

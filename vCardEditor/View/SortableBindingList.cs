@@ -104,7 +104,7 @@ namespace vCardEditor.View
 
             // Remember the current setting for RaiseListChangedEvents
             // (if it was already deactivated, we shouldn't activate it after adding!).
-            var oldRaiseEventsValue = RaiseListChangedEvents;
+            bool oldRaiseEventsValue = RaiseListChangedEvents;
 
             try
             {
@@ -122,9 +122,6 @@ namespace vCardEditor.View
                 if (RaiseListChangedEvents)
                     ResetBindings();
             }
-
         }
-
-
     }
 }

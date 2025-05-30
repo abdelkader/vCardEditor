@@ -1,7 +1,7 @@
 ﻿
 namespace vCardEditor.View.Customs
 {
-    partial class CustumInputDialog
+    partial class CustomInputDialog
     {
         /// <summary>
         /// Required designer variable.

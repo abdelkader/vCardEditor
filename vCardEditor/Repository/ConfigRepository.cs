@@ -17,6 +17,7 @@ namespace vCardEditor.Repository
 
         private const int MAX_RECENT_FILES = 5;
         private static ConfigRepository instance = null;
+        
         [XmlIgnore]
         public static ConfigRepository Instance
         {
@@ -31,6 +32,7 @@ namespace vCardEditor.Repository
 
         [Description("Overwrite the file when saving")]
         public bool Overwrite { get; set; }
+       
         [Description("Maximum entries for MRU ")]
         public int Maximum { get; set; }
         
@@ -45,14 +47,12 @@ namespace vCardEditor.Repository
 
         private ConfigRepository() { }
 
-
-
         /// <summary>
         /// save config file
         /// </summary>
         public void SaveConfig()
         {
-            var ns = new XmlSerializerNamespaces();
+            XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
             ns.Add("", "");
 
             XmlSerializer xsSubmit = new XmlSerializer(typeof(ConfigRepository));
@@ -82,7 +82,6 @@ namespace vCardEditor.Repository
                     configData = (ConfigRepository)deserializer.Deserialize(reader);
                     configData.Paths.Size = configData.Maximum;
                 }
-
             }
             catch (Exception)
             {
@@ -94,10 +93,7 @@ namespace vCardEditor.Repository
                 };
             }
 
-
             return configData;
         }
-
-
     }
 }

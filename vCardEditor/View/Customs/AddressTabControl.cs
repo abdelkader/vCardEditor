@@ -26,7 +26,6 @@ namespace vCardEditor.View.Customs
             Selecting += tbcAddress_Selecting;
             HandleCreated += tbcAddress_HandleCreated;
             MouseDoubleClick += AddressTabControl_MouseDoubleClick;
-           
         }
 
         public void getDeliveryAddress(vCard card)
@@ -51,9 +50,9 @@ namespace vCardEditor.View.Customs
             {
                 if (GetTabRect(i).Contains(e.Location))
                 {
-                    var AddressBox = TabPages[i].Controls[0] as AddressBox;
+                    AddressBox AddressBox = TabPages[i].Controls[0] as AddressBox;
 
-                    var diag = new AddAddressDialog(AddressBox.AddressType);
+                    AddAddressDialog diag = new AddAddressDialog(AddressBox.AddressType);
 
                     if (diag.ShowDialog() == DialogResult.OK)
                     {
@@ -66,9 +65,7 @@ namespace vCardEditor.View.Customs
                     break;
                 }
             }
-
         }
-
 
         [DllImport("user32.dll")]
         private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
@@ -78,20 +75,18 @@ namespace vCardEditor.View.Customs
             SendMessage(Handle, TCM_SETMINTABWIDTH, IntPtr.Zero, (IntPtr)16);
         }
 
-
         private void tbcAddress_Selecting(object sender, TabControlCancelEventArgs e)
         {
             if (e.TabPageIndex == TabCount - 1)
                 e.Cancel = true;
         }
 
-
         private void tbcAddress_MouseDown(object sender, MouseEventArgs e)
         {
-            var lastIndex = TabCount - 1;
+            int lastIndex = TabCount - 1;
             if (GetTabRect(lastIndex).Contains(e.Location))
             {
-                var diag = new AddAddressDialog();
+                AddAddressDialog diag = new AddAddressDialog();
                 if (diag.ShowDialog() == DialogResult.OK)
                 {
                     vCardDeliveryAddress da = new vCardDeliveryAddress();
@@ -100,16 +95,15 @@ namespace vCardEditor.View.Customs
                     AddTab?.Invoke(sender, new EventArg<List<vCardDeliveryAddressTypes>>(diag.Addresses));
                     SelectedIndex = TabCount - 2;
                 }
-                
             }
             else
             {
-                for (var i = 0; i < TabPages.Count; i++)
+                for (int i = 0; i < TabPages.Count; i++)
                 {
-                    var tabRect = GetTabRect(i);
+                    Rectangle tabRect = GetTabRect(i);
                     tabRect.Inflate(-2, -2);
-                    var closeImage = Properties.Resources.Close;
-                    var imageRect = new Rectangle(
+                    Bitmap closeImage = Properties.Resources.Close;
+                    Rectangle imageRect = new Rectangle(
                         (tabRect.Right - closeImage.Width),
                         tabRect.Top + (tabRect.Height - closeImage.Height) / 2,
                         closeImage.Width, closeImage.Height);
@@ -122,12 +116,9 @@ namespace vCardEditor.View.Customs
                             SelectedIndex = 0;
                             RemoveTab?.Invoke(sender, new EventArg<int>(i));
                         }
-
                         return;
                     }
-                   
                 }
-                
             }
         }
 
@@ -136,19 +127,19 @@ namespace vCardEditor.View.Customs
             if (e.Index > TabCount - 1)
                 return;
 
-            var tabRect = GetTabRect(e.Index);
+            Rectangle tabRect = GetTabRect(e.Index);
             tabRect.Inflate(-2, -2);
             
             if (e.Index == TabCount - 1)
             {
-                var addImage = Properties.Resources.Add;
+                Bitmap addImage = Properties.Resources.Add;
                 e.Graphics.DrawImage(addImage,
                     tabRect.Left + (tabRect.Width - addImage.Width) / 2,
                     tabRect.Top + (tabRect.Height - addImage.Height) / 2);
             }
             else
             {
-                var closeImage = Properties.Resources.Close;
+                Bitmap closeImage = Properties.Resources.Close;
                 e.Graphics.DrawImage(closeImage,
                     (tabRect.Right - closeImage.Width),
                     tabRect.Top + (tabRect.Height - closeImage.Height) / 2);
@@ -172,8 +163,6 @@ namespace vCardEditor.View.Customs
                 
                 TextBrush.Dispose();
             }
-
-
         }
 
         public void SetAddresses(vCard card)
@@ -184,7 +173,7 @@ namespace vCardEditor.View.Customs
 
         private void AddTabForEveryAddress(vCard card)
         {
-            foreach (var item in card.DeliveryAddresses)
+            foreach (vCardDeliveryAddress item in card.DeliveryAddresses)
                 AddtabForAddress(item);
             SelectedIndex = 0;
         }
@@ -193,36 +182,32 @@ namespace vCardEditor.View.Customs
         {
             string title = GetTabTitle(da.AddressType);
 
-            var page = new TabPage($"  {title}   ");
+            TabPage page = new TabPage($"  {title}   ");
             TabPages.Insert(TabCount - 1, page);
 
-            var ab = new AddressBox(da.Street, da.City, da.Region, da.Country,
+            AddressBox ab = new AddressBox(da.Street, da.City, da.Region, da.Country,
                                 da.PostalCode, da.ExtendedAddress, da.PostOfficeBox, da.AddressType);
 
             ab.TextChangedEvent += (s, e) => TextChangedEvent?.Invoke(s, e);
             ab.Dock = DockStyle.Fill;
             page.Controls.Add(ab);
             page.ToolTipText = string.Join(",", da.AddressType.ConvertAll(f => f.ToString()));
-
-
         }
 
         private string GetTabTitle(List<vCardDeliveryAddressTypes> addressTypes)
         {
-            var title = string.Empty;
+            string title = string.Empty;
             if (addressTypes.Count > 0)
             {
                 title = addressTypes[0].ToString();
                 if (addressTypes.Count > 1)
                     title += "...";
             }
-
             return title;
         }
 
         private void ClearTabs()
         {
-            
             //Remove every tab (except "+"). We don't call Clear() as it doesn't free memory.
             while (TabCount > 1)
                 TabPages[0].Dispose();

@@ -15,6 +15,7 @@ namespace VCFEditor.Model
                 NotifyPropertyChanged("Name");
             }
         }
+        
         [DisplayName("F.Name")]
         public string FamilyName
         {
@@ -27,11 +28,9 @@ namespace VCFEditor.Model
             get { 
                 if (card.Phones.GetFirstChoice(vCardPhoneTypes.Cellular) != null)
                     return card.Phones.GetFirstChoice(vCardPhoneTypes.Cellular).FullNumber;
-
                 return string.Empty;
             }
         }
-
 
         [Browsable(false)]
         public vCard card { get; set; }
@@ -47,7 +46,6 @@ namespace VCFEditor.Model
         
         [Browsable(false)]
         public string path { get; set; }
-     
 
         public Contact()
         {

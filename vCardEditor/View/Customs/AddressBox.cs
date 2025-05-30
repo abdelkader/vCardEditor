@@ -8,8 +8,8 @@ namespace vCardEditor.View.Customs
     public partial class AddressBox : UserControl
     {
         public event EventHandler TextChangedEvent;
+
         public List<vCardDeliveryAddressTypes> AddressType { get; set; }
-        
 
         public AddressBox(string street, string city, string region, string country, string postalCode, 
             string extendedAddress, string postOfficeBox, List<vCardDeliveryAddressTypes> addressType)
@@ -46,7 +46,7 @@ namespace vCardEditor.View.Customs
 
         public vCardDeliveryAddress getDeliveryAddress()
         {
-            var deliveryAddress = new vCardDeliveryAddress
+            vCardDeliveryAddress deliveryAddress = new vCardDeliveryAddress
             {
                 City = CityValue.Text,
                 Country = CountryValue.Text,
@@ -57,9 +57,7 @@ namespace vCardEditor.View.Customs
                 PostOfficeBox = POBoxValue.Text,
                 AddressType = AddressType
             };
-
             return deliveryAddress;
         }
-       
     }
 }

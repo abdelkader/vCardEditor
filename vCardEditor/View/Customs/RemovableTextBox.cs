@@ -6,12 +6,13 @@ namespace vCardEditor.View.Customs
 {
     public partial class RemovableTextBox : UserControl
     {
-        public event EventHandler BoutonRemoveClicked;
+        public event EventHandler ButtonRemoveClicked;
         public event EventHandler ContentTextChanged;
+
         public RemovableTextBox()
         {
             InitializeComponent();
-            btnRemove.Click += (s, e) => BoutonRemoveClicked?.Invoke(s, e);
+            btnRemove.Click += (s, e) => ButtonRemoveClicked?.Invoke(s, e);
             // Bubble up to set the dirty flag from the parent.
             ContentTextBox.LostFocus += (s, e) => ContentTextChanged?.Invoke(s, e);
             ContentTextBox.Validated += (s, e) => ContentTextChanged?.Invoke(s, e);
@@ -22,7 +23,7 @@ namespace vCardEditor.View.Customs
 
         private void ContentTextBox_Validated(object sender, EventArgs e)
         {
-            var card = this.Tag as vCardRoot;
+            vCardRoot card = this.Tag as vCardRoot;
             card.ChangeContent(Content);
         }
 
@@ -32,7 +33,6 @@ namespace vCardEditor.View.Customs
             Title = cardType.GetNameType();
             Content = cardType.ToString();
         }
-
 
         public string Title
         {
@@ -45,6 +45,5 @@ namespace vCardEditor.View.Customs
             get { return ContentTextBox.Text; }
             set { ContentTextBox.Text = value; }
         }
-
     }
 }

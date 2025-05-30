@@ -24,7 +24,6 @@ namespace vCardEditor.Repository
         {
             if (File.Exists(newFilename))
                 File.Move(newFilename, oldFilename);
-           
         }
 
         public string[] ReadAllLines(string filename)
@@ -39,9 +38,9 @@ namespace vCardEditor.Repository
 
         public void WriteBytesToFile(string imageFile, byte[] image)
         {
-            using (var ms = new MemoryStream(image))
+            using (MemoryStream ms = new MemoryStream(image))
             {
-                using (var fs = new FileStream(imageFile, FileMode.Create))
+                using (FileStream fs = new FileStream(imageFile, FileMode.Create))
                     ms.WriteTo(fs);
             }
         }
@@ -61,6 +60,5 @@ namespace vCardEditor.Repository
             string[] filePaths = Directory.GetFiles(path, ext,SearchOption.TopDirectoryOnly);
             return filePaths;
         }
-
     }
 }
