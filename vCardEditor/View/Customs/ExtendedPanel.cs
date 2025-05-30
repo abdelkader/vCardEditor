@@ -6,7 +6,6 @@ using Thought.vCards;
 
 namespace vCardEditor.View.Customs
 {
-
     public partial class ExtendedPanel : UserControl
     {
         public ExtendedPanel()
@@ -35,8 +34,8 @@ namespace vCardEditor.View.Customs
             //{
             //    AddControl(custom.input, string.Empty);
             //}
-
         }
+
         public event EventHandler ContentTextChanged;
 
         public string Caption
@@ -48,12 +47,11 @@ namespace vCardEditor.View.Customs
         public PanelType panelType { get; set; }
         private void MenuItemClickHandlers(object sender, EventArgs e)
         {
-            var tag = (sender as ToolStripMenuItem).Tag;
+            object tag = (sender as ToolStripMenuItem).Tag;
             if (tag != null && tag is vCardRoot)
                 AddControl(tag as vCardRoot);   
         }
 
-       
         private void btnAddExtraText_Click(object sender, EventArgs e)
         {
             Button btnSender = (Button)sender;
@@ -71,35 +69,31 @@ namespace vCardEditor.View.Customs
                 default:
                     break;
             }
-
-
-           
-
         }
        
         public void AddControl(vCardRoot card)
         {
             Point pt = GetCoordinatesForNewControl();
-            
-            RemovableTextBox ctl = new RemovableTextBox(card);
-            
-            ctl.Anchor = AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Left;
-            ctl.Location = pt;
-            ctl.Width = PanelContent.Width - 20; //TODO : Calculte the right size of the scrollbar!
 
+            RemovableTextBox ctl = new RemovableTextBox(card)
+            {
+                Anchor = AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Left,
+                Location = pt,
+                Width = PanelContent.Width - 20 //TODO : Calculte the right size of the scrollbar!
+            };
 
-            ctl.BoutonRemoveClicked += RemoveControl;
+            ctl.ButtonRemoveClicked += RemoveControl;
             ctl.ContentTextChanged += (s, e) => ContentTextChanged?.Invoke(s, e);
             PanelContent.Controls.Add(ctl);
         }
+
         public List<vCardRoot> GetExtraFields()
         {
             List<vCardRoot> result = new List<vCardRoot>();
 
-            foreach (var item in PanelContent.Controls)
+            foreach (Control item in PanelContent.Controls)
             {
-                var ctl = item as RemovableTextBox;
-                result.Add(ctl.Tag as vCardRoot);
+                result.Add((item as RemovableTextBox).Tag as vCardRoot);
             }
 
             return result;
@@ -113,9 +107,7 @@ namespace vCardEditor.View.Customs
 
         private void RemoveControl(object sender, EventArgs e)
         {
-            var par = (sender as Control).Parent;
-            PanelContent.Controls.Remove(par);
-
+            PanelContent.Controls.Remove((sender as Control).Parent);
             ReplaceControls();
         }
 
@@ -123,20 +115,16 @@ namespace vCardEditor.View.Customs
         {
             for (int i = 0; i < PanelContent.Controls.Count; i++)
             {
-                var ctl = PanelContent.Controls[i];
-                ctl.Location = new Point(5, (i * 30) + 10);
+                PanelContent.Controls[i].Location = new Point(5, (i * 30) + 10);
             }
-
         }
-
-
 
         private Point GetCoordinatesForNewControl()
         {
             Point pt;
             if (PanelContent.Controls.Count > 0)
             {
-                var LastControl = PanelContent.Controls[PanelContent.Controls.Count - 1];
+                Control LastControl = PanelContent.Controls[PanelContent.Controls.Count - 1];
                 pt = LastControl.Location;
                 pt.Y += 30;
             }
@@ -145,8 +133,5 @@ namespace vCardEditor.View.Customs
 
             return pt;
         }
-
-
-
     }
 }

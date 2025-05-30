@@ -26,9 +26,7 @@ namespace vCardEditor.View.Customs
             Addresses = addressCollection;
             _checkBoxes = Controls.OfType<CheckBox>().ToList();
 
-            
-
-            foreach (var item in addressCollection)
+            foreach (vCardDeliveryAddressTypes item in addressCollection)
             {
                 switch (item.ToString())
                 {
@@ -53,9 +51,7 @@ namespace vCardEditor.View.Customs
                     case "International":
                         cbInternational.Checked = true;
                         break;
-
                 }
-               
             }
         }
 
@@ -71,13 +67,11 @@ namespace vCardEditor.View.Customs
             }
             
             Addresses.Clear();
-            foreach (var item in checkedItems)
+            foreach (CheckBox item in checkedItems)
             {
-                var enumType = (vCardDeliveryAddressTypes)Enum.Parse(typeof(vCardDeliveryAddressTypes), item.Text, true);
+                vCardDeliveryAddressTypes enumType = (vCardDeliveryAddressTypes)Enum.Parse(typeof(vCardDeliveryAddressTypes), item.Text, true);
                 Addresses.Add(enumType);
             }
-           
-
         }
     }
 }

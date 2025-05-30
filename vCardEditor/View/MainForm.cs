@@ -1,16 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using VCFEditor.View;
-using VCFEditor.Model;
 using Thought.vCards;
-using vCardEditor.Repository;
 using vCardEditor.Model;
-using System.Drawing;
-using System.Collections.Generic;
+using vCardEditor.Repository;
 using vCardEditor.View.Customs;
 using vCardEditor.View.UIToolbox;
+using VCFEditor.Model;
+using VCFEditor.View;
 
 namespace vCardEditor.View
 {
@@ -39,9 +39,6 @@ namespace vCardEditor.View
         public event EventHandler BatchExportImagesEvent;
         public event EventHandler<EventArg<string>> OpenFolderEvent;
         public event EventHandler SplitFileEvent;
-        
-
-
 
         ComponentResourceManager resources;
 
@@ -56,13 +53,10 @@ namespace vCardEditor.View
                 else
                     return -1;
             }
-
         }
-
 
         public MainForm()
         {
-
             InitializeComponent();
 
             resources = new ComponentResourceManager(typeof(MainForm));
@@ -74,14 +68,12 @@ namespace vCardEditor.View
             extendedPanelPhones.ContentTextChanged += (sender, e) => TextBoxValueChanged?.Invoke(sender, e);
             extendedPanelWeb.ContentTextChanged += (sender, e) => TextBoxValueChanged?.Invoke(sender, e);
             BuildMRUMenu();
-
         }
 
         private void tbsOpen_Click(object sender, EventArgs e)
         {
             OpenFile(sender, string.Empty);
         }
-
 
         private void OpenFile(object sender, string filename)
         {
@@ -98,7 +90,6 @@ namespace vCardEditor.View
             bsContacts.DataSource = null;
             if (contacts != null)
                 bsContacts.DataSource = contacts;
-
         }
 
         private void tbsSave_Click(object sender, EventArgs e)
@@ -116,7 +107,6 @@ namespace vCardEditor.View
 
                 SaveContactsSelected(sender, e);
             }
-
         }
 
         private void tbsNew_Click(object sender, EventArgs e)
@@ -128,7 +118,6 @@ namespace vCardEditor.View
         {
             if (dgContacts.CurrentCell == null)
                 return;
-
 
             //Weired, the selection is fired multiple times...
             int RowIndex = dgContacts.CurrentCell.RowIndex;
@@ -154,7 +143,6 @@ namespace vCardEditor.View
 
         public void DisplayContactDetail(vCard card, string FileName)
         {
-
             if (card == null)
                 throw new ArgumentException("vCard must be valid!");
 
@@ -176,34 +164,29 @@ namespace vCardEditor.View
 
             SetExtraInfos(card);
             SetExtraTabFields(card);
-
         }
 
         private void SetExtraInfos(vCard card)
         {
-            foreach (var item in card.EmailAddresses)
+            foreach (vCardEmailAddress item in card.EmailAddresses)
                 extendedPanelWeb.AddControl(item);
 
-            foreach (var item in card.Websites)
+            foreach (vCardWebsite item in card.Websites)
                 extendedPanelWeb.AddControl(item);
 
-            foreach (var item in card.Phones)
+            foreach (vCardPhone item in card.Phones)
                 extendedPanelPhones.AddControl(item);
         }
 
-
-
         private void SetExtraTabFields(vCard card)
         {
-            foreach (var note in card.Notes)
+            foreach (vCardNote note in card.Notes)
                 AddExtraTextGroup(vCardPropeties.NOTE, note.Text);
 
             if (!string.IsNullOrEmpty(card.Organization))
             {
                 AddExtraTextGroup(vCardPropeties.ORG, card.Organization);
             }
-
-
         }
 
         public void AddExtraTextGroup(vCardPropeties type, string content)
@@ -215,11 +198,10 @@ namespace vCardEditor.View
             etg.TextChangedEvent += (sender, e) => TextBoxValueChanged?.Invoke(sender, e);
             etg.ControlDeleted += (sender, e) =>
             {
-                var send = sender as Control;
+                Control send = sender as Control;
                 panelTabExtra.Controls.Remove(send.Parent);
             };
             etg.Dock = DockStyle.Top;
-
 
             panelTabExtra.Controls.Add(etg);
         }
@@ -255,7 +237,7 @@ namespace vCardEditor.View
         {
             if (photos.Any())
             {
-                var photo = photos[0];
+                vCardPhoto photo = photos[0];
                 try
                 {
                     // Get the bytes of the photo if it has not already been loaded.
@@ -272,8 +254,8 @@ namespace vCardEditor.View
             }
             else
                 PhotoBox.Image = (Image)resources.GetObject("PhotoBox.Image");
-
         }
+
         private void SetAddressesValues(vCard card)
         {
             tbcAddress.SetAddresses(card);
@@ -306,19 +288,15 @@ namespace vCardEditor.View
             textBoxFilter.Focus();
         }
 
-
-
         private vCard GetvCardFromWindow()
         {
             vCard card = new vCard
             {
-
                 Title = FormattedTitleValue.Text,
                 FormattedName = FormattedNameValue.Text,
                 GivenName = firstNameValue.Text,
                 AdditionalNames = middleNameValue.Text,
                 FamilyName = lastNameValue.Text,
-
             };
 
             tbcAddress.getDeliveryAddress(card);
@@ -331,7 +309,7 @@ namespace vCardEditor.View
         private void getExtraPhones(vCard card)
         {
             card.Phones.Clear();
-            foreach (var item in extendedPanelPhones.GetExtraFields())
+            foreach (vCardRoot item in extendedPanelPhones.GetExtraFields())
             {
                 if (item is vCardPhone)
                 {
@@ -339,40 +317,34 @@ namespace vCardEditor.View
                     card.Phones.Add(phone);
                 }
             }
-
         }
+
         private void getExtraWeb(vCard card)
         {
             card.Websites.Clear();
             card.EmailAddresses.Clear();
 
-            foreach (var item in extendedPanelWeb.GetExtraFields())
+            foreach (vCardRoot item in extendedPanelWeb.GetExtraFields())
             {
                 switch (item)
                 {
                     case vCardEmailAddress email:
                         card.EmailAddresses.Add(email);
                         break;
-
                     case vCardWebsite website:
                         card.Websites.Add(website);
                         break;
-
                     default:
                         break;
                 }
-
             }
-
         }
-
-
 
         private void getExtraData(vCard card)
         {
-            foreach (var item in panelTabExtra.Controls)
+            foreach (object item in panelTabExtra.Controls)
             {
-                var tbc = item as ExtraTextGroup;
+                ExtraTextGroup tbc = item as ExtraTextGroup;
                 switch (tbc.CardProp)
                 {
                     case vCardPropeties.NOTE:
@@ -398,12 +370,12 @@ namespace vCardEditor.View
             Close();
         }
 
-
         private void MainForm_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
                 e.Effect = DragDropEffects.Copy;
         }
+
         private void MainForm_DragDrop(object sender, DragEventArgs e)
         {
             string[] FileList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
@@ -416,14 +388,11 @@ namespace vCardEditor.View
             OpenFile(sender, FileList[0]);
         }
 
-
-
         private void BuildMRUMenu()
         {
             //TODO: Open File or Folder.
             recentFilesMenuItem.DropDownItemClicked += (s, e) => OpenFile(s, e.ClickedItem.Text);
             UpdateMRUMenu(ConfigRepository.Instance.Paths);
-
         }
 
         public void UpdateMRUMenu(FixedList MostRecentFilesList)
@@ -434,7 +403,6 @@ namespace vCardEditor.View
             recentFilesMenuItem.DropDownItems.Clear();
             for (int i = 0; i < MostRecentFilesList._innerList.Count; i++)
                 recentFilesMenuItem.DropDownItems.Add(MostRecentFilesList[i]);
-
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -443,7 +411,6 @@ namespace vCardEditor.View
             CloseForm?.Invoke(sender, evt);
 
             e.Cancel = evt.Data;
-
         }
 
         public bool AskMessage(string msg, string caption)
@@ -467,6 +434,7 @@ namespace vCardEditor.View
         {
             MessageBox.Show(msg, caption);
         }
+
         public string DisplayOpenFileDialog(string filter = "")
         {
             string filename = string.Empty;
@@ -481,8 +449,7 @@ namespace vCardEditor.View
 
         public string DisplaySaveDialog(string filename)
         {
-
-            var saveFileDialog = new SaveFileDialog
+            SaveFileDialog saveFileDialog = new SaveFileDialog
             {
                 FileName = filename
             };
@@ -493,11 +460,12 @@ namespace vCardEditor.View
 
             return filename;
         }
+
         private void PhotoBox_Click(object sender, EventArgs e)
         {
             if (ModifyImage != null)
             {
-                var fileName = DisplayOpenFileDialog();
+                string fileName = DisplayOpenFileDialog();
                 if (!string.IsNullOrEmpty(fileName))
                 {
                     try
@@ -510,11 +478,8 @@ namespace vCardEditor.View
                     {
                         MessageBox.Show($"Invalid file! : {fileName}");
                     }
-
                 }
-
             }
-
         }
 
         public void ClearImageFromForm()
@@ -544,26 +509,23 @@ namespace vCardEditor.View
             Clipboard.SetText(text);
         }
 
-       
         private void dgContacts_CellContextMenuStripNeeded(object sender, DataGridViewCellContextMenuStripNeededEventArgs e)
         {
             if (e.RowIndex == -1)
             {
                 e.ContextMenuStrip = contextMenuStrip1;
             }
-            
         }
 
         private void modifiyColumnsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             List<Column> Columns = GetListColumnsForDataGrid();
 
-            var dialog = new ColumnsDialog(Columns);
+            ColumnsDialog dialog = new ColumnsDialog(Columns);
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 ToggleAllColumnsToInvisible();
                 ToggleOnlySelected(dialog.Columns);
-
             }
         }
 
@@ -574,19 +536,17 @@ namespace vCardEditor.View
             {
                 if (dgContacts.Columns[i].Visible)
                 {
-                    var name = dgContacts.Columns[i].Name;
-                    var enumType = (Column)Enum.Parse(typeof(Column), name, true);
+                    string name = dgContacts.Columns[i].Name;
+                    Column enumType = (Column)Enum.Parse(typeof(Column), name, true);
                     Columns.Add(enumType);
                 }
-
             }
-
             return Columns;
         }
 
         private void ToggleOnlySelected(List<Column> columns)
         {
-            foreach (var item in columns)
+            foreach (Column item in columns)
             {
                 switch (item)
                 {
@@ -610,7 +570,6 @@ namespace vCardEditor.View
 
         public FormState GetFormState()
         {
-
             return new FormState
             {
                 Columns = GetListColumnsForDataGrid(),
@@ -626,7 +585,6 @@ namespace vCardEditor.View
         {
             var evt = new EventArg<FormState>(new FormState());
             LoadForm?.Invoke(sender, evt);
-
         }
 
         public void LoadIntialState(FormState state)
@@ -642,6 +600,7 @@ namespace vCardEditor.View
                 }
             }
         }
+
         private void tbsQR_Click(object sender, EventArgs e)
         {
             ExportQR?.Invoke(sender, e);
@@ -652,7 +611,6 @@ namespace vCardEditor.View
             QRDialog qr = new QRDialog(content);
             qr.ShowDialog();
         }
-
 
         private void addNotesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -673,7 +631,6 @@ namespace vCardEditor.View
             ptLowerLeft = btnSender.PointToScreen(ptLowerLeft);
             menuExtraField.Show(ptLowerLeft);
         }
-
 
         private void miNote_Click(object sender, EventArgs e)
         {

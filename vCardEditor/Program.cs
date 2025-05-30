@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
+using vCardEditor.Repository;
 using vCardEditor.View;
 using VCFEditor.Presenter;
-using VCFEditor;
 using VCFEditor.Repository;
-using vCardEditor.Repository;
 
 namespace vCardEditor
 {
@@ -21,8 +18,8 @@ namespace vCardEditor
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            var fileHandler = new FileHandler();
-            var mainForm = new MainForm();
+            FileHandler fileHandler = new FileHandler();
+            MainForm mainForm = new MainForm();
             new MainPresenter(mainForm, new ContactRepository(fileHandler));
 
             Application.Run(mainForm);

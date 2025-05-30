@@ -2,9 +2,9 @@
 
 namespace vCardEditor.View.Customs
 {
-    public partial class CustumInputDialog : Form
+    public partial class CustomInputDialog : Form
     {
-        public CustumInputDialog()
+        public CustomInputDialog()
         {
             InitializeComponent();
         }
@@ -15,7 +15,5 @@ namespace vCardEditor.View.Customs
         {
             input = tbInput.Text;
         }
-
-       
     }
 }

@@ -176,11 +176,11 @@
     <Compile Include="View\Customs\ColumnsDialog.Designer.cs">
       <DependentUpon>ColumnsDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\Customs\CustumInputDialog.cs">
+    <Compile Include="View\Customs\CustomInputDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Customs\CustumInputDialog.Designer.cs">
-      <DependentUpon>CustumInputDialog.cs</DependentUpon>
+    <Compile Include="View\Customs\CustomInputDialog.Designer.cs">
+      <DependentUpon>CustomInputDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="View\Customs\ExtendedPanel.cs">
       <SubType>UserControl</SubType>
@@ -244,8 +244,8 @@
     <EmbeddedResource Include="View\Customs\ColumnsDialog.resx">
       <DependentUpon>ColumnsDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\Customs\CustumInputDialog.resx">
-      <DependentUpon>CustumInputDialog.cs</DependentUpon>
+    <EmbeddedResource Include="View\Customs\CustomInputDialog.resx">
+      <DependentUpon>CustomInputDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Customs\ExtendedPanel.resx">
       <DependentUpon>ExtendedPanel.cs</DependentUpon>

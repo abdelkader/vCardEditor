@@ -16,10 +16,9 @@ namespace vCardEditor.Model
             get { return _size; }
             set { _size = value; } 
         }
-        public FixedList() : this(5)
-        {
 
-        }
+        public FixedList() : this(5) { }
+
         public FixedList(int size)
         {
             this._size = size;

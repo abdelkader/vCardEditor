@@ -18,7 +18,7 @@ namespace vCardEditor.View.Customs
             _checkBoxes = Controls.OfType<CheckBox>().ToList();
             Columns = columns;
 
-            foreach (var item in columns)
+            foreach (Column item in columns)
             {
                 switch (item)
                 {
@@ -36,13 +36,9 @@ namespace vCardEditor.View.Customs
         private void btnOK_Click(object sender, EventArgs e)
         {
             Columns.Clear();
-
-            var total = _checkBoxes
-                 .Where(checkBox => checkBox.Checked);
-
-            foreach (var item in total)
+            foreach (CheckBox item in _checkBoxes.Where(checkBox => checkBox.Checked))
             {
-                var enumType = (Column)Enum.Parse(typeof(Column), item.Text, true);
+                Column enumType = (Column)Enum.Parse(typeof(Column), item.Text, true);
                 Columns.Add(enumType);
             }
         }
