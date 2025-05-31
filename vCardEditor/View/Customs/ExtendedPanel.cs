@@ -83,6 +83,7 @@ namespace vCardEditor.View.Customs
             };
 
             ctl.ButtonRemoveClicked += RemoveControl;
+            ctl.ButtonRemoveClicked += (s, e) => ContentTextChanged?.Invoke(s, e);
             ctl.ContentTextChanged += (s, e) => ContentTextChanged?.Invoke(s, e);
             PanelContent.Controls.Add(ctl);
         }
