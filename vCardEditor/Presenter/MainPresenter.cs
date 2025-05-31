@@ -285,8 +285,8 @@ namespace VCFEditor.Presenter
 
         public void TextBoxValueChangedHandler(object sender, EventArgs e)
         {
-            StateTextBox tb = sender as StateTextBox;
-            if (tb != null && tb.oldText != tb.Text)
+            if ((sender is System.Windows.Forms.Button btn && btn.Name == "btnRemove") ||
+                    (sender is StateTextBox tb && tb.oldText != tb.Text))
                 _repository.SetDirtyFlag(_view.SelectedContactIndex);
         }
 
