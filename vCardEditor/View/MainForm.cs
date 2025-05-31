@@ -39,6 +39,7 @@ namespace vCardEditor.View
         public event EventHandler BatchExportImagesEvent;
         public event EventHandler<EventArg<string>> OpenFolderEvent;
         public event EventHandler SplitFileEvent;
+        public event EventHandler CardInfoRemoved;
 
         ComponentResourceManager resources;
 
@@ -67,6 +68,8 @@ namespace vCardEditor.View
             btnClearFilter.Click += (sender, e) => textBoxFilter.Clear();
             extendedPanelPhones.ContentTextChanged += (sender, e) => TextBoxValueChanged?.Invoke(sender, e);
             extendedPanelWeb.ContentTextChanged += (sender, e) => TextBoxValueChanged?.Invoke(sender, e);
+            extendedPanelPhones.CardInfoRemoved += (sender, e) => CardInfoRemoved?.Invoke(sender, e);
+            extendedPanelWeb.CardInfoRemoved += (sender, e) => CardInfoRemoved?.Invoke(sender, e);
             BuildMRUMenu();
         }
 

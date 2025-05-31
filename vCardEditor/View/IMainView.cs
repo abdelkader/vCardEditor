@@ -32,6 +32,8 @@ namespace VCFEditor.View
         event EventHandler BatchExportImagesEvent;
         event EventHandler<EventArg<string>> OpenFolderEvent;
         event EventHandler SplitFileEvent;
+        event EventHandler CardInfoRemoved;
+
         int SelectedContactIndex { get; }
         void DisplayContacts(SortableBindingList<Contact> contacts);
         void DisplayContactDetail(vCard card, string FileName);

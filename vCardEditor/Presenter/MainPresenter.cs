@@ -43,6 +43,7 @@ namespace VCFEditor.Presenter
             _view.BatchExportImagesEvent += _view_BatchExportImagesEvent;
             _view.SplitFileEvent += SaveSplittedFileHandler;
             _view.OpenFolderEvent += OpenNewFolderHandler;
+            _view.CardInfoRemoved += CardInfoRemovedHandler;
         }
 
         private void OpenNewFolderHandler(object sender, EventArg<string> e)
@@ -288,6 +289,11 @@ namespace VCFEditor.Presenter
             StateTextBox tb = sender as StateTextBox;
             if (tb != null && tb.oldText != tb.Text)
                 _repository.SetDirtyFlag(_view.SelectedContactIndex);
+        }
+
+        public void CardInfoRemovedHandler(object sender, EventArgs e)
+        {
+            _repository.SetDirtyFlag(_view.SelectedContactIndex);
         }
 
         public void FilterTextChangedHandler(object sender, EventArg<string> e)

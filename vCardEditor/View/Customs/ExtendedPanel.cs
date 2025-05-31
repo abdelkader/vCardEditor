@@ -37,6 +37,7 @@ namespace vCardEditor.View.Customs
         }
 
         public event EventHandler ContentTextChanged;
+        public event EventHandler CardInfoRemoved;
 
         public string Caption
         {
@@ -113,6 +114,7 @@ namespace vCardEditor.View.Customs
                 PanelContent.Controls.Remove(par);
 
                 ReplaceControls();
+                CardInfoRemoved?.Invoke(sender, e);
             }
         }
 
