@@ -10,6 +10,7 @@ using System;
 using AutoFixture;
 using Thought.vCards;
 using System.Collections.Generic;
+using vCardEditor;
 
 namespace vCardEditor_Test
 {
@@ -24,7 +25,8 @@ namespace vCardEditor_Test
             fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfOneEntry);
             var repo = Substitute.For<ContactRepository>(fileHandler);
             var view = Substitute.For<IMainView>();
-            _ = new MainPresenter(view, repo);
+            var localization = Substitute.For<ILocalizationProvider>();
+            _ = new MainPresenter(view, repo, localization);
             view.NewFileOpened += Raise.EventWith(new EventArg<string>("filename.aaa"));
 
             view.Received().DisplayMessage(Arg.Any<string>(), Arg.Any<string>());
@@ -42,8 +44,10 @@ namespace vCardEditor_Test
             repo.GetExtension(Arg.Any<string>()).Returns(".vcf");
             var view = Substitute.For<IMainView>();
 
-            
-            var presenter = new MainPresenter(view, repo);
+
+            var localization = Substitute.For<ILocalizationProvider>();
+            _ = new MainPresenter(view, repo, localization);
+
             view.NewFileOpened += Raise.EventWith(new EventArg<string>("filename.vcf"));
 
             view.Received().DisplayContacts(Arg.Is<SortableBindingList<Contact>>(x=>x.Count == 1));
@@ -64,7 +68,9 @@ namespace vCardEditor_Test
             var view = Substitute.For<IMainView>();
             view.AskMessage(Arg.Any<string>(), Arg.Any<string>()).Returns(true);
 
-            var presenter = new MainPresenter(view, repo);
+            var localization = Substitute.For<ILocalizationProvider>();
+            _ = new MainPresenter(view, repo, localization);
+
             view.NewFileOpened += Raise.EventWith(new EventArg<string>("filename.vcf"));
             repo.Contacts[1].isDirty = true;
 
@@ -84,7 +90,9 @@ namespace vCardEditor_Test
             var view = Substitute.For<IMainView>();
 
 
-            var presenter = new MainPresenter(view, repo);
+            var localization = Substitute.For<ILocalizationProvider>();
+            _ = new MainPresenter(view, repo, localization);
+
             view.NewFileOpened += Raise.EventWith(new EventArg<string>("aaa.vcf"));
 
             view.SaveContactsSelected += Raise.Event();
@@ -105,7 +113,9 @@ namespace vCardEditor_Test
             var view = Substitute.For<IMainView>();
 
 
-            _ = new MainPresenter(view, repo);
+            var localization = Substitute.For<ILocalizationProvider>();
+            _ = new MainPresenter(view, repo, localization);
+
             view.NewFileOpened += Raise.EventWith(new EventArg<string>("aaa.vcf"));
 
             view.SaveContactsSelected += Raise.Event();
@@ -123,8 +133,10 @@ namespace vCardEditor_Test
             var repo = Substitute.For<ContactRepository>(fileHandler);
             repo.GetExtension(Arg.Any<string>()).Returns(".vcf");
             var view = Substitute.For<IMainView>();
-           
-            _ = new MainPresenter(view, repo);
+
+            var localization = Substitute.For<ILocalizationProvider>();
+            _ = new MainPresenter(view, repo, localization);
+
             view.NewFileOpened += Raise.EventWith(new EventArg<string>("aaa.vcf"));
             
             //Mouse click on second row.
@@ -148,7 +160,10 @@ namespace vCardEditor_Test
             var repo = Substitute.For<ContactRepository>(fileHandler);
             var view = Substitute.For<IMainView>();
             view.SelectedContactIndex.Returns(0);
-            _ = new MainPresenter(view, repo);
+            
+            var localization = Substitute.For<ILocalizationProvider>();
+            _ = new MainPresenter(view, repo, localization);
+
             repo.LoadContacts("aaa.vcf");
             view.CopyTextToClipboardEvent += Raise.Event();
 
@@ -167,7 +182,9 @@ namespace vCardEditor_Test
             var repo = Substitute.For<ContactRepository>(fileHandler);
             var view = Substitute.For<IMainView>();
             view.SelectedContactIndex.Returns(0);
-            _ = new MainPresenter(view, repo);
+            var localization = Substitute.For<ILocalizationProvider>();
+            _ = new MainPresenter(view, repo, localization);
+
             var contact = repo.LoadContacts("aaa.vcf");
 
             view.AddressRemoved += Raise.EventWith(new EventArg<int>(0));
@@ -186,7 +203,9 @@ namespace vCardEditor_Test
             var repo = Substitute.For<ContactRepository>(fileHandler);
             var view = Substitute.For<IMainView>();
             view.SelectedContactIndex.Returns(0);
-            _ = new MainPresenter(view, repo);
+            var localization = Substitute.For<ILocalizationProvider>();
+            _ = new MainPresenter(view, repo, localization);
+
             var contact = repo.LoadContacts("aaa.vcf");
 
             var fixture = new Fixture { RepeatCount = 2 };
@@ -210,7 +229,9 @@ namespace vCardEditor_Test
             var repo = Substitute.For<ContactRepository>(fileHandler);
             var view = Substitute.For<IMainView>();
             view.SelectedContactIndex.Returns(0);
-            _ = new MainPresenter(view, repo);
+            var localization = Substitute.For<ILocalizationProvider>();
+            _ = new MainPresenter(view, repo, localization);
+
             var contact = repo.LoadContacts("aaa.vcf");
 
             var fixture = new Fixture { RepeatCount = 2 };
@@ -232,7 +253,8 @@ namespace vCardEditor_Test
             var repo = Substitute.For<ContactRepository>(fileHandler);
             var view = Substitute.For<IMainView>();
             view.SelectedContactIndex.Returns(0);
-            _ = new MainPresenter(view, repo);
+            var localization = Substitute.For<ILocalizationProvider>();
+            _ = new MainPresenter(view, repo, localization);
             _ = repo.LoadContacts("aaa.vcf");
             
             view.ExportImage += Raise.Event();
@@ -250,7 +272,8 @@ namespace vCardEditor_Test
             var repo = Substitute.For<ContactRepository>(fileHandler);
             var view = Substitute.For<IMainView>();
             view.SelectedContactIndex.Returns(0);
-            _ = new MainPresenter(view, repo);
+            var localization = Substitute.For<ILocalizationProvider>();
+            _ = new MainPresenter(view, repo, localization);
             var contact = repo.LoadContacts("aaa.vcf");
 
             view.ModifyImage += Raise.EventWith(new EventArg<string>(""));
@@ -266,7 +289,8 @@ namespace vCardEditor_Test
             var fileHandler = Substitute.For<IFileHandler>();
             var repo = Substitute.For<ContactRepository>(fileHandler);
             var view = Substitute.For<IMainView>();
-            _ = new MainPresenter(view, repo);
+            var localization = Substitute.For<ILocalizationProvider>();
+            _ = new MainPresenter(view, repo, localization);
             view.AddContact += Raise.Event();
 
             view.Received().DisplayContacts(Arg.Any<SortableBindingList<Contact>>());
@@ -288,7 +312,8 @@ namespace vCardEditor_Test
 
             var view = Substitute.For<IMainView>();
             view.DisplayOpenFolderDialog().Returns("aaa");
-            _ = new MainPresenter(view, repo);
+            var localization = Substitute.For<ILocalizationProvider>();
+            _ = new MainPresenter(view, repo, localization);
             view.SplitFileEvent += Raise.Event();
 
             //Should save only 3 files.

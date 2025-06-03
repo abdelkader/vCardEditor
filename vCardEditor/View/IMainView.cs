@@ -53,5 +53,7 @@ namespace VCFEditor.View
 
         void ClearImageFromForm();
         string DisplayOpenFolderDialog();
+        void LoadLocalizedUI(IReadOnlyDictionary<string, string> currentMessages);
+        void LoadAvailablesLangs(IEnumerable<string> availableLanguages);
     }
 }

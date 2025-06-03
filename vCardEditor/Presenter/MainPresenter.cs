@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Thought.vCards;
+using vCardEditor;
 using vCardEditor.Model;
 using vCardEditor.Repository;
 using vCardEditor.View.Customs;
@@ -14,11 +15,14 @@ namespace VCFEditor.Presenter
     {
         private readonly IMainView _view;
         private readonly IContactRepository _repository;
+        private readonly ILocalizationProvider _localization;
 
-        public MainPresenter(IMainView view, IContactRepository repository)
+        public MainPresenter(IMainView view, IContactRepository repository, ILocalizationProvider localization )
         {
             _view = view;
             _repository = repository;
+            _localization = localization;
+            
 
             _view.LoadForm += LoadFormHandler;
             _view.AddContact += AddContactHandler;
@@ -184,6 +188,8 @@ namespace VCFEditor.Presenter
         private void LoadFormHandler(object sender, EventArg<FormState> e)
         {
             _view.LoadIntialState(ConfigRepository.Instance.FormState);
+            _view.LoadAvailablesLangs(_localization.AvailableLanguages);
+            _view.LoadLocalizedUI(_localization.CurrentMessages);
             string[] paths = Environment.GetCommandLineArgs();
             if (paths.Length > 1)
             {

@@ -692,5 +692,18 @@ namespace vCardEditor.View
 
             return result;
         }
+
+        public void LoadLocalizedUI(IReadOnlyDictionary<string, string> currentMessages)
+        {
+            //this.fileToolStripMenuItem.Text = currentMessages["MSG_002"];
+        }
+
+        public void LoadAvailablesLangs(IEnumerable<string> availableLanguages)
+        {
+            foreach (var lang in availableLanguages)
+            {
+
+            }
+        }
     }
 }

@@ -57,6 +57,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -66,6 +67,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ILocalizationProvider.cs" />
+    <Compile Include="JsonLocalizationProvider.cs" />
     <Compile Include="Libs\QRCoder\AbstractQRCode.cs" />
     <Compile Include="Libs\QRCoder\ArtQRCode.cs" />
     <Compile Include="Libs\QRCoder\ASCIIQRCode.cs" />
@@ -83,6 +86,9 @@
     <Compile Include="Libs\QRCoder\QRCodeData.cs" />
     <Compile Include="Libs\QRCoder\QRCodeGenerator.cs" />
     <Compile Include="Libs\QRCoder\SvgQRCode.cs" />
+    <Compile Include="Libs\TinyJson\JSONParser.cs" />
+    <Compile Include="Libs\TinyJson\LocalizationFile.cs" />
+    <Compile Include="Libs\TinyJson\LocalizationLoader.cs" />
     <Compile Include="Model\vCardPropeties.cs" />
     <Compile Include="Model\Column.cs" />
     <Compile Include="Model\FixedList.cs" />
@@ -263,6 +269,7 @@
       <DependentUpon>QRDialog.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
+    <EmbeddedResource Include="i18n\lang.json" />
     <None Include="Libs\QRCoder\Assets\nuget-readme.md" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
