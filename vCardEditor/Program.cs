@@ -18,11 +18,11 @@ namespace vCardEditor
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            var embedded = LocalizationLoader.LoadEmbedded();
-            var localizationProvider = new JsonLocalizationProvider(embedded);
-
             FileHandler fileHandler = new FileHandler();
+
+            var embeddedlang = new LocalizationLoader(new TinyJsonParser(), fileHandler).LoadEmbedded();
+            var localizationProvider = new JsonLocalizationProvider(embeddedlang);
+
             MainForm mainForm = new MainForm();
             new MainPresenter(mainForm, new ContactRepository(fileHandler), localizationProvider);
 

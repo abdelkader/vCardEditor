@@ -77,10 +77,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContactRepositoryTest.cs" />
+    <Compile Include="JsonEntries.cs" />
     <Compile Include="Entries.cs" />
     <Compile Include="FixedListTest.cs" />
     <Compile Include="MainPresenterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="LocalizationLoaderTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\vCardEditor\vCardEditor.csproj">

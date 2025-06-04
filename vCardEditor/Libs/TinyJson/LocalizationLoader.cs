@@ -1,42 +1,28 @@
-﻿using System.IO;
-using System.Reflection;
-using TinyJson;
+﻿using vCardEditor.Repository;
 
 namespace vCardEditor.Libs.TinyJson
 {
-    public static class LocalizationLoader
+    public class LocalizationLoader
     {
-        private const string EmbeddedResourceName = "vCardEditor.i18n.lang.json";
+        private readonly IParser _parser;
+        private readonly IFileHandler _fileHandler;
 
-        public static LocalizationFile LoadEmbedded()
+        public LocalizationLoader(IParser parser, IFileHandler fileHandler)
         {
-            var assembly = Assembly.GetExecutingAssembly();
-            
-            using (var stream = assembly.GetManifestResourceStream(EmbeddedResourceName))
-            {
-                if (stream == null)
-                    throw new FileNotFoundException($"Ressource embarquée '{EmbeddedResourceName}' introuvable.");
-
-                using (var reader = new StreamReader(stream))
-                {
-                    var json = reader.ReadToEnd();
-                    return Deserialize(json);
-                }
-            }
+            _parser = parser;
+            _fileHandler = fileHandler;
         }
 
-        //public static LocalizationFile LoadFromFile(string filePath)
-        //{
-        //    if (!File.Exists(filePath))
-        //        return new LocalizationFile(); // fichier inexistant, retourne un fichier vide
-
-        //    var json = File.ReadAllText(filePath);
-        //    return Deserialize(json);
-        //}
-
-        private static LocalizationFile Deserialize(string json)
+        public LocalizationFile LoadEmbedded(string EmbeddedResourceName = "vCardEditor.i18n.lang.json")
         {
-            var result = JSONParser.FromJson<LocalizationFile>(json);
+            string json = _fileHandler.LoadJsonFromAssembly(EmbeddedResourceName);
+            return Deserialize(json);
+        }
+
+
+        private LocalizationFile Deserialize(string json)
+        {
+            var result = _parser.Deserialize<LocalizationFile>(json);
             return result ?? new LocalizationFile();
         }
 

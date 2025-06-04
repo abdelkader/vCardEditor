@@ -1,5 +1,5 @@
 ﻿using System.IO;
-
+using System.Reflection;
 
 namespace vCardEditor.Repository
 {
@@ -59,6 +59,22 @@ namespace vCardEditor.Repository
         {
             string[] filePaths = Directory.GetFiles(path, ext,SearchOption.TopDirectoryOnly);
             return filePaths;
+        }
+
+        public string LoadJsonFromAssembly(string EmbeddedResourceName)
+        {
+            string json;
+            var assembly = Assembly.GetExecutingAssembly();
+            using (var stream = assembly.GetManifestResourceStream(EmbeddedResourceName))
+            {
+                if (stream == null)
+                    throw new FileNotFoundException($"Embedded resource '{EmbeddedResourceName}' not found.");
+
+                using (var reader = new StreamReader(stream))
+                    json = reader.ReadToEnd();
+            }
+
+            return json;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace vCardEditor
     {
         private readonly LocalizationFile _localization;
         private string _currentLanguage;
-        public JsonLocalizationProvider(LocalizationFile localization, string defaultLanguage = "fr")
+        public JsonLocalizationProvider(LocalizationFile localization, string defaultLanguage = "en")
         {
             _localization = localization;
             _currentLanguage = defaultLanguage;
@@ -32,9 +32,9 @@ namespace vCardEditor
                         return value;
                 }
 
-                if (_localization.languages.TryGetValue("en", out var fallback))
+                if (_localization.languages.TryGetValue("en", out var fallbackLang))
                 {
-                    if (lang.messages.TryGetValue(key, out var fallbackMsg))
+                    if (fallbackLang.messages.TryGetValue(key, out var fallbackMsg))
                         return fallbackMsg;
                 }
 

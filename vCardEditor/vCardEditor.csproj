@@ -86,9 +86,11 @@
     <Compile Include="Libs\QRCoder\QRCodeData.cs" />
     <Compile Include="Libs\QRCoder\QRCodeGenerator.cs" />
     <Compile Include="Libs\QRCoder\SvgQRCode.cs" />
+    <Compile Include="Libs\TinyJson\IParser.cs" />
     <Compile Include="Libs\TinyJson\JSONParser.cs" />
     <Compile Include="Libs\TinyJson\LocalizationFile.cs" />
     <Compile Include="Libs\TinyJson\LocalizationLoader.cs" />
+    <Compile Include="Libs\TinyJson\TinyJsonParser.cs" />
     <Compile Include="Model\vCardPropeties.cs" />
     <Compile Include="Model\Column.cs" />
     <Compile Include="Model\FixedList.cs" />

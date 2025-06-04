@@ -13,6 +13,7 @@ namespace vCardEditor.Repository
         void WriteBytesToFile(string imageFile, byte[] image);
         string GetVcfFileName(string folderPath, string familyName);
         string GetFileNameWithExtension(string fileName, int index, string extension);
+        string LoadJsonFromAssembly(string EmbeddedResourceName);
         string[] GetFiles(string path, string ext);
     }
 }
