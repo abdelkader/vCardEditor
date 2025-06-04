@@ -30,48 +30,33 @@
         {
             this.btnClose = new System.Windows.Forms.Button();
             this.pgConfig = new System.Windows.Forms.PropertyGrid();
-            this.btnCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnClose
             // 
             this.btnClose.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnClose.Location = new System.Drawing.Point(337, 427);
-            this.btnClose.Margin = new System.Windows.Forms.Padding(4);
+            this.btnClose.Location = new System.Drawing.Point(253, 347);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(100, 28);
+            this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 0;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
             // 
             // pgConfig
             // 
-            this.pgConfig.Location = new System.Drawing.Point(16, 15);
-            this.pgConfig.Margin = new System.Windows.Forms.Padding(4);
+            this.pgConfig.Location = new System.Drawing.Point(12, 12);
             this.pgConfig.Name = "pgConfig";
-            this.pgConfig.Size = new System.Drawing.Size(421, 405);
+            this.pgConfig.Size = new System.Drawing.Size(316, 329);
             this.pgConfig.TabIndex = 1;
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(229, 427);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(100, 28);
-            this.btnCancel.TabIndex = 0;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
             // 
             // ConfigDialog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(449, 470);
+            this.ClientSize = new System.Drawing.Size(337, 382);
             this.Controls.Add(this.pgConfig);
-            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnClose);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "ConfigDialog";
             this.Text = "Configuration Dialog";
             this.ResumeLayout(false);
@@ -82,6 +67,5 @@
 
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.PropertyGrid pgConfig;
-        private System.Windows.Forms.Button btnCancel;
     }
 }
