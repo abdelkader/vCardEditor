@@ -21,10 +21,11 @@ namespace vCardEditor
             FileHandler fileHandler = new FileHandler();
 
             var embeddedlang = new LocalizationLoader(new TinyJsonParser(), fileHandler).LoadEmbedded();
-            var localizationProvider = new JsonLocalizationProvider(embeddedlang);
 
             MainForm mainForm = new MainForm();
-            new MainPresenter(mainForm, new ContactRepository(fileHandler), localizationProvider);
+            new MainPresenter(mainForm,
+                              new ContactRepository(fileHandler), 
+                              new JsonLocalizationProvider(embeddedlang));
 
             Application.Run(mainForm);
         }

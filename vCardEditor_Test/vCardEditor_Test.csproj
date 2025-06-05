@@ -80,6 +80,7 @@
     <Compile Include="JsonEntries.cs" />
     <Compile Include="Entries.cs" />
     <Compile Include="FixedListTest.cs" />
+    <Compile Include="JsonLocalizationProviderTest.cs" />
     <Compile Include="MainPresenterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LocalizationLoaderTest.cs" />
