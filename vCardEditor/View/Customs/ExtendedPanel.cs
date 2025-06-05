@@ -11,9 +11,9 @@ namespace vCardEditor.View.Customs
         public ExtendedPanel()
         {
             InitializeComponent();
-           
-            miCell.Click += MenuItemClickHandlers;
+
             miCell.Tag = new vCardPhone(string.Empty, vCardPhoneTypes.Cellular);
+            miCell.Click += MenuItemClickHandlers;
             
             miHome.Tag = new vCardPhone(string.Empty, vCardPhoneTypes.Home);
             miHome.Click += MenuItemClickHandlers;
@@ -46,6 +46,7 @@ namespace vCardEditor.View.Customs
         }
 
         public PanelType panelType { get; set; }
+        
         private void MenuItemClickHandlers(object sender, EventArgs e)
         {
             object tag = (sender as ToolStripMenuItem).Tag;
@@ -110,19 +111,12 @@ namespace vCardEditor.View.Customs
         {
             if (MessageBox.Show("Are you sure?", "Question", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                var par = (sender as Control).Parent;
-                PanelContent.Controls.Remove(par);
-
-                ReplaceControls();
+                PanelContent.Controls.Remove((sender as Control).Parent);
+                for (int i = 0; i < PanelContent.Controls.Count; i++)
+                {
+                    PanelContent.Controls[i].Location = new Point(5, (i * 30) + 10);
+                }
                 CardInfoRemoved?.Invoke(sender, e);
-            }
-        }
-
-        private void ReplaceControls()
-        {
-            for (int i = 0; i < PanelContent.Controls.Count; i++)
-            {
-                PanelContent.Controls[i].Location = new Point(5, (i * 30) + 10);
             }
         }
 
@@ -131,13 +125,11 @@ namespace vCardEditor.View.Customs
             Point pt;
             if (PanelContent.Controls.Count > 0)
             {
-                Control LastControl = PanelContent.Controls[PanelContent.Controls.Count - 1];
-                pt = LastControl.Location;
+                pt = PanelContent.Controls[PanelContent.Controls.Count - 1].Location;
                 pt.Y += 30;
             }
             else
                 pt = new Point(5, 10);
-
             return pt;
         }
     }

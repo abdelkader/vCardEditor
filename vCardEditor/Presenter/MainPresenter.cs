@@ -211,7 +211,7 @@ namespace VCFEditor.Presenter
             var contact = _repository.Contacts[_view.SelectedContactIndex];
             _repository.SetDirtyFlag(_view.SelectedContactIndex);
 
-            contact.card.DeliveryAddresses.Add(new vCardDeliveryAddress( e.Data));
+            contact.card.DeliveryAddresses.Add(new vCardDeliveryAddress(e.Data));
         }
 
         private void AddressModifiedHandler(object sender, EventArg<List<vCardDeliveryAddressTypes>> e)
@@ -274,7 +274,7 @@ namespace VCFEditor.Presenter
 
         void CloseFormHandler(object sender, EventArg<bool> e)
         {
-            if (_repository.dirty && _view.AskMessage("Exit without saving?", "Exit")) 
+            if (_repository.dirty && !_view.AskMessage("Exit without saving?", "Exit")) 
                 e.Data = true;
 
             if (!e.Data)
@@ -347,7 +347,7 @@ namespace VCFEditor.Presenter
         {
             if (_repository.Contacts != null && _repository.dirty)
             {
-                if (!_view.AskMessage("Save current file before?", "Load"))
+                if (_view.AskMessage("Save current file before?", "Load"))
                     SaveContactsHandler(null, null);
                     //_repository.SaveContactsToFile(_repository.fileName);
             }

@@ -194,17 +194,19 @@ namespace vCardEditor.View
 
         public void AddExtraTextGroup(vCardPropeties type, string content)
         {
-            ExtraTextGroup etg = new ExtraTextGroup();
-            etg.Content = content;
-            etg.Caption = type.ToString() + " :";
-            etg.CardProp = type;
+            ExtraTextGroup etg = new ExtraTextGroup
+            {
+                Content = content,
+                Caption = type.ToString() + ":",
+                CardProp = type,
+                Dock = DockStyle.Top
+            };
             etg.TextChangedEvent += (sender, e) => TextBoxValueChanged?.Invoke(sender, e);
             etg.ControlDeleted += (sender, e) =>
             {
-                Control send = sender as Control;
-                panelTabExtra.Controls.Remove(send.Parent);
+                if (AskMessage("Are you sure?", "Question"))
+                    panelTabExtra.Controls.Remove((sender as Control).Parent);
             };
-            etg.Dock = DockStyle.Top;
 
             panelTabExtra.Controls.Add(etg);
         }
@@ -418,14 +420,8 @@ namespace vCardEditor.View
 
         public bool AskMessage(string msg, string caption)
         {
-            bool result = true; // true == yes
-
             DialogResult window = MessageBox.Show(msg, caption, MessageBoxButtons.YesNo);
-
-            if (window != DialogResult.No)
-                result = false;
-
-            return result;
+            return window == DialogResult.Yes;
         }
 
         private void miConfig_Click(object sender, EventArgs e)

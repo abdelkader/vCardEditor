@@ -148,7 +148,6 @@ namespace VCFEditor.Repository
                 
                 //Clean the flag for every contact, even the deleted ones.
                 entry.isDirty = false;
-                
             }
             _dirty = false;
             _fileHandler.WriteAllText(fileName, sb.ToString());
@@ -272,7 +271,6 @@ namespace VCFEditor.Repository
                     card.Phones.GetFirstChoice(vCardPhoneTypes.Home).FullNumber = string.Empty;
             }
 
-
             //Cellular
             if (NewCard.Phones.GetFirstChoice(vCardPhoneTypes.Cellular) != null)
             {
@@ -323,7 +321,6 @@ namespace VCFEditor.Repository
 
         private void SaveWebUrl(vCard NewCard, vCard card)
         {
-           
             if (NewCard.Websites.GetFirstChoice(vCardWebsiteTypes.Personal) != null)
             {
                 if (card.Websites.GetFirstChoice(vCardWebsiteTypes.Personal) != null)

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace vCardEditor.Model
 {
@@ -17,7 +16,7 @@ namespace vCardEditor.Model
             set { _size = value; } 
         }
 
-        public FixedList() : this(5) { }
+        public FixedList() { }
 
         public FixedList(int size)
         {
