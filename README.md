@@ -23,6 +23,6 @@ The software is still in **early stage**.
 Check release text file for history.
 
 ## 👷 Contributing and help
-Contributions are always welcome! Check ths projet or ths issue page for ideas.
+Contributions are always welcome! Check this project or this issue page for ideas.
 - 📝 [**Report a bug**](https://github.com/abdelkader/vCardEditor/issues)
 - 🙋‍ [**Request a feature**](https://github.com/abdelkader/vCardEditor/discussions)  
