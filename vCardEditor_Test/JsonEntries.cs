@@ -44,5 +44,26 @@
 
             }
         }
-    }
+
+		public static string InvalidJsonValid
+		{
+			get
+			{
+				return @"{
+	                ""version"": ""1.0"",
+	                ""languages"": {
+		                ""en"": {
+			                ""name"": ""English"",
+			                ""messages"": {
+				                ""MSG_001"": ""Save current file before?"",
+				                ""MSG_002"": ""File""
+			               _002"": ""Fichier""
+			                }
+		                }
+	                }
+                }";
+
+			}
+		}
+	}
 }

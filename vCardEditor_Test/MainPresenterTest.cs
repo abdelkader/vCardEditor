@@ -73,7 +73,7 @@ namespace vCardEditor_Test
 
             view.NewFileOpened += Raise.EventWith(new EventArg<string>("filename.vcf"));
             repo.Contacts[1].isDirty = true;
-
+            fileHandler.FileExist(Arg.Any<string>()).Returns(false);
             view.NewFileOpened += Raise.EventWith(new EventArg<string>("filename2.vcf"));
            
             view.Received().AskMessage(Arg.Any<string>(), Arg.Any<string>());
