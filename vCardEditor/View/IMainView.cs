@@ -41,7 +41,7 @@ namespace VCFEditor.View
         bool AskMessage(string msg, string caption);
         void DisplayMessage(string msg, string caption);
         string DisplayOpenFileDialog(string filter);
-        string DisplaySaveDialog(string filename);
+        string DisplaySaveDialog();
         void UpdateMRUMenu(FixedList MRUList);
 
         void SendTextToClipBoard(string text);

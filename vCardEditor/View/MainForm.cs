@@ -61,15 +61,18 @@ namespace vCardEditor.View
             InitializeComponent();
 
             resources = new ComponentResourceManager(typeof(MainForm));
+
             tbcAddress.AddTab += (sender, e) => AddressAdded?.Invoke(sender, e);
             tbcAddress.RemoveTab += (sender, e) => AddressRemoved?.Invoke(sender, e);
             tbcAddress.ModifyTab += (sender, e) => AddressModified?.Invoke(sender, e);
             tbcAddress.TextChangedEvent += (sender, e) => TextBoxValueChanged?.Invoke(sender, e);
             btnClearFilter.Click += (sender, e) => textBoxFilter.Clear();
+
             extendedPanelPhones.ContentTextChanged += (sender, e) => TextBoxValueChanged?.Invoke(sender, e);
             extendedPanelWeb.ContentTextChanged += (sender, e) => TextBoxValueChanged?.Invoke(sender, e);
             extendedPanelPhones.CardInfoRemoved += (sender, e) => CardInfoRemoved?.Invoke(sender, e);
             extendedPanelWeb.CardInfoRemoved += (sender, e) => CardInfoRemoved?.Invoke(sender, e);
+
             BuildMRUMenu();
         }
 
@@ -126,7 +129,6 @@ namespace vCardEditor.View
             int RowIndex = dgContacts.CurrentCell.RowIndex;
             if (LastRowIndex != RowIndex)
             {
-
                 if (ChangeContactsSelected != null && dgContacts.CurrentCell != null)
                 {
                     vCard data = GetvCardFromWindow();
@@ -151,7 +153,7 @@ namespace vCardEditor.View
 
             ClearContactDetail();
 
-            Text = string.Format("{0} - vCard Editor", FileName);
+            Text = string.Format("{0} - vCard Editor", FileName ?? "New file");
 
             tcMainTab.Enabled = true;
             gbNameList.Enabled = true;
@@ -171,14 +173,14 @@ namespace vCardEditor.View
 
         private void SetExtraInfos(vCard card)
         {
+            foreach (vCardPhone item in card.Phones)
+                extendedPanelPhones.AddControl(item);
+
             foreach (vCardEmailAddress item in card.EmailAddresses)
                 extendedPanelWeb.AddControl(item);
 
             foreach (vCardWebsite item in card.Websites)
                 extendedPanelWeb.AddControl(item);
-
-            foreach (vCardPhone item in card.Phones)
-                extendedPanelPhones.AddControl(item);
         }
 
         private void SetExtraTabFields(vCard card)
@@ -308,6 +310,7 @@ namespace vCardEditor.View
             getExtraPhones(card);
             getExtraWeb(card);
             getExtraData(card);
+
             return card;
         }
 
@@ -446,16 +449,20 @@ namespace vCardEditor.View
             return filename;
         }
 
-        public string DisplaySaveDialog(string filename)
+        public string DisplaySaveDialog()
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
-                FileName = filename
+                Title = "Save vCard file",
+                Filter = "Virtual Contact File|*.vcf"
             };
+            string filename = null;
 
-            DialogResult result = saveFileDialog.ShowDialog();
-            if (result == DialogResult.OK)
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
                 filename = saveFileDialog.FileName;
+                Text = string.Format("{0} - vCard Editor", filename);
+            }
 
             return filename;
         }
@@ -681,12 +688,10 @@ namespace vCardEditor.View
 
         public string DisplayOpenFolderDialog()
         {
-            string result = string.Empty;
             FolderBrowserDialog dialog = new FolderBrowserDialog();
             if (dialog.ShowDialog() == DialogResult.OK)
-                result = dialog.SelectedPath;
-
-            return result;
+                return dialog.SelectedPath;
+            return string.Empty;
         }
 
         public void LoadLocalizedUI(IReadOnlyDictionary<string, string> currentMessages)
@@ -696,7 +701,7 @@ namespace vCardEditor.View
 
         public void LoadAvailablesLangs(IEnumerable<string> availableLanguages)
         {
-            foreach (var lang in availableLanguages)
+            foreach (string lang in availableLanguages)
             {
 
             }

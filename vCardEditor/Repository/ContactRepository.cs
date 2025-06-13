@@ -54,7 +54,7 @@ namespace VCFEditor.Repository
             if (filePaths.Count() == 0)
                 return false;
 
-            foreach (var item in filePaths)
+            foreach (string item in filePaths)
             {
                 var result = LoadContactFromFile(item);
                 Contacts.AddRange(result);
@@ -117,9 +117,7 @@ namespace VCFEditor.Repository
 
         public void AddEmptyContact()
         {
-            Contact contact = new Contact();
-            contact.isDirty = true;
-            Contacts.Add(contact);
+            Contacts.Add(new Contact() { isDirty = true });
         }
 
         public void SaveContactsToFile(string fileName)
@@ -137,7 +135,7 @@ namespace VCFEditor.Repository
 
             StringBuilder sb = new StringBuilder();
             
-            foreach (var entry in Contacts)
+            foreach (Contact entry in Contacts)
             {
                 //Do not save the deleted ones!
                 if (!entry.isDeleted)
@@ -221,24 +219,23 @@ namespace VCFEditor.Repository
         private void SaveExtraPhones(vCard newCard, vCard card)
         {
             card.Phones.Clear();
-            foreach (var item in newCard.Phones)
+            foreach (vCardPhone item in newCard.Phones)
                 card.Phones.Add(new vCardPhone(item.FullNumber, item.PhoneType));
         }
 
         private void SaveExtraField(vCard newCard, vCard card)
         {
             card.Notes.Clear();
-            foreach (var item in newCard.Notes)
+            foreach (vCardNote item in newCard.Notes)
                 card.Notes.Add(new vCardNote(item.Text));
-
             card.Organization = newCard.Organization;
         }
 
         private void SaveAddresses(vCard NewCard, vCard card)
         {
-            foreach (var item in NewCard.DeliveryAddresses)
+            foreach (vCardDeliveryAddress item in NewCard.DeliveryAddresses)
             {
-                var adr = card.DeliveryAddresses.Where(x => x.AddressType.FirstOrDefault() == item.AddressType.FirstOrDefault()).FirstOrDefault();
+                vCardDeliveryAddress adr = card.DeliveryAddresses.Where(x => x.AddressType.FirstOrDefault() == item.AddressType.FirstOrDefault()).FirstOrDefault();
                 if (adr != null)
                 {
                     adr.City = item.City;
@@ -321,6 +318,7 @@ namespace VCFEditor.Repository
 
         private void SaveWebUrl(vCard NewCard, vCard card)
         {
+            //Personal
             if (NewCard.Websites.GetFirstChoice(vCardWebsiteTypes.Personal) != null)
             {
                 if (card.Websites.GetFirstChoice(vCardWebsiteTypes.Personal) != null)
@@ -334,19 +332,19 @@ namespace VCFEditor.Repository
                     card.Websites.GetFirstChoice(vCardWebsiteTypes.Personal).Url = string.Empty;
             }
 
-
-            if (NewCard.Websites.GetFirstChoice(vCardWebsiteTypes.Work) != null)
-            {
-                if (card.Websites.GetFirstChoice(vCardWebsiteTypes.Work) != null)
-                    card.Websites.GetFirstChoice(vCardWebsiteTypes.Work).Url = NewCard.Websites.GetFirstChoice(vCardWebsiteTypes.Work).Url;
-                else
-                    card.Websites.Add(new vCardWebsite(NewCard.Websites.GetFirstChoice(vCardWebsiteTypes.Work).Url, vCardWebsiteTypes.Work));
-            }
-            else
-            {
-                if (card.Websites.GetFirstChoice(vCardWebsiteTypes.Work) != null)
-                    card.Websites.GetFirstChoice(vCardWebsiteTypes.Work).Url = string.Empty;
-            }
+            //Work
+            //if (NewCard.Websites.GetFirstChoice(vCardWebsiteTypes.Work) != null)
+            //{
+            //    if (card.Websites.GetFirstChoice(vCardWebsiteTypes.Work) != null)
+            //        card.Websites.GetFirstChoice(vCardWebsiteTypes.Work).Url = NewCard.Websites.GetFirstChoice(vCardWebsiteTypes.Work).Url;
+            //    else
+            //        card.Websites.Add(new vCardWebsite(NewCard.Websites.GetFirstChoice(vCardWebsiteTypes.Work).Url, vCardWebsiteTypes.Work));
+            //}
+            //else
+            //{
+            //    if (card.Websites.GetFirstChoice(vCardWebsiteTypes.Work) != null)
+            //        card.Websites.GetFirstChoice(vCardWebsiteTypes.Work).Url = string.Empty;
+            //}
         }
        
         public string GenerateStringFromVCard(vCard card)
@@ -387,8 +385,7 @@ namespace VCFEditor.Repository
 
         public string GenerateFileName(string fileName, int index, string extension)
         {
-            string result = _fileHandler.GetFileNameWithExtension(fileName, index, extension);
-            return result;
+            return _fileHandler.GetFileNameWithExtension(fileName, index, extension);
         }
 
         public int SaveSplittedFiles(string FolderPath)

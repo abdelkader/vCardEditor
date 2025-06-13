@@ -57,23 +57,21 @@ namespace vCardEditor.Repository
 
         public string[] GetFiles(string path, string ext)
         {
-            string[] filePaths = Directory.GetFiles(path, ext,SearchOption.TopDirectoryOnly);
-            return filePaths;
+            return Directory.GetFiles(path, ext, SearchOption.TopDirectoryOnly);
         }
 
         public string LoadJsonFromAssembly(string EmbeddedResourceName)
         {
             string json;
-            var assembly = Assembly.GetExecutingAssembly();
-            using (var stream = assembly.GetManifestResourceStream(EmbeddedResourceName))
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            using (Stream stream = assembly.GetManifestResourceStream(EmbeddedResourceName))
             {
                 if (stream == null)
                     throw new FileNotFoundException($"Embedded resource '{EmbeddedResourceName}' not found.");
 
-                using (var reader = new StreamReader(stream))
+                using (StreamReader reader = new StreamReader(stream))
                     json = reader.ReadToEnd();
             }
-
             return json;
         }
     }

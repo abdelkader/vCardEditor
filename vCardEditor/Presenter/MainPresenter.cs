@@ -23,7 +23,6 @@ namespace VCFEditor.Presenter
             _repository = repository;
             _localization = localization;
             
-
             _view.LoadForm += LoadFormHandler;
             _view.AddContact += AddContactHandler;
             _view.NewFileOpened += OpenNewFileHandler;
@@ -321,11 +320,9 @@ namespace VCFEditor.Presenter
 
         private void SaveContactsHandler(object sender, EventArgs e)
         {
-            string filename;
-            if (!string.IsNullOrEmpty(_repository.fileName))
-                filename = _repository.fileName;
-            else
-                filename = _view.DisplaySaveDialog("");
+            string filename = _repository.fileName ?? _view.DisplaySaveDialog();
+            if (string.IsNullOrWhiteSpace(filename))
+                return;
 
             _repository.SaveContactsToFile(filename);
         }

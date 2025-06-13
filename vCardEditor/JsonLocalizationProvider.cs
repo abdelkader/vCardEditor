@@ -8,6 +8,7 @@ namespace vCardEditor
     {
         private readonly LocalizationFile _localization;
         private string _currentLanguage;
+        
         public JsonLocalizationProvider(LocalizationFile localization, string defaultLanguage = "en")
         {
             _localization = localization;
@@ -20,21 +21,19 @@ namespace vCardEditor
                 _currentLanguage = langCode;
         }
 
-      
-
         public string this[string key]
         {
             get
             {
-                if (_localization.languages.TryGetValue(_currentLanguage, out var lang))
+                if (_localization.languages.TryGetValue(_currentLanguage, out LanguageData lang))
                 {
-                    if (lang.messages.TryGetValue(key, out var value))
+                    if (lang.messages.TryGetValue(key, out string value))
                         return value;
                 }
 
-                if (_localization.languages.TryGetValue("en", out var fallbackLang))
+                if (_localization.languages.TryGetValue("en", out LanguageData fallbackLang))
                 {
-                    if (fallbackLang.messages.TryGetValue(key, out var fallbackMsg))
+                    if (fallbackLang.messages.TryGetValue(key, out string fallbackMsg))
                         return fallbackMsg;
                 }
 
@@ -42,9 +41,8 @@ namespace vCardEditor
             }
         }
 
-
         public IReadOnlyDictionary<string, string> CurrentMessages =>
-            _localization.languages.TryGetValue(_currentLanguage, out var lang)
+            _localization.languages.TryGetValue(_currentLanguage, out LanguageData lang)
             ? lang.messages
             : new Dictionary<string, string>();
 
