@@ -18,7 +18,7 @@ namespace vCardEditor_Test
             var embeddedlang = new LocalizationLoader(JsonParser, fileHandler).LoadEmbedded();
 
             Assert.IsTrue(embeddedlang.version == "1.0", "Json version incorrect");
-            Assert.IsTrue(embeddedlang.languages.Count == 2, "Number of json entries invalid");
+            Assert.IsTrue(embeddedlang.languages.Count == 3, "Number of json entries invalid");
 
         }
 

@@ -1,19 +1,26 @@
 ﻿{
 	"version": "1.0",
-	"languages": {
-		"en": {
-			"name": "English",
-			"messages": {
-				"MSG_001": "Save current file before?",
-				"MSG_002": "File"
-			}
-		},
-		"fr": {
-			"name": "Français",
-			"messages": {
-				"MSG_001": "Sauvegarder le fichier en cours",
-				"MSG_002": "Fichier"
-			}
-		}
-	}
+  "languages": {
+    "en": {
+      "name": "English",
+      "messages": {
+        "MSG_001": "Save current file before?",
+        "MSG_002": "File"
+      }
+    },
+    "fr": {
+      "name": "Français",
+      "messages": {
+        "MSG_001": "Sauvegarder le fichier en cours",
+        "MSG_002": "Fichier"
+      }
+    },
+    "ru": {
+      "name": "Русский",
+      "messages": {
+        "MSG_001": "Сначала сохранить файл?",
+        "MSG_002": "Файл"
+      }
+    }
+  }
 }
