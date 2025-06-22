@@ -40,6 +40,7 @@ namespace vCardEditor.View
         public event EventHandler<EventArg<string>> OpenFolderEvent;
         public event EventHandler SplitFileEvent;
         public event EventHandler CardInfoRemoved;
+        public event EventHandler BirhdateChanged;
 
         ComponentResourceManager resources;
 
@@ -164,6 +165,8 @@ namespace vCardEditor.View
             SetSummaryValue(middleNameValue, card.AdditionalNames);
             SetSummaryValue(FormattedNameValue, card.FormattedName);
 
+            ucBirtdate.Value = card.BirthDate;
+
             SetAddressesValues(card);
             SetPhotoValue(card.Photos);
 
@@ -223,6 +226,8 @@ namespace vCardEditor.View
             SetSummaryValue(middleNameValue, string.Empty);
             SetSummaryValue(FormattedTitleValue, string.Empty);
             SetSummaryValue(FormattedNameValue, string.Empty);
+
+            ucBirtdate.Value = null;
 
             SetPhotoValue(new vCardPhotoCollection());
             panelTabExtra.Controls.Clear();
@@ -304,6 +309,7 @@ namespace vCardEditor.View
                 GivenName = firstNameValue.Text,
                 AdditionalNames = middleNameValue.Text,
                 FamilyName = lastNameValue.Text,
+                BirthDate = ucBirtdate.Value,
             };
 
             tbcAddress.getDeliveryAddress(card);
@@ -705,6 +711,11 @@ namespace vCardEditor.View
             {
 
             }
+        }
+
+        private void Value_BirhdateChanged(object sender, EventArgs e)
+        {
+            BirhdateChanged?.Invoke(sender, e);
         }
     }
 }

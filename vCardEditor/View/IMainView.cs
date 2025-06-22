@@ -33,6 +33,7 @@ namespace VCFEditor.View
         event EventHandler<EventArg<string>> OpenFolderEvent;
         event EventHandler SplitFileEvent;
         event EventHandler CardInfoRemoved;
+        event EventHandler BirhdateChanged;
 
         int SelectedContactIndex { get; }
         void DisplayContacts(SortableBindingList<Contact> contacts);

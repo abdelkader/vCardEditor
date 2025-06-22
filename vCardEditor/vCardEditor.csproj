@@ -178,6 +178,12 @@
     <Compile Include="View\Customs\AddressTabControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="View\Customs\BirthdateControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Customs\BirthdateControl.Designer.cs">
+      <DependentUpon>BirthdateControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Customs\ColumnsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -248,6 +254,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\Customs\AddressBox.resx">
       <DependentUpon>AddressBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Customs\BirthdateControl.resx">
+      <DependentUpon>BirthdateControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Customs\ColumnsDialog.resx">
       <DependentUpon>ColumnsDialog.cs</DependentUpon>

@@ -78,6 +78,14 @@ AGENT, ANNIVERSARY, CALADRURI, CALURI, CLIENTPIDMAP, FBURL, GENDER, KIND, LANG, 
         <td>One or more descriptive/familiar names for the object represented by this vCard.</td>
         <td>NICKNAME:Jon,Johnny</td>
     </tr>
+    <tr>
+        <td>BDAY</td>
+        <td>Optional</td>
+        <td>Optional</td>
+        <td>Optional</td>
+        <td>Date of birth of the individual associated with the vCard.</td>
+        <td>BDAY:19700310</td>
+    </tr>
    <tr>
         <td rowspan="6">PHOTO</td>
         <td rowspan="6">Optional</td>
@@ -151,14 +159,6 @@ AGENT, ANNIVERSARY, CALADRURI, CALURI, CLIENTPIDMAP, FBURL, GENDER, KIND, LANG, 
         <td>Optional</td>
         <td>Defines the person&#39;s anniversary.</td>
         <td>ANNIVERSARY:19901021</td>
-    </tr>
-    <tr>
-        <td>BDAY</td>
-        <td>Optional</td>
-        <td>Optional</td>
-        <td>Optional</td>
-        <td>Date of birth of the individual associated with the vCard.</td>
-        <td>BDAY:19700310</td>
     </tr>
       <tr>
         <td>CALADRURI</td>
