@@ -206,6 +206,7 @@ namespace VCFEditor.Repository
                 card.FamilyName = NewCard.FamilyName;
                 card.AdditionalNames = NewCard.AdditionalNames;
                 card.FamilyName = NewCard.FamilyName;
+                card.BirthDate = NewCard.BirthDate;
 
                 SavePhone(NewCard, card);
                 SaveEmail(NewCard, card);

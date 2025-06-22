@@ -47,6 +47,7 @@ namespace VCFEditor.Presenter
             _view.SplitFileEvent += SaveSplittedFileHandler;
             _view.OpenFolderEvent += OpenNewFolderHandler;
             _view.CardInfoRemoved += CardInfoRemovedHandler;
+            _view.BirhdateChanged += BirthdateChangedHandler;
         }
 
         private void OpenNewFolderHandler(object sender, EventArg<string> e)
@@ -363,6 +364,11 @@ namespace VCFEditor.Presenter
             }
             else
                 _view.ClearContactDetail();
+        }
+
+        private void BirthdateChangedHandler(object sender, EventArgs e)
+        {
+            _repository.SetDirtyFlag(_view.SelectedContactIndex);
         }
     }
 }
