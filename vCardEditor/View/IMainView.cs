@@ -30,7 +30,7 @@ namespace VCFEditor.View
         event EventHandler CountImagesEvent;
         event EventHandler ClearImagesEvent;
         event EventHandler BatchExportImagesEvent;
-        event EventHandler<EventArg<string>> OpenFolderEvent;
+        event EventHandler OpenFolderEvent;
         event EventHandler SplitFileEvent;
         event EventHandler CardInfoRemoved;
 
@@ -53,6 +53,8 @@ namespace VCFEditor.View
 
         void ClearImageFromForm();
         string DisplayOpenFolderDialog();
+        void SetWindowTitle(string text);
+
         void LoadLocalizedUI(IReadOnlyDictionary<string, string> currentMessages);
         void LoadAvailablesLangs(IEnumerable<string> availableLanguages);
     }

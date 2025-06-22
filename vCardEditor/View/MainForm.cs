@@ -37,7 +37,7 @@ namespace vCardEditor.View
         public event EventHandler CountImagesEvent;
         public event EventHandler ClearImagesEvent;
         public event EventHandler BatchExportImagesEvent;
-        public event EventHandler<EventArg<string>> OpenFolderEvent;
+        public event EventHandler OpenFolderEvent;
         public event EventHandler SplitFileEvent;
         public event EventHandler CardInfoRemoved;
 
@@ -153,8 +153,6 @@ namespace vCardEditor.View
 
             ClearContactDetail();
 
-            Text = string.Format("{0} - vCard Editor", FileName ?? "New file");
-
             tcMainTab.Enabled = true;
             gbNameList.Enabled = true;
 
@@ -240,7 +238,7 @@ namespace vCardEditor.View
             valueLabel.oldText = value;
         }
 
-        void SetPhotoValue(vCardPhotoCollection photos)
+        private void SetPhotoValue(vCardPhotoCollection photos)
         {
             if (photos.Any())
             {
@@ -321,8 +319,7 @@ namespace vCardEditor.View
             {
                 if (item is vCardPhone)
                 {
-                    vCardPhone phone = item as vCardPhone;
-                    card.Phones.Add(phone);
+                    card.Phones.Add(item as vCardPhone);
                 }
             }
         }
@@ -369,8 +366,7 @@ namespace vCardEditor.View
 
         private void dgContacts_RowLeave(object sender, DataGridViewCellEventArgs e)
         {
-            vCard data = GetvCardFromWindow();
-            BeforeLeavingContact?.Invoke(sender, new EventArg<vCard>(data));
+            BeforeLeavingContact?.Invoke(sender, new EventArg<vCard>(GetvCardFromWindow()));
         }
 
         private void miQuit_Click(object sender, EventArgs e)
@@ -389,7 +385,7 @@ namespace vCardEditor.View
             string[] FileList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
             if (FileList.Count() > 1)
             {
-                MessageBox.Show("Only one file at the time!");
+                DisplayMessage("Only one file at the time!", "Warning");
                 return;
             }
 
@@ -439,14 +435,12 @@ namespace vCardEditor.View
 
         public string DisplayOpenFileDialog(string filter = "")
         {
-            string filename = string.Empty;
             openFileDialog.Filter = filter;
-
-            DialogResult result = openFileDialog.ShowDialog();
-            if (result == DialogResult.OK)
-                filename = openFileDialog.FileName;
-
-            return filename;
+            
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+                return openFileDialog.FileName;
+            
+            return string.Empty;
         }
 
         public string DisplaySaveDialog()
@@ -454,14 +448,14 @@ namespace vCardEditor.View
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
                 Title = "Save vCard file",
-                Filter = "Virtual Contact File|*.vcf"
+                Filter = "vCard file|*.vcf"
             };
             string filename = null;
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 filename = saveFileDialog.FileName;
-                Text = string.Format("{0} - vCard Editor", filename);
+                SetWindowTitle(filename);
             }
 
             return filename;
@@ -538,11 +532,12 @@ namespace vCardEditor.View
         private List<Column> GetListColumnsForDataGrid()
         {
             List<Column> Columns = new List<Column>();
+            string name;
             for (int i = 2; i < dgContacts.Columns.Count; i++)
             {
                 if (dgContacts.Columns[i].Visible)
                 {
-                    string name = dgContacts.Columns[i].Name;
+                    name = dgContacts.Columns[i].Name;
                     Column enumType = (Column)Enum.Parse(typeof(Column), name, true);
                     Columns.Add(enumType);
                 }
@@ -589,8 +584,7 @@ namespace vCardEditor.View
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            var evt = new EventArg<FormState>(new FormState());
-            LoadForm?.Invoke(sender, evt);
+            LoadForm?.Invoke(sender, new EventArg<FormState>(new FormState()));
         }
 
         public void LoadIntialState(FormState state)
@@ -614,20 +608,17 @@ namespace vCardEditor.View
 
         public void DisplayQRCode(string content)
         {
-            QRDialog qr = new QRDialog(content);
-            qr.ShowDialog();
+            new QRDialog(content).ShowDialog();
         }
 
         private void addNotesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var evt = new EventArg<vCardPropeties>(vCardPropeties.NOTE);
-            AddExtraField?.Invoke(sender, evt);
+            AddExtraField?.Invoke(sender, new EventArg<vCardPropeties>(vCardPropeties.NOTE));
         }
 
         private void addOrgToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var evt = new EventArg<vCardPropeties>(vCardPropeties.ORG);
-            AddExtraField?.Invoke(sender, evt);
+            AddExtraField?.Invoke(sender, new EventArg<vCardPropeties>(vCardPropeties.ORG));
         }
 
         private void btnAddExtraText_Click(object sender, EventArgs e)
@@ -640,14 +631,12 @@ namespace vCardEditor.View
 
         private void miNote_Click(object sender, EventArgs e)
         {
-            var evt = new EventArg<vCardPropeties>(vCardPropeties.NOTE);
-            AddExtraField?.Invoke(sender, evt);
+            AddExtraField?.Invoke(sender, new EventArg<vCardPropeties>(vCardPropeties.NOTE));
         }
 
         private void miOrg_Click(object sender, EventArgs e)
         {
-            var evt = new EventArg<vCardPropeties>(vCardPropeties.ORG);
-            AddExtraField?.Invoke(sender, evt);
+            AddExtraField?.Invoke(sender, new EventArg<vCardPropeties>(vCardPropeties.ORG));
         }
 
         private void panelTabExtra_ControlAdded(object sender, ControlEventArgs e)
@@ -677,8 +666,7 @@ namespace vCardEditor.View
 
         private void openFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var evt = new EventArg<string>(string.Empty);
-            OpenFolderEvent?.Invoke(sender, evt);
+            OpenFolderEvent?.Invoke(sender, e);
         }
 
         private void splitToFilesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -692,6 +680,11 @@ namespace vCardEditor.View
             if (dialog.ShowDialog() == DialogResult.OK)
                 return dialog.SelectedPath;
             return string.Empty;
+        }
+
+        public void SetWindowTitle(string text)
+        {
+            Text = string.IsNullOrWhiteSpace(text) ? "vCard Editor" : $"{text} - vCard Editor";
         }
 
         public void LoadLocalizedUI(IReadOnlyDictionary<string, string> currentMessages)

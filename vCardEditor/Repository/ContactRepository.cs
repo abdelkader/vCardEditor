@@ -18,8 +18,8 @@ namespace VCFEditor.Repository
         /// Keep a copy of contact list when filtering
         /// </summary>
         private SortableBindingList<Contact> OriginalContactList = null;
-        private SortableBindingList<Contact> _contacts;
         
+        private SortableBindingList<Contact> _contacts;
         public SortableBindingList<Contact> Contacts
         {
             get
@@ -37,8 +37,14 @@ namespace VCFEditor.Repository
         private bool _dirty;
         public bool dirty
         {
-            get { return (_contacts != null && _contacts.Any(x => x.isDirty)) || _dirty; }
-            set { _dirty = true; }
+            get
+            {
+                return (_contacts != null && _contacts.Any(x => x.isDirty)) || _dirty;
+            }
+            set
+            {
+                _dirty = true;
+            }
         }
 
         public ContactRepository(IFileHandler fileHandler)
@@ -54,12 +60,15 @@ namespace VCFEditor.Repository
             if (filePaths.Count() == 0)
                 return false;
 
+            SortableBindingList<Contact> loaded;
             foreach (string item in filePaths)
             {
-                var result = LoadContactFromFile(item);
-                Contacts.AddRange(result);
-                OriginalContactList = Contacts;
+                loaded = LoadContactFromFile(item);
+                if (loaded != null)
+                    Contacts.AddRange(loaded);
             }
+            OriginalContactList = Contacts;
+
             return true;
         }
 
@@ -68,6 +77,8 @@ namespace VCFEditor.Repository
             Contacts.Clear();
             this.fileName = fileName;
             Contacts = LoadContactFromFile(fileName);
+            if (Contacts == null)
+                return false;
             OriginalContactList = Contacts;
             return true;
         }
@@ -82,7 +93,6 @@ namespace VCFEditor.Repository
             string[] lines = _fileHandler.ReadAllLines(fileName);
 
             StringBuilder RawContent = new StringBuilder();
-            Contact contact;
 
             for (int i = 0; i < lines.Length; i++)
             {
@@ -91,9 +101,8 @@ namespace VCFEditor.Repository
                 {
                     if (string.Equals(lines[i].TrimEnd(), "END:VCARD", StringComparison.OrdinalIgnoreCase))
                     {
-                        contact = new Contact(ParseRawContent(RawContent));
-                        ListOfContacts.Add(contact);
-                        RawContent.Length = 0;
+                        ListOfContacts.Add(new Contact(ParseRawContent(RawContent)));
+                        RawContent.Clear();
                     }
                 }
                 catch (Exception)
@@ -417,13 +426,7 @@ namespace VCFEditor.Repository
 
         private string GenerateFileName(string FolderPath, string familyName, int index)
         {
-            string FinalPath;
-            if (string.IsNullOrEmpty(familyName))
-                FinalPath = _fileHandler.GetVcfFileName(FolderPath, index.ToString());
-            else
-                FinalPath = _fileHandler.GetVcfFileName(FolderPath, familyName);
-
-            return FinalPath;
+            return _fileHandler.GetVcfFileName(FolderPath, familyName ?? index.ToString());
         }
     }
 }
