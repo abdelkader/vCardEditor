@@ -49,53 +49,44 @@ namespace VCFEditor.Presenter
             _view.CardInfoRemoved += CardInfoRemovedHandler;
         }
 
-        private void OpenNewFolderHandler(object sender, EventArg<string> e)
+        private void OpenNewFolderHandler(object sender, EventArgs e)
         {
             BeforeOpeningNewFileHandler();
 
-            string path = e.Data;
+            string path = _view.DisplayOpenFolderDialog();
             if (string.IsNullOrEmpty(path))
-                path = _view.DisplayOpenFolderDialog();
+                return;
 
-            if (!string.IsNullOrEmpty(path))
+            if (!_repository.LoadMultipleFilesContact(path))
             {
-                bool Loaded =_repository.LoadMultipleFilesContact(path);
-                if (!Loaded)
-                {
-                    _view.DisplayMessage("No file loaded!", "Error");
-                    return;
-                }
-
-                AddPathToMostRecentUsedFiles(path);
-                _view.DisplayContacts(_repository.Contacts);
+                _view.SetWindowTitle("");
+                _view.DisplayMessage("No file loaded!", "Error");
+                return;
             }
+
+            AddPathToMostRecentUsedFiles(path);
+            _view.SetWindowTitle(path);
+            _view.DisplayContacts(_repository.Contacts);
         }
 
         public void OpenNewFileHandler(object sender, EventArg<string> e)
         {
             BeforeOpeningNewFileHandler();
 
-            string path = e.Data;
+            string path = string.IsNullOrEmpty(e.Data) ? _view.DisplayOpenFileDialog("vCard file|*.vcf") : e.Data;
             if (string.IsNullOrEmpty(path))
-                path = _view.DisplayOpenFileDialog("vCard Files|*.vcf");
+                return;
 
-            if (!string.IsNullOrEmpty(path))
+            if (!_repository.LoadContacts(path))
             {
-                string ext = _repository.GetExtension(path);
-                if (!string.Equals(ext, ".vcf", StringComparison.OrdinalIgnoreCase))
-                {
-                    _view.DisplayMessage("Only vcf extension accepted!", "Error");
-                    return;
-                }
-
-                if (!_repository.LoadContacts(path))
-                    _view.DisplayMessage("File seems missing or corrupted!", "Error");
-                else
-                {
-                    _view.DisplayContacts(_repository.Contacts);
-                    AddPathToMostRecentUsedFiles(path);
-                }
+                _view.SetWindowTitle("");
+                _view.DisplayMessage("File seems missing or corrupted!", "Error");
+                return;
             }
+
+            AddPathToMostRecentUsedFiles(path);
+            _view.SetWindowTitle(path);
+            _view.DisplayContacts(_repository.Contacts);
         }
 
         private void AddPathToMostRecentUsedFiles(string path)
@@ -176,11 +167,9 @@ namespace VCFEditor.Presenter
             if (_view.SelectedContactIndex < 0)
                 return;
 
-            var contact = _repository.Contacts[_view.SelectedContactIndex];
-
-            string SerializedCard = _repository.GenerateStringFromVCard(contact.card);
-
-            _view.SendTextToClipBoard(SerializedCard);
+            _view.SendTextToClipBoard(
+                _repository.GenerateStringFromVCard(
+                    _repository.Contacts[_view.SelectedContactIndex].card));
             _view.DisplayMessage("vCard copied to clipboard!", "Information");
         }
 
@@ -192,8 +181,7 @@ namespace VCFEditor.Presenter
             string[] paths = Environment.GetCommandLineArgs();
             if (paths.Length > 1)
             {
-                var evt = new EventArg<string>(paths[1]);
-                OpenNewFileHandler(sender, evt);
+                OpenNewFileHandler(sender, new EventArg<string>(paths[1]));
             }
         }
 
@@ -303,12 +291,13 @@ namespace VCFEditor.Presenter
 
         public void FilterTextChangedHandler(object sender, EventArg<string> e)
         {
-            var FilteredContacts = _repository.FilterContacts(e.Data);
-            _view.DisplayContacts(FilteredContacts);
+            _view.DisplayContacts(_repository.FilterContacts(e.Data));
         }
 
         private void AddContactHandler(object sender, EventArgs e)
         {
+            if (_repository.Contacts.Count == 0)
+                _view.SetWindowTitle("New file");
             _repository.AddEmptyContact();
             _view.DisplayContacts(_repository.Contacts);
         }
@@ -332,10 +321,10 @@ namespace VCFEditor.Presenter
             if (_repository.Contacts == null || _repository.Contacts.Count == 0)
                 return;
 
-            string Path = _view.DisplayOpenFolderDialog();
-            if (!string.IsNullOrEmpty(Path))
+            string path = _view.DisplayOpenFolderDialog();
+            if (!string.IsNullOrEmpty(path))
             {
-                int count = _repository.SaveSplittedFiles(Path);
+                int count = _repository.SaveSplittedFiles(path);
                 _view.DisplayMessage(string.Format("{0} contact(s) processed!", count), "Information");
             }
         }
