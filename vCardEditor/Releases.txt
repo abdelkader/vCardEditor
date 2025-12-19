@@ -1,4 +1,6 @@
-﻿0.5.8
+﻿Release history 
+
+0.5.8
    Merged PR #42, #45
    
 0.5.7
