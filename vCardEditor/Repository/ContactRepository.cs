@@ -19,7 +19,7 @@ namespace VCFEditor.Repository
         /// </summary>
         private SortableBindingList<Contact> OriginalContactList = null;
         private SortableBindingList<Contact> _contacts;
-        
+
         public SortableBindingList<Contact> Contacts
         {
             get
@@ -49,7 +49,7 @@ namespace VCFEditor.Repository
         public bool LoadMultipleFilesContact(string path)
         {
             Contacts.Clear();
-            
+
             string[] filePaths = _fileHandler.GetFiles(path, "*.vcf");
             if (filePaths.Count() == 0)
                 return false;
@@ -134,7 +134,7 @@ namespace VCFEditor.Repository
             }
 
             StringBuilder sb = new StringBuilder();
-            
+
             foreach (Contact entry in Contacts)
             {
                 //Do not save the deleted ones!
@@ -143,7 +143,7 @@ namespace VCFEditor.Repository
                     string SerializedCard = GenerateStringFromVCard(entry.card);
                     sb.Append(SerializedCard);
                 }
-                
+
                 //Clean the flag for every contact, even the deleted ones.
                 entry.isDirty = false;
             }
@@ -164,7 +164,7 @@ namespace VCFEditor.Repository
 
             return backupName;
         }
-        
+
         public void DeleteContact()
         {
             if (_contacts != null && _contacts.Count > 0)
@@ -183,7 +183,7 @@ namespace VCFEditor.Repository
 
         public SortableBindingList<Contact> FilterContacts(string filter)
         {
-            var list = OriginalContactList.Where(i => (i.Name.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0) && 
+            var list = OriginalContactList.Where(i => (i.Name.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0) &&
                                                     !i.isDeleted);
             Contacts = new SortableBindingList<Contact>(list.ToList());
             return Contacts;
@@ -228,6 +228,7 @@ namespace VCFEditor.Repository
             card.Notes.Clear();
             foreach (vCardNote item in newCard.Notes)
                 card.Notes.Add(new vCardNote(item.Text));
+
             card.Organization = newCard.Organization;
         }
 
@@ -299,26 +300,26 @@ namespace VCFEditor.Repository
 
         private void SaveEmail(vCard NewCard, vCard card)
         {
-            //Inernet
-            if (NewCard.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet) != null)
+            // Internet email handling: update/add when present, remove when deleted.
+            var newEmail = NewCard.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet);
+            var existingEmail = card.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet);
+
+            if (newEmail != null)
             {
-                if (card.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet) != null)
-                    card.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet).Address
-                        = NewCard.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet).Address;
+                if (existingEmail != null)
+                    existingEmail.Address = newEmail.Address;
                 else
-                    card.EmailAddresses.Add(new vCardEmailAddress(NewCard.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet).Address,
-                            vCardEmailAddressType.Internet));
+                    card.EmailAddresses.Add(new vCardEmailAddress(newEmail.Address, vCardEmailAddressType.Internet));
             }
             else
             {
-                if (card.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet) != null)
-                    card.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet).Address = string.Empty;
+                if (existingEmail != null)
+                    card.EmailAddresses.Remove(existingEmail);
             }
         }
 
         private void SaveWebUrl(vCard NewCard, vCard card)
         {
-            //Personal
             if (NewCard.Websites.GetFirstChoice(vCardWebsiteTypes.Personal) != null)
             {
                 if (card.Websites.GetFirstChoice(vCardWebsiteTypes.Personal) != null)
@@ -332,21 +333,21 @@ namespace VCFEditor.Repository
                     card.Websites.GetFirstChoice(vCardWebsiteTypes.Personal).Url = string.Empty;
             }
 
-            //Work
-            //if (NewCard.Websites.GetFirstChoice(vCardWebsiteTypes.Work) != null)
-            //{
-            //    if (card.Websites.GetFirstChoice(vCardWebsiteTypes.Work) != null)
-            //        card.Websites.GetFirstChoice(vCardWebsiteTypes.Work).Url = NewCard.Websites.GetFirstChoice(vCardWebsiteTypes.Work).Url;
-            //    else
-            //        card.Websites.Add(new vCardWebsite(NewCard.Websites.GetFirstChoice(vCardWebsiteTypes.Work).Url, vCardWebsiteTypes.Work));
-            //}
-            //else
-            //{
-            //    if (card.Websites.GetFirstChoice(vCardWebsiteTypes.Work) != null)
-            //        card.Websites.GetFirstChoice(vCardWebsiteTypes.Work).Url = string.Empty;
-            //}
+
+            if (NewCard.Websites.GetFirstChoice(vCardWebsiteTypes.Work) != null)
+            {
+                if (card.Websites.GetFirstChoice(vCardWebsiteTypes.Work) != null)
+                    card.Websites.GetFirstChoice(vCardWebsiteTypes.Work).Url = NewCard.Websites.GetFirstChoice(vCardWebsiteTypes.Work).Url;
+                else
+                    card.Websites.Add(new vCardWebsite(NewCard.Websites.GetFirstChoice(vCardWebsiteTypes.Work).Url, vCardWebsiteTypes.Work));
+            }
+            else
+            {
+                if (card.Websites.GetFirstChoice(vCardWebsiteTypes.Work) != null)
+                    card.Websites.GetFirstChoice(vCardWebsiteTypes.Work).Url = string.Empty;
+            }
         }
-       
+
         public string GenerateStringFromVCard(vCard card)
         {
             vCardStandardWriter writer = new vCardStandardWriter();
@@ -407,10 +408,10 @@ namespace VCFEditor.Repository
                 //Clean the flag for every contact, even the deleted ones.
                 entry.isDirty = false;
             }
-            
+
             //Clean the global flag for the entire vCard Catalog.
             _dirty = false;
-            
+
             //return number of contacts processed!
             return count;
         }
