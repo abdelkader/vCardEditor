@@ -8,6 +8,8 @@ namespace vCardEditor.View.Customs
     public partial class BirthdateControl : UserControl
     {
         private bool _isSet;
+        private bool _suppressValueChanged;
+
         public DateTime? Value {
             get
             {
@@ -16,6 +18,8 @@ namespace vCardEditor.View.Customs
             }
             set
             {
+                // Suppress ValueChanged events while updating programmatically.
+                _suppressValueChanged = true;
                 if(value.HasValue)
                 {
                     _isSet = true;
@@ -26,6 +30,8 @@ namespace vCardEditor.View.Customs
                     _isSet = false;
                     dtpBirthdate.Value = DateTime.Now;
                 }
+                _suppressValueChanged = false;
+
                 _control_update();
             }
         }
@@ -34,7 +40,12 @@ namespace vCardEditor.View.Customs
         {
             InitializeComponent();
             _isSet = false;
+
+            // Prevent firing ValueChanged while initializing.
+            _suppressValueChanged = true;
             dtpBirthdate.Value = DateTime.Now;
+            _suppressValueChanged = false;
+
             _control_update();
         }
 
@@ -56,6 +67,10 @@ namespace vCardEditor.View.Customs
 
         private void dtpBirthdate_ValueChanged(object sender, EventArgs e)
         {
+            // Only raise the public event if the change was not programmatic.
+            if (_suppressValueChanged)
+                return;
+
             BirhdayChanged?.Invoke(sender, e);
         }
     }
