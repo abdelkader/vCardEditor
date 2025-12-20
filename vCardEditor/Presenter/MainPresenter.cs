@@ -36,6 +36,8 @@ namespace VCFEditor.Presenter
             _view.ModifyImage += ModifyImageHandler;
             _view.ExportImage += ExportImageHandler;
             _view.ExportQR += ExportQRHandler;
+            _view.ExportCsv += ExportCsvHandler;
+            _view.ExportJson += ExportJsonHandler;
             _view.AddressAdded += AddressAddedHandler;
             _view.AddressModified += AddressModifiedHandler;
             _view.AddressRemoved += AddressRemovedHandler;
@@ -48,6 +50,60 @@ namespace VCFEditor.Presenter
             _view.OpenFolderEvent += OpenNewFolderHandler;
             _view.CardInfoRemoved += CardInfoRemovedHandler;
             _view.BirhdateChanged += BirthdateChangedHandler;
+        }
+
+        private void ExportCsvHandler(object sender, EventArgs e)
+        {
+            if (_repository.Contacts == null || _repository.Contacts.Count == 0)
+            {
+                _view.DisplayMessage("No contacts to export.", "Export");
+                return;
+            }
+
+            var Title = "Export contacts to CSV";
+            var Filter = "CSV files (*.csv)|*.csv";
+            var FileName = $"vCardExport_{DateTime.Now:yyyyMMdd_HHmmss}.csv";
+
+            string filename = _view.DisplaySaveDialog(Title, Filter, FileName);
+            if (string.IsNullOrWhiteSpace(filename))
+                return;
+
+            try
+            {
+                _repository.ExportToCsv(filename, _repository.Contacts);
+                _view.DisplayMessage("Export CSV completed.", "Export");
+            }
+            catch (Exception ex)
+            {
+                _view.DisplayMessage($"Export CSV failed: {ex.Message}", "Export");
+            }
+        }
+
+        private void ExportJsonHandler(object sender, EventArgs e)
+        {
+            if (_repository.Contacts == null || _repository.Contacts.Count == 0)
+            {
+                _view.DisplayMessage("No contacts to export.", "Export");
+                return;
+            }
+
+            var Title = "Export contacts to JSON";
+            var Filter = "JSON files (*.json)|*.json";
+            var FileName = $"vCardExport_{DateTime.Now:yyyyMMdd_HHmmss}.json";
+
+            string filename = _view.DisplaySaveDialog(Title, Filter, FileName);
+            if (string.IsNullOrWhiteSpace(filename))
+                return;
+
+            try
+            {
+                _repository.ExportToJson(filename, _repository.Contacts);
+                _view.DisplayMessage("Export JSON completed.", "Export");
+            }
+            catch (Exception ex)
+            {
+                _view.DisplayMessage($"Export JSON failed: {ex.Message}", "Export");
+            }
         }
 
         private void OpenNewFolderHandler(object sender, EventArg<string> e)
@@ -321,10 +377,15 @@ namespace VCFEditor.Presenter
 
         private void SaveContactsHandler(object sender, EventArgs e)
         {
-            string filename = _repository.fileName ?? _view.DisplaySaveDialog();
+            var Title = "Save vCard file";
+            var Filter = "Virtual Contact File|*.vcf";
+
+            string filename = _repository.fileName ?? _view.DisplaySaveDialog(Title, Filter);
             if (string.IsNullOrWhiteSpace(filename))
                 return;
-
+            
+            
+            _view.SetFormTitle(filename);
             _repository.SaveContactsToFile(filename);
         }
 

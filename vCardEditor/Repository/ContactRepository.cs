@@ -6,6 +6,8 @@ using Thought.vCards;
 using vCardEditor.Repository;
 using vCardEditor.View;
 using VCFEditor.Model;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace VCFEditor.Repository
 {
@@ -426,6 +428,100 @@ namespace VCFEditor.Repository
                 FinalPath = _fileHandler.GetVcfFileName(FolderPath, familyName);
 
             return FinalPath;
+        }
+
+        public void ExportToCsv(string path, IEnumerable<Contact> contacts)
+        {
+            if (string.IsNullOrWhiteSpace(path))
+                throw new ArgumentException(nameof(path));
+
+            var sb = new StringBuilder();
+            // En-tête
+            sb.AppendLine("FormattedName,GivenName,FamilyName,Email,Cellular,Organization,BirthDate");
+
+            foreach (var c in contacts.Where(x => !x.isDeleted))
+            {
+                var name = EscapeCsv(c.card.FormattedName);
+                var given = EscapeCsv(c.card.GivenName);
+                var family = EscapeCsv(c.card.FamilyName);
+
+                // Email internet first
+                var email = string.Empty;
+                var eAddr = c.card.EmailAddresses.GetFirstChoice(Thought.vCards.vCardEmailAddressType.Internet);
+                if (eAddr != null) email = EscapeCsv(eAddr.Address);
+
+                // Cellular
+                var cell = string.Empty;
+                var cellPhone = c.card.Phones.GetFirstChoice(Thought.vCards.vCardPhoneTypes.Cellular);
+                if (cellPhone != null) cell = EscapeCsv(cellPhone.FullNumber);
+
+                var org = EscapeCsv(c.card.Organization ?? string.Empty);
+
+                var bday = c.card.BirthDate.HasValue ? c.card.BirthDate.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) : string.Empty;
+
+                sb.AppendLine(string.Join(",", new[] { name, given, family, email, cell, org, bday }));
+            }
+
+            _fileHandler.WriteAllText(path, sb.ToString());
+        }
+
+        public void ExportToJson(string path, IEnumerable<Contact> contacts)
+        {
+            if (string.IsNullOrWhiteSpace(path))
+                throw new ArgumentException(nameof(path));
+
+            var sb = new StringBuilder();
+            sb.AppendLine("[");
+            bool first = true;
+            foreach (var c in contacts.Where(x => !x.isDeleted))
+            {
+                if (!first) sb.AppendLine(",");
+                first = false;
+
+                var output = new StringBuilder();
+                output.Append("{");
+
+                output.AppendFormat("\"FormattedName\":{0},", ToJsonString(c.card.FormattedName));
+                output.AppendFormat("\"GivenName\":{0},", ToJsonString(c.card.GivenName));
+                output.AppendFormat("\"FamilyName\":{0},", ToJsonString(c.card.FamilyName));
+
+                var email = string.Empty;
+                var eAddr = c.card.EmailAddresses.GetFirstChoice(Thought.vCards.vCardEmailAddressType.Internet);
+                if (eAddr != null) email = eAddr.Address;
+                output.AppendFormat("\"Email\":{0},", ToJsonString(email));
+
+                var cell = string.Empty;
+                var cellPhone = c.card.Phones.GetFirstChoice(Thought.vCards.vCardPhoneTypes.Cellular);
+                if (cellPhone != null) cell = cellPhone.FullNumber;
+                output.AppendFormat("\"Cellular\":{0},", ToJsonString(cell));
+
+                output.AppendFormat("\"Organization\":{0},", ToJsonString(c.card.Organization ?? string.Empty));
+                output.AppendFormat("\"BirthDate\":{0}", ToJsonString(c.card.BirthDate.HasValue ? c.card.BirthDate.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) : string.Empty));
+
+                output.Append("}");
+                sb.Append(output.ToString());
+            }
+            sb.AppendLine();
+            sb.AppendLine("]");
+
+            _fileHandler.WriteAllText(path, sb.ToString());
+        }
+
+        private static string EscapeCsv(string s)
+        {
+            if (s == null) return string.Empty;
+            if (s.Contains("\"") || s.Contains(",") || s.Contains("\n") || s.Contains("\r"))
+            {
+                return "\"" + s.Replace("\"", "\"\"") + "\"";
+            }
+            return s;
+        }
+
+        private static string ToJsonString(string s)
+        {
+            if (s == null) return "\"\"";
+            var esc = s.Replace("\\", "\\\\").Replace("\"", "\\\"").Replace("\n", "\\n").Replace("\r", "\\r").Replace("\t", "\\t");
+            return "\"" + esc + "\"";
         }
     }
 }

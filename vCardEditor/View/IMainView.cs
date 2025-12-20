@@ -22,6 +22,8 @@ namespace VCFEditor.View
         event EventHandler<EventArg<string>> ModifyImage;
         event EventHandler ExportImage;
         event EventHandler ExportQR;
+        event EventHandler ExportCsv;
+        event EventHandler ExportJson;
         event EventHandler<EventArg<List<vCardDeliveryAddressTypes>>> AddressAdded;
         event EventHandler<EventArg<List<vCardDeliveryAddressTypes>>> AddressModified;
         event EventHandler<EventArg<int>> AddressRemoved;
@@ -42,7 +44,7 @@ namespace VCFEditor.View
         bool AskMessage(string msg, string caption);
         void DisplayMessage(string msg, string caption);
         string DisplayOpenFileDialog(string filter);
-        string DisplaySaveDialog();
+        string DisplaySaveDialog(string title, string filter, string filename = "");
         void UpdateMRUMenu(FixedList MRUList);
 
         void SendTextToClipBoard(string text);
@@ -56,5 +58,6 @@ namespace VCFEditor.View
         string DisplayOpenFolderDialog();
         void LoadLocalizedUI(IReadOnlyDictionary<string, string> currentMessages);
         void LoadAvailablesLangs(IEnumerable<string> availableLanguages);
+        void SetFormTitle(string filename);
     }
 }

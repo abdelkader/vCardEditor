@@ -2,6 +2,7 @@
 using Thought.vCards;
 using VCFEditor.Model;
 using vCardEditor.View;
+using System.Collections.Generic;
 
 namespace VCFEditor.Repository
 {
@@ -27,5 +28,7 @@ namespace VCFEditor.Repository
         string GenerateFileName(string fileName, int index, string extension);
         int SaveSplittedFiles(string Path);
 
+        void ExportToCsv(string path, IEnumerable<Contact> contacts);
+        void ExportToJson(string path, IEnumerable<Contact> contacts);
     }
 }

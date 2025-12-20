@@ -33,6 +33,8 @@ namespace vCardEditor.View
         public event EventHandler TextBoxValueChanged;
         public event EventHandler ExportImage;
         public event EventHandler ExportQR;
+        public event EventHandler ExportCsv;
+        public event EventHandler ExportJson;
         public event EventHandler CopyTextToClipboardEvent;
         public event EventHandler CountImagesEvent;
         public event EventHandler ClearImagesEvent;
@@ -455,21 +457,20 @@ namespace vCardEditor.View
             return filename;
         }
 
-        public string DisplaySaveDialog()
+        public string DisplaySaveDialog(string title, string filter, string filename = "")
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
-                Title = "Save vCard file",
-                Filter = "Virtual Contact File|*.vcf"
+                Title = title, 
+                Filter = filter, 
+                FileName = filename
+                
             };
-            string filename = null;
+            string _filename = filename;
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
                 filename = saveFileDialog.FileName;
-                Text = string.Format("{0} - vCard Editor", filename);
-            }
-
+            
             return filename;
         }
 
@@ -716,6 +717,21 @@ namespace vCardEditor.View
         private void Value_BirhdateChanged(object sender, EventArgs e)
         {
             BirhdateChanged?.Invoke(sender, e);
+        }
+
+        private void btnCSVToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExportCsv?.Invoke(sender, e);
+        }
+
+        private void btnJSONToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExportJson?.Invoke(sender, e);
+        }
+
+        public void SetFormTitle(string filename)
+        {
+            Text = string.Format("{0} - vCard Editor", filename);
         }
     }
 }
