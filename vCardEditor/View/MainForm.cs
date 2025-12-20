@@ -469,9 +469,9 @@ namespace vCardEditor.View
             string _filename = filename;
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                filename = saveFileDialog.FileName;
+                _filename = saveFileDialog.FileName;
             
-            return filename;
+            return _filename;
         }
 
         private void PhotoBox_Click(object sender, EventArgs e)
