@@ -38,8 +38,8 @@ namespace vCardEditor.View
             this.miSave = new System.Windows.Forms.ToolStripMenuItem();
             this.miOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnCSVExportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnJSONExportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.miConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.recentFilesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -110,6 +110,10 @@ namespace vCardEditor.View
             this.menuExtraField = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.miNote = new System.Windows.Forms.ToolStripMenuItem();
             this.miOrg = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.importerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnCSVImportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnJSONImportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.gbNameList.SuspendLayout();
@@ -151,6 +155,8 @@ namespace vCardEditor.View
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.miSave,
             this.miOpen,
+            this.toolStripSeparator2,
+            this.importerToolStripMenuItem,
             this.exportToolStripMenuItem1,
             this.toolStripMenuItem1,
             this.miConfig,
@@ -179,25 +185,25 @@ namespace vCardEditor.View
             // exportToolStripMenuItem1
             // 
             this.exportToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnCSVToolStripMenuItem,
-            this.btnJSONToolStripMenuItem});
+            this.btnCSVExportToolStripMenuItem,
+            this.btnJSONExportToolStripMenuItem});
             this.exportToolStripMenuItem1.Name = "exportToolStripMenuItem1";
             this.exportToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
             this.exportToolStripMenuItem1.Text = "Export";
             // 
-            // btnCSVToolStripMenuItem
+            // btnCSVExportToolStripMenuItem
             // 
-            this.btnCSVToolStripMenuItem.Name = "btnCSVToolStripMenuItem";
-            this.btnCSVToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.btnCSVToolStripMenuItem.Text = "CSV";
-            this.btnCSVToolStripMenuItem.Click += new System.EventHandler(this.btnCSVToolStripMenuItem_Click);
+            this.btnCSVExportToolStripMenuItem.Name = "btnCSVExportToolStripMenuItem";
+            this.btnCSVExportToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.btnCSVExportToolStripMenuItem.Text = "CSV";
+            this.btnCSVExportToolStripMenuItem.Click += new System.EventHandler(this.btnCSVToolStripMenuItem_Click);
             // 
-            // btnJSONToolStripMenuItem
+            // btnJSONExportToolStripMenuItem
             // 
-            this.btnJSONToolStripMenuItem.Name = "btnJSONToolStripMenuItem";
-            this.btnJSONToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.btnJSONToolStripMenuItem.Text = "JSON";
-            this.btnJSONToolStripMenuItem.Click += new System.EventHandler(this.btnJSONToolStripMenuItem_Click);
+            this.btnJSONExportToolStripMenuItem.Name = "btnJSONExportToolStripMenuItem";
+            this.btnJSONExportToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.btnJSONExportToolStripMenuItem.Text = "JSON";
+            this.btnJSONExportToolStripMenuItem.Click += new System.EventHandler(this.btnJSONToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -279,27 +285,27 @@ namespace vCardEditor.View
             this.clearToolStripMenuItem,
             this.countToolStripMenuItem});
             this.imagesToolStripMenuItem.Name = "imagesToolStripMenuItem";
-            this.imagesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.imagesToolStripMenuItem.Size = new System.Drawing.Size(140, 26);
             this.imagesToolStripMenuItem.Text = "Images";
             // 
             // exportToolStripMenuItem
             // 
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
             this.exportToolStripMenuItem.Text = "Export";
             this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
             // countToolStripMenuItem
             // 
             this.countToolStripMenuItem.Name = "countToolStripMenuItem";
-            this.countToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.countToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
             this.countToolStripMenuItem.Text = "Count";
             this.countToolStripMenuItem.Click += new System.EventHandler(this.countToolStripMenuItem_Click);
             // 
@@ -935,6 +941,34 @@ namespace vCardEditor.View
             this.miOrg.Text = "Organisation";
             this.miOrg.Click += new System.EventHandler(this.miOrg_Click);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(221, 6);
+            // 
+            // importerToolStripMenuItem
+            // 
+            this.importerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnCSVImportToolStripMenuItem,
+            this.btnJSONImportToolStripMenuItem});
+            this.importerToolStripMenuItem.Name = "importerToolStripMenuItem";
+            this.importerToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.importerToolStripMenuItem.Text = "Importer";
+            // 
+            // btnCSVImportToolStripMenuItem
+            // 
+            this.btnCSVImportToolStripMenuItem.Name = "btnCSVImportToolStripMenuItem";
+            this.btnCSVImportToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.btnCSVImportToolStripMenuItem.Text = "CSV";
+            this.btnCSVImportToolStripMenuItem.Click += new System.EventHandler(this.btnCSVImportToolStripMenuItem_Click);
+            // 
+            // btnJSONImportToolStripMenuItem
+            // 
+            this.btnJSONImportToolStripMenuItem.Name = "btnJSONImportToolStripMenuItem";
+            this.btnJSONImportToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.btnJSONImportToolStripMenuItem.Text = "JSON";
+            this.btnJSONImportToolStripMenuItem.Click += new System.EventHandler(this.btnJSONImportToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -1059,7 +1093,11 @@ namespace vCardEditor.View
         private System.Windows.Forms.ToolStripMenuItem splitToFilesToolStripMenuItem;
         private BirthdateControl ucBirtdate;
         private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem btnCSVToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem btnJSONToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnCSVExportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnJSONExportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem importerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnCSVImportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnJSONImportToolStripMenuItem;
     }
 }

@@ -30,5 +30,7 @@ namespace VCFEditor.Repository
 
         void ExportToCsv(string path, IEnumerable<Contact> contacts);
         void ExportToJson(string path, IEnumerable<Contact> contacts);
+        SortableBindingList<Contact> ImportFromJson(string path);
+        SortableBindingList<Contact> ImportFromCsv(string path);
     }
 }

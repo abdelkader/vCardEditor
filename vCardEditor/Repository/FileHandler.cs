@@ -74,5 +74,10 @@ namespace vCardEditor.Repository
             }
             return json;
         }
+
+        public Stream OpenRead(string filename)
+        {
+            return new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
+        }
     }
 }

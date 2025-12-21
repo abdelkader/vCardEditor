@@ -35,6 +35,8 @@ namespace vCardEditor.View
         public event EventHandler ExportQR;
         public event EventHandler ExportCsv;
         public event EventHandler ExportJson;
+        public event EventHandler ImportCsv;
+        public event EventHandler ImportJson;
         public event EventHandler CopyTextToClipboardEvent;
         public event EventHandler CountImagesEvent;
         public event EventHandler ClearImagesEvent;
@@ -732,6 +734,16 @@ namespace vCardEditor.View
         public void SetFormTitle(string filename)
         {
             Text = string.Format("{0} - vCard Editor", filename);
+        }
+
+        private void btnCSVImportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ImportCsv?.Invoke(sender, e);
+        }
+
+        private void btnJSONImportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ImportJson?.Invoke(sender, e);
         }
     }
 }

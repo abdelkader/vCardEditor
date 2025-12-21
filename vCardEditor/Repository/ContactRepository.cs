@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using Thought.vCards;
+using TinyJson;
+using vCardEditor.Libs.SmallestCSVParser;
 using vCardEditor.Repository;
 using vCardEditor.View;
 using VCFEditor.Model;
-using System.Collections.Generic;
-using System.Globalization;
 
 namespace VCFEditor.Repository
 {
@@ -523,5 +525,116 @@ namespace VCFEditor.Repository
             var esc = s.Replace("\\", "\\\\").Replace("\"", "\\\"").Replace("\n", "\\n").Replace("\r", "\\r").Replace("\t", "\\t");
             return "\"" + esc + "\"";
         }
+
+        public SortableBindingList<Contact> ImportFromJson(string path)
+        {
+            if (string.IsNullOrEmpty(path) || !_fileHandler.FileExist(path))
+                throw new FileNotFoundException(path);
+
+            var lines = _fileHandler.ReadAllLines(path);
+            string json = string.Join("\n", lines);
+            var items = json.FromJson<List<Dictionary<string, object>>>();
+            if (items == null || items.Count == 0)
+                return new SortableBindingList<Contact>();
+
+            var list = new List<Contact>();
+            foreach (var dict in items)
+            {
+                string formatted = TryGetString(dict, "FormattedName");
+                string given = TryGetString(dict, "GivenName");
+                string family = TryGetString(dict, "FamilyName");
+                string email = TryGetString(dict, "Email");
+                string cellular = TryGetString(dict, "Cellular");
+                string org = TryGetString(dict, "Organization");
+                string bday = TryGetString(dict, "BirthDate");
+
+                var card = new vCard
+                {
+                    FormattedName = formatted,
+                    GivenName = given,
+                    FamilyName = family,
+                    Organization = org
+                };
+
+                if (!string.IsNullOrWhiteSpace(email))
+                    card.EmailAddresses.Add(new vCardEmailAddress(email, vCardEmailAddressType.Internet));
+                if (!string.IsNullOrWhiteSpace(cellular))
+                    card.Phones.Add(new vCardPhone(cellular, vCardPhoneTypes.Cellular));
+                if (!string.IsNullOrWhiteSpace(bday) && DateTime.TryParse(bday, out DateTime dt))
+                    card.BirthDate = dt;
+
+                list.Add(new Contact(card));
+            }
+
+            return new SortableBindingList<Contact>(list);
+        }
+
+        public SortableBindingList<Contact> ImportFromCsv(string path)
+        {
+            if (string.IsNullOrEmpty(path) || !_fileHandler.FileExist(path))
+                throw new FileNotFoundException(path);
+            
+            using (var stream = _fileHandler.OpenRead(path))
+            using (var sr = new StreamReader(stream, Encoding.UTF8))
+            {
+                var parser = new SmallestCSVParser(sr);
+                var header = parser.ReadNextRow();
+                if (header == null || header.Count == 0)
+                    return new SortableBindingList<Contact>();
+
+                var list = new List<Contact>();
+                List<string> row;
+                while ((row = parser.ReadNextRow()) != null)
+                {
+                    string formatted = GetFieldByName(header, row, "FormattedName");
+                    string given = GetFieldByName(header, row, "GivenName");
+                    string family = GetFieldByName(header, row, "FamilyName");
+                    string email = GetFieldByName(header, row, "Email");
+                    string cellular = GetFieldByName(header, row, "Cellular");
+                    string org = GetFieldByName(header, row, "Organization");
+                    string bday = GetFieldByName(header, row, "BirthDate");
+
+                    var card = new vCard
+                    {
+                        FormattedName = formatted,
+                        GivenName = given,
+                        FamilyName = family,
+                        Organization = org
+                    };
+
+                    if (!string.IsNullOrWhiteSpace(email))
+                        card.EmailAddresses.Add(new vCardEmailAddress(email, vCardEmailAddressType.Internet));
+                    if (!string.IsNullOrWhiteSpace(cellular))
+                        card.Phones.Add(new vCardPhone(cellular, vCardPhoneTypes.Cellular));
+                    if (!string.IsNullOrWhiteSpace(bday) && DateTime.TryParse(bday, out DateTime dt))
+                        card.BirthDate = dt;
+
+                    list.Add(new Contact(card));
+                }
+
+                return new SortableBindingList<Contact>(list);
+            }
+        }
+
+        private static string GetFieldByName(List<string> header, List<string> fields, string name)
+        {
+            if (header == null || fields == null) return string.Empty;
+            int idx = header.FindIndex(h => string.Equals(h?.Trim(), name, StringComparison.OrdinalIgnoreCase));
+            if (idx >= 0 && idx < fields.Count)
+                return fields[idx].Trim();
+            return string.Empty;
+        }
+
+        private static string TryGetString(Dictionary<string, object> dict, string key)
+        {
+            if (dict == null) return string.Empty;
+            var pair = dict.FirstOrDefault(kvp => string.Equals(kvp.Key, key, StringComparison.OrdinalIgnoreCase));
+            if (pair.Key == null) return string.Empty;
+            return pair.Value?.ToString() ?? string.Empty;
+        }
+
+        
+
+       
     }
 }

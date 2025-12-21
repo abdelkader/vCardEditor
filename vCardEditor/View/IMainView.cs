@@ -24,6 +24,8 @@ namespace VCFEditor.View
         event EventHandler ExportQR;
         event EventHandler ExportCsv;
         event EventHandler ExportJson;
+        event EventHandler ImportCsv;
+        event EventHandler ImportJson;
         event EventHandler<EventArg<List<vCardDeliveryAddressTypes>>> AddressAdded;
         event EventHandler<EventArg<List<vCardDeliveryAddressTypes>>> AddressModified;
         event EventHandler<EventArg<int>> AddressRemoved;

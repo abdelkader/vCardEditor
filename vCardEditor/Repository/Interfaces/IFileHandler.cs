@@ -15,5 +15,7 @@ namespace vCardEditor.Repository
         string GetFileNameWithExtension(string fileName, int index, string extension);
         string LoadJsonFromAssembly(string EmbeddedResourceName);
         string[] GetFiles(string path, string ext);
+
+        Stream OpenRead(string filename);
     }
 }

@@ -38,6 +38,8 @@ namespace VCFEditor.Presenter
             _view.ExportQR += ExportQRHandler;
             _view.ExportCsv += ExportCsvHandler;
             _view.ExportJson += ExportJsonHandler;
+            _view.ImportCsv += ImportCsvHandler;
+            _view.ImportJson += ImportJsonHandler;
             _view.AddressAdded += AddressAddedHandler;
             _view.AddressModified += AddressModifiedHandler;
             _view.AddressRemoved += AddressRemovedHandler;
@@ -50,6 +52,57 @@ namespace VCFEditor.Presenter
             _view.OpenFolderEvent += OpenNewFolderHandler;
             _view.CardInfoRemoved += CardInfoRemovedHandler;
             _view.BirhdateChanged += BirthdateChangedHandler;
+        }
+
+        private void ImportJsonHandler(object sender, EventArgs e)
+        {
+            string path = _view.DisplayOpenFileDialog("JSON files (*.json)|*.json");
+            if (string.IsNullOrWhiteSpace(path))
+                return;
+
+            try
+            {
+                var contacts = _repository.ImportFromJson(path);
+                if (contacts == null || contacts.Count == 0)
+                {
+                    _view.DisplayMessage("No contacts imported.", "Import");
+                    return;
+                }
+
+                _repository.Contacts = contacts;
+                _view.DisplayContacts(_repository.Contacts);
+            }
+            catch (Exception ex)
+            {
+                _view.DisplayMessage($"Import JSON failed: {ex.Message}", "Import");
+            }
+
+
+
+        }
+
+        private void ImportCsvHandler(object sender, EventArgs e)
+        {
+            string path = _view.DisplayOpenFileDialog("CSV files (*.csv)|*.csv");
+            if (string.IsNullOrWhiteSpace(path))
+                return;
+
+            try
+            {
+                var contacts = _repository.ImportFromCsv(path);
+                if (contacts == null || contacts.Count == 0)
+                {
+                    _view.DisplayMessage("No contacts imported.", "Import");
+                    return;
+                }
+
+                _repository.Contacts = contacts;
+                _view.DisplayContacts(_repository.Contacts);
+            }
+            catch (Exception ex)
+            {
+                _view.DisplayMessage($"Import CSV failed: {ex.Message}", "Import");
+            }
         }
 
         private void ExportCsvHandler(object sender, EventArgs e)

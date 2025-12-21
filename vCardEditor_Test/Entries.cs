@@ -189,5 +189,27 @@
             }
         }
 
+
+        public static string vcfCSVTwoEntry = string.Join("\r\n", new[]
+           {
+                "FormattedName,GivenName,FamilyName,Email,Cellular,Organization,BirthDate",
+                "John Doe,John,Doe,john@example.com,12345,Acme Co,1980-01-01",
+                "\"Marie, \"\"La\"\"\",Marie,ONeil,marie@example.com,,Org,"
+            });
+
+        public static string[] vcfJSONTwoEntry
+        {
+            get
+            {
+                string s = @"[" +
+                "{\"FormattedName\":\"John Doe\",\"GivenName\":\"John\",\"FamilyName\":\"Doe\",\"Email\":\"john@example.com\",\"Cellular\":\"12345\",\"Organization\":\"Acme Co\",\"BirthDate\":\"1980-01-01\"}," +
+                "{\"FormattedName\":\"Marie, \\\"La\\\"\",\"GivenName\":\"Marie\",\"FamilyName\":\"ONeil\",\"Email\":\"marie@example.com\",\"Cellular\":\"\",\"Organization\":\"\",\"BirthDate\":\"\"}" +
+                "]";
+                return s.Split('\n');
+            }
+        }
+            
+            
+           
     }
 }
