@@ -115,7 +115,7 @@ namespace vCardEditor.View
                         Version v2 = new Version(AssemblyVersion);
 
                         if (v1.CompareTo(v2) > 0)
-                            MessageBox.Show(string.Format("New version {0} found!", result), "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show(string.Format("New version {0} found!", InternetVersion), "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else
                             MessageBox.Show("You have the latest version!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }

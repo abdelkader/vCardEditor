@@ -189,7 +189,6 @@ namespace vCardEditor_Test
             var fileHandler = Substitute.For<IFileHandler>();
             var repo = new ContactRepository(fileHandler);
 
-            // contact 1 : valeurs simples
             var card1 = new vCard
             {
                 FormattedName = "John Doe",
@@ -202,7 +201,6 @@ namespace vCardEditor_Test
             card1.Phones.Add(new vCardPhone("12345", vCardPhoneTypes.Cellular));
             var contact1 = new Contact(card1);
 
-            // contact 2 : caractères spéciaux pour échappement CSV
             var card2 = new vCard
             {
                 FormattedName = "Marie, \"La\"",
@@ -217,13 +215,10 @@ namespace vCardEditor_Test
             repo.ExportToCsv(expectedPath, repo.Contacts);
 
             fileHandler.Received(1).WriteAllText(expectedPath, Arg.Is<string>(s =>
-                // Vérifie en-tête
                 s.Contains("FormattedName,GivenName,FamilyName,Email,Cellular,Organization,BirthDate")
-                // Vérifie présence des valeurs du premier contact
                 && s.Contains("John Doe")
                 && s.Contains("john@example.com")
                 && s.Contains("12345")
-                // Vérifie que le second contact a été correctement échappé (ex. "Marie, ""La""" dans CSV)
                 && s.Contains("\"Marie, \"\"La\"\"\"")
             ));
         }
@@ -234,7 +229,6 @@ namespace vCardEditor_Test
             var fileHandler = Substitute.For<IFileHandler>();
             var repo = new ContactRepository(fileHandler);
 
-            // contact 1 : valeurs simples
             var card1 = new vCard
             {
                 FormattedName = "John Doe",
@@ -262,11 +256,9 @@ namespace vCardEditor_Test
             repo.ExportToJson(expectedPath, repo.Contacts);
 
             fileHandler.Received(1).WriteAllText(expectedPath, Arg.Is<string>(s =>
-                // Vérifie structure JSON minimale et présence des champs/valeurs
                 s.Contains("[") 
                 && s.Contains("\"FormattedName\":")
                 && s.Contains("\"John Doe\"")
-                // Vérifie que la chaîne avec guillemets a été échappée pour JSON (présence de \"La\")
                 && s.Contains("\\\"La\\\"")
             ));
         }
