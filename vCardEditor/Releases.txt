@@ -1,9 +1,8 @@
-﻿Release history 
-
-0.5.9
+﻿0.5.9
    added a feature to export/import as csv/json
    support of bday (thanks to @mokhin-denis )
    #54 issue fixed! (removing email and saving vcf will not let the email field empty)
+   Started vibe coding with copilot:)
 
 0.5.8
    Merged PR #42, #45
