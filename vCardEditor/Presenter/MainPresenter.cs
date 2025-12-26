@@ -17,12 +17,12 @@ namespace VCFEditor.Presenter
         private readonly IContactRepository _repository;
         private readonly ILocalizationProvider _localization;
 
-        public MainPresenter(IMainView view, IContactRepository repository, ILocalizationProvider localization )
+        public MainPresenter(IMainView view, IContactRepository repository, ILocalizationProvider localization)
         {
             _view = view;
             _repository = repository;
             _localization = localization;
-            
+
             _view.LoadForm += LoadFormHandler;
             _view.AddContact += AddContactHandler;
             _view.NewFileOpened += OpenNewFileHandler;
@@ -62,15 +62,19 @@ namespace VCFEditor.Presenter
 
             try
             {
+                BeforeOpeningNewFileHandler();
+
                 var contacts = _repository.ImportFromJson(path);
                 if (contacts == null || contacts.Count == 0)
                 {
                     _view.DisplayMessage("No contacts imported.", "Import");
                     return;
                 }
-
                 _repository.Contacts = contacts;
+                _repository.fileName = path;
+
                 _view.DisplayContacts(_repository.Contacts);
+                _view.DisplayContactDetail(_repository.Contacts[0].card, _repository.fileName);
             }
             catch (Exception ex)
             {
@@ -89,7 +93,10 @@ namespace VCFEditor.Presenter
 
             try
             {
+                BeforeOpeningNewFileHandler();
+
                 var contacts = _repository.ImportFromCsv(path);
+
                 if (contacts == null || contacts.Count == 0)
                 {
                     _view.DisplayMessage("No contacts imported.", "Import");
@@ -97,7 +104,10 @@ namespace VCFEditor.Presenter
                 }
 
                 _repository.Contacts = contacts;
+                _repository.fileName = path;
                 _view.DisplayContacts(_repository.Contacts);
+                _view.DisplayContactDetail(_repository.Contacts[0].card, _repository.fileName);
+
             }
             catch (Exception ex)
             {
@@ -169,7 +179,7 @@ namespace VCFEditor.Presenter
 
             if (!string.IsNullOrEmpty(path))
             {
-                bool Loaded =_repository.LoadMultipleFilesContact(path);
+                bool Loaded = _repository.LoadMultipleFilesContact(path);
                 if (!Loaded)
                 {
                     _view.DisplayMessage("No file loaded!", "Error");
@@ -243,15 +253,15 @@ namespace VCFEditor.Presenter
         {
             if (_repository.Contacts == null || _repository.Contacts.Count == 0)
                 return;
-            
+
             int count = 0;
             for (int i = 0; i < _repository.Contacts.Count; i++)
             {
-                if (_repository.Contacts[i].card.Photos.Count > 0)
+                if (_repository.Contacts[i].card.Photos.Count > 0)
                 {
                     count++;
-                    _repository.ModifyImage(i, null);   
-                    
+                    _repository.ModifyImage(i, null);
+
                     //remove from the form the image displayed.
                     if (_view.SelectedContactIndex == i)
                         _view.ClearImageFromForm();
@@ -311,7 +321,7 @@ namespace VCFEditor.Presenter
         {
             var contact = _repository.Contacts[_view.SelectedContactIndex];
             _repository.SetDirtyFlag(_view.SelectedContactIndex);
-            
+
             contact.card.DeliveryAddresses.RemoveAt(e.Data);
         }
 
@@ -338,7 +348,7 @@ namespace VCFEditor.Presenter
             {
                 //TODO: image can be url, or file location.
                 vCard card = _repository.Contacts[_view.SelectedContactIndex].card;
-                SaveCardPhoto(card, _view.SelectedContactIndex,  true);
+                SaveCardPhoto(card, _view.SelectedContactIndex, true);
             }
         }
 
@@ -349,12 +359,12 @@ namespace VCFEditor.Presenter
 
             if (image != null)
             {
-                string newPath = _repository.GenerateFileName(_repository.fileName, index,  image.Extension);
+                string newPath = _repository.GenerateFileName(_repository.fileName, index, image.Extension);
 
                 //string ImagePath = string.Empty;
                 //if (askUser)
                 //    ImagePath = _view.DisplaySaveDialog(newPath);
-                
+
                 _repository.SaveImageToDisk(newPath, image);
             }
         }
@@ -383,7 +393,7 @@ namespace VCFEditor.Presenter
 
         void CloseFormHandler(object sender, EventArg<bool> e)
         {
-            if (_repository.dirty && !_view.AskMessage("Exit without saving?", "Exit")) 
+            if (_repository.dirty && !_view.AskMessage("Exit without saving?", "Exit"))
                 e.Data = true;
 
             if (!e.Data)
@@ -436,8 +446,8 @@ namespace VCFEditor.Presenter
             string filename = _repository.fileName ?? _view.DisplaySaveDialog(Title, Filter);
             if (string.IsNullOrWhiteSpace(filename))
                 return;
-            
-            
+
+
             _view.SetFormTitle(filename);
             _repository.SaveContactsToFile(filename);
         }
@@ -461,7 +471,6 @@ namespace VCFEditor.Presenter
             {
                 if (_view.AskMessage("Save current file before?", "Load"))
                     SaveContactsHandler(null, null);
-                    //_repository.SaveContactsToFile(_repository.fileName);
             }
         }
 

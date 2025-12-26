@@ -201,7 +201,7 @@ namespace VCFEditor.Repository
 
         public void SaveDirtyVCard(int index, vCard NewCard)
         {
-            if (index > -1 && index <= _contacts.Count-1 && _contacts[index].isDirty)
+            if (index > -1 && index <= _contacts.Count - 1 && _contacts[index].isDirty)
             {
                 vCard card = _contacts[index].card;
                 card.Title = NewCard.Title;
@@ -467,45 +467,135 @@ namespace VCFEditor.Repository
             _fileHandler.WriteAllText(path, sb.ToString());
         }
 
+        private static string JsonEncodeString(string s)
+        {
+            if (s == null) s = string.Empty;
+            var esc = s.Replace("\\", "\\\\").Replace("\"", "\\\"").Replace("\n", "\\n").Replace("\r", "\\r").Replace("\t", "\\t");
+            return "\"" + esc + "\"";
+        }
+
+        private static string JsonEncodeValue(object v)
+        {
+            if (v == null) return "null";
+            if (v is string s) return JsonEncodeString(s);
+            if (v is IEnumerable<string> arr)
+            {
+                return "[" + string.Join(",", arr.Select(JsonEncodeString)) + "]";
+            }
+            if (v is IEnumerable<object> objArr)
+            {
+                var parts = objArr.Select(o => JsonEncodeValue(o)).ToArray();
+                return "[" + string.Join(",", parts) + "]";
+            }
+            if (v is bool b) return b ? "true" : "false";
+            if (v is Dictionary<string, object> dict)
+            {
+                var parts = dict.Select(kv => JsonEncodeString(kv.Key) + ":" + JsonEncodeValue(kv.Value));
+                return "{" + string.Join(",", parts) + "}";
+            }
+            // fallback to string
+            return JsonEncodeString(v.ToString());
+        }
+
+        private static string BuildJCardProperty(string name, Dictionary<string, object> parameters, string valueType, object value)
+        {
+            var sb = new StringBuilder();
+            sb.Append("[");
+            sb.Append(JsonEncodeString(name));
+            sb.Append(",");
+            // parameters -> JSON object or {}
+            if (parameters == null || parameters.Count == 0)
+            {
+                sb.Append("{}");
+            }
+            else
+            {
+                sb.Append("{");
+                bool first = true;
+                foreach (var kv in parameters)
+                {
+                    if (!first) sb.Append(",");
+                    first = false;
+                    sb.Append(JsonEncodeString(kv.Key));
+                    sb.Append(":");
+                    sb.Append(JsonEncodeValue(kv.Value));
+                }
+                sb.Append("}");
+            }
+            sb.Append(",");
+            sb.Append(JsonEncodeString(valueType));
+            sb.Append(",");
+            sb.Append(JsonEncodeValue(value));
+            sb.Append("]");
+            return sb.ToString();
+        }
+
+
         public void ExportToJson(string path, IEnumerable<Contact> contacts)
         {
             if (string.IsNullOrWhiteSpace(path))
                 throw new ArgumentException(nameof(path));
 
+            // Export en jCard conforme RFC 7095 : chaque vCard est représentée comme ["vcard", [ [prop, params, type, value], ... ] ]
             var sb = new StringBuilder();
-            sb.AppendLine("[");
-            bool first = true;
+            sb.Append("[");
+
+            bool firstCard = true;
             foreach (var c in contacts.Where(x => !x.isDeleted))
             {
-                if (!first) sb.AppendLine(",");
-                first = false;
+                if (!firstCard) sb.Append(",");
+                firstCard = false;
 
-                var output = new StringBuilder();
-                output.Append("{");
+                var props = new List<string>();
 
-                output.AppendFormat("\"FormattedName\":{0},", ToJsonString(c.card.FormattedName));
-                output.AppendFormat("\"GivenName\":{0},", ToJsonString(c.card.GivenName));
-                output.AppendFormat("\"FamilyName\":{0},", ToJsonString(c.card.FamilyName));
+                // version
+                props.Add(BuildJCardProperty("version", null, "text", "4.0"));
 
-                var email = string.Empty;
-                var eAddr = c.card.EmailAddresses.GetFirstChoice(Thought.vCards.vCardEmailAddressType.Internet);
-                if (eAddr != null) email = eAddr.Address;
-                output.AppendFormat("\"Email\":{0},", ToJsonString(email));
+                // fn
+                props.Add(BuildJCardProperty("fn", null, "text", c.card.FormattedName ?? string.Empty));
 
-                var cell = string.Empty;
-                var cellPhone = c.card.Phones.GetFirstChoice(Thought.vCards.vCardPhoneTypes.Cellular);
-                if (cellPhone != null) cell = cellPhone.FullNumber;
-                output.AppendFormat("\"Cellular\":{0},", ToJsonString(cell));
+                // n -> array [family, given, additional, prefix, suffix]
+                var nArray = new[] {
+                    c.card.FamilyName ?? string.Empty,
+                    c.card.GivenName ?? string.Empty,
+                    c.card.AdditionalNames ?? string.Empty,
+                    c.card.NamePrefix ?? string.Empty,
+                    c.card.NameSuffix ?? string.Empty
+                };
+                props.Add(BuildJCardProperty("n", null, "text", nArray));
 
-                output.AppendFormat("\"Organization\":{0},", ToJsonString(c.card.Organization ?? string.Empty));
-                output.AppendFormat("\"BirthDate\":{0}", ToJsonString(c.card.BirthDate.HasValue ? c.card.BirthDate.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) : string.Empty));
+                // emails (internet)
+                foreach (var email in c.card.EmailAddresses)
+                {
+                    var parameters = new Dictionary<string, object>();
+                    if (email.EmailType == vCardEmailAddressType.Internet)
+                        parameters["type"] = "internet";
+                    props.Add(BuildJCardProperty("email", parameters, "text", email.Address ?? string.Empty));
+                }
 
-                output.Append("}");
-                sb.Append(output.ToString());
+                // phones
+                foreach (var phone in c.card.Phones)
+                {
+                    var pType = phone.PhoneType.ToString().ToLowerInvariant();
+                    var parameters = new Dictionary<string, object> { { "type", pType } };
+                    props.Add(BuildJCardProperty("tel", parameters, "text", phone.FullNumber ?? string.Empty));
+                }
+
+                // org - use array with single element per jCard spec convenience
+                if (!string.IsNullOrEmpty(c.card.Organization))
+                    props.Add(BuildJCardProperty("org", null, "text", new[] { c.card.Organization }));
+
+                // bday
+                if (c.card.BirthDate.HasValue)
+                    props.Add(BuildJCardProperty("bday", null, "text", c.card.BirthDate.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)));
+
+                // build card
+                sb.Append("[\"vcard\",[");
+                sb.Append(string.Join(",", props));
+                sb.Append("]]");
             }
-            sb.AppendLine();
-            sb.AppendLine("]");
 
+            sb.Append("]");
             _fileHandler.WriteAllText(path, sb.ToString());
         }
 
@@ -519,12 +609,7 @@ namespace VCFEditor.Repository
             return s;
         }
 
-        private static string ToJsonString(string s)
-        {
-            if (s == null) return "\"\"";
-            var esc = s.Replace("\\", "\\\\").Replace("\"", "\\\"").Replace("\n", "\\n").Replace("\r", "\\r").Replace("\t", "\\t");
-            return "\"" + esc + "\"";
-        }
+
 
         public SortableBindingList<Contact> ImportFromJson(string path)
         {
@@ -533,47 +618,218 @@ namespace VCFEditor.Repository
 
             var lines = _fileHandler.ReadAllLines(path);
             string json = string.Join("\n", lines);
-            var items = json.FromJson<List<Dictionary<string, object>>>();
-            if (items == null || items.Count == 0)
+
+            var parsed = json.FromJson<object>();
+            if (!(parsed is List<object> topList))
                 return new SortableBindingList<Contact>();
 
-            var list = new List<Contact>();
-            foreach (var dict in items)
+            var cards = new List<List<object>>();
+
+            if (topList.Count >= 1 && topList[0] is string first && string.Equals(first, "vcard", StringComparison.OrdinalIgnoreCase))
             {
-                string formatted = TryGetString(dict, "FormattedName");
-                string given = TryGetString(dict, "GivenName");
-                string family = TryGetString(dict, "FamilyName");
-                string email = TryGetString(dict, "Email");
-                string cellular = TryGetString(dict, "Cellular");
-                string org = TryGetString(dict, "Organization");
-                string bday = TryGetString(dict, "BirthDate");
-
-                var card = new vCard
+                cards.Add(topList);
+            }
+            else
+            {
+                foreach (var item in topList)
                 {
-                    FormattedName = formatted,
-                    GivenName = given,
-                    FamilyName = family,
-                    Organization = org
-                };
-
-                if (!string.IsNullOrWhiteSpace(email))
-                    card.EmailAddresses.Add(new vCardEmailAddress(email, vCardEmailAddressType.Internet));
-                if (!string.IsNullOrWhiteSpace(cellular))
-                    card.Phones.Add(new vCardPhone(cellular, vCardPhoneTypes.Cellular));
-                if (!string.IsNullOrWhiteSpace(bday) && DateTime.TryParse(bday, out DateTime dt))
-                    card.BirthDate = dt;
-
-                list.Add(new Contact(card));
+                    if (item is List<object> cardArr && cardArr.Count > 0 && cardArr[0] is string cardName && string.Equals(cardName, "vcard", StringComparison.OrdinalIgnoreCase))
+                    {
+                        cards.Add(cardArr);
+                    }
+                }
             }
 
-            return new SortableBindingList<Contact>(list);
+            var resultList = new List<Contact>();
+
+            foreach (var cardArr in cards)
+            {
+                if (cardArr.Count < 2)
+                    continue;
+
+                if (!(cardArr[1] is List<object> props))
+                    continue;
+
+                var card = new vCard();
+
+                foreach (var p in props)
+                {
+                    if (!(p is List<object> propList) || propList.Count < 4)
+                        continue;
+
+                    var propName = propList[0] as string;
+                    var propParams = propList[1];
+                    var propType = propList[2] as string;
+                    var propValue = propList[3];
+
+                    if (string.IsNullOrEmpty(propName))
+                        continue;
+
+                    switch (propName.ToLowerInvariant())
+                    {
+                        case "version":
+                            break;
+                        case "fn":
+                            if (propValue is string fn) card.FormattedName = fn;
+                            break;
+                        case "n":
+                            // n: [family, given, additional, prefix, suffix]
+                            if (propValue is List<object> nlist)
+                            {
+                                card.FamilyName = nlist.Count > 0 ? (nlist[0]?.ToString() ?? string.Empty) : string.Empty;
+                                card.GivenName = nlist.Count > 1 ? (nlist[1]?.ToString() ?? string.Empty) : string.Empty;
+                                card.AdditionalNames = nlist.Count > 2 ? (nlist[2]?.ToString() ?? string.Empty) : string.Empty;
+                                card.NamePrefix = nlist.Count > 3 ? (nlist[3]?.ToString() ?? string.Empty) : string.Empty;
+                                card.NameSuffix = nlist.Count > 4 ? (nlist[4]?.ToString() ?? string.Empty) : string.Empty;
+                            }
+                            break;
+                        case "org":
+                            if (propValue is string orgs) card.Organization = orgs;
+                            else if (propValue is List<object> orgList && orgList.Count > 0) card.Organization = orgList[0]?.ToString() ?? string.Empty;
+                            break;
+                        case "title":
+                            if (propValue is string title) card.Title = title;
+                            break;
+                        case "photo":
+                            // photo value can be uri or embedded; handle uri -> add as photo with Uri
+                            if (propValue is string photoUri)
+                            {
+                                try
+                                {
+                                    card.Photos.Add(new vCardPhoto(new Uri(photoUri), null));
+                                }
+                                catch { }
+                            }
+                            break;
+                        case "email":
+                            if (propValue is string emailStr && !string.IsNullOrEmpty(emailStr))
+                                card.EmailAddresses.Add(new vCardEmailAddress(emailStr, vCardEmailAddressType.Internet));
+                            break;
+                        case "tel":
+                            if (propValue is string telStr && !string.IsNullOrEmpty(telStr))
+                            {
+                                // strip "tel:" scheme if present
+                                if (telStr.StartsWith("tel:", StringComparison.OrdinalIgnoreCase))
+                                    telStr = telStr.Substring(4);
+
+                                var types = ExtractTypesFromParams(propParams);
+                                var phoneType = MapPhoneTypes(types);
+                                card.Phones.Add(new vCardPhone(telStr, phoneType));
+                            }
+                            break;
+                        case "adr":
+                            // adr value is an array: [po box, extended, street, locality, region, postalCode, country]
+                            if (propValue is List<object> adrList)
+                            {
+                                string postOfficeBox = adrList.Count > 0 ? (adrList[0]?.ToString() ?? string.Empty) : string.Empty;
+                                string extended = adrList.Count > 1 ? (adrList[1]?.ToString() ?? string.Empty) : string.Empty;
+                                string street = adrList.Count > 2 ? (adrList[2]?.ToString() ?? string.Empty) : string.Empty;
+                                string city = adrList.Count > 3 ? (adrList[3]?.ToString() ?? string.Empty) : string.Empty;
+                                string region = adrList.Count > 4 ? (adrList[4]?.ToString() ?? string.Empty) : string.Empty;
+                                string postal = adrList.Count > 5 ? (adrList[5]?.ToString() ?? string.Empty) : string.Empty;
+                                string country = adrList.Count > 6 ? (adrList[6]?.ToString() ?? string.Empty) : string.Empty;
+
+                                var adr = new vCardDeliveryAddress(street, city, region, country, postal, vCardDeliveryAddressTypes.Default)
+                                {
+                                    ExtendedAddress = extended,
+                                    PostOfficeBox = postOfficeBox
+                                };
+
+                                var types = ExtractTypesFromParams(propParams);
+                                var mapped = MapAddressTypes(types);
+                                if (mapped.Any())
+                                    adr.AddressType = mapped;
+
+                                card.DeliveryAddresses.Add(adr);
+                            }
+                            break;
+                        case "bday":
+                            if (propValue is string bdayStr && DateTime.TryParse(bdayStr, null, DateTimeStyles.AdjustToUniversal, out var bdt))
+                                card.BirthDate = bdt;
+                            break;
+                        default:
+                            // ignore other properties for now
+                            break;
+                    }
+                }
+
+                resultList.Add(new Contact(card));
+            }
+
+            return new SortableBindingList<Contact>(resultList);
         }
 
+        private static List<string> ExtractTypesFromParams(object propParams)
+        {
+            var types = new List<string>();
+
+            if (propParams == null)
+                return types;
+
+            if (propParams is Dictionary<string, object> dict)
+            {
+                if (dict.TryGetValue("type", out var tval))
+                {
+                    if (tval is string ts) types.Add(ts);
+                    else if (tval is List<object> tl) types.AddRange(tl.Select(x => x?.ToString() ?? string.Empty));
+                }
+                else
+                {
+                    // sometimes type may be represented directly as a list or string in params
+                    foreach (var kv in dict)
+                    {
+                        if (kv.Key.Equals("type", StringComparison.OrdinalIgnoreCase))
+                        {
+                            if (kv.Value is string s) types.Add(s);
+                            else if (kv.Value is List<object> lo) types.AddRange(lo.Select(o => o?.ToString() ?? string.Empty));
+                        }
+                    }
+                }
+            }
+            else if (propParams is List<object> plist)
+            {
+                // If params is a list of tokens, collect string tokens
+                types.AddRange(plist.Select(x => x?.ToString() ?? string.Empty));
+            }
+            else if (propParams is string ps)
+            {
+                types.Add(ps);
+            }
+
+            // normalize to lower-case
+            return types.Where(t => !string.IsNullOrEmpty(t)).Select(t => t.ToLowerInvariant()).ToList();
+        }
+
+        private static vCardPhoneTypes MapPhoneTypes(List<string> types)
+        {
+            if (types == null || types.Count == 0) return vCardPhoneTypes.Default;
+            if (types.Any(t => t.Contains("cell") || t.Contains("mobile") || t.Contains("cellular"))) return vCardPhoneTypes.Cellular;
+            if (types.Any(t => t.Contains("home"))) return vCardPhoneTypes.Home;
+            if (types.Any(t => t.Contains("work"))) return vCardPhoneTypes.Work;
+            return vCardPhoneTypes.Default;
+        }
+
+        private static List<vCardDeliveryAddressTypes> MapAddressTypes(List<string> types)
+        {
+            var result = new List<vCardDeliveryAddressTypes>();
+            if (types == null || types.Count == 0) return result;
+            foreach (var t in types)
+            {
+                if (t.Contains("home")) result.Add(vCardDeliveryAddressTypes.Home);
+                else if (t.Contains("work")) result.Add(vCardDeliveryAddressTypes.Work);
+                else if (t.Contains("postal")) result.Add(vCardDeliveryAddressTypes.Postal);
+                else if (t.Contains("intl") || t.Contains("international")) result.Add(vCardDeliveryAddressTypes.International);
+                else if (t.Contains("dom")) result.Add(vCardDeliveryAddressTypes.Domestic);
+                else if (t.Contains("parcel")) result.Add(vCardDeliveryAddressTypes.Parcel);
+                else if (t.Contains("preferred") || t == "pref" || t == "preferred") result.Add(vCardDeliveryAddressTypes.Preferred);
+            }
+            return result.Distinct().ToList();
+        }
         public SortableBindingList<Contact> ImportFromCsv(string path)
         {
             if (string.IsNullOrEmpty(path) || !_fileHandler.FileExist(path))
                 throw new FileNotFoundException(path);
-            
+
             using (var stream = _fileHandler.OpenRead(path))
             using (var sr = new StreamReader(stream, Encoding.UTF8))
             {
@@ -625,16 +881,5 @@ namespace VCFEditor.Repository
             return string.Empty;
         }
 
-        private static string TryGetString(Dictionary<string, object> dict, string key)
-        {
-            if (dict == null) return string.Empty;
-            var pair = dict.FirstOrDefault(kvp => string.Equals(kvp.Key, key, StringComparison.OrdinalIgnoreCase));
-            if (pair.Key == null) return string.Empty;
-            return pair.Value?.ToString() ?? string.Empty;
-        }
-
-        
-
-       
     }
 }
