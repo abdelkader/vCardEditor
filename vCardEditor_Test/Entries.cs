@@ -197,14 +197,48 @@
                 "\"Marie, \"\"La\"\"\",Marie,ONeil,marie@example.com,,Org,"
             });
 
-        public static string[] vcfJSONTwoEntry
+        public static string[] vcfJSONOneEntry
         {
             get
             {
-                string s = @"[" +
-                "{\"FormattedName\":\"John Doe\",\"GivenName\":\"John\",\"FamilyName\":\"Doe\",\"Email\":\"john@example.com\",\"Cellular\":\"12345\",\"Organization\":\"Acme Co\",\"BirthDate\":\"1980-01-01\"}," +
-                "{\"FormattedName\":\"Marie, \\\"La\\\"\",\"GivenName\":\"Marie\",\"FamilyName\":\"ONeil\",\"Email\":\"marie@example.com\",\"Cellular\":\"\",\"Organization\":\"\",\"BirthDate\":\"\"}" +
-                "]";
+                string s = @"
+                        [""vcard"",
+                        [
+                        [""version"", {}, ""text"", ""4.0""],
+                        [""fn"", {}, ""text"", ""Simon Perreault""],
+                        [""n"",
+                        {},
+                        ""text"",
+                        [""Perreault"", ""Simon"", """", """", [""ing. jr"", ""M.Sc.""]]
+                        ],
+                        [""adr"", { ""type"": ""work"" }, ""text"",
+                        [
+                        """",
+                        ""Suite D2-630"",
+                        ""2875 Laurier"",
+                        ""Quebec"",
+                        ""QC"",
+                        ""G1V 2M2"",
+                        ""Canada""
+                        ]
+                        ],[""tel"",
+                        { ""type"": [""work"", ""voice""], ""pref"": ""1"" },
+                        ""uri"",
+                        ""tel:+1-418-656-9254;ext=102""
+                        ],
+                        [""tel"",
+                        { ""type"": [""work"", ""cell"", ""voice"", ""video"", ""text""] },
+                        ""uri"",
+                        ""tel:+1-418-262-6501""
+                        ],
+                        [""email"",
+                        { ""type"": ""work"" },
+                        ""text"",
+                        ""simon.perreault@viagenie.ca""
+                        ],
+                        ]
+                        ]
+                        ";
                 return s.Split('\n');
             }
         }

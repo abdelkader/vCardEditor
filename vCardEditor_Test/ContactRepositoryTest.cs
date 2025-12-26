@@ -5,11 +5,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using Thought.vCards;
 using vCardEditor.Repository;
 using vCardEditor.View;
 using VCFEditor.Model;
 using VCFEditor.Repository;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace vCardEditor_Test
 {
@@ -256,10 +258,11 @@ namespace vCardEditor_Test
             repo.ExportToJson(expectedPath, repo.Contacts);
 
             fileHandler.Received(1).WriteAllText(expectedPath, Arg.Is<string>(s =>
-                s.Contains("[") 
-                && s.Contains("\"FormattedName\":")
+                s.StartsWith("[[\"vcard\",")
                 && s.Contains("\"John Doe\"")
-                && s.Contains("\\\"La\\\"")
+                && s.Contains("\"john@example.com\"")
+                && s.Contains("12345")
+                && s.Contains("\"Marie, \\\"La\\\"\"")
             ));
         }
 
@@ -298,7 +301,7 @@ namespace vCardEditor_Test
         public void ImportFromJson_ParsesJsonArray()
         {
             var fileHandler = Substitute.For<IFileHandler>();
-            fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfJSONTwoEntry);
+            fileHandler.ReadAllLines(Arg.Any<string>()).Returns(Entries.vcfJSONOneEntry);
             fileHandler.FileExist(Arg.Any<string>()).Returns(true);
 
             var repo = Substitute.For<ContactRepository>(fileHandler);
@@ -307,16 +310,14 @@ namespace vCardEditor_Test
             var contacts = repo.ImportFromJson("file.json");
 
             Assert.IsNotNull(contacts);
-            Assert.AreEqual(2, contacts.Count);
+            Assert.AreEqual(1, contacts.Count);
 
             var c1 = contacts[0].card;
-            Assert.AreEqual("John Doe", c1.FormattedName);
-            Assert.AreEqual("john@example.com", c1.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet).Address);
-            Assert.AreEqual("12345", c1.Phones.GetFirstChoice(vCardPhoneTypes.Cellular).FullNumber);
+            Assert.AreEqual("Simon Perreault", c1.FormattedName);
+            Assert.AreEqual("simon.perreault@viagenie.ca", c1.EmailAddresses.GetFirstChoice(vCardEmailAddressType.Internet).Address);
+            Assert.AreEqual("+1-418-262-6501", c1.Phones.GetFirstChoice(vCardPhoneTypes.Cellular).FullNumber);
 
-            var c2 = contacts[1].card;
-            Assert.AreEqual("Marie, \"La\"", c2.FormattedName);
-            Assert.AreEqual("Marie", c2.GivenName);
+            
         }
     }
 }
