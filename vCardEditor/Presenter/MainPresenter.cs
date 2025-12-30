@@ -443,7 +443,11 @@ namespace VCFEditor.Presenter
             var Title = "Save vCard file";
             var Filter = "Virtual Contact File|*.vcf";
 
-            string filename = _repository.fileName ?? _view.DisplaySaveDialog(Title, Filter);
+            string filename = _repository.fileName;
+            //Sometimes, file are imported like json or csv, so we need to force the save as dialog.
+            if (string.IsNullOrEmpty(filename) || _repository.GetExtension(filename) != ".vcf")
+                _view.DisplaySaveDialog(Title, Filter);
+             
             if (string.IsNullOrWhiteSpace(filename))
                 return;
 
