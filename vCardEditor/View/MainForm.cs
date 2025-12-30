@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using Thought.vCards;
 using vCardEditor.Model;
 using vCardEditor.Repository;
@@ -45,11 +46,12 @@ namespace vCardEditor.View
         public event EventHandler SplitFileEvent;
         public event EventHandler CardInfoRemoved;
         public event EventHandler BirhdateChanged;
+        public event EventHandler<EventArg<string>> LanguageChanged;
 
         ComponentResourceManager resources;
 
         private int LastRowIndex = -1;
-
+        private ILocalizationProvider _localization;
         public int SelectedContactIndex
         {
             get
@@ -78,7 +80,95 @@ namespace vCardEditor.View
             extendedPanelPhones.CardInfoRemoved += (sender, e) => CardInfoRemoved?.Invoke(sender, e);
             extendedPanelWeb.CardInfoRemoved += (sender, e) => CardInfoRemoved?.Invoke(sender, e);
 
+            //this.frToolStripMenuItem.Click += new System.EventHandler(this.frToolStripMenuItem_Click);
+
+            
             BuildMRUMenu();
+        }
+
+        private void BuildLanguageMenu()
+        {
+            changeLangToolStripMenuItem.DropDownItems.Clear();
+
+            foreach (string code in _localization.AvailableLanguages)
+            {
+                ToolStripMenuItem langItem = new ToolStripMenuItem(code);
+                langItem.Tag = code;
+                
+                if (_localization.CurrentLanguage == code)
+                {
+                    langItem.Checked = true;
+                }
+                
+                langItem.Click += (s, e) => ChangeLanguage_Click(s, code);
+
+                changeLangToolStripMenuItem.DropDownItems.Add(langItem);
+            }
+        }
+
+        private void ChangeLanguage_Click(object sender, string code)
+        {
+            foreach (ToolStripItem item in changeLangToolStripMenuItem.DropDownItems)
+            {
+                if (item is ToolStripMenuItem langItem)
+                {
+                    langItem.Checked = (langItem.Tag as string) == code;
+                }
+            }
+
+            _localization.SetLanguage(code);
+            LoadLocalizedUIText();
+        }
+
+        public void LoadLocalizedUIText()
+        {
+            this.fileToolStripMenuItem.Text = _localization["MSG_900"];
+            this.miSave.Text = "&Save";
+            this.miOpen.Text = "&Open";
+            this.exportToolStripMenuItem1.Text = "Export";
+            this.btnCSVExportToolStripMenuItem.Text = "CSV";
+            this.btnJSONExportToolStripMenuItem.Text = "JSON";
+            this.miConfig.Text = "Preference";
+            this.recentFilesMenuItem.Text = "Recent";
+            this.miQuit.Text = "&Quit";
+            this.editToolStripMenuItem.Text = "Edit";
+            this.copyToolStripMenuItem.Text = "Copy";
+            this.extraFieldsToolStripMenuItem.Text = "Extra Fields";
+            this.addNotesToolStripMenuItem.Text = "Add Notes";
+            this.addOrgToolStripMenuItem.Text = "Add Org";
+            this.toolsToolStripMenuItem.Text = "Tools";
+            this.imagesToolStripMenuItem.Text = "Images";
+            this.exportToolStripMenuItem.Text = "Export";
+            this.clearToolStripMenuItem.Text = "Clear";
+            this.countToolStripMenuItem.Text = "Count";
+            this.helpToolStripMenuItem.Text = "Help";
+            this.miAbout.Text = "&About";
+            //this.statusStrip1.Text = "statusStrip1";
+            this.tbsNew.Text = "&Nouveau";
+            this.tbsOpen.Text = "&Open";
+            this.openFolderToolStripMenuItem.Text = "Open Folder";
+            this.tbsSave.Text = "&Save";
+            this.splitToFilesToolStripMenuItem.Text = "Split to files";
+            this.tbsDelete.Text = "Delete";
+            this.tbsQR.Text = "&QR Code";
+            this.tbsAbout.Text = "&?";
+            this.openFileDialog.Title = "Open vCard File";
+            this.gbNameList.Text = "Name List :";
+            this.modifiyColumnsToolStripMenuItem.Text = "Modifiy Columns";
+            this.TapPageMain.Text = "Main";
+            this.groupBox3.Text = "Name";
+            this.FormattedTitleLabel.Text = "Title:";
+            this.label3.Text = "Last:";
+            this.label2.Text = "Middle:";
+            this.label1.Text = "First:";
+            this.FormattedNameLabel.Text = "Full Name:";
+            this.groupBox4.Text = "Address:";
+            this.TapPageExtra.Text = "Extra";
+            this.miNote.Text = "Note";
+            this.miOrg.Text = "Organisation";
+            this.importerToolStripMenuItem.Text = "Importer";
+            this.btnCSVImportToolStripMenuItem.Text = "CSV";
+            this.btnJSONImportToolStripMenuItem.Text = "JSON";
         }
 
         private void tbsOpen_Click(object sender, EventArgs e)
@@ -703,18 +793,18 @@ namespace vCardEditor.View
             return string.Empty;
         }
 
-        public void LoadLocalizedUI(IReadOnlyDictionary<string, string> currentMessages)
+        public void SetLocalizedUI(ILocalizationProvider localization)
         {
-            //this.fileToolStripMenuItem.Text = currentMessages["MSG_002"];
+            _localization = localization;
+
+            BuildLanguageMenu();
+                    
+            //var lang = localization.AvailableLanguageNames;
         }
 
-        public void LoadAvailablesLangs(IEnumerable<string> availableLanguages)
-        {
-            foreach (string lang in availableLanguages)
-            {
+        
 
-            }
-        }
+     
 
         private void Value_BirhdateChanged(object sender, EventArgs e)
         {
@@ -745,5 +835,7 @@ namespace vCardEditor.View
         {
             ImportJson?.Invoke(sender, e);
         }
+
+        
     }
 }

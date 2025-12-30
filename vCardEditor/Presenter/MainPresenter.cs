@@ -13,6 +13,8 @@ namespace VCFEditor.Presenter
 {
     public class MainPresenter
     {
+        private const string VCF_EXTENSION = ".vcf";
+     
         private readonly IMainView _view;
         private readonly IContactRepository _repository;
         private readonly ILocalizationProvider _localization;
@@ -52,11 +54,17 @@ namespace VCFEditor.Presenter
             _view.OpenFolderEvent += OpenNewFolderHandler;
             _view.CardInfoRemoved += CardInfoRemovedHandler;
             _view.BirhdateChanged += BirthdateChangedHandler;
+            _view.LanguageChanged += ChangeLanguageHandler;
+        }
+
+        private void ChangeLanguageHandler(object sender, EventArg<string> e)
+        {
+            throw new NotImplementedException();
         }
 
         private void ImportJsonHandler(object sender, EventArgs e)
         {
-            string path = _view.DisplayOpenFileDialog("JSON files (*.json)|*.json");
+            string path = _view.DisplayOpenFileDialog(_localization["MSG_021"]);
             if (string.IsNullOrWhiteSpace(path))
                 return;
 
@@ -67,7 +75,7 @@ namespace VCFEditor.Presenter
                 var contacts = _repository.ImportFromJson(path);
                 if (contacts == null || contacts.Count == 0)
                 {
-                    _view.DisplayMessage("No contacts imported.", "Import");
+                    _view.DisplayMessage(_localization["MSG_025"], _localization["MSG_026"]); // No contacts imported, Import
                     return;
                 }
                 _repository.Contacts = contacts;
@@ -78,7 +86,7 @@ namespace VCFEditor.Presenter
             }
             catch (Exception ex)
             {
-                _view.DisplayMessage($"Import JSON failed: {ex.Message}", "Import");
+                _view.DisplayMessage(string.Format(_localization["MSG_028"], ex.Message), _localization["MSG_026"]); // Import JSON failed, Import
             }
 
 
@@ -87,7 +95,7 @@ namespace VCFEditor.Presenter
 
         private void ImportCsvHandler(object sender, EventArgs e)
         {
-            string path = _view.DisplayOpenFileDialog("CSV files (*.csv)|*.csv");
+            string path = _view.DisplayOpenFileDialog(_localization["MSG_016"]);
             if (string.IsNullOrWhiteSpace(path))
                 return;
 
@@ -99,7 +107,7 @@ namespace VCFEditor.Presenter
 
                 if (contacts == null || contacts.Count == 0)
                 {
-                    _view.DisplayMessage("No contacts imported.", "Import");
+                    _view.DisplayMessage(_localization["MSG_025"], _localization["MSG_026"]); // No contacts imported, Import
                     return;
                 }
 
@@ -111,7 +119,7 @@ namespace VCFEditor.Presenter
             }
             catch (Exception ex)
             {
-                _view.DisplayMessage($"Import CSV failed: {ex.Message}", "Import");
+                _view.DisplayMessage(string.Format(_localization["MSG_027"], ex.Message), _localization["MSG_026"]); // Import CSV failed, Import
             }
         }
 
@@ -119,26 +127,26 @@ namespace VCFEditor.Presenter
         {
             if (_repository.Contacts == null || _repository.Contacts.Count == 0)
             {
-                _view.DisplayMessage("No contacts to export.", "Export");
+                _view.DisplayMessage(_localization["MSG_013"], _localization["MSG_014"]); // No contacts to export, Export
                 return;
             }
 
-            var Title = "Export contacts to CSV";
-            var Filter = "CSV files (*.csv)|*.csv";
-            var FileName = $"vCardExport_{DateTime.Now:yyyyMMdd_HHmmss}.csv";
+            string title = _localization["MSG_015"]; // Export contacts to CSV
+            string filter = _localization["MSG_016"]; // CSV files (*.csv)|*.csv
+            string fileName = string.Format(_localization["MSG_017"], DateTime.Now);
 
-            string filename = _view.DisplaySaveDialog(Title, Filter, FileName);
+            string filename = _view.DisplaySaveDialog(title, filter, fileName);
             if (string.IsNullOrWhiteSpace(filename))
                 return;
 
             try
             {
                 _repository.ExportToCsv(filename, _repository.Contacts);
-                _view.DisplayMessage("Export CSV completed.", "Export");
+                _view.DisplayMessage(_localization["MSG_018"], _localization["MSG_014"]); // Export CSV completed, Export
             }
             catch (Exception ex)
             {
-                _view.DisplayMessage($"Export CSV failed: {ex.Message}", "Export");
+                _view.DisplayMessage(string.Format(_localization["MSG_019"], ex.Message), _localization["MSG_014"]); // Export CSV failed, Export
             }
         }
 
@@ -146,26 +154,26 @@ namespace VCFEditor.Presenter
         {
             if (_repository.Contacts == null || _repository.Contacts.Count == 0)
             {
-                _view.DisplayMessage("No contacts to export.", "Export");
+                _view.DisplayMessage(_localization["MSG_013"], _localization["MSG_014"]); // No contacts to export, Export
                 return;
             }
 
-            var Title = "Export contacts to JSON";
-            var Filter = "JSON files (*.json)|*.json";
-            var FileName = $"vCardExport_{DateTime.Now:yyyyMMdd_HHmmss}.json";
+            string title = _localization["MSG_020"]; // Export contacts to JSON
+            string filter = _localization["MSG_021"]; // JSON files (*.json)|*.json
+            string fileName = string.Format(_localization["MSG_022"], DateTime.Now);
 
-            string filename = _view.DisplaySaveDialog(Title, Filter, FileName);
+            string filename = _view.DisplaySaveDialog(title, filter, fileName);
             if (string.IsNullOrWhiteSpace(filename))
                 return;
 
             try
             {
                 _repository.ExportToJson(filename, _repository.Contacts);
-                _view.DisplayMessage("Export JSON completed.", "Export");
+                _view.DisplayMessage(_localization["MSG_023"], _localization["MSG_014"]); // Export JSON completed, Export
             }
             catch (Exception ex)
             {
-                _view.DisplayMessage($"Export JSON failed: {ex.Message}", "Export");
+                _view.DisplayMessage(string.Format(_localization["MSG_024"], ex.Message), _localization["MSG_014"]); // Export JSON failed, Export
             }
         }
 
@@ -182,7 +190,7 @@ namespace VCFEditor.Presenter
                 bool Loaded = _repository.LoadMultipleFilesContact(path);
                 if (!Loaded)
                 {
-                    _view.DisplayMessage("No file loaded!", "Error");
+                    _view.DisplayMessage(_localization["MSG_005"], _localization["MSG_006"]); // No file loaded, Error
                     return;
                 }
 
@@ -202,14 +210,14 @@ namespace VCFEditor.Presenter
             if (!string.IsNullOrEmpty(path))
             {
                 string ext = _repository.GetExtension(path);
-                if (!string.Equals(ext, ".vcf", StringComparison.OrdinalIgnoreCase))
+                if (!string.Equals(ext, VCF_EXTENSION, StringComparison.OrdinalIgnoreCase))
                 {
-                    _view.DisplayMessage("Only vcf extension accepted!", "Error");
+                    _view.DisplayMessage(_localization["MSG_008"], _localization["MSG_006"]); // Only vcf extension accepted, Error
                     return;
                 }
 
                 if (!_repository.LoadContacts(path))
-                    _view.DisplayMessage("File seems missing or corrupted!", "Error");
+                    _view.DisplayMessage(_localization["MSG_009"], _localization["MSG_006"]); // File seems missing or corrupted, Error
                 else
                 {
                     _view.DisplayContacts(_repository.Contacts);
@@ -244,9 +252,9 @@ namespace VCFEditor.Presenter
             }
 
             if (count > 0)
-                _view.DisplayMessage($"{count} contact(s) processed!", "Photo Count");
+                _view.DisplayMessage(string.Format(_localization["MSG_033"], count), _localization["MSG_035"]); // {0} contact(s) processed, Photo Count
             else
-                _view.DisplayMessage($"No picture found!", "Photo Count");
+                _view.DisplayMessage(_localization["MSG_034"], _localization["MSG_035"]); // No picture found, Photo Count
         }
 
         private void _view_ClearImages(object sender, EventArgs e)
@@ -269,25 +277,28 @@ namespace VCFEditor.Presenter
             }
 
             if (count > 0)
-                _view.DisplayMessage($"{count} contact(s) processed!", "Photo Count");
+                _view.DisplayMessage(string.Format(_localization["MSG_033"], count), _localization["MSG_035"]); // {0} contact(s) processed, Photo Count
             else
-                _view.DisplayMessage($"No picture found!", "Photo Count");
+                _view.DisplayMessage(_localization["MSG_034"], _localization["MSG_035"]); // No picture found, Photo Count
         }
 
         private void _view_CountImages(object sender, EventArgs e)
         {
-            if (_repository.Contacts == null)
+            if (_repository.Contacts == null || _repository.Contacts.Count == 0)
                 return;
 
             int count = _repository.Contacts.Count(x => x.card.Photos.Count > 0);
             if (count > 0)
-                _view.DisplayMessage($"{count} contact(s) containing a picture = ", "Photo Count");
+                _view.DisplayMessage(string.Format(_localization["MSG_036"], count), _localization["MSG_035"]); // {0} contact(s) containing a picture, Photo Count
             else
-                _view.DisplayMessage($"No picture found!", "Photo Count");
+                _view.DisplayMessage(_localization["MSG_034"], _localization["MSG_035"]); // No picture found, Photo Count
         }
 
         private void _view_AddExtraField(object sender, EventArg<vCardPropeties> e)
         {
+            if (_repository.Contacts == null || _repository.Contacts.Count == 0)
+                return;
+
             _view.AddExtraTextGroup(e.Data, string.Empty);
         }
 
@@ -301,14 +312,16 @@ namespace VCFEditor.Presenter
             string SerializedCard = _repository.GenerateStringFromVCard(contact.card);
 
             _view.SendTextToClipBoard(SerializedCard);
-            _view.DisplayMessage("vCard copied to clipboard!", "Information");
+            _view.DisplayMessage(_localization["MSG_029"], _localization["MSG_030"]); // vCard copied to clipboard, Information
         }
 
         private void LoadFormHandler(object sender, EventArg<FormState> e)
         {
             _view.LoadIntialState(ConfigRepository.Instance.FormState);
-            _view.LoadAvailablesLangs(_localization.AvailableLanguages);
-            _view.LoadLocalizedUI(_localization.CurrentMessages);
+            _view.SetLocalizedUI(_localization);
+
+            _view.LoadLocalizedUIText();
+
             string[] paths = Environment.GetCommandLineArgs();
             if (paths.Length > 1)
             {
@@ -393,7 +406,7 @@ namespace VCFEditor.Presenter
 
         void CloseFormHandler(object sender, EventArg<bool> e)
         {
-            if (_repository.dirty && !_view.AskMessage("Exit without saving?", "Exit"))
+            if (_repository.dirty && !_view.AskMessage(_localization["MSG_003"], _localization["MSG_004"])) // Exit without saving, Exit
                 e.Data = true;
 
             if (!e.Data)
@@ -440,13 +453,13 @@ namespace VCFEditor.Presenter
 
         private void SaveContactsHandler(object sender, EventArgs e)
         {
-            var Title = "Save vCard file";
-            var Filter = "Virtual Contact File|*.vcf";
+            string title = _localization["MSG_031"]; // Save vCard file
+            string filter = _localization["MSG_032"]; // Virtual Contact File|*.vcf
 
             string filename = _repository.fileName;
             //Sometimes, file are imported like json or csv, so we need to force the save as dialog.
-            if (string.IsNullOrEmpty(filename) || _repository.GetExtension(filename) != ".vcf")
-                _view.DisplaySaveDialog(Title, Filter);
+            if (string.IsNullOrEmpty(filename) || _repository.GetExtension(filename) != VCF_EXTENSION)
+                _view.DisplaySaveDialog(title, filter);
              
             if (string.IsNullOrWhiteSpace(filename))
                 return;
@@ -465,7 +478,7 @@ namespace VCFEditor.Presenter
             if (!string.IsNullOrEmpty(Path))
             {
                 int count = _repository.SaveSplittedFiles(Path);
-                _view.DisplayMessage(string.Format("{0} contact(s) processed!", count), "Information");
+                _view.DisplayMessage(string.Format(_localization["MSG_033"], count), _localization["MSG_030"]); // {0} contact(s) processed, Information
             }
         }
 
@@ -473,7 +486,7 @@ namespace VCFEditor.Presenter
         {
             if (_repository.Contacts != null && _repository.dirty)
             {
-                if (_view.AskMessage("Save current file before?", "Load"))
+                if (_view.AskMessage(_localization["MSG_001"], "Load")) // Save current file before
                     SaveContactsHandler(null, null);
             }
         }

@@ -38,6 +38,7 @@ namespace VCFEditor.View
         event EventHandler SplitFileEvent;
         event EventHandler CardInfoRemoved;
         event EventHandler BirhdateChanged;
+        event EventHandler<EventArg<string>> LanguageChanged;
 
         int SelectedContactIndex { get; }
         void DisplayContacts(SortableBindingList<Contact> contacts);
@@ -58,8 +59,9 @@ namespace VCFEditor.View
 
         void ClearImageFromForm();
         string DisplayOpenFolderDialog();
-        void LoadLocalizedUI(IReadOnlyDictionary<string, string> currentMessages);
-        void LoadAvailablesLangs(IEnumerable<string> availableLanguages);
+        void SetLocalizedUI(vCardEditor.ILocalizationProvider _localization);
+
+        void LoadLocalizedUIText();
         void SetFormTitle(string filename);
     }
 }
