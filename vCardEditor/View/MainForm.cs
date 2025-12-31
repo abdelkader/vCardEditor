@@ -80,9 +80,6 @@ namespace vCardEditor.View
             extendedPanelPhones.CardInfoRemoved += (sender, e) => CardInfoRemoved?.Invoke(sender, e);
             extendedPanelWeb.CardInfoRemoved += (sender, e) => CardInfoRemoved?.Invoke(sender, e);
 
-            //this.frToolStripMenuItem.Click += new System.EventHandler(this.frToolStripMenuItem_Click);
-
-            
             BuildMRUMenu();
         }
 
@@ -96,9 +93,7 @@ namespace vCardEditor.View
                 langItem.Tag = code;
                 
                 if (_localization.CurrentLanguage == code)
-                {
                     langItem.Checked = true;
-                }
                 
                 langItem.Click += (s, e) => ChangeLanguage_Click(s, code);
 
@@ -123,52 +118,51 @@ namespace vCardEditor.View
         public void LoadLocalizedUIText()
         {
             this.fileToolStripMenuItem.Text = _localization["MSG_900"];
-            this.miSave.Text = "&Save";
-            this.miOpen.Text = "&Open";
-            this.exportToolStripMenuItem1.Text = "Export";
-            this.btnCSVExportToolStripMenuItem.Text = "CSV";
-            this.btnJSONExportToolStripMenuItem.Text = "JSON";
-            this.miConfig.Text = "Preference";
-            this.recentFilesMenuItem.Text = "Recent";
-            this.miQuit.Text = "&Quit";
-            this.editToolStripMenuItem.Text = "Edit";
-            this.copyToolStripMenuItem.Text = "Copy";
-            this.extraFieldsToolStripMenuItem.Text = "Extra Fields";
-            this.addNotesToolStripMenuItem.Text = "Add Notes";
-            this.addOrgToolStripMenuItem.Text = "Add Org";
-            this.toolsToolStripMenuItem.Text = "Tools";
-            this.imagesToolStripMenuItem.Text = "Images";
-            this.exportToolStripMenuItem.Text = "Export";
-            this.clearToolStripMenuItem.Text = "Clear";
-            this.countToolStripMenuItem.Text = "Count";
-            this.helpToolStripMenuItem.Text = "Help";
-            this.miAbout.Text = "&About";
-            //this.statusStrip1.Text = "statusStrip1";
-            this.tbsNew.Text = "&Nouveau";
-            this.tbsOpen.Text = "&Open";
-            this.openFolderToolStripMenuItem.Text = "Open Folder";
-            this.tbsSave.Text = "&Save";
-            this.splitToFilesToolStripMenuItem.Text = "Split to files";
-            this.tbsDelete.Text = "Delete";
-            this.tbsQR.Text = "&QR Code";
-            this.tbsAbout.Text = "&?";
-            this.openFileDialog.Title = "Open vCard File";
-            this.gbNameList.Text = "Name List :";
-            this.modifiyColumnsToolStripMenuItem.Text = "Modifiy Columns";
-            this.TapPageMain.Text = "Main";
-            this.groupBox3.Text = "Name";
-            this.FormattedTitleLabel.Text = "Title:";
-            this.label3.Text = "Last:";
-            this.label2.Text = "Middle:";
-            this.label1.Text = "First:";
-            this.FormattedNameLabel.Text = "Full Name:";
-            this.groupBox4.Text = "Address:";
-            this.TapPageExtra.Text = "Extra";
-            this.miNote.Text = "Note";
-            this.miOrg.Text = "Organisation";
-            this.importerToolStripMenuItem.Text = "Importer";
-            this.btnCSVImportToolStripMenuItem.Text = "CSV";
-            this.btnJSONImportToolStripMenuItem.Text = "JSON";
+            this.miSave.Text = "&" + _localization["MSG_901"];
+            this.miOpen.Text = "&" + _localization["MSG_902"];
+            this.exportToolStripMenuItem1.Text = _localization["MSG_903"];
+            this.btnCSVExportToolStripMenuItem.Text = _localization["MSG_904"];
+            this.btnJSONExportToolStripMenuItem.Text = _localization["MSG_905"];
+            this.miConfig.Text = _localization["MSG_906"];
+            this.recentFilesMenuItem.Text = _localization["MSG_907"];
+            this.miQuit.Text = "&" + _localization["MSG_908"];
+            this.editToolStripMenuItem.Text = _localization["MSG_909"];
+            this.copyToolStripMenuItem.Text = _localization["MSG_910"];
+            this.extraFieldsToolStripMenuItem.Text = _localization["MSG_911"];
+            this.addNotesToolStripMenuItem.Text = _localization["MSG_912"];
+            this.addOrgToolStripMenuItem.Text = _localization["MSG_913"];
+            this.toolsToolStripMenuItem.Text = _localization["MSG_914"];
+            this.imagesToolStripMenuItem.Text = _localization["MSG_915"];
+            this.exportToolStripMenuItem.Text = _localization["MSG_903"];
+            this.clearToolStripMenuItem.Text = _localization["MSG_916"];
+            this.countToolStripMenuItem.Text = _localization["MSG_917"];
+            this.helpToolStripMenuItem.Text = _localization["MSG_918"];
+            this.miAbout.Text = "&" + _localization["MSG_919"];
+            this.tbsNew.Text = "&" + _localization["MSG_920"];
+            this.tbsOpen.Text = "&" + _localization["MSG_902"];
+            this.openFolderToolStripMenuItem.Text = _localization["MSG_921"];
+            this.tbsSave.Text = "&" + _localization["MSG_901"];
+            this.splitToFilesToolStripMenuItem.Text = _localization["MSG_922"];
+            this.tbsDelete.Text = _localization["MSG_923"];
+            this.tbsQR.Text = "&" + _localization["MSG_924"];
+            this.tbsAbout.Text = _localization["MSG_925"];
+            this.openFileDialog.Title = _localization["MSG_926"];
+            this.gbNameList.Text = _localization["MSG_927"];
+            this.modifiyColumnsToolStripMenuItem.Text = _localization["MSG_928"];
+            this.TapPageMain.Text = _localization["MSG_929"];
+            this.groupBox3.Text = _localization["MSG_930"];
+            this.FormattedTitleLabel.Text = _localization["MSG_931"];
+            this.label3.Text = _localization["MSG_932"];
+            this.label2.Text = _localization["MSG_933"];
+            this.label1.Text = _localization["MSG_934"];
+            this.FormattedNameLabel.Text = _localization["MSG_935"];
+            this.groupBox4.Text = _localization["MSG_936"];
+            this.TapPageExtra.Text = _localization["MSG_937"];
+            this.miNote.Text = _localization["MSG_938"];
+            this.miOrg.Text = _localization["MSG_939"];
+            this.importerToolStripMenuItem.Text = _localization["MSG_940"];
+            this.btnCSVImportToolStripMenuItem.Text = _localization["MSG_904"];
+            this.btnJSONImportToolStripMenuItem.Text = _localization["MSG_905"];
         }
 
         private void tbsOpen_Click(object sender, EventArgs e)
