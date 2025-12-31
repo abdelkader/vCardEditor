@@ -59,6 +59,7 @@ namespace VCFEditor.Presenter
 
         private void ChangeLanguageHandler(object sender, EventArg<string> e)
         {
+            //TODO: Check if language is present in the lang.json file.
             _view.HandleChangeLanguage(e.Data);
         }
 

@@ -67,8 +67,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ILocalizationProvider.cs" />
-    <Compile Include="JsonLocalizationProvider.cs" />
+    <Compile Include="i18n\ILocalizationProvider.cs" />
+    <Compile Include="i18n\JsonLocalizationProvider.cs" />
     <Compile Include="Libs\SmallestCSVParser\SmallestCSVParser.cs" />
     <Compile Include="Libs\QRCoder\AbstractQRCode.cs" />
     <Compile Include="Libs\QRCoder\ArtQRCode.cs" />
