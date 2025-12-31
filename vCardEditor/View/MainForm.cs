@@ -103,6 +103,13 @@ namespace vCardEditor.View
 
         private void ChangeLanguage_Click(object sender, string code)
         {
+            var evt = new EventArg<string>(code);
+            LanguageChanged?.Invoke(sender, evt);
+            
+        }
+
+        public void HandleChangeLanguage(string code)
+        {
             foreach (ToolStripItem item in changeLangToolStripMenuItem.DropDownItems)
             {
                 if (item is ToolStripMenuItem langItem)
@@ -174,7 +181,7 @@ namespace vCardEditor.View
         {
             var evt = new EventArg<string>(filename);
 
-            NewFileOpened?.Invoke(sender, new EventArg<string>(filename));
+            NewFileOpened?.Invoke(sender, evt);
 
             if (!evt.CanCancel)
                 LastRowIndex = -1;

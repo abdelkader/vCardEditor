@@ -59,7 +59,7 @@ namespace VCFEditor.Presenter
 
         private void ChangeLanguageHandler(object sender, EventArg<string> e)
         {
-            throw new NotImplementedException();
+            _view.HandleChangeLanguage(e.Data);
         }
 
         private void ImportJsonHandler(object sender, EventArgs e)

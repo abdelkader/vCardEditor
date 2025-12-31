@@ -62,6 +62,7 @@ namespace VCFEditor.View
         void SetLocalizedUI(vCardEditor.ILocalizationProvider _localization);
 
         void LoadLocalizedUIText();
+        void HandleChangeLanguage(string code);
         void SetFormTitle(string filename);
     }
 }
