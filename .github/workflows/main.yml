@@ -53,6 +53,7 @@ jobs:
           /p:Configuration=${{ env.BUILD_CONFIGURATION }} `
           /p:Platform="Any CPU" `
           /t:Rebuild `
+          /p:OutputPath=bin\Release `
           /m `
           /verbosity:minimal
     
