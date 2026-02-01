@@ -12,6 +12,10 @@ on:
         options:
           - Debug
           - Release
+      tag:
+        description: 'Version tag (e.g., 1.0.0 or v1.0.0)'
+        required: false
+        default: 'manual'
   
   # Trigger on release creation
   release:
@@ -33,11 +37,24 @@ jobs:
       with:
         fetch-depth: 0
     
-    # Step 2: Setup MSBuild
+    # Step 2: Normalize version tag
+    - name: Normalize version tag
+      id: normalize_version
+      shell: bash
+      run: |
+        if [ "${{ github.event.release.tag_name }}" == "" ]; then
+          version=$(echo ${{ github.event.inputs.tag || 'manual' }} | sed -e 's/v//g')
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+        else
+          version=$(echo ${{ github.event.release.tag_name }} | sed -e 's/v//g')
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+        fi
+    
+    # Step 3: Setup MSBuild
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
     
-    # Step 3: Build the solution (continue even if test project fails)
+    # Step 4: Build the solution (continue even if test project fails)
     - name: Build vCardEditor
       run: |
         # Build the solution, continue on error for test projects
@@ -50,7 +67,7 @@ jobs:
           /p:ContinueOnError=WarnAndContinue
       continue-on-error: true
     
-    # Step 4: Verify main project was built successfully
+    # Step 5: Verify main project was built successfully
     - name: Verify and find built executable
       id: find_output
       run: |
@@ -68,37 +85,56 @@ jobs:
           exit 1
         }
     
-    # Step 5: Create ZIP package
-    - name: Create vCardEditor.release.zip
+    # Step 6: Create ZIP package with version
+    - name: Create vCardEditor release ZIP
       run: |
         $outputPath = "${{ steps.find_output.outputs.OUTPUT_DIR }}"
-        $zipPath = "${{ github.workspace }}\vCardEditor.release.zip"
+        $version = "${{ steps.normalize_version.outputs.version }}"
+        $tempDir = "${{ github.workspace }}\TempRelease"
+        $zipPath = "${{ github.workspace }}\vCardEditor_$version.zip"
         
-        Write-Host "Creating archive from: $outputPath"
+        Write-Host "Source directory: $outputPath"
+        Write-Host "Version: $version"
         
-        # Compress all necessary files
-        Compress-Archive -Path "$outputPath\*" -DestinationPath $zipPath -Force
+        # Create temporary directory
+        New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
+        
+        # Copy only necessary files (exe and dll, exclude pdb and config)
+        Get-ChildItem -Path $outputPath -File | Where-Object {
+          $_.Extension -in @('.exe', '.dll') -and
+          $_.Extension -notin @('.pdb', '.config')
+        } | ForEach-Object {
+          Copy-Item $_.FullName -Destination $tempDir
+          Write-Host "Included: $($_.Name)"
+        }
+        
+        # Create ZIP from temp directory
+        Compress-Archive -Path "$tempDir\*" -DestinationPath $zipPath -Force
+        
+        # Cleanup temp directory
+        Remove-Item -Path $tempDir -Recurse -Force
         
         Write-Host "Archive created: $zipPath"
         Write-Host "Size: $((Get-Item $zipPath).Length / 1MB) MB"
+        
+        # Save ZIP name for later steps
+        echo "ZIP_NAME=vCardEditor_$version.zip" >> $env:GITHUB_OUTPUT
+      id: create_zip
     
-    # Step 6: Upload artifact (for workflow_dispatch)
+    # Step 7: Upload artifact (for workflow_dispatch)
     - name: Upload artifact
       if: github.event_name == 'workflow_dispatch'
       uses: actions/upload-artifact@v4
       with:
-        name: vCardEditor-${{ env.BUILD_CONFIGURATION }}
-        path: vCardEditor.release.zip
+        name: vCardEditor-${{ steps.normalize_version.outputs.version }}
+        path: ${{ steps.create_zip.outputs.ZIP_NAME }}
         retention-days: 30
     
-    # Step 7: Upload to Release (for release event)
+    # Step 8: Upload to Release (for release event)
     - name: Upload to Release
       if: github.event_name == 'release'
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: softprops/action-gh-release@v1
       with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ./vCardEditor.release.zip
-        asset_name: vCardEditor.release.zip
-        asset_content_type: application/zip
+        tag_name: v${{ steps.normalize_version.outputs.version }}
+        files: ${{ steps.create_zip.outputs.ZIP_NAME }}
+        token: ${{ secrets.GITHUB_TOKEN }}
