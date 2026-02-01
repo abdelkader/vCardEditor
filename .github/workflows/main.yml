@@ -42,7 +42,7 @@ jobs:
       run: |
         msbuild "${{ env.PROJECT_NAME }}\${{ env.PROJECT_NAME }}.csproj" `
           /p:Configuration=${{ env.BUILD_CONFIGURATION }} `
-          /p:Platform="AnyCPU" `
+          /p:Platform="Any CPU" `
           /t:Rebuild `
           /m `
           /verbosity:minimal
