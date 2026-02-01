@@ -15,7 +15,7 @@ on:
       tag:
         description: 'Version tag (e.g., 1.0.0 or v1.0.0)'
         required: false
-        default: 'v1.0.0'
+        default: 'manual'
   
   # Trigger on release creation
   release:
@@ -133,5 +133,5 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         tag_name: v${{ steps.normalize_version.outputs.version }}
-        files: ${{ steps.create_zip.outputs.ZIP_NAME }}
+        files: ./${{ steps.create_zip.outputs.ZIP_NAME }}
         token: ${{ secrets.GITHUB_TOKEN }}
