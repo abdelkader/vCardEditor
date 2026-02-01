@@ -37,36 +37,41 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
     
-    # Step 3: Setup NuGet
-    - name: Setup NuGet
-      uses: NuGet/setup-nuget@v2
-    
-    # Step 4: Restore NuGet packages
-    - name: Restore NuGet packages
-      run: nuget restore ${{ env.SOLUTION_NAME }}
-    
-    # Step 5: Build the application
+    # Step 3: Build the main application only (skip tests)
     - name: Build vCardEditor
       run: |
-        msbuild ${{ env.SOLUTION_NAME }} `
+        msbuild "${{ env.PROJECT_NAME }}\${{ env.PROJECT_NAME }}.csproj" `
           /p:Configuration=${{ env.BUILD_CONFIGURATION }} `
-          /p:Platform="Any CPU" `
-          /p:OutputPath="${{ github.workspace }}\BuildOutput" `
+          /p:Platform="AnyCPU" `
           /t:Rebuild `
           /m `
           /verbosity:minimal
     
-    # Step 6: Verify generated files
-    - name: Verify build files
+    # Step 4: Find the built executable
+    - name: Find built files
+      id: find_output
       run: |
-        Write-Host "BuildOutput directory contents:"
-        Get-ChildItem -Path "${{ github.workspace }}\BuildOutput" -Recurse | Select-Object FullName
+        Write-Host "Searching for build output..."
+        $exePath = Get-ChildItem -Path "${{ github.workspace }}" -Recurse -Filter "vCardEditor.exe" | 
+                   Where-Object { $_.FullName -notmatch "\\obj\\" -and $_.FullName -match "\\bin\\${{ env.BUILD_CONFIGURATION }}" } | 
+                   Select-Object -First 1
+        
+        if ($exePath) {
+          $outputDir = $exePath.DirectoryName
+          Write-Host "Found executable at: $outputDir"
+          echo "OUTPUT_DIR=$outputDir" >> $env:GITHUB_OUTPUT
+        } else {
+          Write-Error "Executable not found!"
+          exit 1
+        }
     
-    # Step 7: Create ZIP package
+    # Step 5: Create ZIP package
     - name: Create vCardEditor.release.zip
       run: |
-        $outputPath = "${{ github.workspace }}\BuildOutput"
+        $outputPath = "${{ steps.find_output.outputs.OUTPUT_DIR }}"
         $zipPath = "${{ github.workspace }}\vCardEditor.release.zip"
+        
+        Write-Host "Creating archive from: $outputPath"
         
         # Compress all necessary files
         Compress-Archive -Path "$outputPath\*" -DestinationPath $zipPath -Force
@@ -74,7 +79,7 @@ jobs:
         Write-Host "Archive created: $zipPath"
         Write-Host "Size: $((Get-Item $zipPath).Length / 1MB) MB"
     
-    # Step 8: Upload artifact (for workflow_dispatch)
+    # Step 6: Upload artifact (for workflow_dispatch)
     - name: Upload artifact
       if: github.event_name == 'workflow_dispatch'
       uses: actions/upload-artifact@v4
@@ -83,7 +88,7 @@ jobs:
         path: vCardEditor.release.zip
         retention-days: 30
     
-    # Step 9: Upload to Release (for release event)
+    # Step 7: Upload to Release (for release event)
     - name: Upload to Release
       if: github.event_name == 'release'
       uses: actions/upload-release-asset@v1
