@@ -19,7 +19,7 @@ on:
   
   # Trigger on release creation
   release:
-    types: [created, published]
+    types: [published]
 
 env:
   SOLUTION_NAME: 'vCardEditor.sln'
