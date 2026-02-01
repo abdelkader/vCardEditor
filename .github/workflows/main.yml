@@ -133,5 +133,5 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         tag_name: v${{ steps.normalize_version.outputs.version }}
-        files: ./${{ steps.create_zip.outputs.ZIP_NAME }}
+        files: vCardEditor_Portable_*.zip
         token: ${{ secrets.GITHUB_TOKEN }}
