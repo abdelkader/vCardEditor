@@ -1,0 +1,88 @@
+name: Build and Release vCardEditor
+
+on:
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      configuration:
+        description: 'Build configuration'
+        required: true
+        default: 'Release'
+        type: choice
+        options:
+          - Debug
+          - Release
+  
+  # Trigger on release creation
+  release:
+    types: [created, published]
+
+env:
+  SOLUTION_NAME: 'vCardEditor.sln'
+  PROJECT_NAME: 'vCardEditor'
+  BUILD_CONFIGURATION: ${{ github.event.inputs.configuration || 'Release' }}
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+    
+    steps:
+    # Step 1: Checkout source code
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    # Step 2: Setup MSBuild
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+    
+    # Step 3: Build the application
+    - name: Build vCardEditor
+      run: |
+        msbuild ${{ env.SOLUTION_NAME }} `
+          /p:Configuration=${{ env.BUILD_CONFIGURATION }} `
+          /p:Platform="Any CPU" `
+          /p:OutputPath="${{ github.workspace }}\BuildOutput" `
+          /t:Rebuild `
+          /m `
+          /verbosity:minimal
+    
+    # Step 4: Verify generated files
+    - name: Verify build files
+      run: |
+        Write-Host "BuildOutput directory contents:"
+        Get-ChildItem -Path "${{ github.workspace }}\BuildOutput" -Recurse | Select-Object FullName
+    
+    # Step 5: Create ZIP package
+    - name: Create vCardEditor.release.zip
+      run: |
+        $outputPath = "${{ github.workspace }}\BuildOutput"
+        $zipPath = "${{ github.workspace }}\vCardEditor.release.zip"
+        
+        # Compress all necessary files
+        Compress-Archive -Path "$outputPath\*" -DestinationPath $zipPath -Force
+        
+        Write-Host "Archive created: $zipPath"
+        Write-Host "Size: $((Get-Item $zipPath).Length / 1MB) MB"
+    
+    # Step 6: Upload artifact (for workflow_dispatch)
+    - name: Upload artifact
+      if: github.event_name == 'workflow_dispatch'
+      uses: actions/upload-artifact@v4
+      with:
+        name: vCardEditor-${{ env.BUILD_CONFIGURATION }}
+        path: vCardEditor.release.zip
+        retention-days: 30
+    
+    # Step 7: Upload to Release (for release event)
+    - name: Upload to Release
+      if: github.event_name == 'release'
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./vCardEditor.release.zip
+        asset_name: vCardEditor.release.zip
+        asset_content_type: application/zip
