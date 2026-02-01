@@ -37,7 +37,15 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
     
-    # Step 3: Build the application
+    # Step 3: Setup NuGet
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v2
+    
+    # Step 4: Restore NuGet packages
+    - name: Restore NuGet packages
+      run: nuget restore ${{ env.SOLUTION_NAME }}
+    
+    # Step 5: Build the application
     - name: Build vCardEditor
       run: |
         msbuild ${{ env.SOLUTION_NAME }} `
@@ -48,13 +56,13 @@ jobs:
           /m `
           /verbosity:minimal
     
-    # Step 4: Verify generated files
+    # Step 6: Verify generated files
     - name: Verify build files
       run: |
         Write-Host "BuildOutput directory contents:"
         Get-ChildItem -Path "${{ github.workspace }}\BuildOutput" -Recurse | Select-Object FullName
     
-    # Step 5: Create ZIP package
+    # Step 7: Create ZIP package
     - name: Create vCardEditor.release.zip
       run: |
         $outputPath = "${{ github.workspace }}\BuildOutput"
@@ -66,7 +74,7 @@ jobs:
         Write-Host "Archive created: $zipPath"
         Write-Host "Size: $((Get-Item $zipPath).Length / 1MB) MB"
     
-    # Step 6: Upload artifact (for workflow_dispatch)
+    # Step 8: Upload artifact (for workflow_dispatch)
     - name: Upload artifact
       if: github.event_name == 'workflow_dispatch'
       uses: actions/upload-artifact@v4
@@ -75,7 +83,7 @@ jobs:
         path: vCardEditor.release.zip
         retention-days: 30
     
-    # Step 7: Upload to Release (for release event)
+    # Step 9: Upload to Release (for release event)
     - name: Upload to Release
       if: github.event_name == 'release'
       uses: actions/upload-release-asset@v1
