@@ -95,33 +95,34 @@ jobs:
         Write-Host "Source directory: $outputPath"
         Write-Host "Version: $version"
         
-        # Get only necessary files (exe and dll, exclude pdb and config)
-        $filesToZip = Get-ChildItem -Path $outputPath -File | Where-Object {
-          $_.Extension -in @('.exe', '.dll') -and
-          $_.Extension -notin @('.pdb', '.config')
+        # Get only the exe file (exclude pdb and config)
+        $exeFile = Get-ChildItem -Path $outputPath -Filter "*.exe" | Select-Object -First 1
+        
+        if ($exeFile) {
+          Write-Host "Including: $($exeFile.Name)"
+          
+          # Create ZIP with the exe file
+          Compress-Archive -Path $exeFile.FullName -DestinationPath $zipPath -Force
+          
+          Write-Host "Archive created: $zipPath"
+          Write-Host "Size: $((Get-Item $zipPath).Length / 1MB) MB"
+          
+          # Save paths for later steps
+          echo "ZIP_PATH=$zipPath" >> $env:GITHUB_OUTPUT
+          echo "EXE_PATH=$($exeFile.FullName)" >> $env:GITHUB_OUTPUT
+        } else {
+          Write-Error "Executable not found!"
+          exit 1
         }
-        
-        # Display files to include
-        Write-Host "Files to include:"
-        $filesToZip | ForEach-Object { Write-Host "  - $($_.Name)" }
-        
-        # Create ZIP directly from the files
-        $filesToZip | Compress-Archive -DestinationPath $zipPath -Force
-        
-        Write-Host "Archive created: $zipPath"
-        Write-Host "Size: $((Get-Item $zipPath).Length / 1MB) MB"
-        
-        # Save ZIP name for later steps
-        echo "ZIP_NAME=vCardEditor_Portable_${version}_windows_x64.zip" >> $env:GITHUB_OUTPUT
       id: create_zip
     
-    # Step 7: Upload artifact (for workflow_dispatch)
+    # Step 7: Upload artifact (for workflow_dispatch) - upload raw exe to avoid double-zip
     - name: Upload artifact
       if: github.event_name == 'workflow_dispatch'
       uses: actions/upload-artifact@v4
       with:
-        name: vCardEditor-${{ steps.normalize_version.outputs.version }}
-        path: vCardEditor_Portable_${{ steps.normalize_version.outputs.version }}_windows_x64.zip
+        name: vCardEditor_Portable_${{ steps.normalize_version.outputs.version }}_windows_x64
+        path: ${{ steps.create_zip.outputs.EXE_PATH }}
         retention-days: 30
     
     # Step 8: Upload to Release (for release event)
@@ -130,5 +131,5 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         tag_name: v${{ steps.normalize_version.outputs.version }}
-        files: vCardEditor_Portable_${{ steps.normalize_version.outputs.version }}_windows_x64.zip
+        files: ${{ steps.create_zip.outputs.ZIP_PATH }}
         token: ${{ secrets.GITHUB_TOKEN }}
