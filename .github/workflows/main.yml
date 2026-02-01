@@ -15,7 +15,7 @@ on:
       tag:
         description: 'Version tag (e.g., 1.0.0 or v1.0.0)'
         required: false
-        default: 'manual'
+        default: 'v1.0.0'
   
   # Trigger on release creation
   release:
@@ -90,7 +90,8 @@ jobs:
       run: |
         $outputPath = "${{ steps.find_output.outputs.OUTPUT_DIR }}"
         $version = "${{ steps.normalize_version.outputs.version }}"
-        $zipPath = "${{ github.workspace }}\vCardEditor_Portable_${version}_windows_x64.zip"
+        $zipName = "vCardEditor_Portable_${version}_windows_x64.zip"
+        $zipPath = Join-Path "${{ github.workspace }}" $zipName
         
         Write-Host "Source directory: $outputPath"
         Write-Host "Version: $version"
@@ -107,8 +108,9 @@ jobs:
           Write-Host "Archive created: $zipPath"
           Write-Host "Size: $((Get-Item $zipPath).Length / 1MB) MB"
           
-          # Save paths for later steps
-          echo "ZIP_PATH=$zipPath" >> $env:GITHUB_OUTPUT
+          # Save paths for later steps (use forward slashes for cross-platform compatibility)
+          $relativePath = "./$zipName"
+          echo "ZIP_NAME=$zipName" >> $env:GITHUB_OUTPUT
           echo "EXE_PATH=$($exeFile.FullName)" >> $env:GITHUB_OUTPUT
         } else {
           Write-Error "Executable not found!"
@@ -131,5 +133,5 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         tag_name: v${{ steps.normalize_version.outputs.version }}
-        files: ${{ steps.create_zip.outputs.ZIP_PATH }}
+        files: ${{ steps.create_zip.outputs.ZIP_NAME }}
         token: ${{ secrets.GITHUB_TOKEN }}
