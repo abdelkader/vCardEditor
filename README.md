@@ -1,7 +1,12 @@
 
+### I'm making a new multiplatform app from scratch with wails. You can check it here  [Kardoo](https://github.com/abdelkader/Kardoo)
+
+
+
+
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/B0B2KV8WP)
 
-<a href="https://github.com/abdelkader/vCardEditor/releases/latest/download/vCardEditor.exe"><img src="https://badgen.net/github/release/Naereen/Strapdown.js" alt="Latest release" style="max-width: 100%;"></a>
+
 
 ## vCard Editor
 A Simple vcf file Editor. You can export easily edit (modify, delete) entries of a vcf file with this simple tool.
